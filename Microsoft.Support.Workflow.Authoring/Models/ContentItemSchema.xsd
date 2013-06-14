@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ContentItemSchema"
+    targetNamespace="http://tempuri.org/ContentItemSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/ContentItemSchema.xsd"
+    xmlns:mstns="http://tempuri.org/ContentItemSchema.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="description" type="xs:string" />
+        <xs:element name="lastModifiedBy" type="xs:string" />
+        <xs:element name="lastModifiedDate" type="xs:dateTime" />
+        <xs:element maxOccurs="unbounded" name="section">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="collection">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="key">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="value" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="collection">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="key">
+                            <xs:complexType>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                              <xs:attribute name="value" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="varType">
+                            <xs:complexType>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                              <xs:attribute name="text" type="xs:string" use="required" />
+                              <xs:attribute name="value" type="xs:string" use="optional" />
+                              <xs:attribute name="nextLevel" type="xs:string" use="optional" />
+                              <xs:attribute name="desc" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="collectionType" type="xs:string" use="required" />
+                        <xs:attribute name="caseSensitive" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="collectionType" type="xs:string" use="required" />
+                  <xs:attribute name="caseSensitive" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="key">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="value" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="varType">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="Description" type="xs:string" use="required" />
+                  <xs:attribute name="PrivacyCategory" type="xs:string" use="required" />
+                  <xs:attribute name="IsHistoryEnabled" type="xs:string" use="required" />
+                  <xs:attribute name="IsInferred" type="xs:string" use="required" />
+                  <xs:attribute name="IsSecure" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="path" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="caseSensitive" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

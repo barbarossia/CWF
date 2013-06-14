@@ -1,0 +1,14 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OASProductList</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\patmorr</lastModifiedBy>
+  <lastModifiedDate>2010-01-19T09:30:00</lastModifiedDate>
+  <section name="UI" path="">
+    <key name="Title" value="Select a Product" />
+    <key name="PageTitle" value="Select a product version" />
+    <key name="HelpText" value="Select the product that your question or problem relates to." />
+    <key name="AllProductText" value="Show all products…" />
+      <key name="ProductName" value="Product Name" />
+  </section>
+</configuration>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestList name="Import" id="2a3b2cdb-9fc3-4c2a-a015-3b761c29db82" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="136dfc30-3658-aae5-bff2-e11144a58272" name="VerifyImportAssembly" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="4a64b619-9792-ab7a-5d2d-770560360161" name="VerifyImportAssemblyWithDependencies" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Select" id="34e33dff-971d-4a4c-8cab-51cde57a4d7e" parentListId="9ed58e89-1348-4392-8f57-2d929b5ec6d6">
+    <TestLinks>
+      <TestLink id="3451fef5-c648-80e1-a589-197359cb8109" name="TestBadExecutable" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="8ad295c1-57fb-ec11-46f1-61fa5c6a08ee" name="IncludeNonCachedLibrariesReturnedFromDataServiceWhenLoadLiveDataCalled" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="3f5f02a8-9650-d37f-22fb-5fc20dadc318" name="DiscardAlreadyCachedLibrariesReturnedFromDataServiceWhenLoadLiveDataCalled" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="29d86c39-fd34-0f29-c3e5-d7366dbcc83e" name="DiscardDummyLibrariesReturnedFromDataServiceWhenLoadLiveDataCalled" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="ContentSelector" id="4a4a8f72-b61b-4147-875f-0b7bf4073e3e" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="08bd0759-677c-0c21-271c-04555bfb62ea" name="VerifyContentSelectorViewModel" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="ViewModel" id="4e751670-25d1-4a39-9ece-b4872df384de" parentListId="e495de63-2590-43f9-a008-14473469035f">
+    <TestLinks>
+      <TestLink id="538e803d-b39e-c2ba-0373-dc5dda6c165f" name="VerifyDeleteCacheOnStartupWouldDeleteEntireCache" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Review" id="613140be-f67b-4a51-8e42-a17691494a0c" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="4331b25d-0a88-81ce-dd8b-00c5ea0e4ed7" name="VerifyReviewActivity" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Compile" id="748a6098-ddde-4f14-8eb6-5ee8fe0d147f" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="d01884d1-4fd2-0170-7a4d-f7284087e21e" name="VerifyWorkflowCompilerForSimpleWorkflow" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="3c9b3461-7e75-d016-1903-733aab07e643" name="VerifyWorkflowCompilerForComplexWorkflow" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <RunConfiguration id="fd6616da-6a9b-48a3-8bf6-bd5096301b69" name="Local" storage="local.testsettings" type="Microsoft.VisualStudio.TestTools.Common.TestRunConfiguration, Microsoft.VisualStudio.QualityTools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestList>
+  <TestList name="NewWorkflow" id="9e1befc8-316a-4e36-a8ad-f1d354dfc6ce" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="1c92425a-5aab-b7e5-f990-cd3c38ef5e5f" name="VerifyNewWorkflow" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="ViewModel" id="9ed58e89-1348-4392-8f57-2d929b5ec6d6" parentListId="bc451433-147b-414f-b82f-6270b3300f23" />
+  <TestList name="Services" id="b62824fb-9ba0-455d-9d21-9d6973914389" parentListId="e495de63-2590-43f9-a008-14473469035f" />
+  <TestList name="Authoring" id="bc451433-147b-414f-b82f-6270b3300f23" parentListId="e9eea741-bc0e-49b6-8830-56c9fa7d60aa" />
+  <TestList name="Import" id="cc551641-3e49-4c9b-b1ae-fff21b92e668" parentListId="9ed58e89-1348-4392-8f57-2d929b5ec6d6">
+    <TestLinks>
+      <TestLink id="a9ed61e5-aaab-2879-d45b-139b582442b7" name="Verify_Validate_Implementation" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="2f0a7988-d573-3307-b45d-f41ee3ca9bec" name="Verify_TryReviewAllActivityAssemblies_Implementation" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="e3286d02-1c9d-8f97-aebc-83355e50f9d5" name="Verify_SetLocation_SetsLocation" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="d2937635-7c80-232e-5c0c-54ee8b2bca9d" name="Verify_SetLocation_ErrorPaths" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="8ce50490-cd8f-0aa6-f8b8-3f0f18e58fba" name="Verify_ImportAssembly_LoadsCachedDependenciesFromCache" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="f7fc47de-0a94-8403-e6f9-684d38abe2a0" name="VerifyCancellationDoesNotPrecludeImportingLater" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="098d31e8-3b2f-e734-d20f-40985f9bbc6b" name="VerifyCancellationDoesNotPrecludeImportingLater" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="d76243fa-76ab-5aff-e0e7-64df894f505a" name="Verify_INotifyPropertyChanged_Properties" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Select" id="d5e76ff0-d948-4423-82c3-61b6a49875a4" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="ab9fa66a-3008-0157-8db8-2d211122f7a9" name="VerifySelectForDatabase" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="0477b1e4-2b28-daaa-feb0-fbbe21fbb230" name="VerifySelectForMockedData" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="c07b2036-a4d4-91cb-ec94-5c16f01197de" name="VerifyUnselectingWillRemoveFromCache" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="96bbb0c4-68ec-9354-a9a6-ee9abb543e17" name="VerifySelectPullsDownDependencies" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Upload" id="dc18dad8-c2e9-4d38-8d3a-30b25d98101b" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="7b0c0788-68ac-bcee-4b28-f2f1f5d75494" name="TestUploadingWithDependencies" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="529322dc-3617-2741-cbdc-b2f7368ec610" name="VerifyUploadAssembly" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Service" id="dcead8c6-cd52-437d-8bdb-8844b629c361" parentListId="bc451433-147b-414f-b82f-6270b3300f23">
+    <TestLinks>
+      <TestLink id="64c1cf80-89eb-2dc3-ee50-8361244e49a3" name="TestComputeDependencies" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Authoring" id="e495de63-2590-43f9-a008-14473469035f" parentListId="fe59cb5a-c3af-4921-a7ec-9d8f934a5f94" />
+  <TestList name="OpenWorkflow" id="e7db553d-f271-4267-99d1-980b09b810d4" parentListId="4e751670-25d1-4a39-9ece-b4872df384de">
+    <TestLinks>
+      <TestLink id="312f4985-f36c-99b3-c5d2-10db28f7774d" name="VerifyOpenWorkflow" storage="tests\microsoft.support.workflow.authoring.tests\bin\debug\microsoft.support.workflow.authoring.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="UnitTests" id="e9eea741-bc0e-49b6-8830-56c9fa7d60aa" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6" />
+  <TestList name="FunctionalTests" id="fe59cb5a-c3af-4921-a7ec-9d8f934a5f94" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6" />
+</TestLists>

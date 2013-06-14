@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Support.Workflow.Authoring</RootNamespace>
+    <AssemblyName>Microsoft.Support.Workflow.Foundry</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.30701.0</ExpressionBlendVersion>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <PublishUrl>\\vmm-karssi\Users\v-kason\Desktop\Authoring Tool\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>Authoring Tool</ProductName>
+    <PublisherName>karssi</PublisherName>
+    <SuiteName>Authoring Tool</SuiteName>
+    <MinimumRequiredVersion>0.0.0.1</MinimumRequiredVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>0.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>Common\MicrosoftMinimum_WarningsAsErrors.ruleset</CodeAnalysisRuleSet>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsPointerObligations>False</CodeContractsPointerObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Microsoft.Support.Workflow.Authoring.Startup</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Images\Foundry.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>126137664410DB9C5AF25FEF00EA75E527D4C819</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Microsoft.Support.Workflow.Authoring_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Ribbon for WPF\V3.5\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Data, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Controls.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.DataVisualization, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Docking, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Controls.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\References\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.RibbonBar, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Controls.RibbonBar.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="AssetStore\AssetStoreProxy.cs" />
+    <Compile Include="Behaviors\WindowClosingBehavior.cs" />
+    <Compile Include="Common\CachingChangedEventHandler.cs" />
+    <Compile Include="Common\Converters\InverterBooleanConverter.cs" />
+    <Compile Include="Common\Converters\NullToBrushConverter.cs" />
+    <Compile Include="Common\Converters\InvertedNullToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\NullToDefaultValueConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Converters\AllMatchToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\VersionToStringConverter.cs" />
+    <Compile Include="Common\ExceptionHandling\BusinessValidationException.cs" />
+    <Compile Include="Common\ExceptionHandling\MarketplaceExceptionHandler.cs" />
+    <Compile Include="Common\MarketplaceStatus.cs" />
+    <Compile Include="Common\Messages\AuthorizationMessages.cs" />
+    <Compile Include="Common\Messages\CommonMessages.cs" />
+    <Compile Include="Common\WorkflowTypeOperations.cs" />
+    <Compile Include="Common\Messages\ImportMessages.cs" />
+    <Compile Include="Common\Converters\CountConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Converters\ErrorSectionConverter.cs" />
+    <Compile Include="Common\Converters\LocationTypeToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\NegativeNumberConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Converters\CachingStatusToBoolConverter.cs" />
+    <Compile Include="Common\Converters\CachingStatusToBrushConverter.cs" />
+    <Compile Include="Common\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\LocationTypeToBrushConverter.cs" />
+    <Compile Include="Common\MultiMap.cs" />
+    <Compile Include="Common\LocationType.cs" />
+    <Compile Include="Common\VersionDisplay.xaml.cs">
+      <DependentUpon>VersionDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ExceptionHandling\AssemblyInspectionException.cs" />
+    <Compile Include="Models\CommonData.cs" />
+    <Compile Include="Models\Compiler.cs" />
+    <Compile Include="Models\CompileResult.cs" />
+    <Compile Include="Models\ContentFileItem.cs" />
+    <Compile Include="Models\CompileException.cs" />
+    <Compile Include="Models\MarketplaceAssetModel.cs" />
+    <Compile Include="Models\WorkflowItem.cs" />
+    <Compile Include="Models\WorkflowTemplateItem.cs" />
+    <Compile Include="NonTrasparentWindowsGeneratedItemsFactory.cs" />
+    <Compile Include="Resources\AppSettings.cs" />
+    <Compile Include="Services\AssemblyDownloader.cs" />
+    <Compile Include="Services\AssemblyLoader.cs" />
+    <Compile Include="Services\AssemblyInspectionService.cs" />
+    <Compile Include="Services\Caching.cs" />
+    <Compile Include="Models\ContentItem.cs" />
+    <Compile Include="Services\ContentManager.cs" />
+    <Compile Include="Services\DataContractTranslator.cs" />
+    <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\MarketplaceAssetDownloader.cs" />
+    <Compile Include="Services\MessageBoxService.cs" />
+    <Compile Include="Services\TextboxHintTextExtension.cs" />
+    <Compile Include="Services\UIHelper.cs" />
+    <Compile Include="Services\Utility.cs" />
+    <Compile Include="Services\ViewModelMappings.cs" />
+    <Compile Include="Services\WorkflowUploader.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="UIControls\DataPaging.xaml.cs">
+      <DependentUpon>DataPaging.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\SearchTextBox.cs" />
+    <Compile Include="UIControls\WorkflowDataPaging.xaml.cs">
+      <DependentUpon>WorkflowDataPaging.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\ActivityAssemblyItemViewModel.cs" />
+    <Compile Include="ViewModels\ActivityItemViewModel.cs" />
+    <Compile Include="ViewModels\ClickableMessageViewModel.cs" />
+    <Compile Include="ViewModels\DataPagingViewModel.cs" />
+    <Compile Include="ViewModels\EditWorkflowTypeViewModel.cs" />
+    <Compile Include="ViewModels\ManageWorkflowTypeViewModel.cs" />
+    <Compile Include="ViewModels\Marketplace\MarketplaceAssetDetailsViewModels.cs" />
+    <Compile Include="ViewModels\Marketplace\MarketplaceViewModel.cs" />
+    <Compile Include="ViewModels\NewWorkflowViewModel.cs" />
+    <Compile Include="ViewModels\OpenActivityConfirmationViewModel.cs" />
+    <Compile Include="ViewModels\OpenWorkflowFromServerViewModel.cs" />
+    <Compile Include="ViewModels\ReviewActivityViewModel.cs" />
+    <Compile Include="ViewModels\ContentSelectorViewModel.cs" />
+    <Compile Include="ViewModels\ImportAssemblyViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\SavingComfirmationViewModel.cs" />
+    <Compile Include="ViewModels\SearchTaskActivityViewModel.cs" />
+    <Compile Include="ViewModels\SelectAssemblyAndActivityViewModel.cs" />
+    <Compile Include="ViewModels\SelectImportAssemblyViewModel.cs" />
+    <Compile Include="ViewModels\SelectWorkflowViewModel.cs" />
+    <Compile Include="ViewModels\UploadAssemblyViewModel.cs" />
+    <Compile Include="ViewModels\UserInfoPaneViewModel.cs" />
+    <Compile Include="ViewsExcludeFromCodeCoverage.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VersionDisplayViewModel.cs" />
+    <Compile Include="Views\ActivityItemView.xaml.cs">
+      <DependentUpon>ActivityItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClickableMessage.xaml.cs">
+      <DependentUpon>ClickableMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErrorMessageDialog.xaml.cs">
+      <DependentUpon>ErrorMessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Converters\NullToBooleanValueConverter.cs" />
+    <Compile Include="Views\ImportAssemblyView.xaml.cs">
+      <DependentUpon>ImportAssemblyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageWorkflowTypeView.xaml.cs">
+      <DependentUpon>ManageWorkflowTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MarketplaceDetailsView.xaml.cs">
+      <DependentUpon>MarketplaceDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MarketplaceHomeView.xaml.cs">
+      <DependentUpon>MarketplaceHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenActivityConfirmation.xaml.cs">
+      <DependentUpon>OpenActivityConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SavingComfirmation.xaml.cs">
+      <DependentUpon>SavingComfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchTaskActivitiesView.xaml.cs">
+      <DependentUpon>SearchTaskActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectImportAssemblyView.xaml.cs">
+      <DependentUpon>SelectImportAssemblyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectWorkflowsView.xaml.cs">
+      <DependentUpon>SelectWorkflowsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewWorkflowView.xaml.cs">
+      <DependentUpon>NewWorkflowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenWorkflowFromServerView.xaml.cs">
+      <DependentUpon>OpenWorkflowFromServerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReviewActivityView.xaml.cs">
+      <DependentUpon>ReviewActivityView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentSelectorView.xaml.cs">
+      <DependentUpon>ContentSelectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectAssemblyAndActivityView.xaml.cs">
+      <DependentUpon>SelectAssemblyAndActivityView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SplashScreenView.xaml.cs">
+      <DependentUpon>SplashScreenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UploadAssemblyView.xaml.cs">
+      <DependentUpon>UploadAssemblyView.xaml</DependentUpon>
+    </Compile>
+    <Content Include="References\Microsoft.Practices.ServiceLocation.dll" />
+    <Resource Include="Resources\Images\newsearch.png" />
+    <Resource Include="Resources\Images\MaxImage.png" />
+    <Page Include="Resources\MergedDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Telerik.Windows.Controls.Docking.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\WorkflowDataPaging.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ImportAssemblyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageWorkflowTypeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MarketplaceDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MarketplaceHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchTaskActivitiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectImportAssemblyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectWorkflowsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Resource Include="Resources\Icons.gif" />
+    <Resource Include="Resources\Images\info.metro.png" />
+    <Resource Include="Resources\Images\clear.png" />
+    <Resource Include="Resources\Images\MovePrevious.png" />
+    <Resource Include="Resources\Images\MoveNext.png" />
+    <Resource Include="Resources\Images\alert_12.png" />
+    <Resource Include="Resources\Images\Foundry.ico" />
+    <Resource Include="Resources\Images\Foundry.png" />
+    <Resource Include="Resources\Images\Logo_Foundry_W.png" />
+    <Resource Include="Resources\Images\LogoFoundryBlue.jpg" />
+    <Resource Include="Resources\Images\LogoFoundry.jpg" />
+    <Resource Include="Resources\Images\Check.png" />
+    <Resource Include="Resources\Images\Pencil.png" />
+    <Resource Include="Resources\Images\Add_24.png" />
+    <Resource Include="Resources\Images\Cancel_24.png" />
+    <Resource Include="Resources\Images\Check_16.png" />
+    <Resource Include="Resources\Images\Check_50.png" />
+    <Resource Include="Resources\Images\Save_24.png" />
+    <Resource Include="Resources\Images\Undo.png" />
+    <Resource Include="Resources\Images\Update.png" />
+    <Resource Include="Resources\Images\userpic.png" />
+    <Resource Include="Resources\Images\PrintIcon.png" />
+    <Resource Include="Resources\Images\Redo.png" />
+    <Resource Include="Resources\Images\RefreshIcon.png" />
+    <Resource Include="Resources\Images\Save.png" />
+    <Resource Include="Resources\Images\Help.png" />
+    <Resource Include="Resources\Images\Information.png" />
+    <Resource Include="Resources\Images\Open_Network.png" />
+    <Resource Include="Resources\Images\PasteIcon.png" />
+    <Resource Include="Resources\Images\banner.jpg" />
+    <Resource Include="Resources\Images\CopyIcon.png" />
+    <Resource Include="Resources\Images\CutIcon.png" />
+    <Resource Include="Resources\Images\appbar.add.rest.png" />
+    <Resource Include="Resources\Images\appbar.close.rest.png" />
+    <Resource Include="Resources\Images\appbar.minus.rest.png" />
+    <Resource Include="Resources\Images\appbar.redo.rest.png" />
+    <Resource Include="Resources\Images\appbar.refresh.rest.png" />
+    <Resource Include="Resources\Images\appbar.restore.rest.png" />
+    <Resource Include="Resources\Images\appbar.save.rest.png" />
+    <Resource Include="Resources\Images\appbar.undo.rest.png" />
+    <Resource Include="Resources\Images\Plus.png" />
+    <Resource Include="Resources\Images\AuthTool.ico" />
+    <Resource Include="Resources\Content\OASPConfiguration.xml" />
+    <Resource Include="Resources\Content\OASPLocalization.xml" />
+    <Resource Include="Resources\Content\Taxonomy.xml" />
+    <EmbeddedResource Include="Models\ContentItemSchema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Resource Include="References\Microsoft.Practices.ServiceLocation.xml" />
+    <Content Include="References\Microsoft.Windows.Shell.dll" />
+    <Content Include="References\Workflow.Activity.dll" />
+    <Resource Include="Resources\Images\WhatsThis.png" />
+    <Page Include="Common\VersionDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Resource Include="Resources\Images\GridSplitterBackgroundH.png" />
+    <Resource Include="Resources\Images\GridSplitterBackgroundV.png" />
+    <Resource Include="Resources\Images\Save_Large.png" />
+    <Resource Include="Resources\Images\SaveAs_Large.png" />
+    <Resource Include="Resources\Images\StartingWindowBackground.png" />
+    <Resource Include="Resources\Images\DownloadAssemblies_Large.png" />
+    <Resource Include="Resources\Images\UploadAssemblies_Large.png" />
+    <Content Include="References\Microsoft.Expression.Interactions.dll" />
+    <Content Include="References\Microsoft.Practices.Prism.dll" />
+    <Content Include="References\System.Windows.Interactivity.dll" />
+    <Content Include="References\Telerik.Windows.Controls.Data.dll" />
+    <Content Include="References\Telerik.Windows.Controls.DataVisualization.dll" />
+    <Content Include="References\Telerik.Windows.Controls.dll" />
+    <Content Include="References\Telerik.Windows.Controls.Docking.dll" />
+    <Content Include="References\Telerik.Windows.Controls.GridView.dll" />
+    <Content Include="References\Telerik.Windows.Controls.Input.dll" />
+    <Content Include="References\Telerik.Windows.Controls.Navigation.dll" />
+    <Content Include="References\Telerik.Windows.Controls.RibbonBar.dll" />
+    <Content Include="References\Telerik.Windows.Data.dll" />
+    <None Include="Common\MicrosoftMinimum_WarningsAsErrors.ruleset" />
+    <None Include="References\GenerateService.bat" />
+    <None Include="Resources\AssemblyInfoTemplate.txt" />
+    <EmbeddedResource Include="Resources\PrivateKeyForCompiledAssemblySigning.snk" />
+    <None Include="Resources\Help.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\WorkflowProjectTemplate.txt" />
+    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+    </Page>
+    <Page Include="Resources\XAML\MarketplaceStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\XAML\StyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\DataPaging.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ActivityItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ClickableMessage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ErrorMessageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Strings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewWorkflowView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OpenActivityConfirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OpenWorkflowFromServerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReviewActivityView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SavingComfirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectAssemblyAndActivityView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SplashScreenView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UploadAssemblyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logo_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\NewWorkflow_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Open_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ActivityLibrary_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ImportAssembly_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\SelectAssembly_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\ComplieWorkflow_Large.png" />
+    <Resource Include="Resources\Images\PublishWorkflow_Large.png" />
+    <Resource Include="Resources\Images\PreviewWorkflow_Large.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyWorkflowTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="mscoree">
+      <Guid>{5477469E-83B1-11D2-8B49-00A0C9B7C9C4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Support.Workflow.Authoring.AddIns\Microsoft.Support.Workflow.Authoring.AddIns.csproj">
+      <Project>{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}</Project>
+      <Name>Microsoft.Support.Workflow.Authoring.AddIns</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

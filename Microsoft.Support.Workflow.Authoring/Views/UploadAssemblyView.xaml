@@ -1,0 +1,96 @@
+﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.Views.UploadAssemblyView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        x:Name="UploadAssemblyWindow"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        MinHeight="600"
+        Width="1024"
+        Style="{StaticResource WindowStyle}"
+        Title="Upload Assembly"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <TextBlock Margin="5,0,0,0"
+                       Text="Select Assembies to Upload:"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />
+            <CheckBox Margin="0,0,5,0"
+                      Content="Select All Assembies"
+                      IsChecked="{Binding SelectAllAssemblies, UpdateSourceTrigger=PropertyChanged}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Right" />
+        </Grid>
+        <DataGrid ItemsSource="{Binding DisplayActivityAssemblyItems}"
+                  AutoGenerateColumns="False"
+                  GridLinesVisibility="Horizontal"
+                  AlternatingRowBackground="#FFF9F9F9"
+                  RowBackground="#FFFFFFFF"
+                  RowHeight="25"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  Grid.Row="1"
+                  Name="Assemblies">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Center"></Setter>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="200"
+                                    Width="Auto"
+                                    SortMemberPath="Name"
+                                    Header="Name"
+                                    Binding="{Binding Name}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Width="Auto"
+                                    SortMemberPath="Version"
+                                    Header="Version"
+                                    Binding="{Binding Version}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn MinWidth="400"
+                                    Width="*"
+                                    SortMemberPath="Location"
+                                    Header="Location"
+                                    Binding="{Binding Location}"
+                                    IsReadOnly="True" />
+                <DataGridTemplateColumn Header="Upload"
+                                        Width="Auto">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalAlignment">
+                                <Setter.Value>Center</Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center"
+                                      IsChecked="{Binding UserWantsToUpload, UpdateSourceTrigger=PropertyChanged}"
+                                      Click="CheckBox_Clicked" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    HorizontalAlignment="Right">
+            <Button Content="Upload"
+                    Name="UploadBtn"
+                    Width="115"
+                    Height="28"
+                    Command="{Binding UploadCommand}"
+                    Click="UploadButton_Click" />
+            <Button Content="Cancel"
+                    Width="115"
+                    Height="28"
+                    Margin="5,0,5,0"
+                    IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OasSupportTopic</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\patmorr</lastModifiedBy>
+  <lastModifiedDate>2010-01-19T14:20:00</lastModifiedDate>
+  <section name="ui" path="">
+    <key name="supporttopicheader" value="Select a support topic" />
+    <key name="supporttopicheaderdesc" value="" />
+    <key name="productlbl" value="&lt;B&gt;Product and version:&lt;/B&gt; {0}" />
+    <key name="SubTitle" value="Select a support topic" />
+    <key name="supporttopicimg" value="/oas/Images/product.gif" />
+    <key name="supporttopiclbl" value="Support topic:" />
+    <key name="subtopiclbl" value="Sub-topic:" />
+    <key name="supporttopicdefaulttext" value="--- Please select a support topic---" />
+    <key name="supporttopicdefaultdesc" value="To route your request to the appropriate support engineer, choose a support topic. If your support topic is not listed, select &lt;strong&gt;Other&lt;/strong&gt;, and then click &lt;strong&gt;Continue&lt;/strong&gt; to proceed." />
+    <key name="subtopicdefaulttext" value="--- Please select a support sub-topic---" />
+    <key name="subtopicdefaultdesc" value="If your support sub-topic is not listed, select &lt;strong&gt;Other&lt;/strong&gt;, and then click &lt;strong&gt;Continue&lt;/strong&gt; to proceed." />
+    <key name="supporttopichelptext" value="Support topics help us to quickly route your request to the support engineer who is best able to address your problem." />
+    <key name="submitcancel" value="You will lose all the information that you have entered. Are you sure that you want to cancel?" />
+    <key name="missingdesc" value="This support topic will help us to route your request to the appropriate support engineer." />
+    <key name="other" value="Other" />
+    <key name="reqdsuptopic" value="Please select a support topic that describes the problem.  If your support topic is not listed, select Other to proceed." />
+  </section>
+</configuration>

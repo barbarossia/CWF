@@ -1,0 +1,9 @@
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\bin\Debug\Library\Microsoft.DynamicImplementations.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\bin\Debug\Library\Microsoft.DynamicImplementations.Extensions.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\bin\Debug\QueryService.Test.Common.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\bin\Debug\QueryService.Test.Common.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\bin\Debug\QueryService.Common.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\bin\Debug\QueryService.Common.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\obj\Debug\QueryService.Test.Common.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\obj\Debug\QueryService.Test.Common.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Test.Common\obj\Debug\QueryService.Test.Common.csprojResolveAssemblyReference.cache

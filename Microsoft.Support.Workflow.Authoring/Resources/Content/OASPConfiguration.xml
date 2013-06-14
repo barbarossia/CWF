@@ -1,0 +1,203 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OASContract</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\dansu</lastModifiedBy>
+  <lastModifiedDate>2008-12-02T13:49:00</lastModifiedDate>
+  <section name="UI" path="">
+    <collection name="SevQuestions111" collectionType="map" caseSensitive="no">
+      <collection name="First" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does the issue concern a &lt;strong&gt;production&lt;/strong&gt; server that is currently down or do you have a loss of a business system that is causing a critical work stoppage?" />
+        <varType name="A1" text="Yes" value="1" nextLevel="Q4" />
+        <varType name="A2" text="No" value="2" nextLevel="Q2" />
+      </collection>
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does this issue make you unable to deploy or to ship on schedule?" />
+        <varType name="A1" text="Yes" value="C" desc="" nextLevel="Q4" />
+        <varType name="A2" text="No" value="No" nextLevel="Q3" />
+      </collection>
+      <collection name="Q3" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does the issue have the potential to cause a company-wide work stoppage?" />
+        <varType name="A1" text="Yes" value="B" />
+        <varType name="A2" text="No" value="C" />
+      </collection>
+      <collection name="Q4" collectionType="map" caseSensitive="no">
+        <key name="title" value="If this issue cannot be resolved during regular business hours, will you and your staff be available to work the issue at any hour?" />
+        <varType name="A1" text="Yes" value="Yes" nextLevel="Q5" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+      <collection name="Q5" collectionType="map" caseSensitive="no">
+        <key name="title" value="The severity of your issue has been set as &lt;strong&gt;CRITICAL&lt;/strong&gt;. A support professional will start working on this immediately and will work 24 hours a day until the issue is resolved&lt;br/&gt;&lt;br/&gt;Do you agree that this severity is appropriate and that you or someone in your company is available immediately to work on this issue and potentially 24 hours a day until it is resolved?" />
+        <varType name="A1" text="Yes" value="X" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+    </collection>
+     <collection name="dc" collectionType="map" caseSensitive="no">
+             <key name="Win8" value="Microsoft Windows 8" />
+             <key name="Win7" value="Microsoft Windows 7" />
+             <key name="WinVis" value="Microsoft Windows Vista" />
+             <key name="WinXp" value="Microsoft Windows XP" />
+    </collection>
+     <collection name="contract" collectionType="map" caseSensitive="no">
+      <key name="alliancecontract" value="Alliance Support Contract Contract Number" />
+      <key name="useanothercontract" value="Use another contract" />
+      <key name="personalcontract" value="Personal Support Contract Contract Number" />
+      <key name="professionalcontract" value="Professional Support Contract Contract Number" />
+    </collection>
+
+ <collection name="SevQuestions" collectionType="map" caseSensitive="no">
+
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does this issue make you unable to deploy or to ship on schedule?" />
+        <varType name="A1" text="Yes1" value="C" desc="" nextLevel="Q4" />
+        <varType name="A2" text="No1" value="NO" nextLevel="Q3" />
+      </collection>
+      <collection name="Q3" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does the issue have the potential to cause a company-wide work stoppage?" />
+        <varType name="A1" text="Yes1" value="B" />
+        <varType name="A2" text="No1" value="C" />
+      </collection>
+      <collection name="Q4" collectionType="map" caseSensitive="no">
+        <key name="title" value="will you and your staff be available to work the issue at any hour?" />
+        <varType name="A1" text="Yes1" value="Yes" nextLevel="Q5" />
+        <varType name="A2" text="No1" value="B" />
+      </collection>
+      <collection name="Q5" collectionType="map" caseSensitive="no">
+        <key name="title" value="The severity of your issue has been set as &lt;strong&gt;CRITICAL&lt;/strong&gt;." />
+        <varType name="A1" text="Yes1" nextLevel="Q6" value="X" />
+        <varType name="A2" text="No1" value="B" />
+      </collection>
+      <collection name="FIRST" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does the issue concern a &lt;strong&gt;production&lt;/strong&gt; server that is currently down?" />
+        <varType name="A1" text="Yes1" value="Yes" nextLevel="Q4" />
+        <varType name="A2" text="No1" value="No" nextLevel="Q2" />
+      </collection>
+      <collection name="Q6" collectionType="map" caseSensitive="no">
+        <key name="title" value="severity?" />
+        <varType name="A1" text="Yes1" nextLevel="Q5" value="X" />
+
+      </collection>
+    </collection>
+
+ <collection name="Sev" collectionType="map" caseSensitive="no">
+
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does this issue make you unable to deploy or to ship on schedule?" />
+        <varType name="A1" text="Yes" value="C" desc="" nextLevel="Q6" />
+        <varType name="A2" text="No" nextLevel="Q6" />
+      </collection>
+      <collection name="FIRST" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does the issue concern a &lt;strong&gt;production&lt;/strong&gt; server that is currently down or do you have a loss of a business system that is causing a critical work stoppage?" />
+        <varType name="A1" text="Yes" nextLevel="Q4" />
+        <varType name="A2" text="No" nextLevel="Q2" />
+      </collection>
+      <collection name="Q6" collectionType="map" caseSensitive="no">
+        <key name="title" value="severity?" />
+        <varType name="A1" text="Yes" nextLevel="Q2" value="X" />
+
+      </collection>
+    </collection>
+
+<collection name="SevQuestionsTest" caseSensitive="no" collectionType="map">
+	<collection name="FIRST" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Does the issue concern a &lt;strong&gt;production&lt;/strong&gt; server that is currently down or do you have a loss of a business system that is causing a critical work stoppage?"/> 
+		<varType name="A1" nextLevel="Q4" text="Yes"/> 
+		<varType name="A2" nextLevel="Q2" text="No"/> 
+	</collection> 
+	<collection name="Q2" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Does this issue make you unable to deploy or to ship on schedule?"/> 
+		<varType name="A1" value="C" nextLevel="Q4" desc="" text="Yes"/> 
+		<varType name="A2" nextLevel="Q3" text="No"/> 
+	</collection> 
+	<collection name="Q3" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Does the issue have the potential to cause a company-wide work stoppage?"/> 
+		<varType name="A1" value="B" text="Yes"/> 
+		<varType name="A2" value="C" text="No"/> 
+	</collection> 
+	<collection name="Q4" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="If this issue cannot be resolved during regular business hours, will you and your staff be available to work the issue at any hour?"/> 
+		<varType name="A1" nextLevel="Q5" text="Yes"/> 
+		<varType name="A2" value="B" text="No"/> 
+	</collection> 
+	<collection name="Q5" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Do you agree that this severity is appropriate and that you or someone in your company is available immediately to work on this issue and potentially 24 hours a day until it is resolved?"/> 
+		<varType name="A1" nextLevel="Q6" value="X" text="Yes"/> 
+		<varType name="A2" value="B" text="No"/>
+	</collection> 
+	<collection name="Q6" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Last Question?"/> 
+		<varType name="A1" nextLevel="Q7" value="X" text="Yes"/> 
+		<varType name="A2" value="B" text="No"/>
+	</collection> 
+	
+</collection> 
+
+<collection name="DrilldownNoData" caseSensitive="no" collectionType="map">
+	<collection name="FIRST" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Does the issue concern a &lt;strong&gt;production&lt;/strong&gt; server that is currently down or do you have a loss of a business system that is causing a critical work stoppage?"/> 
+		<varType name="A1" nextLevel="Q4" text="Yes"/> 
+		<varType name="A2" nextLevel="Q2" text="No"/> 
+	</collection> 
+	
+</collection> 
+
+<collection name="DrilldownLoop" caseSensitive="no" collectionType="map">
+	<collection name="FIRST" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Does the issue concern a &lt;strong&gt;production&lt;/strong&gt; server that is currently down or do you have a loss of a business system that is causing a critical work stoppage?"/> 
+		<varType name="A1" nextLevel="Q4" text="Yes"/> 
+		<varType name="A2" nextLevel="Q2" text="No"/> 
+	</collection> 
+	<collection name="Q2" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="Does this issue make you unable to deploy or to ship on schedule?"/> 
+		<varType name="A1" nextLevel="Q2" value="C" desc="" text="Yes"/> 
+		<varType name="A2" text="No"/> 
+	</collection> 
+	<collection name="Q4" caseSensitive="no" collectionType="map"> 
+		<key name="title" value="If this issue cannot be resolved during regular business hours, will you and your staff be available to work the issue at any hour?"/> 
+		<varType name="A1" text="Yes"/> 
+		<varType name="A2" value="B" text="No"/> 
+	</collection> 
+</collection> 
+ <collection name="Drill1" collectionType="map" caseSensitive="no">
+
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <key name="title" value="Level 1 NO Question" />
+        <varType name="A1" text="Yes" value="C" desc="" nextLevel="Q5" />
+        <varType name="A2" text="No" value="NO" nextLevel="Q3" />
+      </collection>
+      <collection name="Q3" collectionType="map" caseSensitive="no">
+        <key name="title" value="Level 2 NO Question?" />
+        <varType name="A1" text="Yes" value="B" />
+        <varType name="A2" text="No" value="C" />
+      </collection>
+      <collection name="Q4" collectionType="map" caseSensitive="no">
+        <key name="title" value="Level 1 YES Question" />
+        <varType name="A1" text="Yes" value="Yes" nextLevel="Q5" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+      <collection name="Q5" collectionType="map" caseSensitive="no">
+        <key name="title" value="Level 2 YES Question" />
+        <varType name="A1" text="Yes" nextLevel="Q6" value="X" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+      <collection name="FIRST" collectionType="map" caseSensitive="no">
+        <key name="title" value="Level 1 Question?" />
+        <varType name="A1" text="Yes" value="Yes" nextLevel="Q4" />
+        <varType name="A2" text="No" value="No" nextLevel="Q2" />
+      </collection>
+      <collection name="Q6" collectionType="map" caseSensitive="no">
+        <key name="title" value="severity?" />
+        <varType name="A1" text="Yes" value="X" />
+
+      </collection>
+	<collection name="OS" collectionType="orderedmap" caseSensitive="no">
+             <key name="Win8" value="Microsoft Windows 8" />
+             <key name="Win7" value="Microsoft Windows 7" />
+             <key name="WinVis" value="Microsoft Windows Vista" />
+             <key name="WinXp" value="Microsoft Windows XP" />
+         </collection>
+
+
+    </collection>
+  </section>
+</configuration>

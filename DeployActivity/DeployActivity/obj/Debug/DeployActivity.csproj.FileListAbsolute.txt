@@ -1,0 +1,5 @@
+D:\CommonWorkflowSystem\DEV\DeployActivity\DeployActivity\bin\Debug\DeployActivity.dll
+D:\CommonWorkflowSystem\DEV\DeployActivity\DeployActivity\bin\Debug\DeployActivity.pdb
+D:\CommonWorkflowSystem\DEV\DeployActivity\DeployActivity\obj\Debug\DeployActivity.dll
+D:\CommonWorkflowSystem\DEV\DeployActivity\DeployActivity\obj\Debug\DeployActivity.pdb
+D:\CommonWorkflowSystem\DEV\DeployActivity\DeployActivity\obj\Debug\DeployActivity.csprojResolveAssemblyReference.cache

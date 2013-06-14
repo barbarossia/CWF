@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{088D4274-4ED1-4A7C-9D48-EC6633CE3DD1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Support.Workflow.Service.BusinessServices.Tests</RootNamespace>
+    <AssemblyName>QueryService.BusinessServices.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.DynamicImplementations, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e256c8e6f895da9f, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.DynamicImplementations.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e256c8e6f895da9f, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UnitTests\ActivityBusinessServiceShouldDo.cs" />
+    <Compile Include="UnitTests\ActivityLibraryRepositoryServiceIsolator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\ActivityLibraryBusinessServiceShould.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CWF.BAL\CWF.BAL.csproj">
+      <Project>{2E51FAE7-EFE2-49E0-ADBD-35EF24905C85}</Project>
+      <Name>CWF.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.DAL\CWF.DAL.csproj">
+      <Project>{B9CDB4E1-EF93-4BB7-B4D9-FFF07EA3866B}</Project>
+      <Name>CWF.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.DataContracts\CWF.DataContracts.csproj">
+      <Project>{C76E8555-6E89-45A0-8E5B-D5584ACC26D4}</Project>
+      <Name>CWF.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryService.Common\QueryService.Common.csproj">
+      <Project>{B34F6342-2477-41D3-96B9-07DB2725AEB6}</Project>
+      <Name>QueryService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryService.Test.Common\QueryService.Test.Common.csproj">
+      <Project>{07958A9A-F101-4961-8BC1-E97A5CD70C38}</Project>
+      <Name>QueryService.Test.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Library\Microsoft.DynamicImplementations.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Microsoft.DynamicImplementations.Extensions.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

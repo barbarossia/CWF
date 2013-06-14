@@ -1,0 +1,9 @@
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\bin\Debug\CWF.DataContracts.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\bin\Debug\CWF.DataContracts.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.xml
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\obj\Debug\CWF.DataContracts.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\obj\Debug\CWF.DataContracts.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DataContracts\obj\Debug\CWF.DataContracts.csprojResolveAssemblyReference.cache

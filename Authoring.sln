@@ -1,0 +1,101 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Support.Workflow.Authoring", "Microsoft.Support.Workflow.Authoring\Microsoft.Support.Workflow.Authoring.csproj", "{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F71C1F89-E75F-445E-9EB8-879B9696DEAF}"
+	ProjectSection(SolutionItems) = preProject
+		Authoring1.vsmdi = Authoring1.vsmdi
+		Local.testsettings = Local.testsettings
+		Tests\TestInput_Library3\TestInput_Library3.csproj = Tests\TestInput_Library3\TestInput_Library3.csproj
+		Tests\TestInput_NoActivityLibrary\TestInput_NoActivityLibrary.csproj = Tests\TestInput_NoActivityLibrary\TestInput_NoActivityLibrary.csproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B64725C0-6275-4F2A-8939-19EFAAC2618E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{72BEC02E-4E16-4F32-B754-C17B7F275720}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\Lib\Microsoft.DynamicImplementations.dll = Tests\Lib\Microsoft.DynamicImplementations.dll
+		Tests\Lib\TestInputDLLs\Testinput_Lib1.dll = Tests\Lib\TestInputDLLs\Testinput_Lib1.dll
+		Tests\Lib\TestInputDLLs\TestInput_Lib2.dll = Tests\Lib\TestInputDLLs\TestInput_Lib2.dll
+		Tests\Lib\TestInputDLLs\Testinput_Lib3.dll = Tests\Lib\TestInputDLLs\Testinput_Lib3.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Support.Workflow.Authoring.Tests", "Tests\Microsoft.Support.Workflow.Authoring.Tests\Microsoft.Support.Workflow.Authoring.Tests.csproj", "{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B} = {D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Support.Workflow.Authoring.AddIns", "Microsoft.Support.Workflow.Authoring.AddIns\Microsoft.Support.Workflow.Authoring.AddIns.csproj", "{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://pqoetfs10:8080/tfs/production
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Microsoft.Support.Workflow.Authoring\\Microsoft.Support.Workflow.Authoring.csproj
+		SccProjectName1 = Microsoft.Support.Workflow.Authoring
+		SccLocalPath1 = Microsoft.Support.Workflow.Authoring
+		SccProjectUniqueName2 = Tests\\Microsoft.Support.Workflow.Authoring.Tests\\Microsoft.Support.Workflow.Authoring.Tests.csproj
+		SccProjectName2 = Tests/Microsoft.Support.Workflow.Authoring.Tests
+		SccLocalPath2 = Tests\\Microsoft.Support.Workflow.Authoring.Tests
+		SccProjectUniqueName3 = Microsoft.Support.Workflow.Authoring.AddIns\\Microsoft.Support.Workflow.Authoring.AddIns.csproj
+		SccProjectName3 = Microsoft.Support.Workflow.Authoring.AddIns
+		SccLocalPath3 = Microsoft.Support.Workflow.Authoring.AddIns
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Authoring1.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Debug|Any CPU.Build.0 = Debug|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Debug|x86.ActiveCfg = Debug|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Debug|x86.Build.0 = Debug|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Release|Any CPU.ActiveCfg = Release|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Release|Any CPU.Build.0 = Release|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Release|x86.ActiveCfg = Release|x86
+		{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}.Release|x86.Build.0 = Release|x86
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}.Release|x86.ActiveCfg = Release|Any CPU
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Debug|Any CPU.Build.0 = Debug|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Debug|x86.ActiveCfg = Debug|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Debug|x86.Build.0 = Debug|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Release|Any CPU.ActiveCfg = Release|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Release|Any CPU.Build.0 = Release|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Release|x86.ActiveCfg = Release|x86
+		{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B64725C0-6275-4F2A-8939-19EFAAC2618E} = {F71C1F89-E75F-445E-9EB8-879B9696DEAF}
+		{72BEC02E-4E16-4F32-B754-C17B7F275720} = {B64725C0-6275-4F2A-8939-19EFAAC2618E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B34F6342-2477-41D3-96B9-07DB2725AEB6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Support.Workflow.Service.Common</RootNamespace>
+    <AssemblyName>QueryService.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>%24/CommonWorkflowSystem/DEV/Query_Service/QueryService.Common</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>http://pqoetfs10:8080/tfs/production</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseException.cs" />
+    <Compile Include="DatabaseFieldName.cs" />
+    <Compile Include="EventCode.cs" />
+    <Compile Include="EventCodeRange.cs" />
+    <Compile Include="Logging\Config\ErrorCodeEventCategoryConfigConstant.cs" />
+    <Compile Include="Logging\Config\ErrorCodeEventCategoryConfigCollection.cs" />
+    <Compile Include="Logging\Config\ErrorCodeEventCategoryConfigSection.cs" />
+    <Compile Include="Logging\Config\ErrorCodeEventCategoryConfigElement.cs" />
+    <Compile Include="Logging\Config\LogSettingConfigCollection.cs" />
+    <Compile Include="Logging\Config\LogSettingConfigConstant.cs" />
+    <Compile Include="Logging\Config\LogSettingConfigSection.cs" />
+    <Compile Include="Logging\Config\LogSettingDefaultValue.cs" />
+    <Compile Include="Logging\Config\LogSettingConfigElement.cs" />
+    <Compile Include="Logging\Config\LogSettingKey.cs" />
+    <Compile Include="Logging\EventCategory.cs" />
+    <Compile Include="Logging\EventLogWriter.cs" />
+    <Compile Include="Logging\EventSource.cs" />
+    <Compile Include="Logging\ILogWriter.cs" />
+    <Compile Include="Logging\LogWriterFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,78 @@
+﻿<sap:ActivityDesigner x:Class="Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor.TaskActivityDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Converters"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation">   
+    <sap:ActivityDesigner.Resources>
+        <convert:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter"/>
+        <DataTemplate x:Key="Collapsed">
+            <StackPanel>
+                <TextBlock>This is the collapsed view</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="Expanded">
+            <StackPanel>
+                <sap:WorkflowItemPresenter MinHeight="50" Item="{Binding Path=ModelItem.TaskBody, Mode=TwoWay}" HintText="Please drop an activity you are going to assign" Grid.Row="2" Grid.ColumnSpan="2" />
+            </StackPanel>
+        </DataTemplate>
+        <Style x:Key="ExpandOrCollapsedStyle" TargetType="{x:Type ContentPresenter}">
+            <Setter Property="ContentTemplate" Value="{DynamicResource Collapsed}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ShowExpanded}" Value="true">
+                    <Setter Property="ContentTemplate" Value="{DynamicResource Expanded}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </sap:ActivityDesigner.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="From Group" Grid.Row="0" Grid.Column="0" Margin="3" />
+        <TextBox Name="group" 
+                 HorizontalAlignment="Left" 
+                 Text="{Binding Path=ModelItem.Group, Mode=TwoWay}" 
+                 Grid.Row="0" 
+                 Grid.Column="1" 
+                 LostFocus="group_LostFocus" 
+                 Width="200"
+                 Margin="3"
+                 Padding="2"
+                 />
+
+        <TextBlock Text="Assign To" Grid.Row="1" Grid.Column="0" Margin="3" />
+        <ComboBox Name="userList" 
+                  HorizontalAlignment="Left" 
+                  Grid.Row="1" 
+                  Grid.Column="1" 
+                  IsEditable="True" 
+                  IsTextSearchEnabled="True" 
+                  SelectedValuePath="SamAccountName" 
+                  DisplayMemberPath="DisplayName" 
+                  SelectedValue="{Binding Path=ModelItem.Alias, Mode=TwoWay}" 
+                  SelectionChanged="userList_SelectionChanged" 
+                  Width="200"
+                  Margin="3"
+                  Padding="2"
+                  ></ComboBox>
+        <TextBlock Text="Status" Grid.Row="2" Grid.Column="0" Margin="3" />
+        <TextBlock Name="Status" 
+                   HorizontalAlignment="Left" 
+                   Text="{Binding Path=ModelItem.Status, Converter={StaticResource EnumDisplayNameConverter}}" 
+                   Grid.Row="2" 
+                   Grid.Column="1" 
+                   Margin="3"/>
+        <Border Grid.Row="3" Grid.ColumnSpan="2" Name="Body" Margin="3,10,3,3">
+            <ContentPresenter Style="{DynamicResource ExpandOrCollapsedStyle}" Content="{Binding}"/>
+        </Border>
+    </Grid>
+</sap:ActivityDesigner>

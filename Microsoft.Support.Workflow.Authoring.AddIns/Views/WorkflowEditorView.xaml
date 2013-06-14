@@ -1,0 +1,215 @@
+﻿<UserControl x:Class="Microsoft.Support.Workflow.Authoring.AddIns.Views.WorkflowEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+             xmlns:view="clr-namespace:Microsoft.Support.Workflow.Authoring.Views"
+             xmlns:converters="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Converters"
+             xmlns:behaviors="clr-namespace:Microsoft.Support.Workflow.Authoring.Behaviors"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="480"
+             AllowDrop="True"
+             x:Name="workflowEditorView">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:BooleanToVisibilityConverter 
+                x:Key="boolToVisibilityConverter"
+                VisibleWhen="False"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Styles.xaml" />
+                <ResourceDictionary>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!-- WorkflowDesigner view -->
+        <Border Name="heightConstraint" Grid.Row="0" behaviors:SelectPrintContentBehavior.Print="{Binding ShouldBePrint}">
+            <Border.Resources>
+                <Style TargetType="sapv:ExpressionTextBox">
+                    <Setter Property="AllowDrop"
+                        Value="True"></Setter>
+                    <EventSetter Event="DragEnter"
+                                Handler="ExpressionTextBox_DragEnter"></EventSetter>
+                    <EventSetter Event="PreviewDrop"
+                                Handler="ExpressionTextBox_PreviewDrop"></EventSetter>
+                    <EventSetter Event="DragLeave"
+                                Handler="ExpressionTextBox_DragLeave"></EventSetter>
+                </Style>
+            </Border.Resources>
+            <ContentPresenter 
+                              x:Name="designer"
+                              Content="{Binding WorkflowDesigner.View}"
+                            Tag="{Binding WorkflowDesigner.View}" />
+            <!-- Auxiliary buttons superimposed on the workflow canvas' bottom-right toolbar area -->
+        </Border>
+
+        <!--Grid splitter-->
+        <GridSplitter Grid.Row="1"
+                      Height="6"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Stretch"
+                      Visibility="Collapsed">
+            <GridSplitter.Background>
+                <ImageBrush ImageSource="/Microsoft.Support.Workflow.Authoring.AddIns;component/Resources/GridSplitterBackgroundH1.png" />
+            </GridSplitter.Background>
+        </GridSplitter>
+
+        <DataGrid Name="tasksTable"
+                  Height="200" 
+                  Visibility="Collapsed" 
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  GridLinesVisibility="None"
+                  ItemsSource="{Binding TaskItems}"
+                  IsReadOnly="{Binding IsReadOnly}">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Task Name" Binding="{Binding Name}" Width="3*" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" Width="1*" IsReadOnly="True" />
+                <DataGridTextColumn Header="Assigned To" Binding="{Binding AssignedTo, Mode=OneWay}" Width="1*" IsReadOnly="True" />
+                <DataGridTemplateColumn Header="Find On Designer">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Locate" Command="{Binding LocateCommand}"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--XAML code container-->
+        <TextBox Text="{Binding XamlCode, Mode=OneWay}"
+                     TextWrapping="NoWrap"
+                     AcceptsReturn="True"
+                     AcceptsTab="True"
+                     Visibility="Collapsed"
+                     Height="260"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
+                     Name="XamlCodeEditor"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     Grid.Row="2"
+                     LostFocus="XamlCodeEditor_MightHaveBeenEdited" />
+        <!--Steps-->
+        <ScrollViewer Panel.ZIndex="10"
+                      Name="stepList"
+                      Grid.Row="3"
+                      HorizontalScrollBarVisibility="Disabled"
+                      MaxHeight="52"
+                      Visibility="Collapsed">
+            <ItemsControl ItemsSource="{Binding Steps, ElementName=workflowEditorView}">
+                <ItemsControl.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ItemsSource.Count, RelativeSource={RelativeSource Self}}"
+                                         Value="0">
+                                <Setter Property="ItemsControl.Visibility"
+                                        Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.Style>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="2"
+                                Content="{Binding DisplayName}"
+                                Tag="{Binding}"
+                                Click="FocusCurrentStep" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <!--XAML and Validation error info-->
+        <StackPanel Panel.ZIndex="10"
+                    Grid.Row="4">
+            <ListBox Name="errorList"
+                     ItemsSource="{Binding Errors.ErrorList}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     MaxHeight="150">
+                <ListBox.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ItemsSource.Count, RelativeSource={RelativeSource Self}}"
+                                         Value="0">
+                                <Setter Property="ListBox.Visibility"
+                                        Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Style>
+            </ListBox>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right">
+
+            <Button Content="Tasks"
+                    RenderTransformOrigin="0.5,0.5"
+                    Margin="0,3,10,3"
+                    Padding="10,1"
+                    Width="65"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Height="20"
+                    Style="{StaticResource ButtonStyle1}"
+                    Visibility="{Binding IsTask, Converter={StaticResource boolToVisibilityConverter}}"
+                    Click="TasksButton_Click" />
+
+            <Button Content="Steps"
+                    RenderTransformOrigin="0.5,0.5"
+                    Margin="0,3,10,3"
+                    Padding="10,1"
+                    Width="65"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Height="20"
+                    Style="{StaticResource ButtonStyle1}"
+                    Click="StepsButton_Click" />
+
+            <Button Content="Export"
+                    RenderTransformOrigin="0.5,0.5"
+                    Margin="0,3,10,3"
+                    Padding="10,1"
+                    Width="65"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Height="20"
+                    Style="{StaticResource ButtonStyle1}"
+                    Click="ExportButton_Click" />
+
+            <Button Content="XAML"
+                    RenderTransformOrigin="0.5,0.5"
+                    Margin="0,3,10,3"
+                    Padding="10,1"
+                    Width="65"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Height="20"
+                    Style="{StaticResource ButtonStyle1}"
+                    Click="ShowXamlButton_Click" />
+        </StackPanel>
+    </Grid>
+</UserControl>

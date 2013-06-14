@@ -1,0 +1,38 @@
+﻿<ResourceDictionary x:Class="Microsoft.Support.Workflow.Authoring.AddIns.Resources.HelpStrings"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Project Explorer help string  -->
+    <system:String x:Key="PE_SearchTitle">Search</system:String>
+    <system:String x:Key="PE_SearchAction">Press Enter to search activities</system:String>
+    <system:String x:Key="PE_SearchHelpKey">Search</system:String>
+
+    <system:String x:Key="PE_ckbWholeWorkflowTitle">Search activities in the entire workflow</system:String>
+    <system:String x:Key="PE_ckbWholeWorkflowHelpKey">SearchWholeWorkflow</system:String>
+
+    <system:String x:Key="PE_ckbCurrentActivityTitle">Search activities in the focused activity</system:String>
+    <system:String x:Key="PE_ckbCurrentActivityHelpKey">SearchCurrentAct</system:String>
+
+    <system:String x:Key="PE_ckbIncludeParametersTitle">Search condition includes activity parameters</system:String>
+    <system:String x:Key="PE_ckbIncludeParametersHelpKey">SearchParameters</system:String>
+
+    <system:String x:Key="PE_ckbIncludeTypeTitle">Search condition includes activity type</system:String>
+    <system:String x:Key="PE_ckbIncludeTypeHelpKey">SearchType</system:String>
+
+    <system:String x:Key="PE_ckbIncludeTitle">Search condition includes activity name(title)</system:String>
+    <system:String x:Key="PE_ckbIncludeTitleHelpKey">SearchTitle</system:String>
+
+    <system:String x:Key="PE_TreeEidtNodeAction">Press F2 to edit node name</system:String>
+   
+    <system:String x:Key="PE_BtnPreviousTitle">Previous</system:String>
+    <system:String x:Key="PE_BtnPreviousAction">Navigate to the previous activity</system:String>
+    
+    <system:String x:Key="PE_BtnNextTitle">Next</system:String>
+    <system:String x:Key="PE_BtnNextAction">Navigate to the next activity </system:String>
+    
+    <!--MainWindow help string-->
+
+    <!--Marketplace help string help string-->
+
+</ResourceDictionary>

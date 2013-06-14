@@ -1,0 +1,29 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OASProblemStatement</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\dansu</lastModifiedBy>
+  <lastModifiedDate>2009-03-15T02:35:00</lastModifiedDate>
+  <section name="ui" path="">
+    <key name="remainingcharstext" value="{0} of {1}" />
+    <key name="option1" value="Free form description" />
+    <key name="option2" value="Guided description" />
+    <key name="question1" value="&lt;font color='Red'&gt;*&lt;/font&gt; What is the issue?" />
+    <key name="question2" value="&lt;font color='Red'&gt;*&lt;/font&gt; What symptoms did you notice that led you to submit this support request?" />
+    <key name="question3" value="What is the exact text of any error messages that you received that are associated with this problem?" />
+    <key name="question4" value="What is occurring and what do you expect to be occurring?" />
+    <key name="question5" value="What system and version are you using when the problem occurs?" />
+    <key name="question6" value="Are there any online articles that match the problem, even if the solution is not working?&lt;BR&gt;(Include links to the articles.)" />
+    <key name="defaultrequiredmessage" value="This is a required field." />
+    <key name="maxlength" value="8000" />
+    <key name="questionsloggingformat" value="Form - {0}. Questions Answered - {1}." />
+    <key name="requiredindicator" value="&lt;font color='Red'&gt;*&lt;/font&gt;" />
+  </section>
+  <section name="business" path="">
+    <key name="pdesc" value="What:&#xA;{0} &#xA;&#xA; Symptoms:&#xA;{1} &#xA;&#xA; Error:&#xA;{2} &#xA;&#xA; Result:&#xA;{3} &#xA;&#xA; Systems:&#xA;{4} &#xA;&#xA;Articles:&#xA;{5}" />
+  </section>
+  <section name="error">
+    <key name="reqddesc1" value="Please describe the issue." />
+    <key name="reqddesc2" value="Please describe the symptoms." />
+  </section>
+</configuration>

@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22F20185-1899-490D-A6CB-6AF969AFD0F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Query_Service.Tests</RootNamespace>
+    <AssemblyName>Query_Service.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CWF.DataContracts\lib\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Query_Service.ExtensionForTests\Lib\Microsoft.Practices.ObjectBuilder2.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="PublishingInfo">
+      <HintPath>..\CWF.WorkflowQueryService\lib\PublishingInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\EventLogMockFactory.cs" />
+    <Compile Include="Common\TestCategory.cs" />
+    <Compile Include="FunctionalTests\EtblActivityLibrariesTest.cs" />
+    <Compile Include="FunctionalTests\EtblStoreActivitiesTest.cs" />
+    <Compile Include="FunctionalTests\EtblWorkflowTypeTest.cs" />
+    <Compile Include="FunctionalTests\LoggingTest.cs" />
+    <Compile Include="FunctionalTests\LtblStatusCodesTest.cs" />
+    <Compile Include="FunctionalTests\Marketplace\MarketplaceFuntionalTests.cs" />
+    <Compile Include="FunctionalTests\MtblActivityLibraryDependenciesTest.cs" />
+    <Compile Include="FunctionalTests\PublishWorkflowShould.cs" />
+    <Compile Include="FunctionalTests\QueryServiceExtension.cs" />
+    <Compile Include="FunctionalTests\QueryServiceReference.cs" />
+    <Compile Include="FunctionalTests\QueryServiceReferenceForDev.cs" />
+    <Compile Include="FunctionalTests\QueryServiceTestBase.cs" />
+    <Compile Include="FunctionalTests\LtblActivityCategoryTest.cs" />
+    <Compile Include="FunctionalTests\Version Control\RuleTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\Version Control\VersionControlFunctionalTests.cs" />
+    <Compile Include="FunctionalTests\Version Control\VersionControlHelper.cs" />
+    <Compile Include="FunctionalTests\Version Control\VersionExceptionTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\Version Control\VersionFaultTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\Version Control\VersionHelperTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FunctionalTests\LtblApplicationsTest.cs" />
+    <Compile Include="UnitTests\DAL.UnitTest.cs" />
+    <Compile Include="UnitTests\TaskActivity.BALUnitTest.cs" />
+    <Compile Include="UnitTests\TaskActivity.DALUnitTest.cs" />
+    <Compile Include="UnitTests\WebServiceLayer_FaultExceptionUtilityShould.cs" />
+    <Compile Include="UnitTests\UnitTestConstant.cs" />
+    <Compile Include="UnitTests\UserErrorConfigIsolator.cs" />
+    <Compile Include="UnitTests\WebServiceLayer_UserErrorMessageUtilityShould.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\CWF.DataContracts.ActivityCategoryByNameGetReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.ActivityCategoryCreateOrUpdateReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.ActivityLibraryDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.ApplicationsGetReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.GetActivitiesByActivityLibraryNameAndVersionReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.GetAllActivityLibrariesReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.GetMissingActivityLibrariesReply.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.GetPublishingWorkFlowByWorkFlowTypeReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.PublishingReply.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.StatusCodeGetReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.StatusReplyDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.StoreActivitiesDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.StoreActivityLibrariesDependenciesDC.datasource" />
+    <None Include="Properties\DataSources\CWF.DataContracts.WorkflowTypeGetReplyDC.datasource" />
+    <Shadow Include="Test References\CWF.BAL.accessor" />
+    <Reference Include="Microsoft.DynamicImplementations">
+      <HintPath>..\..\Tests\Lib\Microsoft.DynamicImplementations.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DynamicImplementations.Extensions">
+      <HintPath>..\..\Tests\Lib\Microsoft.DynamicImplementations.Extensions.dll</HintPath>
+    </Reference>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Config\UserError.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CWF.BAL\CWF.BAL.csproj">
+      <Project>{2E51FAE7-EFE2-49E0-ADBD-35EF24905C85}</Project>
+      <Name>CWF.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.DAL\CWF.DAL.csproj">
+      <Project>{B9CDB4E1-EF93-4BB7-B4D9-FFF07EA3866B}</Project>
+      <Name>CWF.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.DataContracts\CWF.DataContracts.csproj">
+      <Project>{C76E8555-6E89-45A0-8E5B-D5584ACC26D4}</Project>
+      <Name>CWF.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.WorkflowQueryService\CWF.WorkflowQueryService.csproj">
+      <Project>{D73D32C0-4B2C-4FCF-BC36-AE44F6FD13B0}</Project>
+      <Name>CWF.WorkflowQueryService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryService.Common.Tests\QueryService.Common.Tests.csproj">
+      <Project>{A2451BC8-3002-4CA1-904F-A9010D56CAF0}</Project>
+      <Name>QueryService.Common.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryService.Common\QueryService.Common.csproj">
+      <Project>{B34F6342-2477-41D3-96B9-07DB2725AEB6}</Project>
+      <Name>QueryService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryService.DataAccessServices.Tests\QueryService.DataAccessServices.Tests.csproj">
+      <Project>{6081BD3E-F3E3-4E4F-A1D7-DABE2081FE6A}</Project>
+      <Name>QueryService.DataAccessServices.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryService.Test.Common\QueryService.Test.Common.csproj">
+      <Project>{07958A9A-F101-4961-8BC1-E97A5CD70C38}</Project>
+      <Name>QueryService.Test.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Library\Microsoft.DynamicImplementations.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Microsoft.DynamicImplementations.Extensions.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Microsoft.Practices.EnterpriseLibrary.Common.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="Library\Microsoft.Practices.EnterpriseLibrary.Data.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
+    <Content Include="Library\Microsoft.Practices.Unity.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Microsoft.Practices.Unity.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <ItemGroup>
+    <DMBranchData Include = "$(BranchRoot)\_Public.Dependencies">
+      <CacheFilePath>$(DMData)</CacheFilePath>
+      <DestinationRootPath>$(PublicsRoot)</DestinationRootPath>
+    </DMBranchData>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<!--
+==========================================================================================
+
+    This file contains the information Required to control Unit Testing
+    Addtionally Teams can SendUntestEmail if desired
+==========================================================================================
+-->
+
+    <Target Name = "GetMetaDataFile" Outputs="@(MetaDataFile)">
+
+      <!-- Enter vsmdi files here
+
+      <ItemGroup>
+        <MetaDataFile Include = "$(BranchRoot)\mymetadata.vsmdi">
+          <TestList>mylist</TestList>
+          <Category>MyCategory</Category>
+        </MetaDataFile>
+      </ItemGroup>
+      -->
+
+    </Target>
+
+    <Target Name = "GetTestContainer" Outputs="@(TestContainer)">
+
+      <!-- Enter TestContainers here -->
+
+      <ItemGroup>
+        <TestContainer Include="$(BinariesRoot)\$(Configuration)\Test\*Test*.DLL" >
+          <Category>BVT</Category>
+        </TestContainer>
+      
+      </ItemGroup>
+    
+    </Target>
+
+</Project>
+
+
+

@@ -1,0 +1,4 @@
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Common\bin\Debug\QueryService.Common.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Common\bin\Debug\QueryService.Common.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Common\obj\Debug\QueryService.Common.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\QueryService.Common\obj\Debug\QueryService.Common.pdb

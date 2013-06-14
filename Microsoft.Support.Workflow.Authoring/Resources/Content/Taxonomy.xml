@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+	<name>SharedContext</name>
+	<description>SharedContextElements</description>
+	<lastModifiedBy>REDMOND\v-rorams</lastModifiedBy>
+	<lastModifiedDate>10/16/2011</lastModifiedDate>
+	<section name="SharedContext">
+		<varType name="acceptterms" Description="Accept Terms and Conditions" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="altlanguage" Description="Alternative Language" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="city" Description="City" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="contractaccessid" Description="Contract Access ID's" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="contractid" Description="Contract ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="countrycode" Description="CountryCode" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="createdreplies" Description="Created Replies" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="createdthreads" Description="Created Threads" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="customertype" Description="Customer Type" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="datacollectlink" Description="Link to Data Collection Information" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="eligibilitykeytype" Description="Eligibility Key Type" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="entitlementvalue" Description="Entitlement Value" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="fileuploadlink" Description="link to data from file upload" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="firstName" Description="First Name:  " PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="firstnamepronounced" Description="Pronounced First Name" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="instalsiteid" Description="Install Site ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="joinedthreads" Description="Joined Threads" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="kbview" Description="KB articles viewed id's" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="languagespoken" Description="Spoken Language" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="languagewritten" Description="Written Language" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="lastName" Description="Last Name: " PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="lastnamepronounced" Description="Pronounced Last Name" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="metroid" Description="METRO ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="msnphone" Description="MSN Phone number" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="notifyemail" Description="notify by E-Mail indicator" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="origsystemname" Description="Originating System Name" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="osname" Description="Operating System name" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="postcode" Description="Postcode" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="preferedcontact" Description="Prefered contact medium" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="productid" Description="Product ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="productname" Description="Product Name" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="productversion" Description="Product Version" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="puid" Description="PUID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="referer" Description="Referer" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="saaccessid" Description="Software Assurance Access ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="saentitlement" Description="Software Assurance entitlement" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="said" Description="Software assurance ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="saidprogcode" Description="SA Program Code" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="scopingqa" Description="Scoping questions and answers" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="severity" Description="Severity" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="srdate" Description="SR Date and Time" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="srnumber" Description="SR Number" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="stateprov" Description="State or Province" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="street" Description="Street" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="street2" Description="Street 2" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="supportoption" Description="Support Option" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="supporttopicid" Description="Support Topic ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="tennantid" Description="Tennant ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="timezone" Description="Time Zone ID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="useragent" Description="User Agent" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="viewedthreads" Description="Viewed Threads" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="votedhelpful" Description="Voted Helpful" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+		<varType name="xid" Description="XID" PrivacyCategory="LBI" IsHistoryEnabled="True" IsInferred="True" IsSecure="False"/>
+	</section>
+</configuration>

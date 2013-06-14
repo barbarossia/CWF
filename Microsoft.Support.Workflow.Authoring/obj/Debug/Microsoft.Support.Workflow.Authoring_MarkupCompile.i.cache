@@ -1,0 +1,20 @@
+﻿Microsoft.Support.Workflow.Authoring
+
+
+winexe
+C#
+.cs
+D:\CommonWorkflowSystem\DEV\Microsoft.Support.Workflow.Authoring\obj\Debug\
+Microsoft.Support.Workflow.Authoring
+none
+false
+CODE_ANALYSIS;DEBUG;TRACE
+D:\CommonWorkflowSystem\DEV\Microsoft.Support.Workflow.Authoring\App.xaml
+291893479700
+151453130985
+138226153743
+30-256854257
+Common\VersionDisplay.xaml;ExpressionEditor\IntellisensePopup.xaml;MainWindow.xaml;Resources\XAML\MarketplaceStyle.xaml;Resources\XAML\StyleDictionary.xaml;Themes\Generic.xaml;UIControls\DataPaging.xaml;Views\AboutView.xaml;Views\ActivityItemView.xaml;Views\ClickableMessage.xaml;Views\ErrorMessageDialog.xaml;Views\Import Wizard\ImportAssemblyView.xaml;Views\Import Wizard\ImportAssemblyWizardView.xaml;Views\Import Wizard\Step6Finish.xaml;Resources\Strings.xaml;Resources\Styles.xaml;Views\Marketplace\MarketplaceWizardView.xaml;Views\Marketplace\Step1MarketplaceHome.xaml;Views\Marketplace\Step2MarketplaceDetail.xaml;Views\NewWorkflowView.xaml;Views\OpenActivityConfirmation.xaml;Views\OpenWorkflowFromServerView.xaml;Views\ReviewActivityView.xaml;Views\ContentSelectorView.xaml;Views\SavingComfirmation.xaml;Views\SelectAssemblyAndActivityView.xaml;Views\SplashScreenView.xaml;Views\UploadAssemblyView.xaml;Views\WorkflowEditorView.xaml;
+
+True
+

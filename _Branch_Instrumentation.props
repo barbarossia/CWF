@@ -1,0 +1,10 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+<!-- Set the Teamproject Code Coverage Server and db name here. -->
+
+  <PropertyGroup>
+    <MagellanDbServer></MagellanDbServer>
+    <MagellanDbName></MagellanDbName>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,15 @@
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\CWF.DAL.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\CWF.DAL.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\CWF.DataContracts.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\QueryService.Common.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\CWF.DataContracts.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\QueryService.Common.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\obj\Debug\CWF.DAL.dll
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\obj\Debug\CWF.DAL.pdb
+D:\CommonWorkflowSystem\DEV\Query_Service\CWF.DAL\obj\Debug\CWF.DAL.csprojResolveAssemblyReference.cache

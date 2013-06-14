@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Support.Workflow.Authoring.AddIns</RootNamespace>
+    <AssemblyName>Microsoft.Support.Workflow.Authoring.AddIns</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Microsoft.Support.Workflow.Authoring\References\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\Microsoft.Support.Workflow.Authoring\References\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell">
+      <HintPath>..\Microsoft.Support.Workflow.Authoring\References\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Core.Presentation" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Addin" />
+    <Reference Include="System.Addin.Contract" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls">
+      <HintPath>..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Docking">
+      <HintPath>..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation">
+      <HintPath>..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data">
+      <HintPath>..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ExpressionEditor\IntellisensePopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MultipleAuthor\TaskActivityDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrintCustomization\PrintCustomization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\HelpString.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ToolboxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WorkflowEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WorkflowProjectExplorerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WorkflowPropertyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="AddInCaching.cs" />
+    <Compile Include="AddinPreloader.cs" />
+    <Compile Include="Behaviors\PrintAction.cs" />
+    <Compile Include="Behaviors\SelectPrintContentBehavior.cs" />
+    <Compile Include="Behaviors\SelectPrintContentHelper.cs" />
+    <Compile Include="Behaviors\ZoomFactorHelper.cs" />
+    <Compile Include="CompositeActivity\ArgumentEqualityComparer.cs" />
+    <Compile Include="CompositeActivity\CompositeNode.cs" />
+    <Compile Include="CompositeActivity\CompositeService.cs" />
+    <Compile Include="CompositeActivity\CompositeWorkflow.cs" />
+    <Compile Include="CompositeActivity\DynamicActivityPropertyEqualityComparer.cs" />
+    <Compile Include="CompositeActivity\ExtensionMethods.cs" />
+    <Compile Include="CompositeActivity\ModelKey.cs" />
+    <Compile Include="CompositeActivity\NodeKey.cs" />
+    <Compile Include="CompositeActivity\NodeKeyManager.cs" />
+    <Compile Include="Converters\ActivityAssemblyItemsToToolboxWrappersConverter.cs" />
+    <Compile Include="Converters\ActivityTypeToIconConverter.cs" />
+    <Compile Include="Converters\ActivityTypeToToolTipConverter.cs" />
+    <Compile Include="Converters\BooleanInverterConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumDisplayNameConverter.cs" />
+    <Compile Include="Converters\IntellisenseIconConverter.cs" />
+    <Compile Include="Models\CompileMessages.cs" />
+    <Compile Include="Models\CompileProject.cs" />
+    <Compile Include="Models\SavingResult.cs" />
+    <Compile Include="Models\TaskActivityAssignException.cs" />
+    <Compile Include="Models\UserFacingException.cs" />
+    <Compile Include="MultipleAuthor\MultipleAuthorService.cs" />
+    <Compile Include="MultipleAuthor\PrincipalService.cs" />
+    <Compile Include="MultipleAuthor\TaskActivity.cs" />
+    <Compile Include="MultipleAuthor\TaskActivityDesigner.xaml.cs">
+      <DependentUpon>TaskActivityDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MultipleAuthor\TaskAssignment.cs" />
+    <Compile Include="MultipleAuthor\TaskItem.cs" />
+    <Compile Include="MultipleAuthor\TaskService.cs" />
+    <Compile Include="PrintCustomization\DraggingWidgetHelper.cs" />
+    <Compile Include="PrintCustomization\PrintCustomization.xaml.cs">
+      <DependentUpon>PrintCustomization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrintCustomization\PrintCustomizationViewModel.cs" />
+    <Compile Include="PrintCustomization\PrintHelper.cs" />
+    <Compile Include="PrintCustomization\PrintViewMode.cs" />
+    <Compile Include="PrintCustomization\PrintViewModeOnUI.cs" />
+    <Compile Include="PrintCustomization\ResizingAdorner.cs" />
+    <Compile Include="PrintCustomization\ResizingThumb.cs" />
+    <Compile Include="PrintCustomization\ScaleResizingAdorner.cs" />
+    <Compile Include="PrintCustomization\WidgetDraggingEvent.cs" />
+    <Compile Include="PrintCustomization\WidgetExtensions.cs" />
+    <Compile Include="References\ServiceReference.cs" />
+    <Compile Include="References\ServiceReferenceExcludeFromCodeCoverage.cs" />
+    <Compile Include="Security\AuthorizationService.cs" />
+    <Compile Include="Security\SecurityLevel.cs" />
+    <Compile Include="Utilities\ArgumentService.cs" />
+    <Compile Include="Utilities\DependencyAnalysisService.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Utilities\MessageBoxService.cs" />
+    <Compile Include="Utilities\WorkflowsQueryServiceUtility.cs" />
+    <Compile Include="Utilities\XamlService.cs" />
+    <Compile Include="MultipleAuthor\GetTaskEventArgs.cs" />
+    <Compile Include="ViewModels\ToolboxViewModel.cs" />
+    <Compile Include="ViewsExcludeFromCodeCoverage.cs" />
+    <Compile Include="Views\CustomToolTip.cs" />
+    <Compile Include="DesignerAddIn.cs" />
+    <Compile Include="DesignerHostAdapters.cs" />
+    <Compile Include="DevFacingException.cs" />
+    <Compile Include="ExpressionEditor\ExpressionEditorHelper.cs" />
+    <Compile Include="ExpressionEditor\ExpressionEditorInstance.cs" />
+    <Compile Include="ExpressionEditor\ExpressionEditorService.cs" />
+    <Compile Include="ExpressionEditor\IntellisensePopup.xaml.cs">
+      <DependentUpon>IntellisensePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpressionEditor\TreeNode.cs" />
+    <Compile Include="ExpressionEditor\TreeNodeType.cs" />
+    <Compile Include="IDesignerContract.cs" />
+    <Compile Include="Intellisense\IntellisensePopupViewModel.cs" />
+    <Compile Include="Models\ActivityAssemblyItem.cs" />
+    <Compile Include="Models\ActivityItem.cs" />
+    <Compile Include="Models\ActivityType.cs" />
+    <Compile Include="Models\CachingStatus.cs" />
+    <Compile Include="Models\ShowXamlEventArgs.cs" />
+    <Compile Include="Models\ShowXamlEventHandler.cs" />
+    <Compile Include="Models\WorkflowOutlineNode.cs" />
+    <Compile Include="Utilities\AssemblyService.cs" />
+    <Compile Include="Utilities\AddInDialogService.cs" />
+    <Compile Include="Utilities\DragDropHelper.cs" />
+    <Compile Include="Utilities\FileService.cs" />
+    <Compile Include="Utilities\ModelItemService.cs" />
+    <Compile Include="Utilities\NameVersionEqualityComparer.cs" />
+    <Compile Include="Utilities\ToolboxControlService.cs" />
+    <Compile Include="Utilities\Helper.cs" />
+    <Compile Include="ViewModels\ProjectExplorerViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\WorkflowEditorViewModel.cs" />
+    <Compile Include="Views\AutoScrollPreventerBehavior.cs" />
+    <Compile Include="Views\HelpProvider.cs" />
+    <Compile Include="Views\ToolboxView.xaml.cs">
+      <DependentUpon>ToolboxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkflowEditorView.xaml.cs">
+      <DependentUpon>WorkflowEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkflowProjectExplorerView.xaml.cs">
+      <DependentUpon>WorkflowProjectExplorerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkflowPropertyView.xaml.cs">
+      <DependentUpon>WorkflowPropertyView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GridSplitterBackgroundH1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Next1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GridSplitterBackgroundV1.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

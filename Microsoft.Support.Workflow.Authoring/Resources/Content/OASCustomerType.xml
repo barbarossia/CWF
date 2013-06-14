@@ -1,0 +1,44 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OASCustomerType</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\dansu</lastModifiedBy>
+  <lastModifiedDate>2008-12-02T13:51:00</lastModifiedDate>
+  <section name="Error">
+    <key name="ReqdAnswer" value="Select answer" />
+  </section>
+  <section name="UI" path="">
+    <key name="PageTitle" value="How do you use this product?" />
+    <key name="Title" value="Describe the Situation" />
+    <key name="QuestionHeader" value="" />
+    <key name="HelpText" value="Testing en-us To help us determine your support options, please complete the following." />
+    <collection name="allquestions" collectionType="map" caseSensitive="no">
+      <collection name="Q1" collectionType="map" caseSensitive="no">
+        <varType name="QuestionText" value="Tetsing en-us if helpicon wraps when text is too long. Select the statement that best describes how you use your Microsoft product: &lt;span class=&quot;oasHelpExSpan&quot; onclick=&quot;ShowTooltip(this,'Help','Close','GetHelp.aspx?id=overlaphelp&amp;ln=en-us',200)&quot;&gt;Help&lt;/span&gt;" />
+        <varType name="A1" value="I use it for my own personal use" nextQuestionId="Q2" />
+        <varType name="A2" value="I use it for my business or company" decision="1" />
+        <varType name="A3" value="I use it as an IT Professional, a developer, or a Microsoft partner" decision="1" />
+      </collection>
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <varType name="QuestionText" value="Was {0} installed on your computer when you purchased it? " params="ProductName" />
+        <varType name="A1" value="Yes" decision="3" />
+        <varType name="A2" value="No" decision="2" />
+      </collection>
+    </collection>
+    <collection name="onlyoemquestions" collectionType="map" caseSensitive="no">
+      <collection name="Q1" collectionType="map" caseSensitive="no">
+        <varType name="QuestionText" value="Was {0} installed on your computer when you purchased it? " params="ProductName" />
+        <varType name="A1" value="Yes" decision="3" />
+        <varType name="A2" value="No" decision="2" />
+      </collection>
+    </collection>
+    <collection name="Questions" collectionType="map" caseSensitive="no">
+      <collection name="Q1" collectionType="map" caseSensitive="no">
+        <varType name="QuestionText" value="Testing en-us to make sure helpicon wraps if text is too long. Select the statement that best describes how you use your Microsoft product: &lt;span class=&quot;oasHelpExSpan&quot; onclick=&quot;ShowTooltip(this,'Help','Close','GetHelp.aspx?id=overlaphelp&amp;ln=en-us',200)&quot;&gt;Help&lt;/span&gt;" />
+        <varType name="A1" value="I use it for my own personal use" decision="2" />
+        <varType name="A2" value="I use it for my business or company" decision="1" />
+        <varType name="A3" value="I use it as an IT Professional, developer or Microsoft partner" decision="1" />
+      </collection>
+    </collection>
+  </section>
+</configuration>

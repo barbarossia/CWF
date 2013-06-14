@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+ 
+  <UsingTask AssemblyFile="Team.Build.Tasks.dll"        TaskName="Team.Build.Tasks.TfsDownload" />
+ 
+    <Target Name = "Build">
+
+       <PropertyGroup>
+         <TestDir>$(TeamBuildOutDir)\$(BinPlaceDir)\Test</TestDir>
+       </PropertyGroup>
+
+       <RemoveDir Directories = "$(TestDir)"/>
+<!--
+      <ItemGroup>
+        <TestFilesToDelete Include = "$(TeamBuildOutdir)\_PublishedWebsites\**\*Test*.*" />
+      </ItemGroup>
+
+      <Delete Files="TestFilesToDelete" />
+-->
+      <ItemGroup>
+         <TestFilesToMove Include = "$(TeamBuildOutdir)\**\*Test*.*" />    
+       </ItemGroup>
+
+       <Move SourceFiles = "@(TestFilesToMove)" DestinationFolder = "$(TestDir)" OverWriteReadOnlyFiles = "true" />
+
+       <ItemGroup>
+         <TestFilesToCopy Include = "$(TeamBuildOutdir)\**\*.*" />    
+       </ItemGroup>
+
+       <Copy SourceFiles = "@(TestFilesToCopy)" DestinationFolder = "$(TestDir)" OverWriteReadOnlyFiles = "true" />
+
+ 
+
+    </Target>
+
+    <Target Name = "Clean"/>    
+
+
+</Project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

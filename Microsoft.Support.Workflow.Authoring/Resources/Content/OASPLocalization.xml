@@ -1,0 +1,34 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OASPLocalization</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\patmorr</lastModifiedBy>
+  <lastModifiedDate>2011-07-18T12:28:00</lastModifiedDate>
+  <section name="UI">
+    <key name="AccessIdHeaderTxt" value="Access ID" />
+    <key name="AccessIdRequired" value="Please enter a value for Access ID." />
+    <key name="AccountLocked" value="You have entered your Access ID or Contract ID incorrectly multiple times. At this time, the ability to enter a Contract ID and Access ID has been locked. Please try again in an hour, or &lt;a href=&quot;http://support.microsoft.com/contactus#tab0&quot;&gt;conntact Microsoft&lt;/a&gt; to confirm that the Contract ID and Access ID combination is correct." />
+    <key name="ActiveStatusTxt" value="Active" />
+    <key name="AddAccessId" value="Add New Access ID" />
+    <key name="AddKey" value="Add" />
+    <key name="BeforeStartDateStatusTxt" value="Before Start Date" />
+    <key name="ContractPassword" value="Contract ID" />
+    <key name="CustomerAccountNameHeaderTxt" value="Company Name" />
+    <key name="DefaultContractError" value="There was a problem processing this request. Please try again after a few minutes." />
+    <key name="EndDateHeaderTxt" value="End Date" />
+    <key name="OASPLocalization_ExpiredStatusTxt" value="Expired" />
+    <key name="InGracePeriodStatusTxt" value="In Grace Period" />
+    <key name="InvalidContractIdPwd" value="There is no contract available for this Access ID and Contract ID. Please make sure the information is entered correctly." />
+    <key name="MapContractAddHeader" value="To add a new Access ID, type your Access ID, type your Contract ID, and then click Add." />
+    <key name="MapContractListHeader" value="You currently have access to the following Access IDs which are mapped to your Windows Live™ ID." />
+    <key name="MapContractRemoveHeader" value="To remove an Access ID, click the &lt;strong&gt;Remove&lt;/strong&gt; link for that Access ID." />
+    <key name="NoResults" value="&lt;i&gt;No results found&lt;/i&gt;" />
+    <key name="PasswordRequired" value="Please enter a value for Contract ID." />
+    <key name="RemoveConfirm" value="Are you sure that you want to remove this Access ID?" />
+    <key name="RemoveHeaderTxt" value="Action" />
+    <key name="RemoveLinkTxt" value="Remove" />
+    <key name="ScheduleNameHeaderTxt" value="Schedule" />
+    <key name="StartDateHeaderTxt" value="Start Date" />
+    <key name="StatusHeaderTxt" value="Status" />
+  </section>
+</configuration>
