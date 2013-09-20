@@ -30,7 +30,7 @@ namespace CWF.DataContracts
 
 
     [DataContract]
-    public class WorkflowTypesGetBase
+    public class WorkflowTypesGetBase : WorkflowReplayHeader
     {
         /// <summary>
         /// PK of workflowtype row

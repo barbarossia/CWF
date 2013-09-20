@@ -16,6 +16,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
     using Microsoft.Practices.Prism.ViewModel;
     using Microsoft.Support.Workflow.Authoring.AddIns;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
 
     /// <summary>
     /// The class contains information of a activity assembly.
@@ -49,7 +50,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
         string updatedBy;
         bool userSelected;
         private bool userWantsToUpload = false;
-
         /// <summary>
         /// The assembly. Maybe null. Sometime we just use the AssemblyName.
         /// </summary>
@@ -102,6 +102,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
             Tags = DefaultTags;
             Description = DefaultDescription;
         }
+
+        public Env Env { get; set; }
 
         /// <summary>
         /// Gets or sets ActivityItems.

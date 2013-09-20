@@ -24,6 +24,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
     using Practices.Prism.Commands;
     using Utilities;
+    using System.Windows.Documents;
+    using System.Text;
 
     /// <summary>
     /// Interaction logic for WorkflowItemView.xaml
@@ -113,7 +115,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             {
                 AddInMessageBoxService.CannotAssign();
             }
-            catch(UserFacingException)
+            catch (UserFacingException)
             {
                 AddInMessageBoxService.CannotAssignUseSpecialActivity();
             }
@@ -124,9 +126,9 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             var workItem = GetWorkItem();
             var selected = GetSelectdModelItem(workItem);
 
-            return !workItem.IsReadOnly && 
-                selected != null && 
-                MultipleAuthorService.CheckIsTask(selected) && 
+            return !workItem.IsReadOnly &&
+                selected != null &&
+                MultipleAuthorService.CheckIsTask(selected) &&
                 MultipleAuthorService.CanMerge(selected);
         }
 
@@ -174,7 +176,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             }
 
             try
-            {                
+            {
                 MultipleAuthorService.GetAllLastVersion(canMergeTasks, workflowItem);
                 AddInMessageBoxService.MergeCompleted();
             }
@@ -188,7 +190,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
         {
             var workflowItem = GetWorkItem();
             var selected = GetSelectdModelItem(workflowItem);
-            return !workflowItem.IsReadOnly && 
+            return !workflowItem.IsReadOnly &&
                 selected != null &&
                 MultipleAuthorService.CheckIsTask(selected) &&
                 MultipleAuthorService.CanUnassign(selected);
@@ -415,7 +417,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
                 return;
             }
 
-            File.WriteAllText(fileName, workflowItem.XamlCode);
+            File.WriteAllText(fileName, workflowItem.WorkflowDesigner.CompilableXaml());
         }
 
         /// <summary>
@@ -430,22 +432,26 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
         private void ShowXamlButton_Click(object sender, RoutedEventArgs e)
         {
             ToggleBottomPanel(XamlCodeEditor);
+            HighlightSelection();
         }
 
         private bool isInitialiedSteps = false;
         private void StepsButton_Click(object sender, RoutedEventArgs e)
         {
-            ToggleBottomPanel(stepList, () => {
+            ToggleBottomPanel(stepList, () =>
+            {
                 if (!isInitialiedSteps)
                     ComputeSteps();
             });
         }
 
-        private void TasksButton_Click(object sender, RoutedEventArgs e) {
+        private void TasksButton_Click(object sender, RoutedEventArgs e)
+        {
             ToggleBottomPanel(tasksTable);
         }
 
-        private void ToggleBottomPanel(FrameworkElement control, Action onDisplay = null) {
+        private void ToggleBottomPanel(FrameworkElement control, Action onDisplay = null)
+        {
             bool visible = control.Visibility == Visibility.Visible;
 
             XamlCodeEditor.Visibility
@@ -453,7 +459,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
                 = tasksTable.Visibility
                 = Visibility.Collapsed;
 
-            if (!visible) {
+            if (!visible)
+            {
                 control.Visibility = Visibility.Visible;
                 if (onDisplay != null)
                     onDisplay();
@@ -467,13 +474,21 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             // if the workflow's XamlCode doesn't match the actual text on the screen, 
             // then the user edited the XAML so we need to refresh the designer to 
             // display the XAML he typed.
-            if (workflowItem.XamlCode != XamlCodeEditor.Text)
+            string txtXaml = GetRichTextXamlCode();
+            if (workflowItem.XamlCode.Trim() != txtXaml)
             {
                 // copy back the Xaml to where the designer can read it from
-                workflowItem.XamlCode = XamlCodeEditor.Text;
+                XamlIndexTreeHelper.Refresh(txtXaml);
+                workflowItem.XamlCode = txtXaml;
                 workflowItem.RefreshDesignerFromXamlCode();
                 ConfigureWorkflowDesigner(workflowItem, workflowItem.IsTask); // recompute steps for the new WorkflowDesigner
             }
+        }
+
+        private string GetRichTextXamlCode()
+        {
+            string xaml = new TextRange(this.TxtXamlCode.Document.ContentStart, this.TxtXamlCode.Document.ContentEnd).Text.Trim();
+            return xaml;
         }
 
         ObservableCollection<ModelItem> steps = new ObservableCollection<ModelItem>();
@@ -569,6 +584,50 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             {
                 ((ExpressionTextBox)sender).Expression = null;
             }
+        }
+
+        private void DocChanged(object s, RoutedEventArgs e)
+        {
+            this.findControl.Document = this.TxtXamlCode.Document;
+        }
+
+        public void OnActivityFocuceChanged(object sender, ActivityFocuceEventArgs e)
+        {
+            selection = e.Node;
+            HighlightSelection();
+        }
+
+        private void HighlightSelection()
+        {
+            if (XamlCodeEditor.Visibility == Visibility.Visible)
+            {
+                if (selection != null)
+                {
+                    try
+                    {
+                        if (selection.Offset == 0 || selection.Length == 0)
+                        {
+                            XamlIndexNode index = XamlIndexTreeHelper.Search(selection);
+                            selection.Offset = index.Offset;
+                            selection.Length = index.Length;
+                        }
+
+                        TxtXamlCode.HighlightSelection(selection.Offset, selection.Length);
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        selection = null;
+                    }
+                }
+            }
+        }
+
+        private WorkflowOutlineNode selection;
+
+        private void TxtXamlCode_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (selection != null)
+                TxtXamlCode.ClearSelction(selection.Offset, selection.Length);
         }
     }
 }

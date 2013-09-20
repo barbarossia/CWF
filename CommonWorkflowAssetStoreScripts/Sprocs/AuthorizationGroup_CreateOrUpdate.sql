@@ -46,13 +46,17 @@ GO
 **  2/13/2011      v-stska             Add @OutError logic
 **  11-Nov-2011	   v-richt             Bug#86713 - Change error codes to positive numbers
 ** *************************************************************************/
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AuthorizationGroup_CreateOrUpdate]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[AuthorizationGroup_CreateOrUpdate]
+GO
+
 CREATE PROCEDURE [dbo].[AuthorizationGroup_CreateOrUpdate]
 		@inCaller nvarchar(50),
 		@inCallerversion nvarchar (50),
-		@InId bigint,
-		@InGUID uniqueidentifier,
-		@InName nvarchar(50),
-		@InAuthoringToolLevel int,
+		@InAuthGroupName [dbo].[AuthGroupNameTableType] READONLY,
+		@InAuthGroups [dbo].[AuthGroupNameTableType] READONLY,
+		@inRoleId int, 
 		@InInsertedByUserAlias nvarchar(50),
 		@InUpdatedByUserAlias nvarchar(50),
 		@outErrorString nvarchar (300)OUTPUT
@@ -90,79 +94,107 @@ BEGIN
 		SET @outErrorString = 'Invalid Parameter Value (@inCallerversion)'
 		RETURN 55101
 	END
+
+	IF (@InInsertedByUserAlias IS NULL OR @InInsertedByUserAlias = '')
+	BEGIN
+		SET @outErrorString = 'Invalid Parameter Value (@InInsertedByUserAlias)'
+		RETURN 55102
+	END
+
+	DECLARE @Return_Value int
+	DECLARE @InEnvironments [dbo].[EnvironmentTableType]
+	INSERT @InEnvironments (Name) SELECT [Name] FROM Environment
+    	EXEC @Return_Value = dbo.ValidateSPPermission 
+		@InSPName = @cObjectName,
+		@InAuthGroupName = @InAuthGroupName,
+		@InEnvironments = @InEnvironments,
+		@OutErrorString =  @OutErrorString output
+	IF (@Return_Value > 0)
+	BEGIN		    
+        RETURN @Return_Value
+	END
+
 	DECLARE @InInsertedDateTime datetime
 	SET @InInsertedDateTime = GETDATE()
 	DECLARE @inUpdatedDateTime datetime
 	SET @inUpdatedDateTime = GETDATE()
+	DECLARE @AuthoringToolLevel int
+	SET  @AuthoringToolLevel = 0
+	DECLARE @Enabled bit
+	SET @Enabled = 0
+
+	IF (@InUpdatedByUserAlias IS NULL OR @InUpdatedByUserAlias = '')
+	BEGIN
+		SET @InUpdatedByUserAlias =  @InInsertedByUserAlias		
+	END
 	BEGIN TRY
-		IF (@InId < 0)
-		BEGIN
-			SET @outErrorString = 'Invalid Parameter Value (@InId)'
-			RETURN 55123
-		END
-	    /* check to see if this needs to be a real insert or an update
-		   It could have been soft deleted and an insert will fail on
-		   a unique Name/versionNumber constraint */
-		DECLARE @CHECKId bigint
-		SELECT @CHECKId = ID
-		FROM [dbo].[AuthorizationGroup]
-		WHERE @inName = name 
-		-- If found, change this from an insert to an update
-		If (@CHECKId > 0)
-			SET @InId = @CHECKId
-	IF (@InId = 0 OR @InId IS NULL)
-		BEGIN
-			IF (@InGuid IS NULL)
-			BEGIN
-				SET @outErrorString = 'Invalid Parameter Value (@InGUID)'
-				RETURN 55105
-			END
-			IF (@InName IS NULL OR @InName = '')
-			BEGIN
-				SET @outErrorString = 'Invalid Parameter Value (@InName)'
-				RETURN 55106
-			END
-			IF (@InAuthoringToolLevel IS NULL)
-			BEGIN
-				SET @outErrorString = 'Invalid Parameter Value (@InAuthoringToolLevel)'
-				RETURN 55156
-			END
-			IF (@InInsertedByUserAlias IS NULL OR @InInsertedByUserAlias = '')
-			BEGIN
-				SET @outErrorString = 'Invalid Parameter Value (@InInsertedByUserAlias)'
-				RETURN 55102
-			END
-			SET @InUpdatedByUserAlias = @InInsertedByUserAlias
-				
-			INSERT INTO [dbo].[AuthorizationGroup]
-				([GUID], Name, AuthoringToolLevel,SoftDelete, InsertedByUserAlias, InsertedDateTime, UpdatedByUserAlias, UpdatedDateTime)
-				VALUES(@InGUID, @InName, @InAuthoringToolLevel, 0, @InInsertedByUserAlias, @InInsertedDateTime, @InUpdatedByUserAlias, @InUpdatedDateTime)
-			 --COMMIT TRANSACTION
-		 END
-		 ELSE
-		 BEGIN
-			-- This is an UPDATE
-			-- Test for valid @InId
-			DECLARE @TEMPID bigint
-			SELECT @TEMPID = [Id]
-			FROM [dbo].[AuthorizationGroup]
-			WHERE Id = @InId
-			IF (@TEMPID IS NULL)
-			BEGIN
-				SET @outErrorString = 'Invalid @InId attempting to perform an UPDATE on table'
-				RETURN 55060
-			END
-				
-			UPDATE [dbo].[AuthorizationGroup]
-				SET 
-					AuthoringToolLevel = Coalesce(@InAuthoringToolLevel, AuthoringToolLevel),
-					InsertedByUserAlias = InsertedByUserAlias,
-					InsertedDateTime = InsertedDateTime,
-					SoftDelete = 0,
-					UpdatedByUserAlias = Coalesce(@InUpdatedByUserAlias, UpdatedByUserAlias),
-					UpdatedDateTime = @inUpdatedDateTime
-			WHERE Id = @InId
-		 END
+	DECLARE @CheckId int
+	SELECT @CheckId = Id from Role
+	WHERE Id = @inRoleId
+	
+	IF (@CheckId IS NULL)
+	BEGIN
+		SET @outErrorString = 'Invalid @inRoleId attempting to perform a GET on table'
+		RETURN 55040
+	END
+	
+	IF (@inRoleId = 4)
+	SET @Enabled = 1
+
+-- insert 1
+		INSERT INTO [dbo].[AuthorizationGroup]
+				([GUID], Name, AuthoringToolLevel,SoftDelete, InsertedByUserAlias, InsertedDateTime, UpdatedByUserAlias, UpdatedDateTime, RoleId, Enabled)
+		select NEWID(), ig.Name, @AuthoringToolLevel, 0, @InInsertedByUserAlias, @InInsertedDateTime, @InUpdatedByUserAlias, @inUpdatedDateTime, @inRoleId, @Enabled AS Enabled from @InAuthGroups ig
+		left join AuthorizationGroup ag
+		on ig.[Name] = ag.[Name]
+		where ag.name is null
+		
+-- insert 2
+		update AuthorizationGroup
+		set 
+			SoftDelete = 0, 
+			RoleId = @inRoleId, 
+			Enabled = @Enabled, 
+			UpdatedByUserAlias = @InUpdatedByUserAlias,
+			UpdatedDateTime = @inUpdatedDateTime
+		from AuthorizationGroup AG join 
+		(
+		select ag1.Id from @InAuthGroups ig
+		join AuthorizationGroup ag1
+		on ig.[Name] = ag1.[Name] 
+		where ag1.SoftDelete = 1) A
+		on AG.Id = A.Id
+
+-- insert 3
+		update AuthorizationGroup
+		set 
+			SoftDelete = 0, 
+			RoleId = @inRoleId, 
+			Enabled = @Enabled,
+			UpdatedByUserAlias = @InUpdatedByUserAlias,
+			UpdatedDateTime = @inUpdatedDateTime
+		from AuthorizationGroup AG join 
+		(
+		select ag1.Id from @InAuthGroups ig
+		join AuthorizationGroup ag1
+		on ig.[Name] = ag1.[Name] 
+		where ag1.SoftDelete = 0 and (ag1.RoleId is Null or ag1.RoleId != @inRoleId)) A
+		on AG.Id = A.Id
+-- delete
+		update AuthorizationGroup
+		set 
+			SoftDelete = 1, 
+			Enabled = @Enabled,
+			UpdatedByUserAlias = @InUpdatedByUserAlias,
+			UpdatedDateTime = @inUpdatedDateTime
+		from AuthorizationGroup AG join 
+		(
+		select ag1.Id from AuthorizationGroup ag1
+		left join @InAuthGroups ig
+		on ag1.[Name] = ig.[Name]
+		where ag1.RoleId = @inRoleId and ag1.SoftDelete = 0 and ig.[Name] is null) A
+		on Ag.Id = A.Id		
+	    
 	END TRY
 	BEGIN CATCH
 		/*

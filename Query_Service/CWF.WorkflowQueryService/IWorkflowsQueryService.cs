@@ -142,13 +142,9 @@ namespace CWF.WorkflowQueryService
         [OperationContract]
         List<StoreActivitiesDC> StoreActivitiesGet(StoreActivitiesDC request);
 
-        /// <summary>
-        /// Get WorkflowTypes row(s)
-        /// </summary>
-        /// <returns>WorkflowTypeGetReplyDC object</returns>
         [OperationContract]
         [FaultContract(typeof(ServiceFault))]
-        WorkflowTypeGetReplyDC WorkflowTypeGet();
+        WorkflowTypeGetReplyDC WorkflowTypeGet(WorkflowTypesGetRequestDC request);
 
         [OperationContract]
         Version GetNextVersion(StoreActivitiesDC request, string userName);
@@ -201,7 +197,16 @@ namespace CWF.WorkflowQueryService
         /// <param name="lockedTime"></param>
         /// <returns></returns>
         [OperationContract]
-        StatusReplyDC StoreActivitiesSetLock(StoreActivitiesDC request, DateTime lockedTime);
+        StatusReplyDC StoreActivitiesUpdateLock(StoreActivitiesDC request, DateTime lockedTime);
+
+        /// <summary>
+        /// Override lock on StoreActivities
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="lockedTime"></param>
+        /// <returns></returns>
+        [OperationContract]
+        StatusReplyDC StoreActivitiesOverrideLock(StoreActivitiesDC request, DateTime lockedTime);
 
         /// <summary>
         /// Get StoreActivities row(s)
@@ -267,5 +272,28 @@ namespace CWF.WorkflowQueryService
         [OperationContract]
         TaskActivityGetListReply TaskActivityGetList(TaskActivityGetListRequest request);
 
+        [OperationContract]
+        PermissionGetListReply PermissionGetList(RequestHeader request);
+
+        [OperationContract]
+        AuthGroupsCreateOrUpdateReplyDC AuthorizationGroupCreateOrUpdate(AuthGroupsCreateOrUpdateRequestDC request);
+
+        [OperationContract]
+        AuthGroupsEnableOrDisableReplyDC AuthorizationGroupEnableOrDisable(AuthGroupsEnableOrDisableRequestDC request);
+
+        [OperationContract]
+        string TenantGet();
+
+        [OperationContract]
+        ChangeAuthorReply ChangeAuthor(ChangeAuthorRequest request);
+
+        [OperationContract]
+        StoreActivitiesDC ActivityCopy(ActivityCopyRequest request);
+
+        [OperationContract]
+        ActivityMoveReply ActivityMove(ActivityMoveRequest request);
+
+        [OperationContract]
+        StoreActivitiesDC ActivityDelete(StoreActivitiesDC request);
     }
 }

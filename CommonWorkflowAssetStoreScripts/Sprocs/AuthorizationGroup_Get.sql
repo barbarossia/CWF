@@ -13,6 +13,10 @@ SET ROWCOUNT 0
 SET TEXTSIZE 0
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AuthorizationGroup_Get]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[AuthorizationGroup_Get]
+GO
+
 /**************************************************************************
 // Product:  CommonWF
 // FileName: AuthorizationGroup_Get.sql
@@ -42,9 +46,10 @@ GO
 CREATE PROCEDURE [dbo].[AuthorizationGroup_Get]
 		@inCaller nvarchar(50),
 		@inCallerversion nvarchar (50),
-		@InId bigint,
+	@InId bigint,
         @InName varchar(50),
         @InGuid nvarchar (50),
+	@inRoleId int,
         @outErrorString nvarchar (300)OUTPUT
 
 --WITH ENCRYPTION
@@ -81,6 +86,7 @@ BEGIN
 		SET @outErrorString = 'Invalid Parameter Value (@inCallerversion)'
 		RETURN 55101
 	END
+
 	DECLARE @ID bigint
 	DECLARE @Name nvarchar (50)
 	DECLARE @Guid nvarchar (50)
@@ -148,14 +154,23 @@ BEGIN
 			ELSE
 			SET @InGuidExists = 1
 		END
+		DECLARE @inRoleIdExists bit
+		SET @inRoleIdExists = 1
+		IF (@inRoleId IS NULL OR @inRoleId = 0 )
+		BEGIN
+			SET @inRoleIdExists = 0
+		END
 			SELECT ag.[Id]
 				  ,ag.[Guid]
 				  ,ag.[Name]
 				  ,ag.[AuthoringToolLevel]
+				  ,ag.[RoleId]
+				,ag.[Enabled]
 			  FROM [dbo].[AuthorizationGroup] ag
 			  WHERE (@InName = ag.Name OR @InNameExists <> 1) AND
 					(@InId = ag.Id OR @InIdExists <> 1) AND
 					(@InGuid = ag.[Guid] OR @InGuidExists <> 1) AND
+					(@InRoleId = ag.[RoleId] OR @inRoleIdExists <> 1) AND
 					 ag.SoftDelete = 0
 
 	END TRY

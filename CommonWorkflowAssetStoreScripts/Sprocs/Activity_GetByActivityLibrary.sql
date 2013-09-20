@@ -14,6 +14,10 @@ SET ROWCOUNT 0
 SET TEXTSIZE 0
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Activity_GetByActivityLibrary]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Activity_GetByActivityLibrary]
+GO
+
 /**************************************************************************
 // Product:  CommonWF
 // FileName: Activity_GetByActivityLibrary.sql
@@ -43,7 +47,8 @@ GO
 CREATE PROCEDURE [dbo].[Activity_GetByActivityLibrary]
 		@Id BIGINT,
 		@Name NVARCHAR(255),
-		@Version NVARCHAR(50)
+		@Version NVARCHAR(50),
+		@InEnvironmentTarget nvarchar(50)
 AS
 BEGIN
     SET NOCOUNT ON
@@ -53,9 +58,10 @@ BEGIN
 		--Negative ID is considered a user specified ID and it will ultimately yield no results.
 		IF (@Id = 0) 
 		BEGIN
-			SELECT @Id = Id
-			FROM [dbo].[ActivityLibrary]
-			WHERE Name = @Name AND VersionNumber = @Version AND SoftDelete = 0		
+			SELECT @Id = AL.Id
+			FROM [dbo].[ActivityLibrary] AL
+			JOIN [dbo].[Environment] E on AL.[Environment] = E.[Id]
+			WHERE AL.Name = @Name AND AL.VersionNumber = @Version AND E.[Name] = @InEnvironmentTarget AND AL.SoftDelete = 0		
 		END	
 		
 		SELECT sa.Id, 
@@ -87,14 +93,16 @@ BEGIN
 					sa.XAML, 
 					sa.DeveloperNotes, 
 					sa.BaseType, 
-					sa.[Namespace]
+					sa.[Namespace],
+					E.[Name] AS Environment
 			FROM [dbo].[Activity] sa
 			JOIN ActivityLibrary al ON sa.ActivityLibraryId = al.Id
 			JOIN ActivityCategory ac ON sa.CategoryId = ac.Id
 			JOIN ToolboxTabName tbtn ON sa.ToolBoxTab = tbtn.Id
 			JOIN StatusCode sc ON sa.StatusId = sc.Code
 			JOIN WorkflowType wft ON sa.WorkflowTypeId = wft.Id
-			JOIN Icon ic ON sa.IconsId = ic.Id 
+			JOIN Icon ic ON sa.IconsId = ic.Id
+			JOIN Environment E ON sa.Environment = E.Id 
 			WHERE sa.ActivityLibraryId = @Id
 				AND sa.SoftDelete = 0
 	END TRY

@@ -1,7 +1,12 @@
-/****** Object:  StoredProcedure [dbo].[ps_etblStoreActivities_UpdateLock]    Script Date: 07/04/2012 15:30:51 ******/
+/****** Object:  StoredProcedure [dbo].[Activity_UpdateLock]    Script Date: 05/20/2013 23:52:35 ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Activity_UpdateLock]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Activity_UpdateLock]
 GO
 
 /**************************************************************************
@@ -30,9 +35,11 @@ GO
 **  4/June/2012      v-ery               Add @InLockedTime parameter
 ** 11/June/2012      v-ery               Support unlocking
 ** *************************************************************************/
-Create PROCEDURE [dbo].[Activity_UpdateLock]		
+CREATE PROCEDURE [dbo].[Activity_UpdateLock]		
         @InCaller nvarchar(50),
         @InCallerversion nvarchar (50),
+        @InAuthGroupName	[dbo].[AuthGroupNameTableType] READONLY ,
+        @InEnvironmentName	nvarchar(50) ,
         @InName nvarchar(255),
         @InVersion nvarchar(25),
         @InOperatorUserAlias nvarchar(50),
@@ -76,51 +83,39 @@ BEGIN TRY
     BEGIN
         SET @outErrorString = 'Invalid Parameter Value (@InName/@inVersion)'
         RETURN 55125
+    END    
+    IF (@InEnvironmentName IS NULL OR @InEnvironmentName = '')
+    BEGIN
+        SET @outErrorString = 'Invalid Parameter Value (@InEnvironmentName)'
+        RETURN 55126
     END
-		
-	SELECT @Id = ID
-	FROM [dbo].[Activity]
-	WHERE Name = @InName AND  [Version] = @InVersion AND SoftDelete= 0
-	
-	IF (@Id IS NULL)
-	BEGIN
-		SET @outErrorString = 'Invalid @Id attempting to perform a GET on table'
-		RETURN 55040
+
+	DECLARE @Return_Value int
+	DECLARE @InEnvironments [dbo].[EnvironmentTableType]
+	INSERT @InEnvironments (Name) Values (@InEnvironmentName)
+	EXEC @Return_Value = dbo.ValidateSPPermission 
+		@InSPName = @cObjectName,
+		@InAuthGroupName = @InAuthGroupName,
+		@InEnvironments = @InEnvironments,
+		@OutErrorString =  @OutErrorString output
+	IF (@Return_Value > 0)
+	BEGIN		    
+		RETURN @Return_Value
 	END
-	ELSE
-	BEGIN
-		DECLARE @currentLocked BIT
-		DECLARE @currentLockedBy NVARCHAR(50)
 
-		SELECT @currentLocked = Locked, @currentLockedBy = LockedBy
-		FROM [dbo].[Activity]
-		WHERE Id = @Id
-
-        -- users can overwrite the lock,
-        -- but they cannot unlock an item locked by someone else
-		IF (@InLocked = 0 AND @currentLocked = 1 AND @currentLockedBy <> @InOperatorUserAlias)
-		BEGIN
-			SET @outErrorString = 'Lock has been changed by ' + @currentLockedBy
-			RETURN 55066
-		END	
+	
+	EXEC @Return_Value = [dbo].[Activity_SetLock]
+		@InCaller = @InCaller,
+		@InCallerversion = @InCallerversion,
+		@InName = @InName,
+		@InVersion = @InVersion,
+		@InEnvironmentName = @InEnvironmentName,
+		@InOperatorUserAlias = @InOperatorUserAlias,
+		@InLocked = @InLocked,
+		@InLockedTime = @InLockedTime,
+		@outErrorString = @outErrorString OUTPUT
 		
-		IF @InLocked = 1
-		BEGIN
-			UPDATE [dbo].[Activity]
-			SET Locked = @InLocked,
-				LockedBy = @InOperatorUserAlias,
-				UpdatedDateTime = @InLockedTime,
-				UpdatedByUserAlias = @InOperatorUserAlias
-			WHERE Id = @Id
-		END
-		ELSE
-		BEGIN
-			UPDATE [dbo].[Activity]
-			SET Locked = @InLocked,
-				LockedBy = NULL
-			WHERE Id = @Id		
-		END
-	END				
+	RETURN @Return_Value				
 END TRY
 BEGIN CATCH
         /*
@@ -158,4 +153,9 @@ BEGIN CATCH
         END
     END CATCH
    RETURN @rc
+
+
+
+GO
+
 

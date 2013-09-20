@@ -68,7 +68,9 @@
     <Compile Include="FunctionalTests\WorkflowTypeRepositoryServiceShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FunctionalTests\ActivityLibraryRepositoryServiceShould.cs" />
+    <Compile Include="UnitTests\ActivitesShouldDo.cs" />
     <Compile Include="UnitTests\ActivityLibraryRepositoryServiceShould.cs" />
+    <Compile Include="UnitTests\ActivityRepositoryServiceShouldDo.cs" />
     <Compile Include="UnitTests\DataReaderMock.cs" />
     <Compile Include="DataAccessUtilities\WorkflowTypeTestDataAccessUtility.cs" />
     <Compile Include="UnitTests\MarketplaceRepositoryServiceShouldDo.cs" />

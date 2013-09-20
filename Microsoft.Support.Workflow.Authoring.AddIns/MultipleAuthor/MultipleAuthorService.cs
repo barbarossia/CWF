@@ -73,7 +73,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
                     {
                         m.Properties["Status"].SetValue(TaskActivityStatus.Assigned);
                     }
-                    return new TaskActivity(task.Group, task.Alias, task.TaskId, task.TaskBody, task.Status, task.DisplayName) as Activity;
+                    return new TaskActivity(task.Alias, task.TaskId, task.TaskBody, task.Status, task.DisplayName) as Activity;
                 }));
         }
 

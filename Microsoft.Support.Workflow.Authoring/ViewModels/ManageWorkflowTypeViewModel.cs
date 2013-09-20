@@ -7,6 +7,9 @@ using CWF.DataContracts;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Support.Workflow.Authoring.Services;
 using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+using Microsoft.Support.Workflow.Authoring.Common;
+using Microsoft.Support.Workflow.Authoring.Security;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
@@ -23,7 +26,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private EditWorkflowTypeViewModel editWorkflowTypeViewModel;
         private bool isEditing;
         private DataPagingViewModel dpViewModel;
-
+        private Env selectedEnv = Env.Dev;
+        private List<Env> envFilters;
         /// <summary>
         /// Gets or sets SearchWorkflowTypeCommand
         /// </summary>
@@ -55,6 +59,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         public DelegateCommand CancelEditWorkflowCommand { get; set; }
 
         #region search workfklow type
+
+        public List<Env> EnvFilters
+        {
+            get { return this.envFilters; }
+            set
+            {
+                this.envFilters = value;
+                RaisePropertyChanged(() => this.EnvFilters);
+            }
+        }
 
         /// <summary>
         /// Gets or sets DataPagingViewModel
@@ -109,6 +123,18 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         }
 
         #endregion
+
+        public Env SelectedEnv
+        {
+            get { return this.selectedEnv; }
+            set
+            {
+                this.selectedEnv = value;
+                RaisePropertyChanged(() => this.SelectedEnv);
+                this.SearchCommandExecuted();
+                this.AddWorkTypeflowTypeCommand.RaiseCanExecuteChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the EditWorkflowTypeViewModel
@@ -168,7 +194,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         public ManageWorkflowTypeViewModel()
         {
             this.SearchWorkflowTypeCommand = new DelegateCommand(SearchCommandExecuted);
-            this.AddWorkTypeflowTypeCommand = new DelegateCommand(this.OnAddWorkflowType);
+            this.AddWorkTypeflowTypeCommand = new DelegateCommand(this.OnAddWorkflowType,()=>(int)this.SelectedEnv>0);
             this.EditWorkflowTypeCommand = new DelegateCommand(this.OnEditWorkflowType);
             this.DeleteWorkflowTypeCommand = new DelegateCommand(() => { WorkflowsQueryServiceUtility.UsingClient(this.DeleteWorkflowType); });
             this.UploadWorkflowCommand = new DelegateCommand(UploadWorkflowType, this.CanUploadWorkflowType);
@@ -176,8 +202,15 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             this.DataPagingVM = new DataPagingViewModel();
             this.DataPagingVM.SearchExecute = this.LoadData;
             this.DataPagingVM.PageSize = pageSize;
+            this.InitializeEnvs();
         }
 
+        private void InitializeEnvs()
+        {
+            this.EnvFilters = AuthorizationService.GetAuthorizedEnvs(Permission.ManageWorkflowType).ToList();
+            if (this.EnvFilters.Contains(DefaultValueSettings.Environment))
+                this.SelectedEnv = DefaultValueSettings.Environment;
+        }
 
         private bool CanUploadWorkflowType()
         {
@@ -220,7 +253,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 return;
             if (this.SelectedWorkflowType.WorkflowsCount > 0)
             {
-                MessageBoxService.ShowError(string.Format( "The {0} can't be deleted, because there are workflows using it.",this.SelectedWorkflowType.Name));
+                MessageBoxService.ShowError(string.Format("The {0} can't be deleted, because there are workflows using it.", this.SelectedWorkflowType.Name));
                 return;
             }
 
@@ -231,6 +264,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             request.InAuthGroupId = this.SelectedWorkflowType.AuthGroupId;
             request.InPublishingWorkflowId = this.SelectedWorkflowType.PublishingWorkflowId;
             request.InWorkflowTemplateId = this.SelectedWorkflowType.WorkflowTemplateId;
+            request.Environment = this.SelectedWorkflowType.Environment;
             WorkFlowTypeCreateOrUpdateReplyDC reply = client.WorkflowTypeCreateOrUpdate(request);
             if (reply != null && reply.StatusReply != null)
                 reply.StatusReply.CheckErrors();
@@ -244,7 +278,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             try
             {
-                EditWorkflowTypeVM = new EditWorkflowTypeViewModel(Common.WorkflowTypeOperations.Add, null, RefreshUploadCommandExecute);
+                WorkflowTypeSearchDC type = new WorkflowTypeSearchDC();
+                type.Guid = Guid.NewGuid();
+                type.Environment = this.SelectedEnv.ToString();
+                EditWorkflowTypeVM = new EditWorkflowTypeViewModel(Common.WorkflowTypeOperations.Add, type, RefreshUploadCommandExecute);
                 IsEditing = true;
                 this.UploadWorkflowCommand.RaiseCanExecuteChanged();
             }
@@ -304,6 +341,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             request.PageNumber = this.DataPagingVM.ResetPageIndex ? 1 : this.DataPagingVM.PageIndex;
             request.SortColumn = DefaultSortColumn;
             request.SortAscending = this.SortByAsceinding;
+            if (this.SelectedEnv > 0 && Enum.IsDefined(typeof(Env), this.SelectedEnv))
+                request.Environments = new List<string>() { this.SelectedEnv.ToString() };
 
             replyDC = client.SearchWorkflowTypes(request);
             if (null != replyDC && null != replyDC.StatusReply && 0 == replyDC.StatusReply.Errorcode)

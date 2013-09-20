@@ -57,5 +57,8 @@ namespace CWF.DataContracts
             get { return storeDependenciesDependentActiveLibraryList; }
             set { storeDependenciesDependentActiveLibraryList = value; }
         }
+
+        [DataMember]
+        public List<ActivityLibraryDC> Activities { get;set;}
     }
 }

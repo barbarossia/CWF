@@ -18,12 +18,12 @@ namespace Microsoft.Support.Workflow.Service.BusinessServices
         /// <param name="id">Workflow type ID.</param>
         /// <param name="name">Workflow type name.</param>
         /// <returns>Reply that contains the list of workflow types found.</returns>
-        public static WorkflowTypeGetReplyDC GetWorkflowTypes(int id = 0, string name = "")
+        public static WorkflowTypeGetReplyDC GetWorkflowTypes(WorkflowTypesGetRequestDC request)
         {
             WorkflowTypeGetReplyDC reply = null;
             try
             {
-                reply = WorkflowTypeRepositoryService.GetWorkflowTypes(id, name);
+                reply = WorkflowTypeRepositoryService.GetWorkflowTypes(request);
             }
             catch (Exception e)
             {

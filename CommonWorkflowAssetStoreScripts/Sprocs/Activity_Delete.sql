@@ -1,17 +1,13 @@
-SET ANSI_DEFAULTS ON
-SET CURSOR_CLOSE_ON_COMMIT OFF
-SET IMPLICIT_TRANSACTIONS OFF
-SET ARITHABORT ON
-SET CONCAT_NULL_YIELDS_NULL ON
-SET NUMERIC_ROUNDABORT OFF
-SET QUOTED_IDENTIFIER ON
- 
-SET DATEFORMAT ymd
-SET LOCK_TIMEOUT -1
-SET NOCOUNT ON
-SET ROWCOUNT 0
-SET TEXTSIZE 0
+/****** Object:  StoredProcedure [dbo].[Activity_Delete]    Script Date: 05/16/2013 01:44:06 ******/
+SET ANSI_NULLS ON
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Activity_Delete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Activity_Delete]
+GO
+
  /**************************************************************************
 // Product:  CommonWF
 // FileName: Activity_Delete.sql
@@ -40,7 +36,10 @@ GO
 CREATE PROCEDURE [dbo].[Activity_Delete]
         @InCaller nvarchar(50),
         @InCallerversion nvarchar (50),
-        @InId bigint,
+        @InAuthGroupName	[dbo].[AuthGroupNameTableType] READONLY ,
+        @InEnvironmentName	nvarchar(50) ,
+        @InName nvarchar (255),
+        @InVersion nvarchar (50),
         @outErrorString nvarchar (300)OUTPUT
 AS
 BEGIN TRY
@@ -62,6 +61,7 @@ BEGIN TRY
             ,@cObjectName       = OBJECT_NAME(@@PROCID)
             
     SET NOCOUNT ON
+    
     SET @outErrorString = ''
     DECLARE @Id bigint
     DECLARE @SoftDelete bit
@@ -76,22 +76,47 @@ BEGIN TRY
         SET @outErrorString = 'Invalid Parameter Value (@inCallerversion)'
         RETURN 55101
     END
-    IF (@InId IS NULL OR @InId = 0)
+    IF (@InName IS NULL OR @InName = '') AND (@InVersion IS NULL OR @InVersion = '')
     BEGIN
-        SET @outErrorString = 'Invalid Parameter Value (@InId)'
-        RETURN 55123
+        SET @outErrorString = 'Invalid Parameter Value (@InName/@inVersion)'
+        RETURN 55125
     END
-
-    SELECT  @Id = Id, 
-            @SoftDelete = SoftDelete
-    FROM [dbo].[Activity] sa
-    WHERE sa.Id = @InId
+    IF (@InEnvironmentName IS NULL OR @InEnvironmentName = '')
+    BEGIN
+        SET @outErrorString = 'Invalid Parameter Value (@InEnvironmentName)'
+        RETURN 55126
+    END
     
+	DECLARE @Return_Value int
+	DECLARE @InEnvironments [dbo].[EnvironmentTableType]
+	INSERT @InEnvironments (Name) Values (@InEnvironmentName)
+	EXEC @Return_Value = dbo.ValidateSPPermission 
+		@InSPName = @cObjectName,
+		@InAuthGroupName = @InAuthGroupName,
+		@InEnvironments = @InEnvironments,
+		@OutErrorString =  @OutErrorString output
+	IF (@Return_Value > 0)
+	BEGIN		    
+		RETURN @Return_Value
+	END
 
-    UPDATE [dbo].[Activity]
-    SET SoftDelete = 1
-    WHERE @Id =Id
+	declare @ActivityLibraryID bigint
+	SELECT  @Id = sa.Id, @ActivityLibraryID = sa.ActivityLibraryId
+	FROM [dbo].[Activity] sa
+	join [dbo].[Environment] E on sa.Environment = E.Id
+	WHERE sa.Name = @InName AND
+	sa.Version = @InVersion AND
+	E.Name = @InEnvironmentName
+    
+	BEGIN TRAN
+		UPDATE [dbo].[Activity]
+		SET SoftDelete = 1
+		WHERE Id = @Id
 
+		UPDATE [dbo].[ActivityLibrary]
+		SET SoftDelete = 1
+		WHERE Id = @ActivityLibraryID
+	COMMIT TRAN
 
 END TRY
 BEGIN CATCH
@@ -130,4 +155,3 @@ BEGIN CATCH
         END
     END CATCH
   RETURN @rc
-GO

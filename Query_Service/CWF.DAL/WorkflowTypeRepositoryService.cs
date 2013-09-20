@@ -9,6 +9,7 @@ using CWF.DAL;
 using System.Diagnostics;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices
 {
@@ -26,33 +27,30 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         public static WorkFlowTypeCreateOrUpdateReplyDC WorkflowTypeCreateOrUpdate(WorkFlowTypeCreateOrUpdateRequestDC request)
         {
             var reply = new WorkFlowTypeCreateOrUpdateReplyDC();
-            var status = new StatusReplyDC();
-            reply.StatusReply = status;
-            Database db = null;
+            SqlDatabase db = null;
             DbCommand cmd = null;
             int retValue = 0;
             string outErrorString = string.Empty;
             try
             {
-                db = DatabaseFactory.CreateDatabase();
+                db = RepositoryHelper.CreateDatabase();
                 cmd = db.GetStoredProcCommand(StoredProcNames.WorkflowTypeCreateOrUpdate);
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InHandleVariable", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InHandleVariable);
+                db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));              
                 db.AddParameter(cmd, "@InId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.InId);
                 db.AddParameter(cmd, "@InGuid", DbType.Guid, ParameterDirection.Input, null, DataRowVersion.Default, request.InGuid);
                 db.AddParameter(cmd, "@InName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InName);
                 db.AddParameter(cmd, "@InPageViewVariable", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InPageViewVariable);
-
                 db.AddParameter(cmd, "@InPublishingWorkflowId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.InPublishingWorkflowId);
                 db.AddParameter(cmd, "@InSelectionWorkflowId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.InSelectionWorkflowId);
                 db.AddParameter(cmd, "@InWorkflowTemplateId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.InWorkflowTemplateId);
                 db.AddParameter(cmd, "@InAuthGroupId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.InAuthGroupId);
                 db.AddParameter(cmd, "@InSoftDelete", DbType.Boolean, ParameterDirection.Input, null, DataRowVersion.Default, request.IsDeleted);
-
                 db.AddParameter(cmd, "@InInsertedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InInsertedByUserAlias);
                 db.AddParameter(cmd, "@InUpdatedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InUpdatedByUserAlias);
-
+                db.AddParameter(cmd, "@InEnvironmentTarget", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);
                 db.AddParameter(cmd, "@ReturnValue", DbType.Int32, ParameterDirection.ReturnValue, null, DataRowVersion.Default, 0);
                 db.AddOutParameter(cmd, "@outErrorString", DbType.String, 300);
 
@@ -61,25 +59,15 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 outErrorString = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
                 if (retValue != 0)
                 {
-                    status.ErrorMessage = outErrorString;
-                    status.Errorcode = retValue;
-                    Logging.Log(retValue,
-                                EventLogEntryType.Error,
-                                SprocValues.WORKFLOW_TYPE_CREATE_OR_UPDATE_CALL_ERROR_MSG,
-                                outErrorString);
+                    reply.StatusReply.ErrorMessage = outErrorString;
+                    reply.StatusReply.Errorcode = retValue;
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                status.ErrorMessage = SprocValues.WORKFLOW_TYPE_CREATE_OR_UPDATE_CALL_ERROR_MSG + ex.Message;
-                status.Errorcode = SprocValues.GENERIC_CATCH_ID;
-                Logging.Log(SprocValues.GENERIC_CATCH_ID,
-                            EventLogEntryType.Error,
-                            SprocValues.WORKFLOW_TYPE_CREATE_OR_UPDATE_CALL_ERROR_MSG,
-                            ex);
+                ex.HandleException();
             }
 
-            reply.StatusReply = status;
             return reply;
         }
 
@@ -90,18 +78,25 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         /// <param name="id">Workflow type ID.</param>
         /// <param name="name">Workflow type name.</param>
         /// <returns>Reply that contains the list of workflow types found.</returns>
-        public static WorkflowTypeGetReplyDC GetWorkflowTypes(int id = 0, string name = "")
+        public static WorkflowTypeGetReplyDC GetWorkflowTypes(WorkflowTypesGetRequestDC request)
         {
             WorkflowTypeGetReplyDC reply = new WorkflowTypeGetReplyDC();
             IList<WorkflowTypesGetBase> wftList = new List<WorkflowTypesGetBase>();
+            int retValue = 0;
+            string outErrorString = string.Empty;
+
             try
             {
                 WorkflowTypesGetBase wfat = null;
 
-                Database db = DatabaseFactory.CreateDatabase();
+                SqlDatabase db = RepositoryHelper.CreateDatabase();
                 DbCommand cmd = db.GetStoredProcCommand(StoredProcNames.WorkflowTypeGet);
-                db.AddParameter(cmd, StoredProcParamNames.Id, DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, id);
-                db.AddParameter(cmd, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, name);
+                
+                db.AddParameter(cmd, "@InEnvironmentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);
+                db.AddParameter(cmd, StoredProcParamNames.Id, DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
+                db.AddParameter(cmd, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Name);
+                db.AddParameter(cmd, "@ReturnValue", DbType.Int32, ParameterDirection.ReturnValue, null, DataRowVersion.Default, 0);
+                db.AddOutParameter(cmd, "@outErrorString", DbType.String, 300);
 
                 using (IDataReader reader = db.ExecuteReader(cmd))
                 {
@@ -131,10 +126,19 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                             ? Convert.ToString(reader[DataColumnNames.WorkflowTemplateName]) : string.Empty;
                         wfat.WorkflowTemplateId = reader[DataColumnNames.WorkflowTemplateId] != DBNull.Value
                             ? Convert.ToInt32(reader[DataColumnNames.WorkflowTemplateId]) : 0;
+                        wfat.Environment = Convert.ToString(reader[DataColumnNames.Environment]);
                         wftList.Add(wfat);
                     }
 
                     reply.WorkflowActivityType = wftList;
+
+                    retValue = Convert.ToInt32(cmd.Parameters["@ReturnValue"].Value);
+                    outErrorString = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
+                    if (retValue != 0)
+                    {
+                        reply.StatusReply.ErrorMessage = outErrorString;
+                        reply.StatusReply.Errorcode = retValue;
+                    }
                 }
             }
             catch (SqlException e)
@@ -153,17 +157,25 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         {
             WorkflowTypeSearchReply reply = new WorkflowTypeSearchReply();
             IList<WorkflowTypeSearchDC> wftList = new List<WorkflowTypeSearchDC>();
+            int retValue = 0;
+            string outErrorString = string.Empty;
+
             try 
             {
                 WorkflowTypeSearchDC wfat = null;
 
-                Database db = DatabaseFactory.CreateDatabase();
+                SqlDatabase db = RepositoryHelper.CreateDatabase();
                 DbCommand cmd = db.GetStoredProcCommand(StoredProcNames.WorkflowType_Search);
+
+                db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));           
                 db.AddParameter(cmd, "@SearchText", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SearchText);
                 db.AddParameter(cmd, "@SortColumn", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SortColumn);
                 db.AddParameter(cmd, "@SortAscending", DbType.Boolean, ParameterDirection.Input, null, DataRowVersion.Default, request.SortAscending);
                 db.AddParameter(cmd, "@PageSize", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.PageSize);
                 db.AddParameter(cmd, "@PageNumber", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.PageNumber);
+                db.AddParameter(cmd, "@InEnvironments", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetEnvironments(request.Environments));
+                db.AddParameter(cmd, "@ReturnValue", DbType.Int32, ParameterDirection.ReturnValue, null, DataRowVersion.Default, 0);
+                db.AddOutParameter(cmd, "@outErrorString", DbType.String, 300);
 
                 using (IDataReader reader = db.ExecuteReader(cmd))
                 {
@@ -201,6 +213,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
 
                         wfat.WorkflowsCount = reader[DataColumnNames.WorkflowsCount] != DBNull.Value
                             ? Convert.ToInt32(reader[DataColumnNames.WorkflowsCount]) : 0;
+
+                        wfat.Environment = Convert.ToString(reader[DataColumnNames.Environment]);
                         
                         wftList.Add(wfat);
                     }
@@ -211,12 +225,21 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                     {
                         reply.ServerResultsLength = Convert.ToInt32(reader["Total"]);
                     }
+
+                    retValue = Convert.ToInt32(cmd.Parameters["@ReturnValue"].Value);
+                    outErrorString = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
+                    if (retValue != 0)
+                    {
+                        reply.StatusReply.ErrorMessage = outErrorString;
+                        reply.StatusReply.Errorcode = retValue;
+                    }
                 }
             }
             catch (SqlException e)
             {
                 e.HandleException();
             }
+
             return reply;
         }
     }

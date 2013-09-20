@@ -12,6 +12,7 @@ using System.Reflection;
 using System.ServiceModel.Activities;
 using Microsoft.Support.Workflow.Authoring.AddIns;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+using System.Activities.Validation;
 
 namespace Microsoft.Support.Workflow.Authoring.CompositeActivity
 {
@@ -53,22 +54,25 @@ namespace Microsoft.Support.Workflow.Authoring.CompositeActivity
                 model.Properties.Any(p =>
                 {
                     return p.Name != ModelItemService.DisplayNamePropertyName &&
-                        p.Name != ModelItemService.IdPropertyName && 
+                        p.Name != ModelItemService.IdPropertyName &&
                         !ArgumentService.IsArgument(p.PropertyType);
                 }));
         }
 
         public static Activity GetRootActivity(Activity root)
         {
-            try
+            IEnumerator<Activity> activityenum = WorkflowInspectionServices.GetActivities(root).GetEnumerator();
+            ActivityValidationServices.Validate(root);
+            while (activityenum.MoveNext())
             {
-                return WorkflowInspectionServices.GetActivities(root).FirstOrDefault(r => !ArgumentService.IsArgument(r));
+                root = activityenum.Current;
+                //We have to skip the arugments which will be either in the expression namespace (for scalar literals)
+                //or in the Activities namespace (for complex types)
+                var actnamespace = root.GetType().Namespace;
+                if (actnamespace == "System.Activities.Statements")
+                    return root;
             }
-            catch (System.Activities.InvalidWorkflowException)
-            {
-                //which activity has arguments
-                //we need not to return these activities, so do nothing with these
-            }
+            //This should never be hit...but if it is the caller will throw an invalid workflow exception
             return null;
         }
 

@@ -15,7 +15,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using Views;
     using System.Reflection;
     using Microsoft.Support.Workflow.Authoring.AddIns;
-
+    using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+    using System.ServiceModel;
     /// <summary>
     /// The message box service.
     /// </summary>
@@ -23,6 +24,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     {
         #region Constants
 
+        private const string NetWorkerIssuerMSG = "The server is not available right now.";
+
+        private const string NetWorkTimeoutMsg = "The server is not available right now (request timeout).";
         /// <summary>
         /// The name of the application to use in MessageBox
         /// </summary>
@@ -74,12 +78,6 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         private const string MSG_CANNOT_SAVE_LOCKED_ACTIVITY = "This project was locked by an administrator.  You are not allowed to save your changes to the server.";
 
         /// <summary>
-        /// Message to admin while he opening a locked activity.
-        /// </summary>
-        private const string MSG_OPEN_ACTIVITY_FORMAT = "Will you open the workflow {0} for editing or readonly?";
-
-
-        /// <summary>
         /// Message to non-admin user while he opening a locked activity.
         /// </summary>
         private const string MSG_NONADMIN_OPEN_LOCKED_ACTIVITY_FORMAT = "This workflow was locked by {0}. You will open it in read-only mode.";
@@ -125,9 +123,23 @@ namespace Microsoft.Support.Workflow.Authoring.Services
 
         private const string COMPILE_WORKFLOW_SUCCESSFULLY = "Compiled the workflow {0} successfully.";
 
+        private const string DeleteWorkflowConfirmationMsg = "Are you sure to delete current opened workflow?";
+
+        private const string ConfirmationMsg = "Confirmation";
+
+        private const string NeedToSaveWorkflowMsg = "Please save the current project before performing this operations.";
+
         #endregion Constants
 
-        
+        public static void ShouldSaveWorkflow()
+        {
+            Show(NeedToSaveWorkflowMsg, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public static bool ShouldDeleteWorkflow()
+        {
+            return Show(DeleteWorkflowConfirmationMsg, ConfirmationMsg, MessageBoxButton.YesNo, MessageBoxImage.None) == MessageBoxResult.Yes;
+        }
         /// <summary>
         /// Use multiple vesion assembly in a workflow
         /// </summary>
@@ -149,10 +161,10 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// <summary>
         /// Cannot check assembly because multiple versions used
         /// </summary>
-        public static void CannotCheckAssemblyForItselfSelected(string assemblyName)
+        public static void CannotCheckAssemblyItself()
         {
-            Show(string.Format("The same name {0} of the assembly you checked cannot import to itself because multiple versions used.",
-                assemblyName), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Show("You cannot import an assembly which has same name of current workflow.",
+                "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -171,6 +183,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         }
 
         #region Methods
+
+
         /// <summary>
         /// Ask the user if they want to save changes
         /// </summary>
@@ -242,6 +256,27 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             return Show(messageBoxText, APPLICATION_NAME, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        public static void ShowException(Exception ex, string errorMsg)
+        {
+            string details = (ex is UserFacingException)
+                            ? ex.InnerException.IfNotNull(inner => inner.ToString())
+                            : ex.ToString();
+
+            string msg = string.Empty;
+            if (ex is UserFacingException)
+                msg = ex.Message;
+            else if (ex is CommunicationException)
+                msg = NetWorkerIssuerMSG;
+            else if (ex is TimeoutException)
+                msg = NetWorkTimeoutMsg;
+            if (string.IsNullOrEmpty(msg))
+                msg = !string.IsNullOrEmpty(errorMsg) ? errorMsg : ex.Message;
+            ErrorMessageDialog.Show(msg,
+                details,
+                Utility.FuncGetCurrentActiveWindow(Application.Current)
+                );
+        }
+
         public static MessageBoxResult ShowInfo(string messageBoxText)
         {
             return Show(messageBoxText, APPLICATION_NAME, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -297,24 +332,14 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         }
 
         /// <summary>
-        /// Open a locked activity by an admin.
-        /// </summary>
-        /// <param name="workflowName"></param>
-        public static MessageBoxResult OpenActivity(string workflowName)
-        {
-            return MessageBoxService.ShowOpenActivityConfirmation(
-                string.Format(MSG_OPEN_ACTIVITY_FORMAT, workflowName), APPLICATION_NAME);
-        }
-
-        /// <summary>
         /// Open a locked activity by a non-admin user.
         /// </summary>
         /// <param name="lockedBy"></param>
-        public static MessageBoxResult OpenLockedActivityByNonAdmin(string lockedBy)
+        public static void OpenLockedActivityByNonAdmin(string lockedBy)
         {
-            return Show(string.Format(MSG_NONADMIN_OPEN_LOCKED_ACTIVITY_FORMAT, lockedBy),
+            Show(string.Format(MSG_NONADMIN_OPEN_LOCKED_ACTIVITY_FORMAT, lockedBy),
                   APPLICATION_NAME,
-                  MessageBoxButton.OKCancel,
+                  MessageBoxButton.OK,
                   MessageBoxImage.Information);
         }
 

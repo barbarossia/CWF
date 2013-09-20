@@ -78,8 +78,8 @@ namespace CWF.BAL
                             dependentLibrary);
                         storeActivityLibrariesDependenciesDC.Incaller = request.Incaller;
                         storeActivityLibrariesDependenciesDC.IncallerVersion = request.IncallerVersion;
-                        storeActivityLibrariesDependenciesDC.InsertedByUserAlias = request.InsertedByUserAlias;
-                        storeActivityLibrariesDependenciesDC.UpdatedByUserAlias = request.UpdatedByUserAlias;
+                        storeActivityLibrariesDependenciesDC.InInsertedByUserAlias = request.InInsertedByUserAlias;
+                        storeActivityLibrariesDependenciesDC.InUpdatedByUserAlias = request.InUpdatedByUserAlias;
                         reply = ActivityLibraryDependency.StoreActivityLibraryDependenciesCreateOrUpdate(storeActivityLibrariesDependenciesDC);
                         if (reply.StatusReply.Errorcode != 0)
                             throw new Exception(reply.StatusReply.ErrorMessage);
@@ -171,11 +171,11 @@ namespace CWF.BAL
         /// Gets the next version number for a workflow.
         /// </summary>
         /// <param name="request">An object describing the workflow for which we need a new version number.</param>
-        /// <param name="userName">The name of the user making the request.</param>
+        /// <param name="env">The name of the user making the request.</param>
         /// <returns></returns>
-        public static Version GetNextVersion(StoreActivitiesDC request, string userName)
+        public static Version GetNextVersion(StoreActivitiesDC request, string env)
         {
-            var checkResult = VersionHelper.CheckVersioningRules(request, null, userName);
+            var checkResult = VersionHelper.CheckVersioningRules(request, null, env);
             Version result = Version.Parse(request.Version);
 
             // Item1 is the boolean entry in the tuple indicating success or failure 
@@ -213,6 +213,7 @@ namespace CWF.BAL
                 {
                     Incaller = request.Incaller,
                     IncallerVersion = request.IncallerVersion,
+                    InAuthGroupNames = request.InAuthGroupNames,
                     Locked = false,
                     LockedBy = null,
                 }
@@ -239,7 +240,7 @@ namespace CWF.BAL
 
                     if (bool.TryParse(checkReply.Output, out exists) && exists)
                     {
-                        nextVersion = GetNextVersion(request.TaskActivitiesList[0].Activity, Environment.UserName);
+                        nextVersion = GetNextVersion(request.TaskActivitiesList[0].Activity, request.Environment);
                     }
                 }
 
@@ -259,8 +260,9 @@ namespace CWF.BAL
                 {
                     activityDC.Activity.Name = activity.Activity.Name;
                     activityDC.Activity.Version = activity.Activity.OldVersion;
+                    activityDC.Activity.Environment = request.Environment;
 
-                    List<StoreActivitiesDC> existingRecords = Activities.StoreActivitiesGetByName(activityDC.Activity.Name, string.Empty);
+                    List<StoreActivitiesDC> existingRecords = Activities.StoreActivitiesGetByName(activityDC.Activity.Name, activityDC.Activity.Environment);
                     if (existingRecords.Any())
                     {
                         //Clear the Store Activities lock
@@ -287,6 +289,7 @@ namespace CWF.BAL
             var activityLibraryDCCreate = request.ActivityLibrary;
             activityLibraryDCCreate.Incaller = request.Incaller;
             activityLibraryDCCreate.IncallerVersion = request.IncallerVersion;
+            activityLibraryDCCreate.Environment = request.Environment;
             ActivityLibraryDC createALreply = ActivityLibrary.ActivityLibraryCreateOrUpdate(activityLibraryDCCreate);
             if (createALreply.StatusReply.Errorcode != 0)
             {
@@ -305,6 +308,7 @@ namespace CWF.BAL
                 activity.Activity.AuthGroupName = request.ActivityLibrary.AuthGroupName;
                 activity.Activity.Locked = true;
                 activity.Activity.LockedBy = request.InUpdatedByUserAlias;
+                activity.Environment = request.Environment;
                 StoreActivitiesDC createSAreply = null;
                 createSAreply = Activities.StoreActivitiesCreateOrUpdate(activity.Activity);
                 if (createSAreply.StatusReply.Errorcode != 0)
@@ -417,6 +421,7 @@ namespace CWF.BAL
             {
                 Incaller = request.Incaller,
                 IncallerVersion = request.IncallerVersion,
+                InAuthGroupNames = request.InAuthGroupNames,
                 Locked = false,
                 LockedBy = null,
             };
@@ -442,7 +447,7 @@ namespace CWF.BAL
 
                     if (bool.TryParse(checkReply.Output, out exists) && exists)
                     {
-                        nextVersion = GetNextVersion(request.StoreActivitiesList[0], Environment.UserName);
+                        nextVersion = GetNextVersion(request.StoreActivitiesList[0], request.StoreActivitiesList[0].Environment);
                     }
                 }
 
@@ -467,7 +472,8 @@ namespace CWF.BAL
                     {
                         activityDC.Name = activity.Name;
                         activityDC.Version = activity.OldVersion;
-                        List<StoreActivitiesDC> existingRecords = Activities.StoreActivitiesGetByName(activityDC.Name, string.Empty);
+                        activityDC.Environment = activity.Environment;
+                        List<StoreActivitiesDC> existingRecords = Activities.StoreActivitiesGetByName(activityDC.Name, activityDC.Environment);
                         if (existingRecords.Any())
                         {
                             //Clear the Store Activities lock
@@ -487,7 +493,6 @@ namespace CWF.BAL
                         request.StoreActivityLibraryDependenciesGroupsRequestDC.Version = nextVersion.ToString();
                     }
                 }
-
 
                 // add the entires
                 // Create the ActivityLibrary
@@ -527,20 +532,20 @@ namespace CWF.BAL
                     {
                         ta.Incaller = request.Incaller;
                         ta.IncallerVersion = request.IncallerVersion;
+                        ta.Environment = request.StoreActivitiesList[0].Environment;
                         if (ta.TaskActivitiesList != null && ta.TaskActivitiesList[0] != null)
                         {
                             if (ta.TaskActivitiesList[0].Status == TaskActivityStatus.Unassigned)
                             {
                                 ta.TaskActivitiesList[0].Incaller = request.Incaller;
                                 ta.TaskActivitiesList[0].IncallerVersion = request.IncallerVersion;
+                                ta.TaskActivitiesList[0].Environment = request.StoreActivitiesList[0].Environment;
                                 TaskActivityRepositoryService.TaskActivity_SetStatus(ta.TaskActivitiesList[0]);
                             }
                             else
                             {
                                 var statusReply = ActivityRepositoryService.CheckActivityExists(ta.TaskActivitiesList[0].Activity);
                                 if (statusReply.Output != Convert.ToString(true))
-                                //|| ta.TaskActivitiesList[0].Status == TaskActivityStatus.Assigned
-                                //|| ta.TaskActivitiesList[0].Status == TaskActivityStatus.CheckedIn)
                                 {
                                     ta.EnforceVersionRules = true;
                                     List<TaskActivityDC> taReply = SaveStoreLibraryAndTaskActivity(ta);
@@ -639,8 +644,8 @@ namespace CWF.BAL
                 var storeActivityLibrariesDependenciesDC = new StoreActivityLibrariesDependenciesDC();
                 var storeDependenciesDependentActiveLibrary = new StoreDependenciesDependentActiveLibrary();
 
-                storeActivityLibrariesDependenciesDC.InsertedByUserAlias = insertedByUserAlias;
-                storeActivityLibrariesDependenciesDC.UpdatedByUserAlias = updatedByUserAlias;
+                storeActivityLibrariesDependenciesDC.InInsertedByUserAlias = insertedByUserAlias;
+                storeActivityLibrariesDependenciesDC.InUpdatedByUserAlias = updatedByUserAlias;
                 storeActivityLibrariesDependenciesDC.Incaller = incaller;
                 storeActivityLibrariesDependenciesDC.IncallerVersion = incallerVersion;
                 storeActivityLibrariesDependenciesDC.StoreDependenciesRootActiveLibrary =
@@ -711,12 +716,31 @@ namespace CWF.BAL
         /// <param name="request"></param>
         /// <param name="lockedTime"></param>
         /// <returns></returns>
-        public static StatusReplyDC StoreActivitiesSetLock(StoreActivitiesDC request, DateTime lockedTime)
+        public static StatusReplyDC StoreActivitiesUpdateLock(StoreActivitiesDC request, DateTime lockedTime)
         {
-            var result = Activities.StoreActivitiesGetByName(request.Name, string.Empty);
+            var result = Activities.StoreActivitiesGetByName(request.Name, request.Environment);
             if (result.Any())
             {
                 return Activities.StoreActivitiesUpdateLock(request, lockedTime).StatusReply;
+            }
+            else
+            {
+                return new StatusReplyDC();
+            }
+        }
+
+        /// <summary>
+        /// Override lock on StoreActivities
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="lockedTime"></param>
+        /// <returns></returns>
+        public static StatusReplyDC StoreActivitiesOverrideLock(StoreActivitiesDC request, DateTime lockedTime)
+        {
+            var result = Activities.StoreActivitiesGetByName(request.Name, request.Environment);
+            if (result.Any())
+            {
+                return Activities.StoreActivitiesOverrideLock(request, lockedTime).StatusReply;
             }
             else
             {

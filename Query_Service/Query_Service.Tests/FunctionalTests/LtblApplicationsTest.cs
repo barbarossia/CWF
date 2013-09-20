@@ -303,7 +303,7 @@ namespace Query_Service.Tests
         [WorkItem(20908)]
         [Description("Verify GET FROM ltblApplications Table")]
         [Owner(TEST_OWNER)]
-        [TestCategory(Common.TestCategory.BVT)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetApplicationForValidIDs()
         {
@@ -316,7 +316,7 @@ namespace Query_Service.Tests
         [WorkItem(21036)]
         [Description("Verify GET FROM ltblApplications Table for Null Incaller")]
         [Owner(TEST_OWNER)]
-        [TestCategory(Common.TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetApplicationForNullInCaller()
         {
@@ -326,7 +326,7 @@ namespace Query_Service.Tests
         [WorkItem(21035)]
         [Description("Verify GET FROM ltblApplications Table For invalid name")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetApplicationForInvalidName()
         {
@@ -336,7 +336,7 @@ namespace Query_Service.Tests
         [WorkItem(20966)]
         [Description("Verify ConcurrencyTesting FROM ltblApplications Table")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyConcurrencyTestingForApplications()
         {

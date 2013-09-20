@@ -55,15 +55,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         public static string ShowOpenFileDialogAndReturnResult(string filter, string dialogTitle)
         {
             string fileName = string.Empty;
-            var openFileDialog = CreateOpenFileDialog();
-            openFileDialog.Filter = filter;
-
-            if (string.IsNullOrEmpty(dialogTitle))
-            {
-                dialogTitle = "Open";
-            }
-
-            openFileDialog.Title = dialogTitle;
+            var openFileDialog = CreateOpenFileDialogAndReturnResult(filter, dialogTitle, true);
+            
             bool result = openFileDialog.ShowDialog().GetValueOrDefault();
 
             if (result)
@@ -72,6 +65,44 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             }
 
             return fileName;
+        }
+
+        /// <summary>
+        /// Show open file dialog with title
+        /// </summary>
+        /// <param name="filter">filter for opening file</param>
+        /// <param name="dialogTitle">title of dialog</param>
+        /// <returns>full name of opened file</returns>
+        public static string[] ShowOpenFileDialogAndReturnMultiResult(string filter, string dialogTitle)
+        {
+            string[] fileNames = null;
+
+            var openFileDialog = CreateOpenFileDialogAndReturnResult(filter, dialogTitle, true);
+
+            bool result = openFileDialog.ShowDialog().GetValueOrDefault();
+
+            if (result)
+            {
+                fileNames = openFileDialog.FileNames;
+            }
+
+            return fileNames;
+        }
+
+        private static OpenFileDialog CreateOpenFileDialogAndReturnResult(string filter, string dialogTitle, bool isMultiselect)
+        {
+            var openFileDialog = CreateOpenFileDialog();
+            openFileDialog.Filter = filter;
+            openFileDialog.Multiselect = isMultiselect;
+
+            if (string.IsNullOrEmpty(dialogTitle))
+            {
+                dialogTitle = "Open";
+            }
+
+            openFileDialog.Title = dialogTitle;
+
+            return openFileDialog;
         }
 
         /// <summary>

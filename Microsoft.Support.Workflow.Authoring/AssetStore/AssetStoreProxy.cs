@@ -20,18 +20,34 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
     using Security;
     using Services;
     using System.Windows.Threading;
+    using Data = Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using System.Configuration;
+    using System.ServiceModel.Configuration;
+using Microsoft.Support.Workflow.Authoring.AddIns.Data;
 
     /// <summary>
     /// Class to centralize all operations that call the QueryService
     /// </summary>
     public class AssetStoreProxy
     {
-        private readonly static ObservableCollection<string> Categories;
+        public readonly static ObservableCollection<string> Categories;
 
         /// <summary>
         /// Types of workflows
         /// </summary>
         public static ObservableCollection<WorkflowTypesGetBase> WorkflowTypes
+        {
+            get;
+            private set;
+        }
+
+        public static string TenantName
+        {
+            get;
+            private set;
+        }
+
+        public static string ClientEndPoint
         {
             get;
             private set;
@@ -46,6 +62,11 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
             set;
         }
 
+        public CollectionViewSource NewActivityCategories
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Default static constructor for the class
@@ -54,7 +75,17 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
         {
             Categories = new ObservableCollection<string>();
             GetActivityCategories();
-            GetWorkflowTypes();
+            GetTenantName();
+            GetClientEndpoint();
+        }
+
+        public AssetStoreProxy()
+        {
+            if (ActivityCategories != null)
+            {
+                NewActivityCategories = new CollectionViewSource { Source = Categories };
+                NewActivityCategories.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
+            }
         }
 
         /// <summary>
@@ -73,11 +104,7 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
                 };
 
                 var categoriesCollection = client.ActivityCategoryGet(request);
-
-                categoriesCollection.Add(new ActivityCategoryByNameGetReplyDC { Name = String.Empty }); // we need a blank entry in the import wizard on step #2
-
-                Categories.Assign(from category in categoriesCollection select category.Name);
-
+                Categories.Assign(from category in categoriesCollection orderby category.Name select category.Name);
                 ActivityCategories = new CollectionViewSource { Source = Categories };
                 ActivityCategories.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
                 return true;
@@ -87,18 +114,38 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
         /// <summary>
         /// Get a list of workflow types from the asset store.
         /// </summary>
-        public static bool GetWorkflowTypes()
+        public static bool GetWorkflowTypes(Env env)
         {
             using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
             {
-                var workflowTypes = client.WorkflowTypeGet().WorkflowActivityType;
-
+                WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC();
+                request.SetIncaller();
+                request.Environment = env.ToString();
+                var workflowTypes = client.WorkflowTypeGet(request).WorkflowActivityType;
                 if (null != workflowTypes)
                     WorkflowTypes = new ObservableCollection<WorkflowTypesGetBase>(workflowTypes);
                 return true;
             }
         }
 
+        public static void GetTenantName()
+        {
+            using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
+            {
+                TenantName = client.TenantGet();
+            }
+        }
+
+        public static void GetClientEndpoint()
+        {
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); ServiceModelSectionGroup serviceModelSectionGroup =
+            ServiceModelSectionGroup.GetSectionGroup(
+            ConfigurationManager.OpenExeConfiguration(
+            ConfigurationUserLevel.None));
+            ClientSection clientSection = configuration.GetSection("system.serviceModel/client") as ClientSection; //serviceModelSectionGroup.Client;
+            ChannelEndpointElement e = serviceModelSectionGroup.Client.Endpoints[0];
+            ClientEndPoint = e.Address.AbsoluteUri;
+        }
 
         /// <summary>
         /// Method to create or update one activity category
@@ -121,7 +168,6 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
                                            Incaller = Assembly.GetExecutingAssembly().GetName().Name,
                                            IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                                            InGuid = Guid.NewGuid(),
-                                           InAuthGroupName = AuthorizationService.AdminAuthorizationGroupName,
                                            InName = categoryName,
                                            InDescription = categoryName,
                                            InMetaTags = categoryName,

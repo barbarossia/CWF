@@ -13,6 +13,10 @@ SET ROWCOUNT 0
 SET TEXTSIZE 0
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActivityCategory_Get]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[ActivityCategory_Get]
+GO
+
 /**************************************************************************
 // Product:  CommonWF
 // FileName: ActivityCategory_Get.sql

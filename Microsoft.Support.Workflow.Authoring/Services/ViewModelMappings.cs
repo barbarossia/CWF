@@ -37,7 +37,14 @@
                 {typeof(ManageWorkflowTypeViewModel),typeof(ManageWorkflowTypeView)},
                 {typeof(SelectWorkflowViewModel),typeof(SelectWorkflowsView)},
                 {typeof(SelectImportAssemblyViewModel),typeof( SelectImportAssemblyView)},
-                {typeof(SearchTaskActivityViewModel),typeof(SearchTaskActivitiesView)}
+                {typeof(SearchTaskActivityViewModel),typeof(SearchTaskActivitiesView)},
+                {typeof(ChangeAuthorViewModel),typeof(ChangeAuthor)},
+                {typeof(CopyCurrentProjectViewModel),typeof(CopyCurrentProject)},
+                {typeof(EnvironmentSecurityOptionsViewModel),typeof(EnvironmentSecurityOptions)},
+                {typeof(MoveProjectViewModel),typeof(MoveProject)},
+                {typeof(TenantSecurityOptionsViewModel),typeof(TenantSecurityOptions)},
+                {typeof(ChangeAuthorSummaryViewModel),typeof(ChangeAuthorSummary)},
+                {typeof(DefaultValueSettingsViewModel),typeof(DefaultValueSettingsView)},
             };
         }
 

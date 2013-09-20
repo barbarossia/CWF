@@ -41,6 +41,25 @@ GO
    IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ActivityLibrary_Status]') AND parent_object_id = OBJECT_ID(N'[dbo].[ActivityLibrary]'))
    ALTER TABLE [dbo].[ActivityLibrary] DROP CONSTRAINT [FK_ActivityLibrary_Status]
 
+   IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ActivityLibrary_Environment]') AND parent_object_id = OBJECT_ID(N'[dbo].[ActivityLibrary]'))
+   ALTER TABLE [dbo].[ActivityLibrary] DROP CONSTRAINT [FK_ActivityLibrary_Environment]
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ActivityLibraryUniqueGUID]'))
+BEGIN
+ALTER TABLE [dbo].[ActivityLibrary] DROP CONSTRAINT [DF_ActivityLibraryUniqueGUID]
+END
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ActivityLibraryUniqueNameVersion]'))
+BEGIN
+ALTER TABLE [dbo].[ActivityLibrary] DROP CONSTRAINT [DF_ActivityLibraryUniqueNameVersion]
+END
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ActivityLibrary_ContainsDesignerActivities]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[ActivityLibrary] DROP CONSTRAINT [DF_ActivityLibrary_ContainsDesignerActivities]
+END
+
+
    PRINT '    Adding CONSTRAINTS To [ActivityLibrary]'
 
    ALTER TABLE [dbo].[ActivityLibrary]  WITH CHECK ADD FOREIGN KEY([CategoryId])
@@ -57,3 +76,24 @@ GO
    ALTER TABLE [dbo].[ActivityLibrary] CHECK CONSTRAINT [FK_ActivityLibrary_Status]
 
    ALTER TABLE [dbo].[ActivityLibrary] ADD  CONSTRAINT [DF_ActivityLibrary_ContainsDesignerActivities]  DEFAULT ((1)) FOR [HasActivities]
+
+   ALTER TABLE [dbo].[ActivityLibrary]  WITH CHECK ADD  CONSTRAINT [FK_ActivityLibrary_Environment] FOREIGN KEY([Environment])
+   REFERENCES [dbo].[Environment] ([Id])
+
+   ALTER TABLE [dbo].[ActivityLibrary] CHECK CONSTRAINT [FK_ActivityLibrary_Environment]
+
+ALTER TABLE [dbo].[ActivityLibrary] ADD  CONSTRAINT [DF_ActivityLibraryUniqueGUID] UNIQUE NONCLUSTERED 
+(
+	[GUID] ASC,
+	[Environment] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+ALTER TABLE [dbo].[ActivityLibrary] ADD  CONSTRAINT [DF_ActivityLibraryUniqueNameVersion] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC,
+	[VersionNumber] ASC,
+	[Environment] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+
+

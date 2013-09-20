@@ -1,9 +1,17 @@
 ﻿using System;
 
-namespace Query_Service.Tests.UnitTests
+namespace Query_Service.UnitTests
 {    
     public static class UnitTestConstant
     {
+        public const string INCALLER = "v-stska";
+        public const string INCALLERVERSION = "1.0.0.0";
+        public const string OWNER = "v-stska";
+        public const string UPDATEDBYUSERALIAS = "v-stska";
+        public const string INSERTEDBYUSERALIAS = "v-stska";
+        public const string TOENVIRONMENT = "TEST";
+        public const string AUTHORGROUPNAME = "pqocwfadmin";
+
         /// <summary>
         /// Defines the simulated user error messages to be used when defining the 
         /// configuration isolations using DIF framework.

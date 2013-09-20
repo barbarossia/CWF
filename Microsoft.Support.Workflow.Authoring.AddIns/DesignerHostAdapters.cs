@@ -89,6 +89,11 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             }
         }
 
+        public bool HasTask
+        {
+            get { return proxy.HasTask; }
+        }
+
         public List<TaskAssignment> Tasks
         {
             get { return proxy.Tasks; }
@@ -239,11 +244,13 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             this.proxy.FinishTaskAssigned();
         }
 
-        public void SetNewTasksToAssigned(Guid[] ids) {
+        public void SetNewTasksToAssigned(Guid[] ids)
+        {
             proxy.SetNewTasksToAssigned(ids);
         }
 
-        public void RollbackAssignedTasks(Guid[] ids) {
+        public void RollbackAssignedTasks(Guid[] ids)
+        {
             proxy.RollbackAssignedTasks(ids);
         }
 

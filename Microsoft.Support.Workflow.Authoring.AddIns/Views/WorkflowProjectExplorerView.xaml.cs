@@ -41,17 +41,27 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Search(object sender, KeyEventArgs e)
+        private void SearchByKeyDown(object sender, KeyEventArgs e)
         {
             //Press K key to raise search activities
             if (e.Key == Key.Enter)
             {
-                var vm = DataContext as ProjectExplorerViewModel;
-                if (vm != null)
-                {
-                    vm.ExecuteSearch();
-                    this.projectExplorerTree.Focus();
-                }
+                this.Search();
+            }
+        }
+
+        private void SearchByLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.Search();
+        }
+
+        private void Search() 
+        {
+            var vm = DataContext as ProjectExplorerViewModel;
+            if (vm != null)
+            {
+                vm.ExecuteSearch();
+                this.projectExplorerTree.Focus();
             }
         }
 
@@ -199,5 +209,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
                 this.projectExplorerTree.ExpandItemByPath(path, seperator);
             }
         }
+
     }
 }

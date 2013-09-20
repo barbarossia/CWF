@@ -10,6 +10,7 @@ using Microsoft.Support.Workflow.Authoring.Common.ExceptionHandling;
 using Microsoft.Support.Workflow.Authoring.Services;
 using Microsoft.Support.Workflow.Service.Contracts.FaultContracts;
 using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+using Microsoft.Support.Workflow.Authoring.AddIns.Data;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
@@ -22,6 +23,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private bool filterOldVersions;
         private string searchFilter;
         private DataPagingViewModel dpViewModel;
+        private string env = null;
 
         #region commands
         public DelegateCommand SearchCommand { get; set; }
@@ -101,12 +103,13 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         #endregion
 
-        public SelectWorkflowViewModel()
+        public SelectWorkflowViewModel(string env)
         {
             SearchCommand = new DelegateCommand(new Action(SearchCommandExecuted));
             this.DataPagingVM = new DataPagingViewModel();
             this.DataPagingVM.SearchExecute = this.LoadData;
             this.DataPagingVM.PageSize = pageSize;
+            this.env = env;
         }
 
         public void LoadData()
@@ -119,7 +122,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private void SearchCommandExecuted()
         {
             this.DataPagingVM.ResetPageIndex = true;
-            this.LoadData();
+            if (this.env != null)
+                this.LoadData();
         }
 
         private void GetActivities(IWorkflowsQueryService client)
@@ -135,7 +139,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             request.FilterByTags = false;
             request.FilterByType = false;
             request.FilterOlder = this.FilterOldVersions;
-
+            request.Environments = new List<string>() { this.env };
             try
             {
                 ActivitySearchReplyDC searchResults = null;

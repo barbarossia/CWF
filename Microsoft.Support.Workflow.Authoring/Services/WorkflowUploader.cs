@@ -12,6 +12,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using Common.Messages;
     using CWF.DataContracts;
     using Microsoft.Support.Workflow.Authoring.AddIns;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor;
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
@@ -32,34 +33,45 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             var assemblyActivitiyItemsUsed = workflow.WorkflowDesigner.DependencyAssemblies;
 
             // Database requires that we upload dependencies first so the DB is always in a consistent state
+            assemblyActivitiyItemsUsed.ToList().ForEach(al => 
+                {
+                    al.Env = workflow.Env;
+                    al.ActivityItems.ToList().ForEach(a => a.Env = workflow.Env);
+                });
             Upload(proxy, assemblyActivitiyItemsUsed);
 
             // Now, upload the actual workflow
             StoreActivitiesDC result = null;
-            if (workflow.TaskActivityGuid.HasValue) {
+            if (workflow.TaskActivityGuid.HasValue)
+            {
                 result = proxy.UploadActivityLibraryAndTaskActivities(
                     DataContractTranslator.WorkflowToStoreLibraryAndTaskActivityRequestDC(workflow, assemblyActivitiyItemsUsed)
                 )[0].Activity;
             }
-            else {
+            else
+            {
                 List<TaskAssignment> tasks = workflow.WorkflowDesigner.Tasks;
                 Guid[] newTaskIds = tasks.Where(t => t.TaskStatus == TaskActivityStatus.New).Select(t => t.TaskId).ToArray();
-                if (newTaskIds.Any()) {
+                if (newTaskIds.Any())
+                {
                     workflow.WorkflowDesigner.SetNewTasksToAssigned(newTaskIds);
                     workflow.SetXamlCode(); // Publication has removed all tasks from workflow
                 }
-                try {
+                try
+                {
                     result = proxy.UploadActivityLibraryAndDependentActivities(
                         DataContractTranslator.WorkflowToStoreLibraryAndActivitiesRequestDC(workflow, assemblyActivitiyItemsUsed, tasks)
                     )[0];
                 }
-                catch (Exception) {
+                catch (Exception)
+                {
                     if (newTaskIds.Any())
                         workflow.WorkflowDesigner.RollbackAssignedTasks(newTaskIds);
                 }
             }
+            if (result.StatusReply.Errorcode != 0)
+                return result.StatusReply;
 
-            result.StatusReply.CheckErrors();
             // No exception = success. Disable the Save button, clean up, return true to report success.
             workflow.FinishTaskAssigned();
 
@@ -72,6 +84,16 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             workflow.IsDataDirty = false;
 
             return result.StatusReply;
+        }
+
+        public static bool CheckActivityExist(IWorkflowsQueryService proxy, StoreActivitiesDC activity)
+        {
+            var workflowList = proxy.StoreActivitiesGetByName(activity);
+            if (workflowList.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -95,10 +117,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             bool shouldContinue = false;
             StoreActivitiesDC workflowToOpen = null;
 
-
             if (latestWorkflow == null || latestWorkflow.InsertedDateTime <= workflowDC.UpdatedDateTime)
             {
-                if (AuthorizationService.IsAdministrator(AuthorizationService.CurrentPrincipalFunc())
+                if (AuthorizationService.Validate(workflowDC.Environment.ToEnv(), Permission.OverrideLock)
                     || (latestWorkflow == null)
                     || (workflowDC.LockedBy == Environment.UserName))
                 {
@@ -112,7 +133,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             }
             else // there is a new version saved on server after user checked current one out
             {
-                if (AuthorizationService.IsAdministrator(AuthorizationService.CurrentPrincipalFunc()))
+                if (AuthorizationService.Validate(workflowDC.Environment.ToEnv(), Permission.OverrideLock))
                 {
                     if (MessageBoxService.CreateNewActivityOnSaving() == MessageBoxResult.Yes)
                     {
@@ -209,7 +230,6 @@ namespace Microsoft.Support.Workflow.Authoring.Services
 
                     request.StoreActivitiesList.ForEach(item => item.StatusCodeName = MarketplaceStatus.Public.ToString());
                     request.ActivityLibrary.StatusName = MarketplaceStatus.Public.ToString();
-
                     var result = proxy.UploadActivityLibraryAndDependentActivities(request);
                     result[0].StatusReply.CheckErrors();
                 }

@@ -97,6 +97,36 @@ namespace CWF.DataContracts
 
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class TaskActivityGetRequestDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class PermissionGetListReply { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class PermissionGetReplyDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ActivityRequest { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ActivityCopyRequest { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ActivityModeRequest { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ChangeAuthorRequest { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class AuthGroupsCreateOrUpdateReplyDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class AuthGroupsEnableOrDisableReplyDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ChangeAuthorReply { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ActivityMoveReply { }
 }
 
 [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]

@@ -28,6 +28,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using Microsoft.Support.Workflow.Authoring.Security;
+    using Microsoft.Support.Workflow.Authoring.Common.Messages;
 
 
     /// <summary>
@@ -38,11 +41,12 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private const int MaximumClassNameLength = 50;
         private const string DefaultCategory = "Unassigned";
         private const string DefaultVersion = "1.0.0.0";
-        private const string DefaultWorkflowType = "Workflow";
+        private const string DevDefaultWorkflowType = "Workflow";
+        private const string TestDefaultWorkflowType = "Workflow Template";
         private const string DefaultTags = "Meta Tags";
         private const string ClassNameReplaceRegularExpression = @"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]";
-        private const string ClassNameRegularExpression = @"^[a-zA-Z][a-zA-Z0-9_]*";
         private const string SelectATemplateErrorString = "\r\nYou must select a template.";
+        private const string SelectALocationErrorString = "\r\nYou must select a location.";
 
         private WorkflowItem createdWorkflowItem;                   // The item created by the view model
         private List<WorkflowTemplateItem> selectableTemplates;     // The list of Templates that we can select from
@@ -51,7 +55,49 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private string workflowClassName;                           // The name of the Workflow class to create
         private bool isInitialized;                                 // Flag to tell when we are Initialized
         private bool isCreatingBlank;                               // Flag to tell if we are creating a blank project.
+        private List<Env> locations;
+        private Env? selectedLocation;
+
         public Func<IWorkflowsQueryService, WorkflowItem> GetWorkflowTemplateActivity { get; set; }  // Pluggable for testability
+
+        public string DefaultWorkflowTemplate
+        {
+            get
+            {
+                if (this.SelectedLocation == Env.Test)
+                    return TestDefaultWorkflowType;
+                else
+                    return DevDefaultWorkflowType;
+            }
+        }
+
+        public bool CanCreateWorkflow
+        {
+            get { return this.SelectedLocation != null; }
+        }
+
+        public List<Env> Locations
+        {
+            get { return this.locations; }
+            set
+            {
+                this.locations = value;
+                RaisePropertyChanged(() => this.Locations);
+            }
+        }
+
+        public Env? SelectedLocation
+        {
+            get { return this.selectedLocation; }
+            set
+            {
+                this.selectedLocation = value;
+                RaisePropertyChanged(() => this.SelectedLocation);
+                if (this.SelectedLocation != null)
+                    this.GetWorkflowTemlates(this.SelectedLocation.Value);
+                RaisePropertyChanged(() => this.CanCreateWorkflow);
+            }
+        }
 
         /// <summary>
         /// Delegate command to create the WorkflowItem 
@@ -71,7 +117,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         [DisplayName("Workflow Name")]
         [Required]
-        [RegularExpression(ClassNameRegularExpression)]
+        //[RegularExpression(ClassNameRegularExpression)]
         [StringLength(MaximumClassNameLength)]
         public string WorkflowName
         {
@@ -88,7 +134,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         [DisplayName("Workflow Class Name")]
         [Required]
-        [RegularExpression(ClassNameRegularExpression)]
+        //[RegularExpression(ClassNameRegularExpression)]
         [StringLength(MaximumClassNameLength)]
         public string WorkflowClassName
         {
@@ -171,31 +217,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         }
 
         /// <summary>
-        /// Method to get the list of templates
-        /// </summary>
-        /// <returns></returns>
-        public void GetListOfTemplates(IWorkflowsQueryService client)
-        {
-            var templateList = new List<WorkflowTemplateItem>();
-            WorkflowTypeGetReplyDC replyDC = null;
-
-            replyDC = client.WorkflowTypeGet();
-
-            if (null != replyDC && null != replyDC.StatusReply && 0 == replyDC.StatusReply.Errorcode)
-            {
-                // Create a Workflow Template Item without XAML and add it to the Template list
-                if (replyDC.WorkflowActivityType.Any())
-                {
-                    templateList.AddRange(
-                        replyDC.WorkflowActivityType.Select(
-                            workflowType => new WorkflowTemplateItem(workflowType.WorkflowTemplateId, workflowType.Name)));
-                }
-            }
-            this.SelectWorkflowTemplates = templateList;
-        }
-
-
-        /// <summary>
         /// Initialize the ViewModel
         /// </summary>
         private void Initialize()
@@ -205,9 +226,39 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
             // Set up the Create Workflow command and the CanExecute
             CreateWorkflowItem = new DelegateCommand(CreateWorkflowItemExecute);
-
-            Utility.WithContactServerUI(() => WorkflowsQueryServiceUtility.UsingClient(this.GetListOfTemplates));
+            this.Locations = new List<Env>(AuthorizationService.GetAuthorizedEnvs(Permission.SaveWorkflow));
+            if (this.Locations.Contains(DefaultValueSettings.Environment))
+                this.SelectedLocation = DefaultValueSettings.Environment;
+            else if (this.Locations.Count > 0)
+                this.SelectedLocation = Locations[0];
             IsInitialized = true;
+        }
+
+        private void GetWorkflowTemlates(Env locationParam)
+        {
+            Utility.DoTaskWithBusyCaption("Loading", () =>
+            {
+                using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
+                {
+                    var templateList = new List<WorkflowTemplateItem>();
+                    WorkflowTypeGetReplyDC replyDC = null;
+                    WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC().SetIncaller();
+                    request.Environment = locationParam.ToString();
+                    replyDC = client.WorkflowTypeGet(request);
+
+                    if (null != replyDC && null != replyDC.StatusReply && 0 == replyDC.StatusReply.Errorcode)
+                    {
+                        // Create a Workflow Template Item without XAML and add it to the Template list
+                        if (replyDC.WorkflowActivityType.Any())
+                        {
+                            templateList.AddRange(
+                                replyDC.WorkflowActivityType.Select(
+                                    workflowType => new WorkflowTemplateItem(workflowType.WorkflowTemplateId, workflowType.Name)));
+                        }
+                    }
+                    this.SelectWorkflowTemplates = templateList;
+                }
+            });
         }
 
         /// <summary>
@@ -223,6 +274,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 CreatedItem = GetBlankProject();
                 CreatedItem.Name = WorkflowClassName;
                 CreatedItem.DisplayName = WorkflowName;
+                CreatedItem.CreatedBy = Utility.GetCurrentUserName();
+                CreatedItem.UpdatedBy = Utility.GetCurrentUserName();
             }
             else
             {
@@ -230,6 +283,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 // We have to get the referenced XAML from the specified StoreActivity 
                 WorkflowsQueryServiceUtility.UsingClient(GetWorkflowTemplateActivityAction);
             }
+            if (CreatedItem != null)
+                CreatedItem.Env = this.SelectedLocation.Value;
         }
 
         private void GetWorkflowTemplateActivityAction(IWorkflowsQueryService client)
@@ -239,6 +294,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 CreatedItem = GetWorkflowTemplateActivityExecute(client);
                 CreatedItem.Name = WorkflowClassName;
                 CreatedItem.DisplayName = WorkflowName;
+                CreatedItem.WorkflowName = WorkflowClassName;
                 CreatedItem.Version = DefaultVersion;
                 CreatedItem.CreatedBy = Utility.GetCurrentUserName();
                 CreatedItem.UpdatedBy = Utility.GetCurrentUserName();
@@ -309,7 +365,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                                                     {
                                                         Incaller = Assembly.GetExecutingAssembly().GetName().Name,
                                                         IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                                                        Id = SelectedWorkflowTemplateItem.WorkflowTemplateId
+                                                        Id = SelectedWorkflowTemplateItem.WorkflowTemplateId,
+
                                                     };
 
             // Get the List of Activities that qualify, should only be one
@@ -323,7 +380,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 if (0 != targetDC.ActivityLibraryId)
                 {
                     List<ActivityAssemblyItem> references = new List<ActivityAssemblyItem>();
-                    Utility.DoTaskWithBusyCaption("Loading...",() =>
+                    Utility.DoTaskWithBusyCaption("Loading...", () =>
                     {
                         // Create the Library request
                         var requestLibrary = new ActivityLibraryDC
@@ -337,7 +394,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                         {
                             activityLibraryList = client.ActivityLibraryGet(requestLibrary);
                         }
-                        
+
                         catch (FaultException<ServiceFault> ex)
                         {
                             throw new CommunicationException(ex.Detail.ErrorMessage);
@@ -384,7 +441,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                                        Version = DefaultVersion,
                                        IsDataDirty = false,
                                        Tags = DefaultTags,
-                                       WorkflowType = DefaultWorkflowType,
+                                       WorkflowType = DefaultWorkflowTemplate,
                                    };
 
             return workflowItem;
@@ -408,10 +465,24 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             base.Validate();
 
-            if ((!IsCreatingBlank) && (null == SelectedWorkflowTemplateItem))
+            var regex = new Regex(CommonMessages.ClassNameRegularExpression);
+            if (!regex.IsMatch(this.WorkflowName))
+            {
+                IsValid = false;
+                ErrorMessage += CommonMessages.WorkflowNameErrorString;
+                ErrorMessage = ErrorMessage.Trim();
+            }
+            else if ((!IsCreatingBlank) && (null == SelectedWorkflowTemplateItem)
+                )
             {
                 IsValid = false;
                 ErrorMessage += SelectATemplateErrorString;
+                ErrorMessage = ErrorMessage.Trim();
+            }
+            else if (this.SelectedLocation == null)
+            {
+                IsValid = false;
+                ErrorMessage += SelectALocationErrorString;
                 ErrorMessage = ErrorMessage.Trim();
             }
         }

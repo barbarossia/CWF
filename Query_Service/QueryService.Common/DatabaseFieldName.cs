@@ -48,6 +48,8 @@ namespace Microsoft.Support.Workflow.QueryService.Common
             public const string FriendlyName = "FriendlyName";
 
             public const string ReleaseNotes = "ReleaseNotes";
+
+            public const string Environment = "Environment";
         }
     }
 }

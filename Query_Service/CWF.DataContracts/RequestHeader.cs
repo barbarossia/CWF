@@ -7,6 +7,7 @@
 
 namespace CWF.DataContracts
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     /// <summary>
@@ -19,9 +20,10 @@ namespace CWF.DataContracts
         private string incallerVersion;
         private string inInsertedByUserAlias;
         private string inUpdatedByUserAlias;
+        private string[] inAuthGroupName;
 
         /// <summary>
-        /// Caller alias for error log tracking
+        /// Caller alias for error log tr   acking
         /// </summary>
         [DataMember]
         public string Incaller
@@ -58,6 +60,26 @@ namespace CWF.DataContracts
         {
             get { return inUpdatedByUserAlias; }
             set { inUpdatedByUserAlias = value; }
+        }
+
+        /// <summary>
+        /// Caller author group name for error log tracking
+        /// </summary>
+        [DataMember]
+        public string[] InAuthGroupNames
+        {
+            get { return inAuthGroupName; }
+            set { inAuthGroupName = value; }
+        }
+
+        public virtual void AddAuthGroupOnRequest(string[] inAuthGroupName)
+        {
+            AddAuthGroupOnRequest(this, inAuthGroupName);
+        }
+
+        private void AddAuthGroupOnRequest(RequestHeader request, string[] inAuthGroupName)
+        {
+            request.InAuthGroupNames = inAuthGroupName;
         }
     }
 }

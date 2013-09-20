@@ -47,8 +47,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             Type addinType = typeof(DesignerAddIn);
             AppDomain domain = AppDomain.CreateDomain(Guid.NewGuid().ToString(), null, new AppDomainSetup
             {
-                LoaderOptimization = LoaderOptimization.MultiDomainHost,
-                ApplicationBase = AppDomain.CurrentDomain.BaseDirectory,
+                ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+                ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile,
+                ApplicationName = AppDomain.CurrentDomain.SetupInformation.ApplicationName,
+                LoaderOptimization = LoaderOptimization.MultiDomainHost
             });
             domain.InitializeLifetimeService();
             addin = (IDesignerContract)domain.CreateInstanceAndUnwrap(addinType.Assembly.FullName, addinType.FullName);

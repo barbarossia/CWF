@@ -83,9 +83,10 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" MinWidth="120" SortMemberPath="Name" Binding="{Binding Activity.Name}" />
                 <DataGridTextColumn Header="Version" MinWidth="100" SortMemberPath="Version" Binding="{Binding Activity.Version}"  />
+                <DataGridTextColumn Header="Environment" MinWidth="100" SortMemberPath="Environment" Binding="{Binding Activity.Environment}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Status" MinWidth="100" SortMemberPath="Status" Binding="{Binding Status}"  />
-                <DataGridTextColumn Header="Created By" MinWidth="120" SortMemberPath="CreatedBy" Binding="{Binding Path=Activity.InsertedByUserAlias}" />
-                <DataGridTextColumn Header="Created Time" MinWidth="180" SortMemberPath="CreatedTime" Binding="{Binding Activity.InsertedDateTime}" />
+                <DataGridTextColumn Header="Created By" MinWidth="120" SortMemberPath="CreatedBy" Binding="{Binding Path=Activity.InInsertedByUserAlias}" />
+                <DataGridTextColumn Header="Created Time" MinWidth="120" SortMemberPath="CreatedTime" Binding="{Binding Activity.InsertedDateTime}" />
                 <DataGridTextColumn Header="Tags" Width="100" SortMemberPath="Tags" Binding="{Binding Activity.MetaTags}" />
             </DataGrid.Columns>
         </DataGrid>

@@ -4,7 +4,6 @@ using System;
 using CWF.DataContracts;
 using System.Collections.Generic;
 using CWF.BAL.Versioning;
-using Query_Service.Testsproject;
 using CWF.DAL;
 using CWF.DataContracts.Versioning;
 using System.Linq;
@@ -50,7 +49,7 @@ namespace Query_Service.Tests
         ///</summary>
         [Description("Verify GetVersionSection returns the correct section value for a version object.")]
         [Owner(TestOwner)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void GetVersionSectionTest()
         {
@@ -67,7 +66,7 @@ namespace Query_Service.Tests
         ///</summary>
         [Description("Verify GetWorkflowRecordState returns the correct enum value for the string passed.")]
         [Owner(TestOwner)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void GetWorkflowRecordStateTest()
         {
@@ -93,9 +92,9 @@ namespace Query_Service.Tests
            {
                Incaller = Incaller,
                IncallerVersion = InCallerVersion,
-               InsertedByUserAlias = InsertedByUserAlias,
+               InInsertedByUserAlias = InsertedByUserAlias,
                Version = version,
-               UpdatedByUserAlias = UPDATEDBYUSERALIAS,
+               InUpdatedByUserAlias = UPDATEDBYUSERALIAS,
                Guid = Guid.NewGuid(),
                Name = name,
                Description = name + " DESCRIPTION",
@@ -111,7 +110,9 @@ namespace Query_Service.Tests
                AuthGroupName = DefaultAuthgroupName,
                StatusCodeName = DefaultStatusCodeName,
 
-               WorkflowRecordState = WorkflowRecordState.Private,
+               WorkflowRecordState = WorkflowRecordState.Private,         
+               InAuthGroupNames = new string[] { DefaultAuthgroupName },
+               Environment = "Dev"
            };
 
             if (saveToDatabase)
@@ -134,7 +135,7 @@ namespace Query_Service.Tests
         ///</summary>
         [Description("Verify GetNextVersion() returns the correct next version number.")]
         [Owner(TestOwner)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void GetNextVersionTest()
         {
@@ -182,7 +183,7 @@ namespace Query_Service.Tests
         ///</summary>
         [Description("Verify CheckVersioningRules() returns the correct pass/fail indicaitons for the conditions supplied.")]
         [Owner(TestOwner)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void CheckVersioningRulesTest()
         {
@@ -223,7 +224,7 @@ namespace Query_Service.Tests
         /// </summary>
         [Description("Verify GetVersionSection returns the correct section value for a version object.")]
         [Owner(TestOwner)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void TestCheckDependencyRules()
         {
@@ -300,7 +301,7 @@ namespace Query_Service.Tests
 
         [Description("Verify GetMissingDependencyStates() gets the correct values from the database.")]
         [Owner("DiffReqTest")]//[Owner(TestOwner)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void TestFillInMissingStatuses()
         {
@@ -347,7 +348,7 @@ namespace Query_Service.Tests
                 table.Columns.Add("VersionNumber", typeof(string));
                 table.Columns.Add("FriendlyName", typeof(string));
                 table.Columns.Add("ReleaseNotes", typeof(string));
-
+                table.Columns.Add("Environment", typeof(string));
                 table.Rows.Add(  
                                 0,
                                 String.Empty,
@@ -365,7 +366,8 @@ namespace Query_Service.Tests
                                 DefaultStatusCodeName,
                                 String.Empty,
                                 String.Empty,
-                                String.Empty
+                                String.Empty,
+                                "Dev"
                               );
 
                 mockReader = new DataReaderMock(table);
@@ -387,7 +389,7 @@ namespace Query_Service.Tests
 
         [Description("Some valid version numbers (as defined by passing Version.Parse) are not valid for our purposes Test some valid versions that are not valid Marketplace versions.")]
         [Owner(TestOwner)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void TestValidVersionsButInvalidMarketplaceVersions()
         {

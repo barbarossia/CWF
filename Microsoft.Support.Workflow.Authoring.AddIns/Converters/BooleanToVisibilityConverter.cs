@@ -3,8 +3,7 @@
 //   Copyright (c) Microsoft Corporation 2011.  All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
-{
+namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters {
     using System;
     using System.Globalization;
     using System.Threading;
@@ -15,10 +14,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
     /// <summary>
     /// False = Visible, True = Hidden or Collapsed (depends on CollapseWhenInvisible)
     /// </summary>
-    public class BooleanToVisibilityConverter : IValueConverter
-    {
-
-
+    public class BooleanToVisibilityConverter : IValueConverter {
         /// <summary>
         /// The convert. Input a boolean value indicates if data source is Read Only. If true, output value is  Visibility.Collapsed.
         /// </summary>
@@ -37,66 +33,28 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
         /// <returns>
         /// The converted value.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             var v = (bool)(value ?? false);
 
-
-            if (targetType == typeof(Visibility))
-            {
+            if (targetType == typeof(Visibility)) {
                 Visibility result;
-                if (v == VisibleWhen)
-                {
-                    if (VisibleOnlyForAdmin)
-                    {
-                        if (AuthorizationService.IsAdministrator(AuthorizationService.CurrentPrincipalFunc()))
-                        {
-                            result = Visibility.Visible;
-                        }
-                        else
-                        {
-                            result = CollapseWhenInvisible ? Visibility.Collapsed : Visibility.Hidden;
-                        }
-                    }
-                    else
-                    {
-                        result = Visibility.Visible;
-                    }
-
+                if (v == VisibleWhen) {
+                    result = Visibility.Visible;
                 }
-                else
-                {
-                    if (VisibleOnlyForAdmin)
-                    {
-                        if (AuthorizationService.IsAdministrator(AuthorizationService.CurrentPrincipalFunc()))
-                        {
-                            result = CollapseWhenInvisible ? Visibility.Collapsed : Visibility.Hidden;
-                        }
-                        else
-                        {
-                            result = Visibility.Collapsed;
-                        }
-                    }
-                    else
-                    {
-                        result = CollapseWhenInvisible ? Visibility.Collapsed : Visibility.Hidden;
-                    }
+                else {
+                    result = CollapseWhenInvisible ? Visibility.Collapsed : Visibility.Hidden;
                 }
                 return result;
             }
-            else if (targetType == typeof(double))
-            {
-                if (v == VisibleWhen)
-                {
+            else if (targetType == typeof(double)) {
+                if (v == VisibleWhen) {
                     return 1.00D;
                 }
-                else
-                {
+                else {
                     return PartialHideWhenInvisible ? 0.40D : 0.00D;
                 }
             }
-            else
-            {
+            else {
                 throw new NotImplementedException();
             }
         }
@@ -104,7 +62,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
         public bool CollapseWhenInvisible { get; set; }
         public bool PartialHideWhenInvisible { get; set; }
         public bool VisibleWhen { get; set; }
-        public bool VisibleOnlyForAdmin { get; set; }
 
         /// <summary>
         /// The convert back. Never be called.
@@ -126,10 +83,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
         /// </returns>
         /// <exception cref="NotImplementedException">
         /// </exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             throw new NotImplementedException();
         }
-
     }
 }

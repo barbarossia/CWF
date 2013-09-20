@@ -14,7 +14,7 @@ namespace CWF.DataContracts
     /// Common base for ActivityLibraries (ActivityLibraries does not follow common pattern of request/reply DC)
     /// </summary>
     [DataContract]
-    public class ActivityLibraryDC : RequestReplyCommonHeader
+    public class ActivityLibraryDC : WorkflowRequestReplayHeader
     {
         //private string insertedByUserAlias;
         //private string updatedByUserAlias;

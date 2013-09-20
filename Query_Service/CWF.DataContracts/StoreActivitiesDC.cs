@@ -15,7 +15,7 @@ namespace CWF.DataContracts
     /// Request/Reply data contract for StoreActivities
     /// </summary>
     [DataContract]
-    public class StoreActivitiesDC : RequestReplyCommonHeader
+    public class StoreActivitiesDC : WorkflowRequestReplayHeader
     {
         /// <summary>
         /// The state this record is in -- is it public, private, or retired?

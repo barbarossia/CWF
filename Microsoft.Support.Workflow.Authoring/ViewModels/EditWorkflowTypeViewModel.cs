@@ -195,7 +195,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             request.InWorkflowTemplateId = this.TemplateId;
             request.InAuthGroupId = this.SelectedAuthGroup != null ? this.SelectedAuthGroup.AuthGroupId : 0;
             request.IsDeleted = false;
-
+            request.Environment = this.workflowType.Environment;
             this.ValidWorkflowType(request);
 
             WorkFlowTypeCreateOrUpdateReplyDC reply = client.WorkflowTypeCreateOrUpdate(request);
@@ -220,7 +220,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void BrowserPublishingWorkflows()
         {
-            SelectWorkflowViewModel viewModel = new SelectWorkflowViewModel();
+            SelectWorkflowViewModel viewModel = new SelectWorkflowViewModel(this.workflowType.Environment);
             viewModel.LoadData();
             if (DialogService.ShowDialog(viewModel).GetValueOrDefault() && viewModel.SelectedActivity != null)
             {
@@ -234,7 +234,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void BrowserTemplateWorkflows()
         {
-            SelectWorkflowViewModel viewModel = new SelectWorkflowViewModel();
+            SelectWorkflowViewModel viewModel = new SelectWorkflowViewModel(this.workflowType.Environment);
             viewModel.LoadData();
             if (DialogService.ShowDialog(viewModel).GetValueOrDefault() && viewModel.SelectedActivity != null)
             {

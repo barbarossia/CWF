@@ -44,5 +44,6 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         public const string WorkflowTypeName = "WorkFlowTypeName";
         public const string WorkflowsCount = "WorkflowsCount";
         public const string Xaml = "XAML";
+        public const string Environment = "Environment";
     }
 }

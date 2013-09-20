@@ -17,8 +17,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
     public sealed class TaskActivity : NativeActivity
     {
         [Browsable(false)]
-        public string Group { get; set; }
-        [Browsable(false)]
         public Guid TaskId { get; set; }
         [Browsable(false)]
         public string Alias { get; set; }
@@ -40,27 +38,22 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
         /// </summary>
         /// <param name="body">The assign activity</param>
         public TaskActivity(Activity body)
-            : this(null, null, Guid.Empty, body, TaskActivityStatus.New, null)
+            : this(null, Guid.Empty, body, TaskActivityStatus.New, null)
         {
         }
 
         /// <summary>
         /// Construct
         /// </summary>
-        /// <param name="group">The user group from AD by assigned</param>
         /// <param name="alias">The user alias from AD by assigned</param>
         /// <param name="taskId">Task indentity</param>
         /// <param name="body">The assign activity</param>
-        public TaskActivity(string group, string alias, Guid taskId, Activity body, TaskActivityStatus status, string name) {
-            Group = group;
+        public TaskActivity(string alias, Guid taskId, Activity body, TaskActivityStatus status, string name) {
             Alias = alias;
             TaskId = taskId;
             TaskBody = body;
             Status = status;
 
-            if (string.IsNullOrWhiteSpace(Group)) {
-                Group = AuthorizationService.SecurityLevelMaps.First(p => p.Value == SecurityLevel.Author).Key;
-            }
             if (TaskId == Guid.Empty) {
                 TaskId = Guid.NewGuid();
             }
@@ -75,6 +68,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
 
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
+            if (string.IsNullOrEmpty(Alias)) {
+                metadata.AddValidationError("Assign To field is invalid.");
+            }
+
             if (this.TaskBody != null)
             {
                 metadata.AddChild(this.TaskBody);

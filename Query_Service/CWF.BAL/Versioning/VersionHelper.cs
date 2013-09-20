@@ -15,7 +15,7 @@ namespace CWF.BAL.Versioning
     /// </summary>
     public static class VersionHelper
     {
-        private const int MaximumMinorSectionValue = 99;
+        private const int MaximumMinorSectionValue = 9999;
 
         private const string MustBeIncrementedMessage = "\r\nThe {0} must be incremented.";
         private const string MustBeResetMessage = "\r\nThe {0} must be reset to {1}.";
@@ -71,20 +71,20 @@ namespace CWF.BAL.Versioning
         /// <param name="requestedOperation">The state of the object being saved. I.e., is this a new record, an update, etc.
         /// Save, AddNew, Compile (and for future use), Delete. "Null" means "figure it out from what's in the database"</param>
         /// <param name="workflowRecordState">Public, Private, Retired. </param>
-        /// <param name="userName">the user making the request</param>
+        /// <param name="env">the user making the request</param>
         /// <returns>
         /// a tuple with a bool indicating pass/fail and a description of what needs to change (if any)
         /// Message is a message describing the problem, and Rule is the rule that was applied/tested against.
         /// </returns>
         public static Tuple<bool, string, Rule> CheckVersioningRules(StoreActivitiesDC workflowToCheck,
                                                                      RequestedOperation? requestedOperation,
-                                                                     string userName)
+                                                                     string env)
         {
             var isRulePassed = true;
             bool isPublic;
             bool isRetired;
             var errorString = String.Empty;
-            var previousVersions = Activities.StoreActivitiesGetByName(workflowToCheck.Name, userName);
+            var previousVersions = Activities.StoreActivitiesGetByName(workflowToCheck.Name, env);
             Rule rule = null;
 
             if (!IsValidMarketplaceVersion(workflowToCheck.Version))
@@ -229,7 +229,7 @@ namespace CWF.BAL.Versioning
         {
             Func<int, int> incrementOnlyAction = (i => i + 1); // the lambda to pass in to the section handling routine when all we need is a simple increment
             var workflowToTest = request;
-            var existingRecords = Activities.StoreActivitiesGetByName(workflowToTest.Name, request.Incaller);
+            var existingRecords = Activities.StoreActivitiesGetByName(workflowToTest.Name, request.Environment);
             int major;
             int minor;
             int build;
@@ -263,7 +263,7 @@ namespace CWF.BAL.Versioning
             build = theVersion.Build;
             revision = theVersion.Revision;
 
-            rule = CheckVersioningRules(workflowToTest, null, request.Incaller).Item3;
+            rule = CheckVersioningRules(workflowToTest, null, request.Environment).Item3;
 
             major = HandleVersionSectionChange(rule.MajorRequiredChange,
                                               initialValue =>
@@ -420,7 +420,7 @@ namespace CWF.BAL.Versioning
         /// <param name="version"></param>
         public static bool IsValidMarketplaceVersion(string version)
         {
-            Regex pattern = new Regex(@"^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$");
+            Regex pattern = new Regex(@"^[0-9]{1,2}\.[0-9]{1,4}\.[0-9]{1,2}\.[0-9]{1,2}$");
 
             return pattern.IsMatch(version);
         }

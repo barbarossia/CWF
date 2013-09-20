@@ -7,12 +7,12 @@
         MinWidth="800"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
+        xmlns:t="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:viewModels="clr-namespace:Microsoft.Support.Workflow.Authoring.ViewModels"
 >
     <Window.Resources>
         <ResourceDictionary>
-            <convert:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"
-                                                          VisibleWhen="True" />
+            <convert:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" VisibleWhen="True" />
             <convert:VersionToStringConverter x:Key="VersionToStringConverter"/>
             <viewModels:ActivityItemViewModel x:Key="ViewModel" />
         </ResourceDictionary>
@@ -50,7 +50,14 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn IsReadOnly="True" Width="2*" Header="Assembly Name" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn IsReadOnly="True" Width="*" Header="Version" Binding="{Binding Version}"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Select">
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox PreviewMouseDown="HeaderCheckBox_PreviewMouseDown" 
+                                              IsChecked="{Binding DataContext.IsHeaderChecked, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                              IsThreeState="{Binding DataContext.IsHeaderThreeState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox HorizontalAlignment="Center"
@@ -148,5 +155,12 @@
                 <Button Content="Cancel" Margin="20,0,0,0"  Width="75" Height="26" IsCancel="True"></Button>
             </StackPanel>
         </Grid>
+        <t:RadBusyIndicator Grid.RowSpan="5"
+                            DisplayAfter="00:00:00"
+                            FontSize="18"
+                            IsBusy="{Binding IsBusy}"
+                            BusyContent="{Binding BusyCaption}"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2" />
     </Grid>
 </Window>

@@ -15,7 +15,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnAllActivityLibrariesForCallerWhenGetActivityLibrariesIsCalledWithoutIDOrGuid()
         {
@@ -33,7 +33,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnMachingActivityLibraryAssociatedWithIdWhenGetActivityLibrariesIsCalled()
         {
@@ -54,7 +54,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnMachingActivityLibraryAssociatedWithGuidWhenGetActivityLibrariesIsCalled()
         {
@@ -75,7 +75,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnAllActivityLibrariesIfIdIsNegativeWhenGetActivityLibrariesIsCalled()
         {
@@ -94,7 +94,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnNoItemsIfIdIsPositiveYetNonExistingWhenGetActivityLibrariesIsCalled()
         {
@@ -112,7 +112,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnNoItemsIfGuidIsValidYetNonExistingWhenGetActivityLibrariesIsCalled()
         {

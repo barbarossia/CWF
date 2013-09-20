@@ -14,7 +14,7 @@ namespace CWF.DataContracts
     /// Common Root record of Activity library
     /// </summary>
     [Serializable]
-    public class StoreDependenciesRootActiveLibrary
+    public class StoreDependenciesRootActiveLibrary : WorkflowRequestHeader
     {
         private string activityLibraryName;
         private string activityLibraryVersionNumber;

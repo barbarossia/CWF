@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.Support.Workflow.Authoring.Views
 {
+    using Microsoft.Support.Workflow.Authoring.Services;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;

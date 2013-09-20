@@ -1,8 +1,13 @@
-/****** Object:  StoredProcedure [dbo].[ps_etblTaskActivity_UpdateStatus]    Script Date: 03/26/2013 15:30:51 ******/
+/****** Object:  StoredProcedure [dbo].[TaskActivity_UpdateStatus]    Script Date: 05/16/2013 01:49:26 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaskActivity_UpdateStatus]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TaskActivity_UpdateStatus]
+GO
+
 
 /**************************************************************************
 // Product:  CommonWF
@@ -28,9 +33,11 @@ GO
 ** ____________    ________________    ____________________________________
 **  26/March/2013     v-kason            Original implementation
 ** *************************************************************************/
-Create PROCEDURE [dbo].[TaskActivity_UpdateStatus]		
+CREATE PROCEDURE [dbo].[TaskActivity_UpdateStatus]		
         @InCaller nvarchar(50),
         @InCallerversion nvarchar (50),
+        @InAuthGroupName	[dbo].[AuthGroupNameTableType] READONLY ,
+        @InEnvironmentName	nvarchar(50) ,
         @InTaskActivityGUID nvarchar(50),
         @InId bigint,
         @InStatus nvarchar(50),
@@ -73,6 +80,26 @@ BEGIN TRY
         SET @outErrorString = 'Invalid Parameter Value (@InStatus)'
         RETURN 55101
     END	
+    
+  	IF (@InEnvironmentName IS NULL OR @InEnvironmentName = '')
+    BEGIN
+        SET @outErrorString = 'Invalid Parameter Value (@InEnvironmentName)'
+        RETURN 55126
+    END
+
+DECLARE @Return_Value int
+DECLARE @InEnvironments [dbo].[EnvironmentTableType]
+INSERT @InEnvironments (Name) Values (@InEnvironmentName)
+EXEC @Return_Value = dbo.ValidateSPPermission 
+	@InSPName = @cObjectName,
+	@InAuthGroupName = @InAuthGroupName,
+	@InEnvironments = @InEnvironments,
+	@OutErrorString =  @OutErrorString output
+IF (@Return_Value > 0)
+BEGIN		    
+	RETURN @Return_Value
+END
+
 
 	DECLARE @id bigint
 	DECLARE @activityId bigint

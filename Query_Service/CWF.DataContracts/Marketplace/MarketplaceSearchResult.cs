@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace CWF.DataContracts.Marketplace
 {
     [DataContract]
-    public class MarketplaceSearchResult
+    public class MarketplaceSearchResult : ReplyHeader
     {
         [DataMember]
         /// <summary>

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Practices.Prism.ViewModel;
-using System.Activities.Presentation;
+﻿using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Support.Workflow.Authoring.AddIns.Models;
-using System.Collections.ObjectModel;
+using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+using System;
+using System.Activities;
+using System.Activities.Presentation;
 using System.Activities.Presentation.Model;
 using System.Activities.Presentation.Services;
 using System.Activities.Presentation.View;
-using System.Activities;
-using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
-using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
 {
@@ -233,6 +231,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
                     this.WorkflowEditor.WorkflowDesigner.Context.Items.SetValue(new Selection(this.SelectedWorkflowOutlineNode.Model));
                     this.SelectedWorkflowOutlineNode.Model.Focus();
                     this.SearchPositionNotify = string.Empty;
+                    RaiseDesignerChanged(this.SelectedWorkflowOutlineNode);
                 }
             }
         }
@@ -312,7 +311,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
 
             if (!isInitialized)
             {
-                this.IsSearchCurrentActivity = true;
+                this.IsSearchWholeWorkflow = DefaultValueSettings.SearchWholeWorkflow;
+                this.IsSearchCurrentActivity = !this.IsSearchWholeWorkflow;
                 this.IsSearchTitle = true;
                 this.IsSearchType = true;
                 this.IsSearchParameter = true;
@@ -346,7 +346,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         {
             WorkflowOutlineNode node = this.FindFocusedWorkflowOutlineNode();
             if (node != this.SelectedWorkflowOutlineNode)
+            {
                 this.SelectedWorkflowOutlineNode = node;
+                RaiseDesignerChanged(node);
+            }
         }
 
         /// <summary>
@@ -501,15 +504,12 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             return false;
         }
 
-        /// <summary>
-        /// Changes the PE selection as workflowdesigner selection changed
-        /// </summary>
-        /// <param name="s"></param>
-        private void ActivitySelectionChanged(Selection s)
+        public event ActivityFocuceEventHandler WorkflowOutlineFocuceChanged;
+
+        private void RaiseDesignerChanged(WorkflowOutlineNode node)
         {
-            WorkflowOutlineNode node = this.FindFocusedWorkflowOutlineNode();
-            if (node != this.SelectedWorkflowOutlineNode)
-                this.SelectedWorkflowOutlineNode = node;
+            if (this.WorkflowOutlineFocuceChanged != null)
+                WorkflowOutlineFocuceChanged(this, new ActivityFocuceEventArgs(node));
         }
     }
 }

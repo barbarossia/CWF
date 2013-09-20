@@ -41,28 +41,6 @@ namespace CWF.WorkflowQueryService.Authentication
                     Logging.Log(LoggingValues.InvalidCredentials, System.Diagnostics.EventLogEntryType.Error, null, AuthMessages.AnonymousAccess);
                     throw new UnauthorizedAccessException(AuthMessages.AnonymousAccess);
                 }
-
-                //Get config key from the conf file, to obtain the name of the admin  group we validate.
-                if ((ConfigurationManager.AppSettings.Keys.Count > 0) && (!string.IsNullOrEmpty(AppSettings.AuthorGroupName)))
-                {
-                    //Check if the principal for the request is member of the admin group
-                    var principal = new WindowsPrincipal(securityContext.WindowsIdentity);
-                    if (!principal.IsInRole(AppSettings.AuthorGroupName))
-                    {
-                        string message = string.Format(
-                            AuthMessages.InvalidCredentials,
-                            securityContext.WindowsIdentity.Name,
-                            AppSettings.AuthorGroupName);
-                        var ex = new UnauthorizedAccessException(message);
-                        Logging.Log(LoggingValues.InvalidCredentials, System.Diagnostics.EventLogEntryType.Error, null, ex);
-                        throw ex;
-                    }
-                }
-                else
-                {
-                    Logging.Log(LoggingValues.InvalidCredentials, System.Diagnostics.EventLogEntryType.Error, null, AuthMessages.ConfigurationMissing);
-                    throw new UnauthorizedAccessException(AuthMessages.ConfigurationMissing);
-                }
             }
             else
             {

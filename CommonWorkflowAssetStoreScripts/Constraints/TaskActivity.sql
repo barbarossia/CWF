@@ -35,7 +35,6 @@ GO
    IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ChildActivity_TaskActivity]') AND parent_object_id = OBJECT_ID(N'[dbo].[TaskActivity]'))
    ALTER TABLE [dbo].[TaskActivity] DROP CONSTRAINT [FK_ChildActivity_TaskActivity]
 
-
    PRINT '    Adding CONSTRAINTS To [TaskActivity]'
 
    alter table [dbo].[TaskActivity] with check add constraint [FK_ChildActivity_TaskActivity] Foreign key([ActivityId])

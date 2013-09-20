@@ -27,25 +27,10 @@ namespace Microsoft.Support.Workflow.Authoring.Views
     public partial class ImportAssemblyView : Window,INotifyPropertyChanged
     {
         const string IssuesCountTooltipFormat = "{0} items with issues.";
-        private CollectionViewSource ActivityCategories;
         public ImportAssemblyView()
         {
             InitializeComponent();
             DataContextChanged += new DependencyPropertyChangedEventHandler(ImportAssemblyView_DataContextChanged);
-            Loaded += (s, e) =>
-            {
-                this.ActivitiesListBox.SelectedIndex = -1;
-                this.listBoxLibrary.SelectedIndex = 0;
-                //verify library metadata
-                var errorConverter = (ErrorSectionConverter)Resources["ErrorSectionConverter"];
-                CanImport = this.IsValid && !errorConverter.HasErrors && HasNoIssues;
-            };
-            this.ActivityCategories = AssetStore.AssetStoreProxy.ActivityCategories;
-            this.ActivityCategories.View.CollectionChanged += (s, e) =>
-            {
-                this.Source = ActivityCategories.Source as ObservableCollection<string>;
-            };
-            this.Source = ActivityCategories.Source as ObservableCollection<string>;
         }
 
         private bool libraryHasError;
@@ -78,7 +63,8 @@ namespace Microsoft.Support.Workflow.Authoring.Views
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private bool isValid = false;
+        //private bool isValid = false;
+        private bool isValid = true;
         private ActivityItem selectedActivityItem;
 
         /// <summary>
@@ -92,17 +78,6 @@ namespace Microsoft.Support.Workflow.Authoring.Views
                 isValid = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("IsValid"));
                 CanImport = this.IsValid && !libraryHasError && HasNoIssues;
-            }
-        }
-
-        private ObservableCollection<string> source;
-        public ObservableCollection<string> Source
-        {
-            get { return this.source; }
-            set
-            {
-                this.source = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Source"));
             }
         }
 
@@ -122,10 +97,10 @@ namespace Microsoft.Support.Workflow.Authoring.Views
                 {
                     selectedActivityItem.IsReviewed = true;
                     errorConverter.ViewModelBaseDerivedType = selectedActivityItem;
-                    selectedActivityItem.PropertyChanged += (sender, e) => Validate();
+                    selectedActivityItem.Validate();
+                    libraryHasError = errorConverter.HasErrors;
                 }
 
-                Validate();
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedActivityItem"));
                 CanImport = this.IsValid && !libraryHasError && HasNoIssues;
             }
@@ -142,35 +117,6 @@ namespace Microsoft.Support.Workflow.Authoring.Views
             }
 
             return result;
-        }
-
-
-        bool isValidating = false;
-        private void Validate()
-        {
-            var isValid = true; // is the entire list of items valid? if not, we can't move next.
-            var context = (ImportAssemblyViewModel)DataContext;
-
-            if (null == context) return;
-            if (isValidating) return; // don't allow re-entry into this routine if a validation is in progress.
-
-            isValidating = true;
-
-            if (null != SelectedActivityItem)
-                SelectedActivityItem.Validate();
-
-            context.SelectedActivityAssemblyItem
-                .ActivityItems
-                .ToList()
-                .ForEach(item =>
-                {
-                    item.Validate();
-                    isValid &= item.IsValid;
-                });
-
-            IsValid = isValid;
-
-            isValidating = false;
         }
 
         private bool canImport;
@@ -244,42 +190,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
 
             UpdateBoundProperties();
         }
-
-        bool isInSelectionChanged = false;
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ActivityItem previousItem;
-            ImportAssemblyViewModel context;
-
-            if (null == DataContext) return;
-            if (isInSelectionChanged) return;
-
-            isInSelectionChanged = true;
-
-            context = (ImportAssemblyViewModel)DataContext;
-
-            context.SelectedActivityAssemblyItem.ActivityItems
-                .ToList()
-                .ForEach(item =>
-                {
-                    item.IsEditing = false;
-                    item.IsEdited = item.IsDirty;
-                });
-
-            if (e.RemovedItems.Count != 0)
-            {
-                previousItem = (ActivityItem)e.RemovedItems[0];
-                previousItem.Validate();
-
-                if (!previousItem.IsValid)
-                {
-                    SelectedActivityItem = previousItem;
-                    previousItem.IsEditing = true;
-                }
-            }
-            isInSelectionChanged = false;
-        }
-
+      
         private void listLibrary_Selected(object sender, RoutedEventArgs e)
         {
             this.libraryMetaDataPanel.Visibility = System.Windows.Visibility.Visible;
@@ -302,6 +213,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
             //Verify activity metadata
             if (null == DataContext) return;
 
+            var errorConverter = (ErrorSectionConverter)Resources["ErrorSectionConverterActivity"];            
             var context = (ImportAssemblyViewModel)DataContext;
             var activityAssemblyItem = context.SelectedActivityAssemblyItem;
 
@@ -319,7 +231,8 @@ namespace Microsoft.Support.Workflow.Authoring.Views
 
                 }); //TODO put this in the viewmodel once the refactoring task is complete - v-richt 2/13/2012
 
-            Validate();
+            errorConverter.ViewModelBaseDerivedType = context.SelectedActivityAssemblyItem;
+            CanImport = this.IsValid && !errorConverter.HasErrors && HasNoIssues;            
         }
 
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -328,8 +241,19 @@ namespace Microsoft.Support.Workflow.Authoring.Views
             {
                 this.libraryMetaDataPanel.Visibility = System.Windows.Visibility.Collapsed;
                 this.activitiesMetaDataPanel.Visibility = System.Windows.Visibility.Visible;
-                this.listBoxLibrary.SelectedIndex = -1;
             }
+        }
+
+        private void listAssemblies_Selected(object sender, RoutedEventArgs e)
+        {
+            this.libraryMetaDataPanel.Visibility = System.Windows.Visibility.Visible;
+            this.activitiesMetaDataPanel.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void browseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as ImportAssemblyViewModel;
+            viewModel.BrowseCommand.Execute();
         }
     }
 }

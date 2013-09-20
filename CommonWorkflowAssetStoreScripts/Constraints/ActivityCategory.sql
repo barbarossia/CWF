@@ -36,6 +36,7 @@ GO
    IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ActivityCategory_AuthorizationGroup]') AND parent_object_id = OBJECT_ID(N'[dbo].[ActivityCategory]'))
    ALTER TABLE [dbo].[ActivityCategory] DROP CONSTRAINT [FK_ActivityCategory_AuthorizationGroup]
 
+
    PRINT '    Adding CONSTRAINTS To [ActivityCategory]'
 
    ALTER TABLE [dbo].[ActivityCategory]  WITH CHECK ADD  CONSTRAINT [FK_ActivityCategory_AuthorizationGroup] FOREIGN KEY([AuthGroupID])

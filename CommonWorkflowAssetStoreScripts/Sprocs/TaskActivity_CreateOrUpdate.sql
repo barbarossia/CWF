@@ -1,3 +1,14 @@
+/****** Object:  StoredProcedure [dbo].[TaskActivity_CreateOrUpdate]    Script Date: 05/16/2013 01:49:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaskActivity_CreateOrUpdate]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TaskActivity_CreateOrUpdate]
+GO
+
+
 /**************************************************************************
 // Product:  CommonWF
 // FileName:TaskActivity_CreateOrUpdate.sql
@@ -24,6 +35,8 @@
 CREATE PROCEDURE [dbo].[TaskActivity_CreateOrUpdate]
         @inCaller nvarchar(50),
         @inCallerversion nvarchar (50),
+        @InAuthGroupName	[dbo].[AuthGroupNameTableType] READONLY ,
+        @InEnvironmentName	nvarchar(50) ,
         @InId BIGINT,
         @InGUID varchar (50),
         @InAssignedTo nvarchar (100),
@@ -75,6 +88,26 @@ BEGIN
 		SET @outErrorString = 'Invalid Parameter Value (@@InActivityId)'
 		RETURN 55107
 	END
+	
+ 	IF (@InEnvironmentName IS NULL OR @InEnvironmentName = '')
+    BEGIN
+        SET @outErrorString = 'Invalid Parameter Value (@InEnvironmentName)'
+        RETURN 55126
+    END
+
+	DECLARE @Return_Value int
+	DECLARE @InEnvironments [dbo].[EnvironmentTableType]
+	INSERT @InEnvironments (Name) Values (@InEnvironmentName)
+	EXEC @Return_Value = dbo.ValidateSPPermission 
+		@InSPName = @cObjectName,
+		@InAuthGroupName = @InAuthGroupName,
+		@InEnvironments = @InEnvironments,
+		@OutErrorString =  @OutErrorString output
+	IF (@Return_Value > 0)
+	BEGIN		    
+		RETURN @Return_Value
+	END
+
 	
 	DECLARE @ChildActivityId BIGINT
 	SELECT @ChildActivityId = Id
@@ -154,6 +187,7 @@ BEGIN
 			sa.InsertedDateTime,
 			sa.UpdatedByUserAlias,
 			sa.UpdatedDateTime,
+			E.Name as [Environment],
 			ta.Id as TaskActivityId,
 			ta.ActivityId,
 			ta.AssignedTo,
@@ -168,6 +202,7 @@ BEGIN
 			JOIN WorkflowType wft ON sa.WorkflowTypeId = wft.Id
 			LEFT JOIN Icon ic ON sa.IconsId = ic.Id 
 			LEFT JOIN AuthorizationGroup ag ON ag.Id = al.AuthGroupId
+			JOIN Environment E ON sa.Environment = E.Id 
 			WHERE ta.Id = @Id 
 			AND sa.SoftDelete = 0
 		END
@@ -220,6 +255,7 @@ BEGIN
 			sa.InsertedDateTime,
 			sa.UpdatedByUserAlias,
 			sa.UpdatedDateTime,
+			E.Name as [Environment],
 			ta.Id as TaskActivityId,
 			ta.ActivityId,
 			ta.AssignedTo,
@@ -234,6 +270,7 @@ BEGIN
 			JOIN WorkflowType wft ON sa.WorkflowTypeId = wft.Id
 			LEFT JOIN Icon ic ON sa.IconsId = ic.Id 
 			LEFT JOIN AuthorizationGroup ag ON ag.Id = al.AuthGroupId
+			 JOIN Environment E ON sa.Environment = E.Id 
 			WHERE ta.Id = @Id
 			AND sa.SoftDelete = 0
 	END
@@ -274,4 +311,3 @@ BEGIN
 	END CATCH
 	RETURN @rc
 END
-GO

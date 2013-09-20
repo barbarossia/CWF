@@ -3,13 +3,14 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Support.Workflow.Service.Test.Common;
+//using Microsoft.Support.Workflow.Service.Test.Common;
 using CWF.DAL;
 using Microsoft.DynamicImplementations;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data;
 using System.Data.Common;
 using CWF.DataContracts.Marketplace;
+using Microsoft.Support.Workflow.Service.Test.Common;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.UnitTests
 {
@@ -143,6 +144,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.UnitTests
                                             FieldName="Name",
                                             IsAscending=true,
                                     }};
+            request.InAuthGroupNames = new string[] { "pqocwfadmin" };
             return request;
         }
 

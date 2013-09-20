@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using CWF.WorkflowQueryService.UserError.Config;
 using Microsoft.DynamicImplementations;
-using Microsoft.Support.Workflow.Service.Common.Logging.Config;
-using CWF.WorkflowQueryService.UserError.Config;
 using Microsoft.Support.Workflow.QueryService.Common;
-using Query_Service.Tests.UnitTests;
 using Microsoft.Support.Workflow.Service.Test.Common;
+using Query_Service.UnitTests;
+using System;
 
 namespace Microsoft.Support.Workflow.Service.Common.Tests
 {

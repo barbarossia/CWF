@@ -4,6 +4,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Error_Raise]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Error_Raise]
+GO
 
 /* ********************************************************************
 **    Name:   Error_Raise                                      *

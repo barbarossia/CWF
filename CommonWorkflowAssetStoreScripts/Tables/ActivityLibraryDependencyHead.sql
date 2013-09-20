@@ -5,6 +5,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActivityLibraryDependencyHead]') AND type in (N'U'))
+
 CREATE TABLE [dbo].[ActivityLibraryDependencyHead](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[TreeHead] [bigint] NOT NULL,

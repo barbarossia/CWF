@@ -46,12 +46,12 @@ namespace CWF.Publishing
         /// <param name="client">Query Service client</param>
         /// <param name="workflowName">Name of the Workflow to Publish</param>
         /// <param name="workflowVersion">Version of the Workflow to Publish</param>
-        public static PublishingReply PublishWorkflow(IWorkflowsQueryService client, string workflowName, string workflowVersion)
+        public static PublishingReply PublishWorkflow(IWorkflowsQueryService client, PublishingRequest request)
         {
             // Get the Extension Uri
             string extensionUri = client.GetExtensionUri();
             // Get the publishing XAML
-            string publishingXaml = GetPublishingWorkflow(client, workflowName, workflowVersion);
+            string publishingXaml = GetPublishingWorkflow(client, request);
 
             if (string.IsNullOrEmpty(publishingXaml))
             {
@@ -64,13 +64,13 @@ namespace CWF.Publishing
 
             var wf = new WorkflowInvoker(publishWorkflow);
             wf.Extensions.Add(new QueryServiceURIExtension(extensionUri));
-            wf.Extensions.Add(DownloadWorkflowInformation(client, workflowName, workflowVersion));
+            wf.Extensions.Add(DownloadWorkflowInformation(client, request));
 
             // create the in arguments
             Dictionary<string, object> inArguments = new Dictionary<string, object>()
             {
-                { "ActivityName", workflowName },
-                { "ActivityVersion", workflowVersion }
+                { "ActivityName", request.WorkflowName },
+                { "ActivityVersion", request.WorkflowVersion }
             };
 
             // Invoke the Publishing workflow
@@ -122,13 +122,18 @@ namespace CWF.Publishing
         /// <param name="workflowName">Name of the workflow to get the Publishing Workflow for</param>
         /// <param name="workflowVersion">Workflow version</param>
         /// <returns>The XAML that matches the Workflow Publishing </returns>
-        private static string GetPublishingWorkflow(IWorkflowsQueryService client, string workflowName, string workflowVersion)
+        private static string GetPublishingWorkflow(IWorkflowsQueryService client, PublishingRequest request)
         {
             string publishingXaml = null;
             // Get the Store Activities for this workflow
-            var activityItem = GetDefinition(client, workflowName, workflowVersion);
+            var activityItem = GetDefinition(client, request);
             // Gt all of the workflow types
-            var workflowTypeGetReply = client.WorkflowTypeGet();
+            WorkflowTypesGetRequestDC wft = new WorkflowTypesGetRequestDC()
+            {
+                InAuthGroupNames = request.InAuthGroupNames,
+                Environment = request.Environment,
+            };
+            var workflowTypeGetReply = client.WorkflowTypeGet(wft);
             // Make sure we got them
             if (workflowTypeGetReply.IfNotNull(wfGetType => 0 == wfGetType.StatusReply.Errorcode))
             {
@@ -163,7 +168,6 @@ namespace CWF.Publishing
             return publishingXaml;
         }
 
-
         /// <summary>
         /// Gets the workflow definition from the database by name and version. Stolen from DeployToIIS activity (code smell = duplication).
         /// </summary>
@@ -171,13 +175,14 @@ namespace CWF.Publishing
         /// <param name="activityName">The name of the workflow to get</param>
         /// <param name="activityVersion">The version of the workflow to get</param>
         /// <returns>StoreActivitiesDC</returns>
-        private static StoreActivitiesDC GetDefinition(IWorkflowsQueryService client, string activityName, string activityVersion)
+        private static StoreActivitiesDC GetDefinition(IWorkflowsQueryService client, PublishingRequest request)
         {
             StoreActivitiesDC activityDC = null;
             var workflows = client.StoreActivitiesGet(new StoreActivitiesDC()
             {
-                Name = activityName,
-                Version = activityVersion,
+                Name = request.WorkflowName,
+                Version = request.WorkflowVersion,
+                Environment = request.Environment,
                 Incaller = Environment.UserName,
                 IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString()
             });
@@ -201,17 +206,16 @@ namespace CWF.Publishing
             return activityDC;
         }
 
-        static PublishingInfoExtension DownloadWorkflowInformation(IWorkflowsQueryService client, string workflowName, string workflowVersion)
+        static PublishingInfoExtension DownloadWorkflowInformation(IWorkflowsQueryService client, PublishingRequest request)
         {
-            var activity = GetDefinition(
-                        client, workflowName, workflowVersion);
+            var activity = GetDefinition(client, request);
             var xaml = activity.Xaml;
             Version version = null;
-            Version.TryParse(workflowVersion, out version);
+            Version.TryParse(request.WorkflowVersion, out version);
             var dependencies = DownloadDependencies(client, ComputeDependencies(client, activity));
             return new PublishingInfoExtension
             {
-                WorkflowName = workflowName,
+                WorkflowName = request.WorkflowName,
                 WorkflowVersion = version,
                 WorkflowType = activity.WorkflowTypeName,
                 DependencyNames = dependencies.Keys.ToList(),
@@ -234,7 +238,8 @@ namespace CWF.Publishing
                     {
                         ActivityLibraryId = activity.ActivityLibraryId,
                         ActivityLibraryName = activity.ActivityLibraryName,
-                        ActivityLibraryVersionNumber = activity.ActivityLibraryVersion
+                        ActivityLibraryVersionNumber = activity.ActivityLibraryVersion,
+                        Environment = activity.Environment,
                     },
                     Incaller = "DeployToIIS Activity",
                     IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString()

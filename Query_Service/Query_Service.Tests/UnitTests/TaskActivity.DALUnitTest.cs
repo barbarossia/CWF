@@ -1,5 +1,5 @@
 ﻿
-namespace Query_Service.Testsproject
+namespace Query_Service.UnitTests
 {
     using System;
     using System.Collections.Generic;
@@ -18,11 +18,6 @@ namespace Query_Service.Testsproject
     [TestClass]
     public class TaskActivityDALUnitTest
     {
-        private const string INCALLER = "v-kason";
-        private const string INCALLERVERSION = "1.0.0.0";
-        private const string OWNER = "v-kason";
-        private const string UPDATEDBYUSERALIAS = "v-kason";
-        private const string INSERTEDBYUSERALIAS = "v-kason";
         private static int activityId;
 
         [ClassInitialize()]
@@ -32,11 +27,12 @@ namespace Query_Service.Testsproject
             CWF.DataContracts.StoreLibraryAndActivitiesRequestDC request = new CWF.DataContracts.StoreLibraryAndActivitiesRequestDC();
             List<CWF.DataContracts.StoreActivitiesDC> reply = null;
 
-            request.IncallerVersion = INCALLERVERSION;
-            request.Incaller = INCALLER;
-            request.InInsertedByUserAlias = INCALLER;
-            request.InUpdatedByUserAlias = INCALLER;
+            request.IncallerVersion = UnitTestConstant.INCALLERVERSION;
+            request.Incaller = UnitTestConstant.INCALLER;
+            request.InInsertedByUserAlias = UnitTestConstant.INCALLER;
+            request.InUpdatedByUserAlias = UnitTestConstant.INCALLER;
             request.EnforceVersionRules = true;
+            request.InAuthGroupNames = new string[] { UnitTestConstant.AUTHORGROUPNAME };
 
             // Create ActivityLibrary object and add to request object
             CWF.DataContracts.ActivityLibraryDC activityLibraryDC = new CWF.DataContracts.ActivityLibraryDC();
@@ -65,8 +61,8 @@ namespace Query_Service.Testsproject
                 {
                     new StoreActivityLibraryDependenciesGroupsRequestDC
                     {
-                        IncallerVersion = INCALLERVERSION,
-                        Incaller = INCALLER,
+                        IncallerVersion = UnitTestConstant.INCALLERVERSION,
+                        Incaller = UnitTestConstant.INCALLER,
                         Name = "PublishingInfo",
                         Version = "1.0.0.1"
                     },
@@ -84,9 +80,11 @@ namespace Query_Service.Testsproject
             {
                 ActivityId = activityId,
                 Guid = taskGuid,
-                Incaller = INCALLER,
-                IncallerVersion = INCALLERVERSION,
-                AssignedTo = OWNER
+                Incaller = UnitTestConstant.INCALLER,
+                IncallerVersion = UnitTestConstant.INCALLERVERSION,
+                AssignedTo = UnitTestConstant.OWNER,
+                Environment = UnitTestConstant.TOENVIRONMENT,
+                InAuthGroupNames = new string[] { UnitTestConstant.AUTHORGROUPNAME },
             };
             try
             {
@@ -109,8 +107,10 @@ namespace Query_Service.Testsproject
         {
             TaskActivityDC request = new TaskActivityDC();
             request.ActivityId = activityId;
-            request.Incaller = INCALLER;
-            request.IncallerVersion = INCALLERVERSION;
+            request.Incaller = UnitTestConstant.INCALLER;
+            request.IncallerVersion = UnitTestConstant.INCALLERVERSION;
+            request.Environment = UnitTestConstant.TOENVIRONMENT;
+            request.InAuthGroupNames = new string[] { UnitTestConstant.AUTHORGROUPNAME };
             TaskActivityDC reply = null;
             try
             {
@@ -137,9 +137,9 @@ namespace Query_Service.Testsproject
         public void TestSearchTaskActivity()
         {
             TaskActivityGetRequestDC request = new TaskActivityGetRequestDC();
-            request.AssignedTo = OWNER;
-            request.Incaller = INCALLER;
-            request.IncallerVersion = INCALLERVERSION;
+            request.AssignedTo = UnitTestConstant.OWNER;
+            request.Incaller = UnitTestConstant.INCALLER;
+            request.IncallerVersion = UnitTestConstant.INCALLERVERSION;
             request.SearchText = "Test";
             request.IncludeDetails = true;
             TaskActivityGetReplyDC reply = null;
@@ -163,8 +163,8 @@ namespace Query_Service.Testsproject
         {
             TaskActivityDC request = new TaskActivityDC();
             request.ActivityId = activityId;
-            request.Incaller = INCALLER;
-            request.IncallerVersion = INCALLERVERSION;
+            request.Incaller = UnitTestConstant.INCALLER;
+            request.IncallerVersion = UnitTestConstant.INCALLERVERSION;
             TaskActivityDC reply = null;
             try
             {

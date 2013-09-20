@@ -12,17 +12,11 @@ namespace CWF.DAL
     public class DataAccessException : BaseException
     {
         /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public DataAccessException()
-        { }
-
-        /// <summary>
         /// Overloaded constructor.
         /// </summary>
         /// <param name="errorCode">Error code.</param>
         public DataAccessException(int errorCode)
-            : base(errorCode, string.Empty)
+            : this(errorCode, string.Empty)
         { }
 
         /// <summary>

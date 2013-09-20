@@ -26,6 +26,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             StoreActivityLibrariesDependenciesDC dependencies = new StoreActivityLibrariesDependenciesDC();
             dependencies.StoreDependenciesRootActiveLibrary = new StoreDependenciesRootActiveLibrary();
             dependencies.StoreDependenciesDependentActiveLibraryList = new List<StoreDependenciesDependentActiveLibrary>();
+            dependencies.Activities = new List<ActivityLibraryDC>();
             reply.Add(dependencies);
 
             try
@@ -36,6 +37,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
 
                 database.AddParameter(command, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, Convert.ToString(request.StoreDependenciesRootActiveLibrary.ActivityLibraryName));
                 database.AddParameter(command, StoredProcParamNames.Version, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, Convert.ToString(request.StoreDependenciesRootActiveLibrary.ActivityLibraryVersionNumber));
+                database.AddParameter(command, "@Environment", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, Convert.ToString(request.StoreDependenciesRootActiveLibrary.Environment));
 
                 using (IDataReader reader = database.ExecuteReader(command))
                 {
@@ -46,7 +48,17 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         dependentLib.ActivityLibraryParentId = reader[DataColumnNames.ActivityLibraryId] != DBNull.Value ? Convert.ToInt32(reader[DataColumnNames.ActivityLibraryId]) : 0;
                         dependencies.StoreDependenciesDependentActiveLibraryList.Add(dependentLib);
                     }
+                    reader.NextResult();
+                    while (reader.Read())
+                    {
+                        var activeLibraryDCreply = new ActivityLibraryDC();
+                        activeLibraryDCreply.Id = Convert.ToInt32(reader["Id"]);
+                        activeLibraryDCreply.Name = Convert.ToString(reader["Name"]);
+                        activeLibraryDCreply.VersionNumber = Convert.ToString(reader["VersionNumber"]);
+                        activeLibraryDCreply.Environment = Convert.ToString(reader["Environment"]);
+                        dependencies.Activities.Add(activeLibraryDCreply);
 
+                    }
                     if (!reader.IsClosed) reader.Close();
                 }
             }

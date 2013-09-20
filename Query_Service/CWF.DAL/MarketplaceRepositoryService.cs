@@ -7,6 +7,7 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
 using System.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices
 {
@@ -44,27 +45,37 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         /// <returns>MarketplaceSearchResult object</returns>
         public static MarketplaceSearchResult SearchMarketplace(MarketplaceSearchQuery request)
         {
-            MarketplaceSearchResult result = null;
+            MarketplaceSearchResult result = new MarketplaceSearchResult();
             var resultCollection = new List<MarketplaceAsset>();
             MarketplaceAsset sab = null;
+            int retValue = 0;
+            string outErrorString = string.Empty;
 
             try
             {
                 var spInputParam = ConvertSearchQueryToStoredProc(request);
                 if (spInputParam == null)
-                    throw new ArgumentException(string.Format("Marketplace Search Query is error. Filter: {0} or UserRole: {1}",
-                        request.FilterType,request.UserRole));
+                {
+                    result.StatusReply.ErrorMessage = SprocValues.INVALID_PARMETER_VALUE_MARKETPLACE;
+                    result.StatusReply.Errorcode = SprocValues.INVALID_PARMETER_VALUE_INCODE_ID;
+                    return result;
+                }
 
                 //This is an invalid operation since the author is not allowed to view templates or publishing workflows.
                 if (request.UserRole == Author && (request.FilterType == MarketplaceFilter.Templates || request.FilterType == MarketplaceFilter.PublishingWorkflows))
-                    return null;
+                {
+                    result.StatusReply.ErrorMessage = SprocValues.INVALID_PARMETER_VALUE_MARKETPLACE;
+                    result.StatusReply.Errorcode = SprocValues.INVALID_PARMETER_VALUE_INCODE_ID;
+                    return result;
+                }
 
                 if (request.SortCriteria == null)
                     request.SortCriteria = new List<SortCriterion>() { new SortCriterion() { FieldName = "UpdatedDate", IsAscending = false } };
 
-                Database database = DatabaseFactory.CreateDatabase();
+                SqlDatabase database = RepositoryHelper.CreateDatabase();
                 DbCommand command = database.GetStoredProcCommand("[dbo].[Marketplace_Search]");
 
+                database.AddParameter(command, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
                 database.AddParameter(command, "@SearchText", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SearchText);
                 database.AddParameter(command, "@AssetType", DbType.Int16, ParameterDirection.Input, null, DataRowVersion.Default, spInputParam.Item1);
                 database.AddParameter(command, "@GetTemplates", DbType.Byte, ParameterDirection.Input, null, DataRowVersion.Default, spInputParam.Item2);
@@ -74,12 +85,13 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 database.AddParameter(command, "@SortColumn", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SortCriteria[0].FieldName);
                 database.AddParameter(command, "@SortAscending", DbType.Byte, ParameterDirection.Input, null, DataRowVersion.Default, request.SortCriteria[0].IsAscending);
                 database.AddParameter(command, "@FilterOlder", DbType.Byte, ParameterDirection.Input, null, DataRowVersion.Default, request.IsNewest);
+                database.AddParameter(command, "@ReturnValue", DbType.Int32, ParameterDirection.ReturnValue, null, DataRowVersion.Default, 0);
+                database.AddOutParameter(command, "@outErrorString", DbType.String, 300);
 
                 using (IDataReader reader = database.ExecuteReader(command))
                 {
                     while (reader.Read())
                     {
-                        result = new MarketplaceSearchResult();
                         sab = new MarketplaceAsset();
                         sab.Id = Convert.ToInt64(reader["Id"]);
                         sab.Name = Convert.ToString(reader["Name"]);
@@ -93,6 +105,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                             sab.AssetType = AssetType.Activities;
                         sab.IsTemplate = reader["IsTemplate"] == DBNull.Value ? (bool?)null : Convert.ToBoolean(reader["IsTemplate"]);
                         sab.IsPublishingWorkflow = reader["IsPublishingWorkflow"] == DBNull.Value ? (bool?)null : Convert.ToBoolean(reader["IsPublishingWorkflow"]);
+                        sab.Environment = Convert.ToString(reader["Environment"]);
                         resultCollection.Add(sab);
                     }
 
@@ -102,10 +115,19 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         result.PageNumber = Convert.ToInt32(reader["PageNumber"]);
                         result.PageCount = Convert.ToInt32(reader["PageCount"]);
                     }
-                    if (result != null)
+
+                    if (resultCollection.Any())
                     {
                         result.Items = resultCollection;
                         result.PageSize = request.PageSize;
+                    }
+
+                    retValue = Convert.ToInt32(command.Parameters["@ReturnValue"].Value);
+                    outErrorString = Convert.ToString(command.Parameters["@outErrorString"].Value);
+                    if (retValue != 0)
+                    {
+                        result.StatusReply.ErrorMessage = outErrorString;
+                        result.StatusReply.Errorcode = retValue;
                     }
                 }
             }

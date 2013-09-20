@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Threading;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
 using Microsoft.Support.Workflow.Authoring.AddIns.Models;
+using Microsoft.Support.Workflow.Authoring.Security;
 
 namespace Microsoft.Support.Workflow.Authoring.Services
 {
@@ -188,7 +189,12 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                     return;
                 }
 
-                ActivityAssemblyItem toDownloadAssembly = new ActivityAssemblyItem { Name = model.Name, Version = System.Version.Parse(model.Version) };
+                ActivityAssemblyItem toDownloadAssembly = new ActivityAssemblyItem 
+                { 
+                    Name = model.Name,
+                    Version = System.Version.Parse(model.Version) ,
+                    Env = model.Env.ToEnv()
+                };
                 AssemblyDownloader.GetActivityItemsByActivityAssemblyItem(toDownloadAssembly, client);
 
                 //download dependendies
@@ -239,6 +245,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 {
                     Name = item.Name,
                     Version = item.Version,
+                    Environment = item.Env,
                     Incaller = Environment.UserName,
                     IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                 };
@@ -255,7 +262,12 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 if (result.Any())
                 {
                     StoreActivitiesDC dc = result[0];
-                    ActivityAssemblyItem assembly = new ActivityAssemblyItem { Name = dc.ActivityLibraryName, Version = System.Version.Parse(dc.Version) };
+                    ActivityAssemblyItem assembly = new ActivityAssemblyItem 
+                    {   
+                        Name = dc.ActivityLibraryName, 
+                        Version = System.Version.Parse(dc.Version),
+                        Env = dc.Environment.ToEnv()
+                    };
                     List<ActivityAssemblyItem> references = Caching.CacheAndDownloadAssembly(client, Caching.ComputeDependencies(client, assembly));
                     this.SaveProjectsToLocal(dc, references);
                     currentDownloadingNumber++;

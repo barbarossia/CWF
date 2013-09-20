@@ -5,6 +5,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AuthorizationGroup]') AND type in (N'U'))
+
 CREATE TABLE [dbo].[AuthorizationGroup](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Guid] [uniqueidentifier] NOT NULL,
@@ -16,6 +18,8 @@ CREATE TABLE [dbo].[AuthorizationGroup](
 	[UpdatedByUserAlias] [nvarchar](50) NOT NULL,
 	[UpdatedDateTime] [datetime] NOT NULL,
 	[Timestamp] [timestamp] NOT NULL,
+	[RoleId] [int] NULL,
+	[Enabled] [bit] NOT NULL DEFAULT 0,
  CONSTRAINT [PK_AuthorizationGroup] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

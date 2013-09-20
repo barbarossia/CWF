@@ -28,6 +28,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaskActivity_Get]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TaskActivity_Get]
+GO
+
+
 CREATE PROCEDURE [dbo].[TaskActivity_Get]
         @inCaller nvarchar(50),
         @inCallerversion nvarchar (50),
@@ -183,6 +188,7 @@ BEGIN
 			sa.UpdatedByUserAlias,
 			sa.UpdatedDateTime,
 			sa.XAML,
+			E.Name as [Environment],
 			ta.Id as TaskActivityId,
 			ta.ActivityId,
 			ta.AssignedTo,
@@ -197,6 +203,7 @@ BEGIN
 		JOIN WorkflowType wft ON sa.WorkflowTypeId = wft.Id
 		LEFT JOIN Icon ic ON sa.IconsId = ic.Id 
 		LEFT JOIN AuthorizationGroup ag ON ag.Id = al.AuthGroupId
+		JOIN Environment E ON sa.Environment = E.Id 
 		WHERE ta.Id = @id
 
    END TRY

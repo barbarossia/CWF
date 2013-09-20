@@ -33,7 +33,7 @@ namespace Query_Service.Tests.FunctionalTests
         [WorkItem(86716)]
         [Description("Verify string description overload of WriteEvent()")]
         [Owner("DiffReqTest")]//[Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void Verify_Log_StringOverload()
         {
@@ -66,7 +66,7 @@ namespace Query_Service.Tests.FunctionalTests
         [WorkItem(86716)]
         [Description("Verify Exception class overload of WriteEvent()")]
         [Owner("DiffReqTest")]//[Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void Verify_Log_ExceptionOverload()
         {
@@ -146,7 +146,7 @@ namespace Query_Service.Tests.FunctionalTests
         [WorkItem(97518)]
         [Description("Dal: GetEventcategory No range check Throws exception")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void Verify_Log_GetEventCategory()
         {

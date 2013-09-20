@@ -70,7 +70,7 @@ namespace Query_Service.Tests
         [WorkItem(22205)]
         [Description("Verify GET FROM etblWorkflowType Table")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyWorkflowGet()
         {

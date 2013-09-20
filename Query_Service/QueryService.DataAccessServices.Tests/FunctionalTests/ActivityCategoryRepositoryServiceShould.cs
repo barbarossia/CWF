@@ -14,7 +14,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
     {
         [Description("Verifies whether GetActivityCategories method returns the matching item when called with Name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnActivityCategoryWhenGetActivityCategoriesIsCalledWithValidName()
         {
@@ -31,7 +31,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetActivityCategories method returns the matching item when called with Id.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnActivityCategoryWhenGetActivityCategoriesIsCalledWithValidId()
         {
@@ -53,7 +53,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetActivityCategories method returns the matching item when called with Id and invalid name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnActivityCategoryWhenGetActivityCategoriesIsCalledWithValidIdAndInvalidName()
         {
@@ -75,7 +75,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetActivityCategories method returns the matching item when called with Id and valid name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnActivityCategoryWhenGetActivityCategoriesIsCalledWithValidIdAndValidName()
         {
@@ -97,7 +97,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetActivityCategories method returns all items when called with invalid Id and invalid Name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnAllItemsWhenGetActivityCategoriesIsCalledWithInvalidIdAndInvalidName()
         {
@@ -119,7 +119,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetActivityCategories method returns all items when called with invalid Id and valid Name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnAllItemsWhenGetActivityCategoriesIsCalledWithInvalidIdAndValidName()
         {

@@ -1,10 +1,12 @@
-/****** Object:  StoredProcedure [dbo].[Marketplace_Search]    Script Date: 06/06/2012 15:34:38 ******/
+/****** Object:  StoredProcedure [dbo].[Marketplace_Search]    Script Date: 05/16/2013 01:46:33 ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Marketplace_Search]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Marketplace_Search]
+GO
 
 
 /**************************************************************************
@@ -31,6 +33,7 @@ GO
 **  05/31/2012     v-bobzh             Original implementation
 ** *************************************************************************/
 CREATE PROCEDURE [dbo].[Marketplace_Search]
+		@InAuthGroupName	[dbo].[AuthGroupNameTableType] READONLY ,
 		@SearchText nvarchar(250),
 		@AssetType tinyint,
 		@GetTemplates bit = null,
@@ -39,11 +42,31 @@ CREATE PROCEDURE [dbo].[Marketplace_Search]
 		@PageNumber int,
 		@SortColumn varchar(50),
 		@SortAscending bit,
-		@FilterOlder bit
+		@FilterOlder bit,
+		@outErrorString nvarchar (300)OUTPUT
 AS
 BEGIN
 	SET NOCOUNT ON	
+	
+	DECLARE @cObjectName       [sysname]
+	SELECT  @cObjectName       = OBJECT_NAME(@@PROCID)
+    SET @outErrorString = ''
+
+	DECLARE @Return_Value int
+	DECLARE @InEnvironments [dbo].[EnvironmentTableType]
+	INSERT @InEnvironments (Name) SELECT [Name] FROM Environment
+    	EXEC @Return_Value = dbo.ValidateSPPermission 
+		@InSPName = @cObjectName,
+		@InAuthGroupName = @InAuthGroupName,
+		@InEnvironments = @InEnvironments,
+		@OutErrorString =  @OutErrorString output
+	IF (@Return_Value > 0)
+	BEGIN		    
+        RETURN @Return_Value
+	END
+	
 	BEGIN TRY	
+
 		IF @AssetType = 0
 			EXEC  Marketplace_SearchAllItems @SearchText, @GetTemplates, @GetPublishingWorkflows, @PageSize, @PageNumber, @SortColumn, @SortAscending, @FilterOlder
 		ELSE IF @AssetType= 1	
@@ -55,8 +78,5 @@ BEGIN
 	EXECUTE [dbo].Error_Handle
 	END CATCH		
 END
-
-
-GO
 
 

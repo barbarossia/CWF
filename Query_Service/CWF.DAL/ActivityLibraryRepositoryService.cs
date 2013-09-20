@@ -64,7 +64,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         activeLibraryDCreply.FriendlyName = Convert.ToString(reader["FriendlyName"]);
                         activeLibraryDCreply.ReleaseNotes = Convert.ToString(reader["ReleaseNotes"]);
                         activeLibraryDCreply.HasExecutable = reader["Executable"] != DBNull.Value;
-
+                        activeLibraryDCreply.Environment = Convert.ToString(reader[DataColumnNames.Environment]);
                         if (includeDll)
                         {
                             activeLibraryDCreply.Executable = (reader["Executable"] == DBNull.Value) ? null : (byte[])reader["Executable"];

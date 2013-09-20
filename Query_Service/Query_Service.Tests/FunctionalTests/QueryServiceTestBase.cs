@@ -187,6 +187,7 @@ namespace Query_Service.Tests
             typeRequest.GetProperty("Incaller").SetValue(getRequest, IN_CALLER, null);
             typeRequest.GetProperty("IncallerVersion").SetValue(getRequest, IN_CALLER_VERSION, null);
             typeRequest.GetProperty("Name").SetValue(getRequest, name, null);
+            typeRequest.GetProperty("Environment").SetValue(getRequest, "Dev", null);
             if (typeRequest.Name == "ActivityLibraryDC")
                 typeRequest.GetProperty("VersionNumber").SetValue(getRequest, version, null);
             else

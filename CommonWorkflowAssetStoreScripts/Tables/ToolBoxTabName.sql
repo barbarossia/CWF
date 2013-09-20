@@ -5,8 +5,10 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ToolBoxTabName]') AND type in (N'U'))
+
 CREATE TABLE [dbo].[ToolBoxTabName](
-	[Id] [bigint] NOT NULL,
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](30) NOT NULL,
 	[SoftDelete] [bit] NOT NULL,
 	[InsertedByUserAlias] [nvarchar](50) NOT NULL,

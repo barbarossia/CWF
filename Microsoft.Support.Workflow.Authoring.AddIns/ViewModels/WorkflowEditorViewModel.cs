@@ -136,6 +136,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         private bool isTask;
         private ObservableCollection<TaskItem> taskItems;
 
+        public ProjectExplorerViewModel ProjectExploreVM { get; set; }
+
         #endregion
 
         #region events
@@ -185,12 +187,9 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             }
             set
             {
-                if (!string.IsNullOrWhiteSpace(xamlCode))
-                {
-                    xamlCode = value;
-                    RaisePropertyChanged(() => XamlCode);
-                    RaisePropertyChanged(() => IsValid);
-                }
+                xamlCode = value;
+                RaisePropertyChanged(() => XamlCode);
+                RaisePropertyChanged(() => IsValid);
             }
         }
 
@@ -396,10 +395,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             // Make sure we sync the FullName
             FullName = Name;
             // Update the required portion of the XAML when the Name changes
-            if (IsValid)
-            {
-                UpdateXamlCodeFromName();
-            }
+            UpdateXamlCodeFromName();
         }
 
         private PrintAction shouldBePrint;
@@ -752,6 +748,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             if (WorkflowDesigner != null)
             {
                 XamlCode = WorkflowDesigner.LooseXaml();
+                XamlIndexTreeHelper.Refresh(XamlCode);
                 RaiseDesignerChanged();
             }
         }

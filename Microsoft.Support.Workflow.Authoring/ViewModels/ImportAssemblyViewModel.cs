@@ -24,22 +24,23 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Microsoft.Support.Workflow.Authoring.ExpressionEditor;
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+    using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
 
     /// <summary>
     /// ViewModel for the Import Assembly Screen
     /// </summary>
-    public class ImportAssemblyViewModel : NotificationObject
+    public class ImportAssemblyViewModel : ViewModelBase
     {
         private const int MaxCategoryNameLength = 50;     // Maximum length of the category names.
         private const string CategoryNamePattern = "^[a-zA-Z0-9 ]+$";
 
         private HashSet<string> resolvedAssemblies = new HashSet<string>();  // The list of locations the user has resolved.
-        private ActivityAssemblyItem mainAssemblyItem;                       // Keeps track of the initial root so we can regenerate the tree on deletions.
         private string selectedCategory = String.Empty;                      // Selected category (default) for the assemblies to import
         private bool isAddingCategory;                                       // Flag to indicate if we are in a state of adding a new category.
         private string newCategoryName;                                      // New category name that will be inserted if the AddNewCategoryCommand executes.
         private ActivityAssemblyItemViewModel selectedActivityAssemblyItem;  // Selected assembly item in the collection.
         private ObservableCollection<ActivityAssemblyItemViewModel> assembliesToImport;  // Collection of assemblies that will be imported.
+        private ObservableCollection<ActivityAssemblyItemViewModel> selectedActivityAssemblyItems;  // Collection of assemblies that will be imported.
 
         /// <summary>
         /// Gets or sets the command that changes the state of the viewmodel to indicate that the user wants to add a category.
@@ -56,11 +57,12 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         public DelegateCommand ImportCommand { get; private set; }
 
+        public DelegateCommand BrowseCommand { get; private set; }
+
         /// <summary>
         /// Gets or sets the command that adds a new category of assemblies to the asset store.
         /// </summary>
         public DelegateCommand AddNewCategoryCommand { get; private set; }
-
 
         /// <summary>
         /// Gets or sets the name of the new category that the user is creating.
@@ -94,7 +96,11 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         public ICollectionView ActivityCategories
         {
-            get { return AssetStoreProxy.ActivityCategories.View; }
+            get
+            {
+                AssetStoreProxy proxy = new AssetStoreProxy();
+                return proxy.NewActivityCategories.View;
+            }
         }
 
         /// <summary>
@@ -119,20 +125,29 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             get
             {
                 assembliesToImport = assembliesToImport ?? new ObservableCollection<ActivityAssemblyItemViewModel>();
-
-                if (SelectedActivityAssemblyItem == null && assembliesToImport.Count > 0)
-                    SelectedActivityAssemblyItem = assembliesToImport[0];
-
                 return assembliesToImport;
             }
         }
 
         /// <summary>
-        /// Main assembly to be imported (the one selected by the user).
+        /// Selected assembly items.
         /// </summary>
-        public ActivityAssemblyItem MainAssemblyItem
+        public ObservableCollection<ActivityAssemblyItemViewModel> SelectedActivityAssemblyItems
         {
-            get { return mainAssemblyItem; }
+            get
+            {
+                if (selectedActivityAssemblyItems == null)
+                {
+                    selectedActivityAssemblyItems = new ObservableCollection<ActivityAssemblyItemViewModel>();
+                }
+
+                return selectedActivityAssemblyItems;
+            }
+            set
+            {
+                selectedActivityAssemblyItems = value;
+                RaisePropertyChanged(() => SelectedActivityAssemblyItems);
+            }
         }
 
         /// <summary>
@@ -160,30 +175,39 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         public WorkflowItem FocusedWorkflowItem { get; set; }
 
-
         /// <summary>
         /// Default constructor for the class
         /// </summary>
         public ImportAssemblyViewModel(string assemblyFilePath)
+            : this(new string[] { assemblyFilePath })
         {
-            Utility.DoTaskWithBusyCaption("Loading", () =>
+        }
+
+        public ImportAssemblyViewModel(string[] assemblyFilePaths)
+            : this()
+        {
+            if (assemblyFilePaths == null)
             {
-                if (string.IsNullOrEmpty(assemblyFilePath))
-                {
-                    throw new ArgumentNullException("assemblyFilePath");
-                }
+                throw new ArgumentNullException("assemblyFilePath");
+            }
+            Utility.DoTaskWithBusyCaption("Loading assemblies...", () =>
+            {
+                assemblyFilePaths.ToList().ForEach(path =>
+                    AssemblyInspectionService.CheckAssemblyPath(path));
 
-                AssemblyInspectionService.CheckAssemblyPath(assemblyFilePath);
-
-                StartAddingCategoryCommand = new DelegateCommand(() => { IsAddingCategory = true; });
-                StopAddingCategoryCommand = new DelegateCommand(() => { IsAddingCategory = false; });
-                ImportCommand = new DelegateCommand(ImportCommandExecute, CanImportCommandExecute);
-                AddNewCategoryCommand = new DelegateCommand(AddNewCategoryCommandExecute, CanAddNewCategoryCommandExecute);
-
-                var item = new ActivityAssemblyItem(AssemblyName.GetAssemblyName(assemblyFilePath)) { Location = assemblyFilePath };
-                mainAssemblyItem = item;
-                Initialize();
+                InspectAssemblies(assemblyFilePaths);
             });
+        }
+
+        public ImportAssemblyViewModel()
+        {
+            StartAddingCategoryCommand = new DelegateCommand(() => { IsAddingCategory = true; });
+            StopAddingCategoryCommand = new DelegateCommand(() => { IsAddingCategory = false; });
+            ImportCommand = new DelegateCommand(ImportCommandExecute, CanImportCommandExecute);
+            BrowseCommand = new DelegateCommand(BrowseCommandExecute);
+            AddNewCategoryCommand = new DelegateCommand(AddNewCategoryCommandExecute, CanAddNewCategoryCommandExecute);
+            this.SelectedCategory = DefaultValueSettings.DefaultCategory;
+            Initialize();
         }
 
         /// <summary>
@@ -191,20 +215,13 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void Initialize()
         {
-            AssembliesToImport.Clear();
-
-            if (!string.IsNullOrEmpty(mainAssemblyItem.Location)) // might not have a location, in unit test code. Otherwise it always came from a real file.
-            {
-                InspectAssembly(mainAssemblyItem.Location);
-            }
-
-            AssembliesToImport.CollectionChanged += AssembliesToImportCollectionChanged;
+            SelectedActivityAssemblyItems.CollectionChanged += SelectedActivityAssemblyItemsCollectionChanged;
         }
 
-        void AssembliesToImportCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void SelectedActivityAssemblyItemsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (SelectedActivityAssemblyItem == null && AssembliesToImport.Count > 0)
-                SelectedActivityAssemblyItem = AssembliesToImport[0];
+            if (SelectedActivityAssemblyItem == null && SelectedActivityAssemblyItems.Count > 0)
+                SelectedActivityAssemblyItem = SelectedActivityAssemblyItems[0];
         }
 
         /// <summary>
@@ -292,6 +309,18 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         }
 
         /// <summary>
+        /// Execute the import command logic (Imports the assemblies).
+        /// </summary>
+        public void BrowseCommandExecute()
+        {
+            string[] assemblyFileNames = DialogService.ShowOpenFileDialogAndReturnMultiResult("Assembly files (*.dll)|*.dll", "Open Assembly File");
+            if (assemblyFileNames != null)
+            {
+                InspectAssemblies(assemblyFileNames);
+            }
+        }
+
+        /// <summary>
         /// Check if the name of the new category is valid
         /// </summary>
         private void ValidateCategoryName()
@@ -317,33 +346,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
         }
 
-        /// <summary>
-        /// Starts the inspection of one assembly to get all its references and contained activities
-        /// </summary>
-        /// <param name="assemblyPath">Path of the assembly to import</param>
         public void InspectAssembly(string assemblyPath)
         {
-
-            if (string.IsNullOrEmpty(assemblyPath))
-            {
-                throw new ArgumentNullException("assemblyPath");
-            }
-
-            AssemblyInspectionService.CheckAssemblyPath(assemblyPath);
-
-            var assemblyName = AssemblyName.GetAssemblyName(assemblyPath);
-
-            if (AssembliesToImport.Any(item => item.Name == assemblyName.Name
-                                               && item.Version == assemblyName.Version.ToString()
-                                               && !string.IsNullOrEmpty(item.Location)))
-            {
-                MessageBoxService.Show(ImportMessages.AssemblyAlreadyInListToImport,
-                                       Assembly.GetExecutingAssembly().GetName().Name,
-                                       MessageBoxButton.OK,
-                                       MessageBoxImage.Information);
-                return;
-            }
-
             var inspection = Utility.GetAssemblyInspectionService();
 
             if (!inspection.Inspect(assemblyPath))
@@ -361,11 +365,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
             var newAssembly = new ActivityAssemblyItemViewModel(inspection.SourceAssembly);
             AssembliesToImport.Add(newAssembly);
-
-            if (SelectedActivityAssemblyItem == null)
-            {
-                SelectedActivityAssemblyItem = AssembliesToImport[0];
-            }
+            SelectedActivityAssemblyItems.Add(newAssembly);
 
             if (inspection.ReferencedAssemblies.Any())
             {
@@ -379,7 +379,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 foreach (var item in inspection.ReferencedAssemblies)
                 {
                     //Check to verify assembly is not already in the list
-                    if (!AssembliesToImport.Any(element => element.Name == item.Name && element.Version == item.Version.ToString()))
+                    if (!AssembliesToImport.Any(element => element.Name == item.Name && element.Version == item.Version.ToString()) &&
+                        !Caching.ActivityAssemblyItems.Any(caching => caching.Name == item.Name && caching.Version == item.Version))
                     {
                         var viewModel = new ActivityAssemblyItemViewModel(item);
                         AssembliesToImport.Add(viewModel);
@@ -388,7 +389,45 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
 
             MarkResolvedAssembly(newAssembly);
+        }
+
+        private void InspectAssembliesWithBusy(string[] assemblyPaths)
+        {
+            Utility.DoTaskWithBusyCaption("Loading...", () =>
+            {
+                InspectAssemblies(assemblyPaths);
+            }, false);
+        }
+
+        /// <summary>
+        /// Starts the inspection of one assembly to get all its references and contained activities
+        /// </summary>
+        /// <param name="assemblyPath">Path of the assembly to import</param>
+        public void InspectAssemblies(string[] assemblyPaths)
+        {
+            if (assemblyPaths == null || !assemblyPaths.Any())
+            {
+                throw new ArgumentNullException("assemblyPath");
+            }
+
+            foreach (var path in assemblyPaths)
+            {
+                AssemblyInspectionService.CheckAssemblyPath(path);
+                var assemblyName = AssemblyName.GetAssemblyName(path);
+                if (AssembliesToImport.Any(item => item.Name == assemblyName.Name
+                                                   && item.Version == assemblyName.Version.ToString()
+                                                   && !string.IsNullOrEmpty(item.Location)))
+                {
+
+                    continue;
+                }
+
+                InspectAssembly(path);
+            }
+
             SortAssembliesToImport();
+            if (!string.IsNullOrEmpty(this.SelectedCategory))
+                ChangeDefaultCategory(this.SelectedCategory);
         }
 
         /// <summary>
@@ -410,6 +449,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 activityAssemblyItem.IsReviewed = false; //user will have to review it again
                 InspectAssembly(assemblyPath);
+                SortAssembliesToImport();
             }
         }
 

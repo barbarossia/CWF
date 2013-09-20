@@ -69,8 +69,8 @@ namespace Query_Service.Tests
             //Populate the request data
             getRequest.Incaller = IN_CALLER;
             getRequest.IncallerVersion = IN_CALLER_VERSION;
-            getRequest.InsertedByUserAlias = USER;
-            getRequest.UpdatedByUserAlias = USER;
+            getRequest.InInsertedByUserAlias = USER;
+            getRequest.InUpdatedByUserAlias = USER;
             getRequest.Id = id;
 
             try
@@ -211,8 +211,8 @@ namespace Query_Service.Tests
             //Populate the request data
             getRequest.Incaller = IN_CALLER;
             getRequest.IncallerVersion = IN_CALLER_VERSION;
-            getRequest.InsertedByUserAlias = USER;
-            getRequest.UpdatedByUserAlias = USER;
+            getRequest.InInsertedByUserAlias = USER;
+            getRequest.InUpdatedByUserAlias = USER;
             getRequest.Guid = guid;
 
             try
@@ -284,8 +284,8 @@ namespace Query_Service.Tests
             // Populate Request 
             getRequest.Incaller = IN_CALLER;
             getRequest.IncallerVersion = IN_CALLER_VERSION;
-            getRequest.InsertedByUserAlias = USER;
-            getRequest.UpdatedByUserAlias = USER;
+            getRequest.InInsertedByUserAlias = USER;
+            getRequest.InUpdatedByUserAlias = USER;
             getRequest.Id = nonExistingID;
 
             getReplyList = new List<ActivityLibraryDC>();
@@ -417,8 +417,8 @@ namespace Query_Service.Tests
             createOrUpdateRequest.Guid = Guid.NewGuid();
             createOrUpdateRequest.Name = name;
             createOrUpdateRequest.Description = description;
-            createOrUpdateRequest.InsertedByUserAlias = USER;
-            createOrUpdateRequest.UpdatedByUserAlias = USER;
+            createOrUpdateRequest.InInsertedByUserAlias = USER;
+            createOrUpdateRequest.InUpdatedByUserAlias = USER;
             createOrUpdateRequest.VersionNumber = version;
             createOrUpdateRequest.AuthGroupName = authGroupName;
             createOrUpdateRequest.CategoryName = categoryName;
@@ -466,8 +466,8 @@ namespace Query_Service.Tests
             createOrUpdateRequest.Guid = Guid.NewGuid();
             createOrUpdateRequest.Name = name;
             createOrUpdateRequest.Description = description;
-            createOrUpdateRequest.InsertedByUserAlias = USER;
-            createOrUpdateRequest.UpdatedByUserAlias = USER;
+            createOrUpdateRequest.InInsertedByUserAlias = USER;
+            createOrUpdateRequest.InUpdatedByUserAlias = USER;
             createOrUpdateRequest.VersionNumber = version;
             createOrUpdateRequest.AuthGroupName = authGroupName;
             createOrUpdateRequest.CategoryName = categoryName;
@@ -525,8 +525,8 @@ namespace Query_Service.Tests
             createOrUpdateRequest.Guid = Guid.NewGuid();
             createOrUpdateRequest.Name = name;
             createOrUpdateRequest.Description = description;
-            createOrUpdateRequest.InsertedByUserAlias = USER;
-            createOrUpdateRequest.UpdatedByUserAlias = USER;
+            createOrUpdateRequest.InInsertedByUserAlias = USER;
+            createOrUpdateRequest.InUpdatedByUserAlias = USER;
             createOrUpdateRequest.VersionNumber = version;
             createOrUpdateRequest.AuthGroupName = authGroupName;
             createOrUpdateRequest.CategoryName = categoryName;
@@ -621,9 +621,9 @@ namespace Query_Service.Tests
             activityLibraryDCTemp.HasActivities = true;
             activityLibraryDCTemp.ImportedBy = USER;
             activityLibraryDCTemp.Description = TEST_STRING;
-            activityLibraryDCTemp.InsertedByUserAlias = USER;
+            activityLibraryDCTemp.InInsertedByUserAlias = USER;
             activityLibraryDCTemp.VersionNumber = VERSIONNUMBER1;
-            activityLibraryDCTemp.UpdatedByUserAlias = USER;
+            activityLibraryDCTemp.InUpdatedByUserAlias = USER;
             activityLibraryDCTemp.Status = STATUSCODE;
             activityLibraryDCTemp.StatusName = STATUS;
 
@@ -686,7 +686,7 @@ namespace Query_Service.Tests
             storeActivityDC.Description = TEST_STRING;
             storeActivityDC.Incaller = IN_CALLER;
             storeActivityDC.IncallerVersion = IN_CALLER_VERSION;
-            storeActivityDC.InsertedByUserAlias = USER;
+            storeActivityDC.InInsertedByUserAlias = USER;
             storeActivityDC.IsCodeBeside = true;
             storeActivityDC.IsService = true;
             storeActivityDC.Locked = true;
@@ -697,7 +697,7 @@ namespace Query_Service.Tests
             storeActivityDC.StatusCodeName = STATUSCODENAME;
             storeActivityDC.Guid = Guid.NewGuid();
             storeActivityDC.ToolBoxtab = 1;
-            storeActivityDC.UpdatedByUserAlias = USER;
+            storeActivityDC.InUpdatedByUserAlias = USER;
             storeActivityDC.Version = version;
             storeActivityDC.WorkflowTypeName = WORKFLOWTYPENAME;
             storeActivityDC.Xaml = XAML;

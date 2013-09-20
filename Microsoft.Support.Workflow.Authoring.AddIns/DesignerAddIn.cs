@@ -24,6 +24,8 @@ using Microsoft.Support.Workflow.Authoring.ExpressionEditor;
 using System.Threading.Tasks;
 using CWF.DataContracts;
 using System.Windows.Threading;
+using Microsoft.Support.Workflow.Authoring.Security;
+using System.Security.Principal;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns
 {
@@ -58,8 +60,18 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             WorkflowEditorVM.PrintStateChanged += new EventHandler(this.OnPrintStateChanged);
             WorkflowEditorVM.DesignerChanged += new EventHandler(this.WorkflowDesignerChanged);
             WorkflowEditorVM.GetTaskLastVersionChanged += new GetTaskLastVersionEventHandler(this.OnGetTaskLastVersion);
-            Task.Factory.StartNew(() => { PrincipalService.Init(); }, cancellationToken.Token);
+            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
+            Task.Factory.StartNew(() => { var m = AuthorizationService.EnvPermissionMaps; }, cancellationToken.Token);
             Current = this;
+        }
+
+        public bool HasTask
+        {
+            get
+            {
+                var currentTasks = MultipleAuthorService.GetTasks(WorkflowEditorVM.WorkflowDesigner);
+                return currentTasks.Count > 0;
+            }
         }
 
         public List<TaskAssignment> Tasks
@@ -111,20 +123,24 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
         {
             this.isTask = isTask;
 
+            XamlIndexTreeHelper.CreateIndexTree(xaml);
+
             workflowView = new WorkflowEditorView();
             workflowView.DataContext = WorkflowEditorVM;
 
             WorkflowEditorVM.Init(name, xaml, isTask);
 
             peView = new WorkflowProjectExplorerView();
-            peView.DataContext = new ProjectExplorerViewModel(WorkflowEditorVM);
+            var peVM = new ProjectExplorerViewModel(WorkflowEditorVM);
+            peView.DataContext = peVM;
+            peVM.WorkflowOutlineFocuceChanged += new ActivityFocuceEventHandler(workflowView.OnActivityFocuceChanged);
 
             propertyView = new WorkflowPropertyView();
             propertyView.DataContext = WorkflowEditorVM;
 
             toolbox = new ToolboxView();
             toolbox.DataContext = new ToolboxViewModel(isTask);
-           
+
         }
 
         public void RefreshTasks()
@@ -174,7 +190,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
         }
 
         public void Undo()
-        {           
+        {
             WorkflowEditorVM.WorkflowDesigner.Context.Services.GetService<UndoEngine>().Undo();
         }
 
@@ -324,7 +340,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             }
 
             //refresh toolbox
-            this.toolbox.DataContext = new ToolboxViewModel(this.isTask);
+            this.toolbox.DataContext = new ToolboxViewModel(isTask);
 
             CreateIntellisense(cancellationToken);
 
@@ -420,10 +436,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
 
         public void RollbackAssignedTasks(Guid[] ids)
         {
-                MultipleAuthorService.RollbackAssignedTasks(WorkflowEditorVM.WorkflowDesigner, ids);
+            MultipleAuthorService.RollbackAssignedTasks(WorkflowEditorVM.WorkflowDesigner, ids);
         }
 
-        public void Close() 
+        public void Close()
         {
             Dispose();
         }

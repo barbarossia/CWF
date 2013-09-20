@@ -1,3 +1,14 @@
+/****** Object:  StoredProcedure [dbo].[WorkflowType_Search]    Script Date: 05/16/2013 01:50:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[WorkflowType_Search]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[WorkflowType_Search]
+GO
+
+
  /**************************************************************************
 // Product:  CommonWF
 // FileName: WorkflowType_Search.sql
@@ -22,17 +33,35 @@
 **  11/20/2012      v-kason            Original implementation
 ** *************************************************************************/
 CREATE PROCEDURE [dbo].[WorkflowType_Search]
+		@InAuthGroupName	[dbo].[AuthGroupNameTableType] READONLY ,
 		@SearchText nvarchar(250),
 		@SortColumn varchar(50),
 		@SortAscending bit,
 		@PageSize int,
-		@PageNumber int
+		@PageNumber int,
+		@InEnvironments	[dbo].[EnvironmentTableType] READONLY ,
+		@outErrorString nvarchar (300)OUTPUT
 AS
 BEGIN
 	SET NOCOUNT ON
+	
+	DECLARE @cObjectName       [sysname]
+	SELECT  @cObjectName       = OBJECT_NAME(@@PROCID)
+	SET @outErrorString = ''
+    
+	DECLARE @Return_Value int
+	EXEC @Return_Value = dbo.ValidateSPPermission 
+		@InSPName = @cObjectName,
+		@InAuthGroupName = @InAuthGroupName,
+		@InEnvironments = @InEnvironments,
+		@OutErrorString =  @OutErrorString output
+	IF (@Return_Value > 0)
+	BEGIN		    
+		RETURN @Return_Value
+	END
 
 	BEGIN TRY
-			
+				
 			IF (@SortColumn IS NULL OR @SortColumn = '')
 			SET @SortColumn = 'id'
 
@@ -68,6 +97,7 @@ BEGIN
 				AuthGroupName nvarchar(255),
 				InsertedByUserAlias nvarchar(50),
 				InsertedDateTime datetime,
+				Environment nvarchar(50),
 				WorkflowsCount bigint
 			)
 
@@ -104,11 +134,14 @@ BEGIN
 					ag.Name as AuthGroupName,
 					wf.InsertedByUserAlias,
 					wf.InsertedDateTime,
+					E.[Name] AS Environment,
 					(select COUNT(1) from Activity where WorkflowTypeId=wf.id) as WorkflowsCount 
 			FROM [dbo].WorkflowType wf
 			LEFT JOIN Activity a1 ON wf.PublishingWorkflowId = a1.Id
 			left join Activity a2 on wf.WorkflowTemplateId = a2.Id
 			left join AuthorizationGroup ag on wf.AuthGroupId = ag.Id
+			JOIN Environment E ON wf.Environment = E.Id
+			JOIN @InEnvironments IE ON IE.[Name] = E.[Name]
 			WHERE wf.SoftDelete = 0 AND wf.Name like @SearchText
 			END
 			
@@ -145,17 +178,20 @@ BEGIN
 					ag.Name as AuthGroupName,
 					wf.InsertedByUserAlias,
 					wf.InsertedDateTime,
+					E.[Name] AS Environment,
 					(select COUNT(1) from Activity where WorkflowTypeId=wf.id) as WorkflowsCount 
 					
 			FROM [dbo].WorkflowType wf
 			LEFT JOIN Activity a1 ON wf.PublishingWorkflowId = a1.Id
 			left join Activity a2 on wf.WorkflowTemplateId = a2.Id
 			left join AuthorizationGroup ag on wf.AuthGroupId = ag.Id
+			JOIN Environment E ON wf.Environment = E.Id
+			JOIN @InEnvironments IE ON IE.[Name] = E.[Name]
 			WHERE wf.SoftDelete = 0
 			END
 			
 			SELECT Id,[GUID],Name,PublishingWorkflowId, PublishingWorkflowName, PublishingWorkflowVersion, WorkflowTemplateId, WorkflowTemplateName, WorkflowTemplateVersion
-			,AuthGroupId,AuthGroupName,InsertedByUserAlias,InsertedDateTime,WorkflowsCount
+			,AuthGroupId,AuthGroupName,InsertedByUserAlias,InsertedDateTime,Environment,WorkflowsCount
 			FROM #SearchWorkflowTypeResults
 			WHERE RowNumber BETWEEN @StartIndex AND ((@StartIndex + @PageSize) -1)
 			order by rownumber	
@@ -168,7 +204,4 @@ BEGIN
 		EXECUTE [dbo].Error_Handle
 	END CATCH
 END
-
-GO
-
 

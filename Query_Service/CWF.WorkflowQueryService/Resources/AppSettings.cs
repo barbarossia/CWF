@@ -10,20 +10,20 @@ namespace CWF.WorkflowQueryService.Resources
     /// </summary>
     internal static class AppSettings
     {
-        public const string AuthorGroupNameKey = "AuthorGroupName";
+        public const string TenantNameKey = "TenantName";
 
         /// <summary>
         /// Name of the authorization group that will be validated for access to the service.
         /// </summary>
-        public static string AuthorGroupName { get; private set; }
+        public static string TenantName { get; private set; }
 
         /// <summary>
         /// Default constructor
         /// </summary>
         static AppSettings()
         {
-            AuthorGroupName =
-                System.Configuration.ConfigurationManager.AppSettings[AuthorGroupNameKey];
+            TenantName =
+                System.Configuration.ConfigurationManager.AppSettings[TenantNameKey];
            
         }
     }

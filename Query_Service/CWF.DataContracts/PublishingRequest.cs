@@ -18,7 +18,7 @@ namespace CWF.DataContracts
     /// Publishing Request
     /// </summary>
     [DataContract]
-    public class PublishingRequest : RequestHeader
+    public class PublishingRequest : WorkflowRequestHeader
     {
         #region Public properties
         /// <summary>

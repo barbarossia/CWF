@@ -222,13 +222,13 @@ namespace Microsoft.Support.Workflow.Service.BusinessServices.Tests.UnitTests
                     HasActivities = true,
                     Id = i,
                     ImportedBy = "v-sanja",
-                    InsertedByUserAlias = "v-sanja",
+                    InInsertedByUserAlias = "v-sanja",
                     MetaTags = "MetaTags" + i,
                     Name = "Name" + i,
                     Status = i,
                     StatusName = "StatusName" + i,
                     VersionNumber = "1.0.0." + i,
-                    UpdatedByUserAlias = "v-sanja"
+                    InUpdatedByUserAlias = "v-sanja"
                 });
             }
             return items;

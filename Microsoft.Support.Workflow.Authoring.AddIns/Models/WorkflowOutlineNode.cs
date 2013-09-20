@@ -114,6 +114,16 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
         }
 
         /// <summary>
+        /// Indicate the offset of the xaml editor
+        /// </summary>
+        public int Offset { get; set; }
+
+        /// <summary>
+        /// Indicate the length of the xaml editor
+        /// </summary>
+        public int Length { get; set; }
+
+        /// <summary>
         /// Display Activity DisplayName for WorkflowoutlineNode
         /// </summary>
         /// <returns></returns>

@@ -29,6 +29,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
 
         #endregion Constants
 
+        public static void DirectoryServiceFailure() {
+            Show("This list of target users is partially due to some error reported by AD server. Please try later if you cannot find the target user you want in this list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
         /// <summary>
         /// Confirmation for printing activities.
         /// </summary>

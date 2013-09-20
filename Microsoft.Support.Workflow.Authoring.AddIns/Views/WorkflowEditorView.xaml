@@ -11,6 +11,7 @@
              d:DesignHeight="300"
              d:DesignWidth="480"
              AllowDrop="True"
+             xmlns:local="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Views"
              x:Name="workflowEditorView">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -93,18 +94,41 @@
             </DataGrid.Columns>
         </DataGrid>
         <!--XAML code container-->
-        <TextBox Text="{Binding XamlCode, Mode=OneWay}"
-                     TextWrapping="NoWrap"
+        <Grid Grid.Row="2" Height="260" Visibility="Collapsed"  x:Name="XamlCodeEditor">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <local:SearchXamlControl 
+                    HorizontalAlignment="Left" 
+                    BorderThickness="1" 
+                    HighlightedTextBrush="Blue" 
+                    HighlightedBackgroundBrush="Orange"  
+                    NextPreviousButtonsForegroundBrush="Blue"
+                    Grid.Row="0" 
+                    Width="205" 
+                    x:Name="findControl"
+                    Height="30"
+                    VerticalAlignment="Center"
+                    BackgroundText="Search"
+                    TextBoxBackgroundBrush="White"
+                    BackgroundTextBrush="Gray"
+                    Document="{Binding ElementName=TxtXamlCode,Path=Document}">
+            </local:SearchXamlControl>
+            <RichTextBox 
+                     x:Name="TxtXamlCode"
+                     Grid.Row="1"
+                     local:RichTextBoxHelper.DocumentChanged="DocChanged"
+                     local:RichTextBoxHelper.DocumentXaml="{Binding XamlCode}"
                      AcceptsReturn="True"
                      AcceptsTab="True"
-                     Visibility="Collapsed"
-                     Height="260"
                      VerticalScrollBarVisibility="Auto"
                      HorizontalScrollBarVisibility="Auto"
-                     Name="XamlCodeEditor"
                      IsReadOnly="{Binding IsReadOnly}"
-                     Grid.Row="2"
+                     GotFocus="TxtXamlCode_GotFocus"
                      LostFocus="XamlCodeEditor_MightHaveBeenEdited" />
+        </Grid>
+
         <!--Steps-->
         <ScrollViewer Panel.ZIndex="10"
                       Name="stepList"

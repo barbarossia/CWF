@@ -27,8 +27,20 @@ namespace Microsoft.Support.Workflow.Authoring.PrintCustomization
     }
 }
 
+namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities 
+{
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class FlowDocumentExtension { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class LogicalTreeUtility { }
+}
+
 namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class SearchXamlControl { }
+
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class ToolboxView
     {
@@ -48,4 +60,14 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
     public partial class WorkflowPropertyView
     {
     }
+}
+
+namespace Microsoft.Support.Workflow.Authoring.Behaviors
+{
+    /// <summary>
+    /// Help class of print selection
+    /// </summary>
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class SelectPrintContentBehavior
+    { }
 }

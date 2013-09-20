@@ -51,6 +51,19 @@ GO
    BEGIN
       ALTER TABLE [dbo].[Activity] DROP CONSTRAINT [DF_Activity_IsUxActivity]
    END
+
+   IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Activity_Environment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Activity]'))
+   ALTER TABLE [dbo].[Activity] DROP CONSTRAINT [FK_Activity_Environment]
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ActivityUniqueGUID]'))
+BEGIN
+ALTER TABLE [dbo].[Activity] DROP CONSTRAINT [DF_ActivityUniqueGUID]
+END
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ActivityUniqueName]'))
+BEGIN
+ALTER TABLE [dbo].[Activity] DROP CONSTRAINT [DF_ActivityUniqueName]
+END
    
    PRINT '    Adding CONSTRAINTS To [Activity]'
 
@@ -79,4 +92,25 @@ GO
 
    ALTER TABLE [dbo].[Activity] CHECK CONSTRAINT [FK_Activity_WorkflowType]
 
+   ALTER TABLE [dbo].[Activity]  WITH CHECK ADD  CONSTRAINT [FK_Activity_Environment] FOREIGN KEY([Environment])
+   REFERENCES [dbo].[Environment] ([Id])
+
+   ALTER TABLE [dbo].[Activity] CHECK CONSTRAINT [FK_Activity_Environment]
+
    ALTER TABLE [dbo].[Activity] ADD  CONSTRAINT [DF_Activity_IsUxActivity]  DEFAULT ((0)) FOR [IsUxActivity]
+
+ALTER TABLE [dbo].[Activity] ADD  CONSTRAINT [DF_ActivityUniqueGUID] UNIQUE NONCLUSTERED 
+(
+	[GUID] ASC,
+	[Environment] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+ALTER TABLE [dbo].[Activity] ADD  CONSTRAINT [DF_ActivityUniqueName] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC,
+	[Version] ASC,
+	[ShortName] ASC,
+	[Environment] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+

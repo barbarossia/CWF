@@ -5,6 +5,7 @@ using System.Text;
 using CWF.DataContracts;
 using Microsoft.Support.Workflow.Service.DataAccessServices;
 using CWF.DAL;
+using CWF.BAL;
 
 namespace Microsoft.Support.Workflow.Service.BusinessServices
 {
@@ -36,6 +37,7 @@ namespace Microsoft.Support.Workflow.Service.BusinessServices
                 activityLibraryDC.Incaller = request.Incaller;
                 activityLibraryDC.Name = request.Name;
                 activityLibraryDC.VersionNumber = request.VersionNumber;
+                activityLibraryDC.Environment = request.Environment;
                 newRequest.ActivityLibrary = activityLibraryDC;
 
                 newReply = ActivityRepositoryService.GetActivitiesByActivityLibrary(newRequest, includeXaml);
@@ -113,6 +115,54 @@ namespace Microsoft.Support.Workflow.Service.BusinessServices
             return reply;
         }
 
+        public static StoreActivitiesDC ActivityCopy(ActivityCopyRequest request)
+        {
+            var reply = new StoreActivitiesDC();
+
+            try
+            {
+                // Validates the input and throws ValidationException for any issues found.
+                request.ValidateRequest();
+
+                var nextVersion = GetNextVesion(new StoreActivitiesDC()
+                {
+                    Name = request.Name,
+                    Version = request.Version,
+                    Environment = request.EnvironmentTarget
+                });
+
+                request.NewName = nextVersion;
+                reply = Activities.ActivityCopy(request);
+
+            }
+            catch (ValidationException e)
+            {
+                e.HandleException();
+            }
+            catch (DataAccessException e)
+            {
+                e.HandleException();
+            }
+
+            return reply;
+        }
+
+        private static string GetNextVesion(StoreActivitiesDC storeActivity)
+        {
+            Version nextVersion = Version.Parse(storeActivity.Version);
+            var checkReply = ActivityRepositoryService.CheckActivityExists(storeActivity);
+            if (checkReply.Errorcode == 0)
+            {
+                bool exists = false;
+
+                if (bool.TryParse(checkReply.Output, out exists) && exists)
+                {
+                    nextVersion = Services.GetNextVersion(storeActivity, storeActivity.Environment);
+                }
+            }
+
+            return nextVersion.ToString();
+        }
         
     }
 }

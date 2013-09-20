@@ -74,6 +74,8 @@
     <Compile Include="DataColumnNames.cs" />
     <Compile Include="MarketplaceRepositoryService.cs" />
     <Compile Include="MarketplaceSearchRule.cs" />
+    <Compile Include="Permission.cs" />
+    <Compile Include="RepositoryHelper.cs" />
     <Compile Include="SprocValues.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,7 +14,7 @@ namespace Microsoft.Support.Workflow.Authoring.Common.Converters
                 throw new ArgumentNullException();
             }
 
-            if (targetType != typeof(bool))
+            if (targetType != typeof(bool) && targetType != typeof(bool?))
             {
                 throw new InvalidOperationException("The target must be a boolean");
             }

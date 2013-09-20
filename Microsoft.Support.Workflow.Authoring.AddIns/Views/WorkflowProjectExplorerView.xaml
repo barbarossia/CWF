@@ -10,7 +10,8 @@
              xmlns:l="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls"
              xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Converters"
              mc:Ignorable="d" 
-             >
+             xmlns:my="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls"
+            >
     <UserControl.Resources>
         <ResourceDictionary>
             <l:CustomToolTip x:Key="CustomToolTip"></l:CustomToolTip>
@@ -77,21 +78,29 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" BorderBrush="Gray" Padding="3" Margin="0,0,2,0" 
-                     Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                     ToolTip="{StaticResource CustomToolTip}"
-                     common:HelpProvider.HelpTitle="{StaticResource PE_SearchTitle}"
-                     common:HelpProvider.HelpAction="{StaticResource PE_SearchAction}"
-                     common:HelpProvider.HelpKey="{StaticResource PE_SearchHelpKey}"
-                     KeyDown="Search"
-                     >
-            </TextBox>
+            <my:SearchTextBox x:Name="txtSearch"
+                              Grid.Column="0" 
+                              Padding="2,3,3,3" 
+                              Margin="0,0,2,0" 
+                              SearchMode="Delayed"
+                              SearchEventTimeDelay="00:00:00"
+                              Search="SearchByLostFocus"
+                              LostFocus="SearchByLostFocus"
+                              KeyDown="SearchByKeyDown"
+                              Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                              common:HelpProvider.HelpTitle="{StaticResource PE_SearchTitle}"
+                              common:HelpProvider.HelpAction="{StaticResource PE_SearchAction}"
+                              common:HelpProvider.HelpKey="{StaticResource PE_SearchHelpKey}"
+                              >
+            </my:SearchTextBox>
             <Image Grid.Column="1" ToolTip="{StaticResource CustomToolTip}"
                    common:HelpProvider.HelpAction="{StaticResource PE_BtnPreviousAction}"
-                   common:HelpProvider.HelpTitle="{StaticResource PE_BtnPreviousTitle}" Width="25" Height="25" Source="..\Resources\Previous.png" MouseLeftButtonDown="Search_Previous"></Image>
+                   common:HelpProvider.HelpTitle="{StaticResource PE_BtnPreviousTitle}" Width="25" Height="25" Source="..\Resources\Previous.png" 
+                   MouseLeftButtonDown="Search_Previous"></Image>
             <Image Grid.Column="2" ToolTip="{StaticResource CustomToolTip}"
                    common:HelpProvider.HelpAction="{StaticResource PE_BtnNextAction}"
-                   common:HelpProvider.HelpTitle="{StaticResource PE_BtnNextTitle}" Width="25" Height="25" Source="..\Resources\Next1.png" MouseLeftButtonDown="Search_Next"></Image>
+                   common:HelpProvider.HelpTitle="{StaticResource PE_BtnNextTitle}" Width="25" Height="25" Source="..\Resources\Next1.png" 
+                   MouseLeftButtonDown="Search_Next"></Image>
         </Grid>
         <TextBlock Grid.Row="2" Foreground="Red" Margin="0,2,0,2" Text="{Binding SearchPositionNotify}"></TextBlock>
         <t:RadTreeView 

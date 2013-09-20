@@ -13,6 +13,10 @@ SET ROWCOUNT 0
 SET TEXTSIZE 0
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActivityLibraryDependency_CreateOrUpdateListHead]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[ActivityLibraryDependency_CreateOrUpdateListHead]
+GO
+
 /**************************************************************************
 // Product:  CommonWF
 // FileName: ActivityLibraryDependency_CreateOrUpdateListHead.sql

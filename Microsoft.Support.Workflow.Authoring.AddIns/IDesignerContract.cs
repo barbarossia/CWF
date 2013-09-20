@@ -14,6 +14,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
     public interface IDesignerContract
     {
         List<TaskAssignment> Tasks { get; }
+        bool HasTask { get; }
         void SetNewTasksToAssigned(Guid[] ids);
         void RollbackAssignedTasks(Guid[] ids);
 

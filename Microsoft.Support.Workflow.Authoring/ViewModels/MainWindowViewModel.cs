@@ -23,6 +23,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using CWF.DataContracts;
     using CWF.WorkflowQueryService.Versioning;
     using Microsoft.Support.Workflow.Authoring.AddIns;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Converters;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
     using Microsoft.Support.Workflow.Authoring.Behaviors;
@@ -48,7 +50,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private ObservableCollection<WorkflowItem> workflowItems;   // The workflow items.
         private string errorMessage;                // error message exposed to a consumer of this viewmodel
         private string errorMessageType;            // error message type exposed to a consumer of this viewmodel - intended use is as a caption, perhaps in a message box
-        private bool isAdministrator;
         // Save to local delegate for testing
         public Func<WorkflowItem, bool, bool> OnSaveToLocal { get; set; }
         // Save to server delegate for testing
@@ -62,15 +63,11 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
+            AllEnvs = Env.All;
+            AnyEnv = Env.Any;
             Task.Factory.StartNew(() => UserInfo = new UserInfoPaneViewModel());
 
-            var currentUserSecurityLevel =
-               AuthorizationService.GetSecurityLevel(AuthorizationService.CurrentPrincipalFunc() as WindowsPrincipal);
-            if (currentUserSecurityLevel == SecurityLevel.Administrator)
-                IsAdministrator = true;
-            else
-                IsAdministrator = false;
-            Title = string.Format(CommonMessages.MainWindowCaption, Environment.UserName, currentUserSecurityLevel);
+            Title = string.Format(CommonMessages.MainWindowCaption, Environment.UserName);
             PropertyChanged += MainWindowViewModelPropertyChanged;
 
             InitializeCommands();
@@ -81,6 +78,20 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             OnStoreActivitesUnlockWithBusy = StoreActivitesUnlockWithBusy;
             OnStoreActivitesUnlock = StoreActivitesUnlock;
         }
+
+
+        public DelegateCommand OpenEnvSecurityOptionsCommand { get; private set; }
+
+        public DelegateCommand OpenTenantSecurityOptionsCommand { get; private set; }
+
+        public DelegateCommand MoveProjectCommand { get; private set; }
+
+        public DelegateCommand CopyProjectCommand { get; private set; }
+
+        public DelegateCommand DeleteProjectCommand { get; private set; }
+
+        public DelegateCommand ChangeAuthorCommand { get; private set; }
+
 
         public DelegateCommand OpenTaskActivitiesCommand { get; private set; }
 
@@ -198,18 +209,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         public DelegateCommand ShowClickableMessageCommand { get; private set; }
 
-        /// <summary>
-        /// Get or set a value indicate if Admin is logining.
-        /// </summary>
-        public bool IsAdministrator
-        {
-            get { return this.isAdministrator; }
-            set
-            {
-                this.isAdministrator = value;
-                RaisePropertyChanged(() => IsAdministrator);
-            }
-        }
+        public DelegateCommand DefaultValueSettingsCommand { get; private set; }
+
+        public Env AllEnvs { get; private set; }
+        public Env AnyEnv { get; private set; }
 
         public bool TaskActivityOpened
         {
@@ -323,11 +326,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         }
 
         /// <summary>
-        /// Gets CurrentUserSecurityLevel. Represent the security level of current user. Not a dependency property since it is set only in ctor.
-        /// </summary>
-        public SecurityLevel CurrentUserSecurityLevel { get; private set; }
-
-        /// <summary>
         /// Method called when we have to execute a Data Dirty check on all documents in the Authoring Tool
         /// </summary>
         public bool CheckShouldCancelExit()
@@ -422,7 +420,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             FocusedWorkflowItem = WorkflowItems.FirstOrDefault(w => w != itemToClose);
         }
 
-        public string ErrorMessage
+        public new string ErrorMessage
         {
             get { return errorMessage; }
             set
@@ -450,7 +448,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             return null != FocusedWorkflowItem &&
                    !FocusedWorkflowItem.IsService &&
-                   FocusedWorkflowItem.IsValid;
+                   FocusedWorkflowItem.IsValid &&
+                   AuthorizationService.Validate(FocusedWorkflowItem.Env, Permission.CompileWorkflow);
         }
 
         /// <summary>
@@ -650,20 +649,29 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void InitializeCommands()
         {
-            CheckInTaskActivityCommand = new DelegateCommand(TaskActivityCheckInCommandExecute);
-            OpenTaskActivitiesCommand = new DelegateCommand(OpenTaskActivitiesCommandExecute);
-            NewWorkflowCommand = new DelegateCommand(NewWorkflowCommandExecute);
+            DefaultValueSettingsCommand = new DelegateCommand(DefaultValueSettingCommandExecute);
+
+            OpenEnvSecurityOptionsCommand = new DelegateCommand(OpenEnvSecurityOptionsCommandExecute, OpenEnvSecurityOptionsCommandCanExecute);
+            OpenTenantSecurityOptionsCommand = new DelegateCommand(OpenTenantSecurityOptionsCommandExecute, OpenTenantSecurityOptionsCommandCanExecute);
+            MoveProjectCommand = new DelegateCommand(MoveProjectCommandExecute, MoveProjectCommandCanExecute);
+            CopyProjectCommand = new DelegateCommand(CopyProjectCommandExecute, CopyProjectCommandCanExecute);
+            DeleteProjectCommand = new DelegateCommand(DeleteProjectCommandExecute, DeleteProjectCommandCanExecute);
+            ChangeAuthorCommand = new DelegateCommand(ChangeAuthorCommandExecute, ChangeAuthorCommandCanExecute);
+
+            CheckInTaskActivityCommand = new DelegateCommand(TaskActivityCheckInCommandExecute, CanCheckInTaskActivityCommandExecute);
+            OpenTaskActivitiesCommand = new DelegateCommand(OpenTaskActivitiesCommandExecute, CanOpenTaskActivitiesCommandExecute);
+            NewWorkflowCommand = new DelegateCommand(NewWorkflowCommandExecute, CanNewWorkflowCommandExecute);
             SaveFocusedWorkflowCommand = new DelegateCommand<string>(SaveFocusedWorkflowCommandExecute, CanSaveFocusedWorkflow);
-            OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflowCommandExecute);
+            OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflowCommandExecute, CanOpenWorkflowCommandExecute);
             CompileCommand = new DelegateCommand(CompileCommandExecute, CanCompileCommandExecute);
             PublishCommand = new DelegateCommand(PublishCommandExecute, CanPublishCommandExecute);
             CloseFocusedWorkflowCommand = new DelegateCommand(CloseFocusedWorkflowCommandExecute, CanCloseFocusedWorkflowCommandExecute);
-            ImportAssemblyCommand = new DelegateCommand(ImportAssemblyCommandExecute, ImportCommandCanExecute);
-            UploadAssemblyCommand = new DelegateCommand(UploadAssemblyCommandExecute);
-            SelectAssemblyAndActivityCommand = new DelegateCommand(SelectAssemblyAndActivityCommandExecute);
+            ImportAssemblyCommand = new DelegateCommand(ImportAssemblyCommandExecute, CanImportAssemblyCommandExecute);
+            UploadAssemblyCommand = new DelegateCommand(UploadAssemblyCommandExecute, CanUploadAssemblyCommandExecute);
+            SelectAssemblyAndActivityCommand = new DelegateCommand(SelectAssemblyAndActivityCommandExecute, CanSelectActivityCommandExecute);
             CloseCommand = new DelegateCommand(CloseCommandExecute);
 
-            OpenMarketplaceCommand = new DelegateCommand(OpenMarketplaceCommandExecute);
+            OpenMarketplaceCommand = new DelegateCommand(OpenMarketplaceCommandExecute, CanOpenMarketplaceCommandExecute);
             ShowAboutViewCommand = new DelegateCommand(ShowAboutViewCommandExecute);
             ShowClickableMessageCommand = new DelegateCommand(ShowClickableMessageExecute);
             PrintCommand = new DelegateCommand(PrintCommandExecute, PrintCommandCanExecute);
@@ -675,7 +683,151 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             PasteCommand = new DelegateCommand(PasteCommandExecute, PasteCommandCanExecute);
             RefreshCommand = new DelegateCommand(RefreshCommandExecute, RefreshCommandCanExecute);
             UnlockCommand = new DelegateCommand(UnlockCommandExecute, UnlockCommandCanExecute);
-            ManageWorkflowTypeCommand = new DelegateCommand(ManageWokflowTypesCommandExecute, () => { return IsAdministrator; });
+            ManageWorkflowTypeCommand = new DelegateCommand(ManageWokflowTypesCommandExecute, CanManageWorflowTypeCommandExecute);
+        }
+
+        private void DefaultValueSettingCommandExecute()
+        {
+            var viewModel = new DefaultValueSettingsViewModel();
+            DialogService.ShowDialog(viewModel);
+        }
+
+        private void OpenTenantSecurityOptionsCommandExecute()
+        {
+            var viewModel = new TenantSecurityOptionsViewModel();
+            viewModel.LoadLiveData();
+            DialogService.ShowDialog(viewModel);
+        }
+
+        private void OpenEnvSecurityOptionsCommandExecute()
+        {
+            var viewModel = new EnvironmentSecurityOptionsViewModel();
+            viewModel.LoadLiveData();
+            DialogService.ShowDialog(viewModel);
+
+        }
+
+        private bool OpenEnvSecurityOptionsCommandCanExecute()
+        {
+            return AuthorizationService.Validate(Env.All, Permission.ManageEnvAdmin);
+        }
+
+        private bool OpenTenantSecurityOptionsCommandCanExecute()
+        {
+            return AuthorizationService.Validate(Env.All, Permission.ManageRoles);
+        }
+
+        private void MoveProjectCommandExecute()
+        {
+            if (!this.FocusedWorkflowItem.IsOpenFromServer || (this.FocusedWorkflowItem.IsOpenFromServer && this.FocusedWorkflowItem.IsDataDirty))
+            {
+                MessageBoxService.ShouldSaveWorkflow();
+                return;
+            }
+            var viewModel = new MoveProjectViewModel(this.FocusedWorkflowItem);
+            if (DialogService.ShowDialog(viewModel).GetValueOrDefault())
+            {
+                if (!AuthorizationService.Validate(this.FocusedWorkflowItem.Env, Permission.SaveWorkflow))
+                    this.FocusedWorkflowItem.IsReadOnly = true;
+                this.UpdateCommandsCanExecute();
+            }
+        }
+
+        private bool MoveProjectCommandCanExecute()
+        {
+            return this.FocusedWorkflowItem != null && FocusedWorkflowItem.IsOpenFromServer && !FocusedWorkflowItem.TaskActivityGuid.HasValue
+                && (this.FocusedWorkflowItem.WorkflowDesigner != null && !this.FocusedWorkflowItem.WorkflowDesigner.HasTask)
+                && AuthorizationService.Validate(this.FocusedWorkflowItem.Env, Permission.MoveWorkflow);
+        }
+
+        private void CopyProjectCommandExecute()
+        {
+            if (!this.FocusedWorkflowItem.IsOpenFromServer || (this.FocusedWorkflowItem.IsOpenFromServer && this.FocusedWorkflowItem.IsDataDirty))
+            {
+                MessageBoxService.ShouldSaveWorkflow();
+                return;
+            }
+            var viewModel = new CopyCurrentProjectViewModel(this.FocusedWorkflowItem);
+            if (DialogService.ShowDialog(viewModel).GetValueOrDefault() && viewModel.CopiedActivity != null)
+            {
+                this.OpenActivityFromServer(viewModel.CopiedActivity, true,!DefaultValueSettings.EnableTaskAssignment);
+            }
+        }
+
+        private bool CopyProjectCommandCanExecute()
+        {
+            return this.FocusedWorkflowItem != null && FocusedWorkflowItem.IsOpenFromServer && !FocusedWorkflowItem.TaskActivityGuid.HasValue
+                && (this.FocusedWorkflowItem.WorkflowDesigner != null && !this.FocusedWorkflowItem.WorkflowDesigner.HasTask)
+                && AuthorizationService.Validate(this.FocusedWorkflowItem.Env, Permission.CopyWorkflow);
+        }
+
+        private void DeleteProjectCommandExecute()
+        {
+            if (!this.FocusedWorkflowItem.IsOpenFromServer || (this.FocusedWorkflowItem.IsOpenFromServer && this.FocusedWorkflowItem.IsDataDirty))
+            {
+                MessageBoxService.ShouldSaveWorkflow();
+                return;
+            }
+            if (MessageBoxService.ShouldDeleteWorkflow())
+            {
+                try
+                {
+                    //request delete
+                    Utility.DoTaskWithBusyCaption("Deleting", () =>
+                    {
+                        using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
+                        {
+                            StoreActivitiesDC activity = DataContractTranslator.ActivityItemToStoreActivitiyDC(this.FocusedWorkflowItem);
+                            StoreActivitiesDC reply = client.ActivityDelete(activity);
+                            if (reply != null)
+                                reply.StatusReply.CheckErrors();
+                        }
+                    });
+                    //remove from current workflow list
+                    this.CloseWorkflowItem(this.FocusedWorkflowItem);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.ShowException(ex, "Failed to delete Workflow.");
+                }
+            }
+        }
+
+        private bool DeleteProjectCommandCanExecute()
+        {
+            return this.FocusedWorkflowItem != null && FocusedWorkflowItem.IsOpenFromServer && !FocusedWorkflowItem.TaskActivityGuid.HasValue
+                && (this.FocusedWorkflowItem.WorkflowDesigner != null && !this.FocusedWorkflowItem.WorkflowDesigner.HasTask)
+                && AuthorizationService.Validate(this.FocusedWorkflowItem.Env, Permission.DeleteWorkflow);
+        }
+
+        private void ChangeAuthorCommandExecute()
+        {
+            if (!this.FocusedWorkflowItem.IsOpenFromServer || (this.FocusedWorkflowItem.IsOpenFromServer && this.FocusedWorkflowItem.IsDataDirty))
+            {
+                MessageBoxService.ShouldSaveWorkflow();
+                return;
+            }
+            var viewModel = new ChangeAuthorViewModel(this.FocusedWorkflowItem);
+            DialogService.ShowDialog(viewModel);
+        }
+
+        private bool ChangeAuthorCommandCanExecute()
+        {
+            return this.FocusedWorkflowItem != null && FocusedWorkflowItem.IsOpenFromServer && !FocusedWorkflowItem.TaskActivityGuid.HasValue
+                && AuthorizationService.Validate(this.FocusedWorkflowItem.Env, Permission.ChangeWorkflowAuthor);
+        }
+
+        private bool CanNewWorkflowCommandExecute()
+        {
+            return AuthorizationService.Validate(Env.Any, Permission.SaveWorkflow);
+        }
+
+        private bool CanOpenWorkflowCommandExecute(string parameter)
+        {
+            if (parameter == "FromServer")
+                return AuthorizationService.Validate(Env.Any, Permission.OpenWorkflow);
+            else
+                return true;
         }
 
         private void TaskActivityCheckInCommandExecute()
@@ -718,7 +870,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                                             Incaller = Utility.GetCallerName(),
                                             IncallerVersion = Utility.GetCallerVersion(),
                                             Id = viewModel.SelectedActivity.Id,
-                                            Status = TaskActivityStatus.Editing
+                                            Status = TaskActivityStatus.Editing,
+                                            Environment = result.Activity.Environment
                                         };
                                         TaskActivityDC reply = client.TaskActivityUpdateStatus(request);
                                         if (reply.StatusReply.Errorcode != 0)
@@ -787,9 +940,39 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             DialogService.ShowDialog(viewModel);
         }
 
-        private bool ImportCommandCanExecute()
+        private bool CanImportAssemblyCommandExecute()
         {
             return this.FocusedWorkflowItem != null;
+        }
+
+        private bool CanUploadAssemblyCommandExecute()
+        {
+            return AuthorizationService.Validate(Env.Any, Permission.UploadAssemblyToMarketplace);
+        }
+
+        private bool CanSelectActivityCommandExecute()
+        {
+            return AuthorizationService.Validate(Env.Any, Permission.ViewMarketplace);
+        }
+
+        private bool CanOpenMarketplaceCommandExecute()
+        {
+            return AuthorizationService.Validate(Env.Any, Permission.ViewMarketplace);
+        }
+
+        private bool CanManageWorflowTypeCommandExecute()
+        {
+            return AuthorizationService.Validate(Env.Any, Permission.ManageWorkflowType);
+        }
+
+        private bool CanOpenTaskActivitiesCommandExecute()
+        {
+            return AuthorizationService.Validate(Env.Any, Permission.OpenWorkflow);
+        }
+
+        private bool CanCheckInTaskActivityCommandExecute()
+        {
+            return AuthorizationService.Validate(Env.Any, Permission.SaveWorkflow);
         }
 
         /// <summary>
@@ -812,6 +995,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     WorkflowItems.Add(viewModel.CreatedItem);
                     Utility.DoTaskWithBusyCaption("Loading...", () =>
                     {
+                        viewModel.CreatedItem.IsTask = !DefaultValueSettings.EnableTaskAssignment;
                         FocusedWorkflowItem = viewModel.CreatedItem;
                     }, false);
                 }
@@ -863,14 +1047,18 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 Utility.DoTaskWithBusyCaption("Loading...", () =>
                 {
                     var recoverdWorkflow = (WorkflowItem)Utility.DeserializeSavedContent(fileName);
+                    recoverdWorkflow.Env = Env.Dev;
 
                     // Add it or focus it!
-                    if (CheckIsAlreadyInListOrAdd(recoverdWorkflow))
+                    var itemToFind = WorkflowItems.FirstOrDefault(wfi => 0 == wfi.CompareTo(recoverdWorkflow));
+                    if (null == itemToFind)
                     {
-                        FocusedWorkflowItem.IsReadOnly = false;
-                        FocusedWorkflowItem.IsDataDirty = false;
-                        FocusedWorkflowItem.IsOpenFromServer = false;
+                        recoverdWorkflow.IsReadOnly = false;
+                        recoverdWorkflow.IsDataDirty = false;
+                        recoverdWorkflow.IsOpenFromServer = false;
                     }
+                    recoverdWorkflow.IsTask = !DefaultValueSettings.EnableTaskAssignment;
+                    CheckIsAlreadyInListOrAdd(recoverdWorkflow);
                 }, false);
             }
             catch (SerializationException)
@@ -907,7 +1095,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     Incaller = Assembly.GetExecutingAssembly().GetName().Name,
                     IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                     Name = FocusedWorkflowItem.Name,
-                    Version = FocusedWorkflowItem.OldVersion
+                    Version = FocusedWorkflowItem.OldVersion,
+                    Environment = FocusedWorkflowItem.Env.ToString(),
+
                 };
                 var result = WorkflowsQueryServiceUtility.UsingClientReturn(client => client.StoreActivitiesGet(focused));
                 if (result.Any())
@@ -922,7 +1112,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                         }
                         else
                         {
-                            if (!AuthorizationService.IsAdministrator(AuthorizationService.CurrentPrincipalFunc()))
+                            bool canOverrideLock = AuthorizationService.Validate(wf.Environment.ToEnv(), Permission.OverrideLock);
+                            if (!canOverrideLock)
                             {
                                 MessageBoxService.LockChangedWhenAuthorUnlocking(wf.LockedBy);
                             }
@@ -961,15 +1152,14 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private void OpenWorkflowFromServer()
         {
             var viewModel = new OpenWorkflowFromServerViewModel();
-            viewModel.LoadData();
             if (DialogService.ShowDialog(viewModel).GetValueOrDefault())
             {
                 if (viewModel.SelectedWorkflow != null)
-                    this.OpenActivityFromServer(viewModel.SelectedWorkflow, viewModel.ShouldDownloadDependencies);
+                    this.OpenActivityFromServer(viewModel.SelectedWorkflow, viewModel.ShouldDownloadDependencies, !DefaultValueSettings.EnableTaskAssignment, viewModel.OpenForEditing);
             }
         }
 
-        private void OpenActivityFromServer(StoreActivitiesDC activity, bool ShouldDownloadDependencies, bool isTask = false)
+        private void OpenActivityFromServer(StoreActivitiesDC activity, bool ShouldDownloadDependencies, bool isTask = false, bool openForEditing = true)
         {
             StoreActivitiesDC selectedWorkflowDC;
             ActivityAssemblyItem assembly = null;
@@ -981,7 +1171,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 activityLibraryName = selectedWorkflowDC.ActivityLibraryName;
                 version = selectedWorkflowDC.ActivityLibraryVersion;
 
-                assembly = new ActivityAssemblyItem { Name = activityLibraryName, Version = System.Version.Parse(version) };
+                assembly = new ActivityAssemblyItem { Name = activityLibraryName, Version = System.Version.Parse(version), Env = selectedWorkflowDC.Environment.ToEnv() };
                 List<ActivityAssemblyItem> references = new List<ActivityAssemblyItem>();
 
                 Utility.WithContactServerUI(() =>
@@ -999,7 +1189,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                         }
                     }
                 });
-                OpenStoreActivitiesDC(selectedWorkflowDC, assembly, references, isTask: isTask);
+                OpenStoreActivitiesDC(selectedWorkflowDC, assembly, references, isTask: isTask, openForEditing: openForEditing);
             }
         }
 
@@ -1031,7 +1221,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private bool CanPublishCommandExecute()
         {
             return null != FocusedWorkflowItem &&
-                   FocusedWorkflowItem.IsValid;
+                   FocusedWorkflowItem.IsValid &&
+                   AuthorizationService.Validate(FocusedWorkflowItem.Env, Permission.PublishWorkflow);
         }
 
         /// <summary>
@@ -1103,7 +1294,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 Incaller = Environment.UserName,
                 IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                 WorkflowName = workflow.Name,
-                WorkflowVersion = workflow.Version
+                WorkflowVersion = workflow.Version,
+                Environment = workflow.Env.ToString()
             });
         }
 
@@ -1261,24 +1453,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     canSave = 0 < WorkflowItems.Count && (null != FocusedWorkflowItem);
                     break;
 
-                case "SaveAsToLocal":
-                    canSave = 0 < WorkflowItems.Count && (null != FocusedWorkflowItem);
-                    break;
-
                 case "ToMarketplace":
-                    canSave = (0 < WorkflowItems.Count && null != FocusedWorkflowItem);
+                    canSave = (0 < WorkflowItems.Count && null != FocusedWorkflowItem
+                        && AuthorizationService.Validate(FocusedWorkflowItem.Env, Permission.UploadProjectToMarketplace));
                     break;
 
                 case "ToServer":
                     canSave = (0 < WorkflowItems.Count && null != FocusedWorkflowItem
                         && FocusedWorkflowItem.IsDataDirty
-                        && !FocusedWorkflowItem.IsReadOnly);
-                    break;
-
-                case "SaveAsTemplate":
-                    canSave = (0 < WorkflowItems.Count
-                               && null != FocusedWorkflowItem
-                               && FocusedWorkflowItem.IsSavedToServer);
+                        && !FocusedWorkflowItem.IsReadOnly
+                        && AuthorizationService.Validate(FocusedWorkflowItem.Env, Permission.SaveWorkflow));
                     break;
 
                 case "ToImage":
@@ -1511,7 +1695,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void UpdateCommandsCanExecute()
         {
+            NewWorkflowCommand.RaiseCanExecuteChanged();
             SaveFocusedWorkflowCommand.RaiseCanExecuteChanged();
+            OpenWorkflowCommand.RaiseCanExecuteChanged();
             PublishCommand.RaiseCanExecuteChanged();
             CompileCommand.RaiseCanExecuteChanged();
             PrintCommand.RaiseCanExecuteChanged();
@@ -1525,6 +1711,19 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             CloseFocusedWorkflowCommand.RaiseCanExecuteChanged();
             UnlockCommand.RaiseCanExecuteChanged();
             ImportAssemblyCommand.RaiseCanExecuteChanged();
+            UploadAssemblyCommand.RaiseCanExecuteChanged();
+            OpenMarketplaceCommand.RaiseCanExecuteChanged();
+            SelectAssemblyAndActivityCommand.RaiseCanExecuteChanged();
+            ManageWorkflowTypeCommand.RaiseCanExecuteChanged();
+            CheckInTaskActivityCommand.RaiseCanExecuteChanged();
+            OpenTaskActivitiesCommand.RaiseCanExecuteChanged();
+
+            CopyProjectCommand.RaiseCanExecuteChanged();
+            ChangeAuthorCommand.RaiseCanExecuteChanged();
+            OpenEnvSecurityOptionsCommand.RaiseCanExecuteChanged();
+            OpenTenantSecurityOptionsCommand.RaiseCanExecuteChanged();
+            DeleteProjectCommand.RaiseCanExecuteChanged();
+            MoveProjectCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
@@ -1609,43 +1808,29 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             StoreActivitiesDC workflowDC,
             ActivityAssemblyItem fakeLibrary,
             List<ActivityAssemblyItem> references = null,
-            bool isTask = false)
+            bool isTask = false,
+            bool openForEditing = true)
         {
-            bool isReadOnly = false;
-            bool isAdministrator = AuthorizationService.IsAdministrator(AuthorizationService.CurrentPrincipalFunc());
+            Env env = workflowDC.Environment.ToEnv();
+            bool canOverrideLock = AuthorizationService.Validate(env, Permission.OverrideLock);
 
-            if (!workflowDC.Locked ||
-                (isAdministrator) ||
-                (!isAdministrator && workflowDC.Locked && workflowDC.LockedBy == Environment.UserName))
-            {
-                MessageBoxResult result = MessageBoxService.OpenActivity(workflowDC.Name);
-                if (result == MessageBoxResult.Yes)
-                {
-                    //open workflow for edit mode
-                    isReadOnly = false;
-                }
-                else if (result == MessageBoxResult.No)
-                {
-                    //open worflow for readonly mode
-                    isReadOnly = true;
-                }
-                else //cancel
-                {
-                    return;
-                }
-            }
-            else
-            {
-                if (MessageBoxService.OpenLockedActivityByNonAdmin(workflowDC.LockedBy) == MessageBoxResult.OK)
-                    isReadOnly = true;
-                else
-                    return;
-            }
+            if (!Enum.IsDefined(typeof(Env), env))
+                throw new ArgumentException("Env is invalid.");
 
+            if (!AuthorizationService.Validate(env, Permission.SaveWorkflow)) {
+                openForEditing = false;
+                }
+            else if (AuthorizationService.Validate(env, Permission.OverrideLock)
+                || (workflowDC.Locked && workflowDC.LockedBy == Environment.UserName)) {
+            }
+            else if (workflowDC.Locked && openForEditing) {
+                openForEditing = false;
+                MessageBoxService.OpenLockedActivityByNonAdmin(workflowDC.LockedBy);
+            }
 
             Utility.DoTaskWithBusyCaption("UI may not respond. Please wait...", () =>
             {
-                if (!isReadOnly)
+                if (openForEditing)
                 {
                     StoreActivitesSetLock(workflowDC);
                 }
@@ -1653,7 +1838,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 CheckIsAlreadyInListOrAdd(DataContractTranslator.StoreActivitiyDCToWorkflowItem(workflowDC, fakeLibrary, references, isTask: isTask));
             }, false);
 
-            FocusedWorkflowItem.IsReadOnly = isReadOnly;
+            FocusedWorkflowItem.IsReadOnly = !openForEditing;
             FocusedWorkflowItem.IsSavedToServer = true;
             FocusedWorkflowItem.IsDataDirty = false;
         }
@@ -1667,7 +1852,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 workflowDC.Locked = true;
                 workflowDC.LockedBy = Environment.UserName;
                 workflowDC.UpdatedDateTime = DateTime.UtcNow;
-                var reply = client.StoreActivitiesSetLock(workflowDC, workflowDC.UpdatedDateTime);
+                var reply = client.StoreActivitiesUpdateLock(workflowDC, workflowDC.UpdatedDateTime);
                 reply.CheckErrors();
             });
         }
@@ -1698,7 +1883,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     workflowDC.LockedBy = Environment.UserName;
                     workflowDC.UpdatedDateTime = DateTime.UtcNow;
                     workflowDC.Version = shouldUpdateNewVersion ? workflow.Version : workflow.OldVersion;
-                    var reply = client.StoreActivitiesSetLock(workflowDC, workflowDC.UpdatedDateTime);
+                    var reply = client.StoreActivitiesUpdateLock(workflowDC, workflowDC.UpdatedDateTime);
                     reply.CheckErrors();
                 });
             }

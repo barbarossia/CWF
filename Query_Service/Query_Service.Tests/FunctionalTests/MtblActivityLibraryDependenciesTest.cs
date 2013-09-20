@@ -56,8 +56,8 @@ namespace Query_Service.Tests
 
             //Populate the request data
             getRequest.Incaller = IN_CALLER;
-            getRequest.UpdatedByUserAlias = USER;
-            getRequest.InsertedByUserAlias = USER;
+            getRequest.InUpdatedByUserAlias = USER;
+            getRequest.InInsertedByUserAlias = USER;
             getRequest.IncallerVersion = IN_CALLER_VERSION;
 
             getRequest.StoreDependenciesRootActiveLibrary = new StoreDependenciesRootActiveLibrary();
@@ -109,8 +109,8 @@ namespace Query_Service.Tests
             //Populate the request data
             getRequest.Incaller = IN_CALLER;
             getRequest.IncallerVersion = IN_CALLER_VERSION;
-            getRequest.InsertedByUserAlias = USER;
-            getRequest.UpdatedByUserAlias = USER;
+            getRequest.InInsertedByUserAlias = USER;
+            getRequest.InUpdatedByUserAlias = USER;
 
             getRequest.StoreDependenciesRootActiveLibrary = new StoreDependenciesRootActiveLibrary();
 
@@ -159,8 +159,8 @@ namespace Query_Service.Tests
             //Populate the request data
             createOrUpdateRequest = new StoreActivityLibrariesDependenciesDC();
             createOrUpdateRequest.Incaller = IN_CALLER;
-            createOrUpdateRequest.UpdatedByUserAlias = USER;
-            createOrUpdateRequest.InsertedByUserAlias = USER;
+            createOrUpdateRequest.InUpdatedByUserAlias = USER;
+            createOrUpdateRequest.InInsertedByUserAlias = USER;
             createOrUpdateRequest.IncallerVersion = IN_CALLER_VERSION;
 
             var storeDependenciesActivityLib = new StoreDependenciesRootActiveLibrary();
@@ -299,7 +299,7 @@ namespace Query_Service.Tests
         [WorkItem(20960)]
         [Description("Verify TREEGET FROM mtblActivityLibraryDependencies Table")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyActivityLibraryDependenciesTreeGet()
         {
@@ -309,7 +309,7 @@ namespace Query_Service.Tests
         [WorkItem(20957)]
         [Description("Verify GET FROM mtblActivityLibraryDependencies Table")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyActivityLibraryDependenciesGet()
         {
@@ -319,7 +319,7 @@ namespace Query_Service.Tests
         [WorkItem(20959)]
         [Description("Verify GET FROM mtblActivityLibraryDependencies Table for Invalid Name or Version")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         [Ignore]
         public void VerifyActivityLibraryDependenciesGetForInvalidNameOrVersion()
@@ -343,7 +343,7 @@ namespace Query_Service.Tests
         [WorkItem(20973)]
         [Description("Verify CreateActivityLibrariesDependencyList FROM mtblActivityLibraryDependencies Table ")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyCreateActivityLibrariesDependencyList()
         {

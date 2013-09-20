@@ -52,7 +52,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
 
         private void LoadLiveData(IWorkflowsQueryService client)
         {
-            WorkflowTypes = client.WorkflowTypeGet().WorkflowActivityType;
+            WorkflowTypes = client.WorkflowTypeGet(new WorkflowTypesGetRequestDC().SetIncaller()).WorkflowActivityType;
             
             var categories = client.ActivityCategoryGet(new ActivityCategoryByNameGetRequestDC().SetIncaller());
             ActivityCategories.Assign(from category in categories select category.Name);

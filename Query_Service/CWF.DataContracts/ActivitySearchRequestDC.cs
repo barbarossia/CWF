@@ -1,30 +1,15 @@
 ﻿namespace CWF.DataContracts
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     /// <summary>
     /// Common base for ActivityLibraries (ActivityLibraries does not follow common pattern of request/reply DC)
     /// </summary>
     [DataContract]
-    public class ActivitySearchRequestDC : RequestReplyCommonHeader
+    public class ActivitySearchRequestDC : WorkflowSearchRequestHeader
     {
-
-        [DataMember]
-        public string SearchText { get; set; }
-        
-        [DataMember]
-        public string SortColumn { get; set; }
-        
-        [DataMember]
-        public bool SortAscending { get; set; }
-
-        [DataMember]
-        public int PageSize { get; set; }
-
-        [DataMember]
-        public int PageNumber { get; set; }
-
         [DataMember]
         public bool FilterOlder {get;set;}
 		

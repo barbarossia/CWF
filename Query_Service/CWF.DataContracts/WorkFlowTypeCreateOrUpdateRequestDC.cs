@@ -17,7 +17,7 @@ namespace CWF.DataContracts
     /// Request data contract for WorkflowTypeCreateOrUpdate
     /// </summary>
     [DataContract]
-    public class WorkFlowTypeCreateOrUpdateRequestDC : RequestHeader
+    public class WorkFlowTypeCreateOrUpdateRequestDC : WorkflowRequestHeader
     {
         /// <summary>
         /// PK of workflowtype row

@@ -1,5 +1,6 @@
 ﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.Views.MarketplaceHomeView"
-        xmlns:my="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls"  
+        xmlns:my="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls" 
+        xmlns:addins="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls;assembly=Microsoft.Support.Workflow.Authoring.AddIns"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:t="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -65,14 +66,15 @@
                            Foreground="#FF00AEEF"
                            FontFamily="Segoe UI Light"
                            Text="Marketplace" />
-            <my:SearchTextBox x:Name="txtSearch"
+            <addins:SearchTextBox x:Name="txtSearch"
                               Grid.Column="1" 
                               HorizontalAlignment="Right"
                               Width="180" Height="30" 
                               SearchEventTimeDelay="00:00:01" 
                               Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                               Search="SearchTextBox_Search"
-                              IsEnabled="{Binding IsBeginDownload,Converter={StaticResource BooleanInverterConverter}}" ></my:SearchTextBox>
+                              IsEnabled="{Binding IsBeginDownload,Converter={StaticResource BooleanInverterConverter}}" >
+            </addins:SearchTextBox>
         </Grid>
         <!-- Filter and results grid -->
         <Grid Margin="0,0,0,5" Grid.Row="2">
@@ -170,6 +172,7 @@
                                              Binding="{Binding Name}">
                     </DataGridTextColumn>
                     <DataGridTextColumn CanUserSort="False" Header="Author" IsReadOnly="True" Width="1*" Binding="{Binding CreatedBy}"  ></DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="False" Header="Environment" IsReadOnly="True" Width="100" Binding="{Binding Env}"></DataGridTextColumn>
                     <DataGridTextColumn CanUserSort="False" Header="Type" IsReadOnly="True" Width="1*" Binding="{Binding AssetType}"  ></DataGridTextColumn>
                     <DataGridTextColumn Header="Date"
                                             SortDirection="Descending"

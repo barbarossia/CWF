@@ -17,6 +17,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
         public bool? IsTemplate { get; set; }
         public string Name { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public string Env { get; set; }
 
         private bool isAddToToolbox;
         public bool IsAddToToolbox
@@ -77,7 +78,8 @@ namespace Microsoft.Support.Workflow.Authoring.Models
                 Version = asset.Version,
                 CreatedBy = asset.CreatedBy,
                 UpdatedDate = asset.UpdatedDate,
-                IsAddToToolbox = asset.AssetType == AssetType.Activities ? true : false
+                IsAddToToolbox = asset.AssetType == AssetType.Activities ? true : false,
+                Env = asset.Environment
             };
         }
     }

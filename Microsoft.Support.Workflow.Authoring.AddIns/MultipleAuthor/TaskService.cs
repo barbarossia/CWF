@@ -50,7 +50,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
             Contract.Requires(body != null);
 
             return new TaskActivity(
-                task.Group,
                 task.Alias,
                 task.TaskId,
                 CompositeService.GetBody(body),

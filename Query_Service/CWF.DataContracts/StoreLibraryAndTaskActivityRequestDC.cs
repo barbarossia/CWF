@@ -7,7 +7,7 @@
     /// Common data contract for StoreLibraryAndActivities
     /// </summary>
     [DataContract]
-    public class StoreLibraryAndTaskActivityRequestDC : RequestHeader
+    public class StoreLibraryAndTaskActivityRequestDC : WorkflowRequestHeader
     {
         public StoreLibraryAndTaskActivityRequestDC()
         {
@@ -39,5 +39,16 @@
         /// </summary>
         [DataMember]
         public bool EnforceVersionRules { get; set; }
+
+        public override void AddAuthGroupOnRequest(string[] inAuthGroupName)
+        {
+            base.AddAuthGroupOnRequest(inAuthGroupName);
+            this.ActivityLibrary.AddAuthGroupOnRequest(inAuthGroupName);
+            this.TaskActivitiesList.ForEach(t =>
+            {
+                t.AddAuthGroupOnRequest(inAuthGroupName);
+                t.Activity.AddAuthGroupOnRequest(inAuthGroupName);
+            });
+        }
     }
 }

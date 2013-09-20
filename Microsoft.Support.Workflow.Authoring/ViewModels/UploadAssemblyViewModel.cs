@@ -16,6 +16,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using System;
     using Microsoft.Support.Workflow.Authoring.Common;
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using Microsoft.Support.Workflow.Authoring.Security;
 
     /// <summary>
     /// The upload assembly view model.
@@ -25,6 +27,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private ObservableCollection<ActivityAssemblyItem> displayActivityAssemblyItems;
         private bool selectAllAssemblies;
         private Dictionary<ActivityAssemblyItem, List<ActivityAssemblyItem>> referencingAssemblies;    //Temp storage for all selected assembly and their references
+        private List<Env> locations;
+        private Env? selectedLocation;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UploadAssemblyViewModel"/> class.
@@ -33,6 +38,11 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             UploadCommand = new DelegateCommand(UploadCommandExecute, UploadCommandCanExecute);
             referencingAssemblies = new Dictionary<ActivityAssemblyItem, List<ActivityAssemblyItem>>();
+            this.Locations = new List<Env>(AuthorizationService.GetAuthorizedEnvs(Permission.UploadAssemblyToMarketplace));
+            if (this.Locations.Contains(DefaultValueSettings.Environment))
+                this.SelectedLocation = DefaultValueSettings.Environment;
+            else
+                this.SelectedLocation = Locations.FirstOrDefault();
         }
 
         /// <summary>
@@ -51,6 +61,28 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             foreach (var item in activityAssemblyItems)
                 item.UserWantsToUpload = false; // view state is embedded in object, needs to be reset when we have a new UploadAssemblyViewModel
         }
+
+        public List<Env> Locations
+        {
+            get { return this.locations; }
+            set
+            {
+                this.locations = value;
+                RaisePropertyChanged(() => this.Locations);
+            }
+        }
+
+        public Env? SelectedLocation
+        {
+            get { return this.selectedLocation; }
+            set
+            {
+                this.selectedLocation = value;
+                RaisePropertyChanged(() => this.SelectedLocation);
+                this.UploadCommand.RaiseCanExecuteChanged();
+            }
+        }
+
 
         public bool SelectAllAssemblies
         {
@@ -115,6 +147,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 .ForEach(item =>
                 {
                     item.Status = MarketplaceStatus.Public.ToString();
+                    item.Env = this.SelectedLocation.Value;
+                    item.ActivityItems.ToList().ForEach(acm => acm.Env = this.SelectedLocation.Value);
                 });
 
 
@@ -127,7 +161,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                            where assemblies.UserWantsToUpload
                            select assemblies;
 
-            return selected.Any();
+            return selected.Any() && this.SelectedLocation != null;
         }
 
         /// <summary>

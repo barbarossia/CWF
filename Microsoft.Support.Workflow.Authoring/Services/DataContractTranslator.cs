@@ -19,6 +19,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
     using Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using Microsoft.Support.Workflow.Authoring.Security;
+
     /// <summary>
     /// The data contract translator.
     /// </summary>
@@ -45,7 +48,6 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             storeActivity.Version = activityItem.Version;
             storeActivity.Xaml = activityItem.XamlCode;
             storeActivity.MetaTags = activityItem.Tags;
-            storeActivity.AuthGroupName = AuthorizationService.GetWorkflowAuthGroupName();
             storeActivity.ActivityCategoryName = activityItem.Category;
 
             storeActivity.Incaller = Utility.GetCallerName();
@@ -54,16 +56,16 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             storeActivity.DeveloperNotes = activityItem.DeveloperNote;
 
             storeActivity.InsertedDateTime = activityItem.CreateDateTime;
-            storeActivity.InsertedByUserAlias = !String.IsNullOrEmpty(activityItem.CreatedBy) ? activityItem.CreatedBy : Environment.UserName;
+            storeActivity.InInsertedByUserAlias = !String.IsNullOrEmpty(activityItem.CreatedBy) ? activityItem.CreatedBy : Environment.UserName;
 
             storeActivity.IsCodeBeside = true;
             storeActivity.StatusCodeName = activityItem.Status;
             storeActivity.Guid = Guid.NewGuid();
-            storeActivity.UpdatedByUserAlias = Utility.GetCurrentUserName();
+            storeActivity.InUpdatedByUserAlias = Utility.GetCurrentUserName();
 
             storeActivity.Locked = false;
             storeActivity.LockedBy = Environment.UserName;
-            storeActivity.UpdatedByUserAlias = activityItem.UpdatedBy;
+            storeActivity.InUpdatedByUserAlias = activityItem.UpdatedBy;
             storeActivity.UpdatedDateTime = activityItem.UpdateDateTime;
 
             storeActivity.OldVersion = activityItem.OldVersion;
@@ -83,6 +85,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 storeActivity.IsService = false;
             }
 
+            storeActivity.Environment = activityItem.Env.ToString();
 
             return storeActivity;
         }
@@ -93,7 +96,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             dc.Name = dc.ShortName = task.GetFriendlyName(activityItem.Name);
             dc.Version = task.Version;
             dc.Xaml = task.Xaml;
-            dc.InsertedByUserAlias = dc.UpdatedByUserAlias = task.AssignTo;
+            dc.InInsertedByUserAlias = dc.InUpdatedByUserAlias = task.AssignTo;
             return dc;
         }
 
@@ -112,7 +115,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 StoreDependenciesRootActiveLibrary = new StoreDependenciesRootActiveLibrary
                 {
                     activityLibraryName = assembly.Name,
-                    activityLibraryVersionNumber = assembly.Version.ToString()
+                    activityLibraryVersionNumber = assembly.Version.ToString(),
+                    Environment = assembly.Env.ToString()
                 }
             };
         }
@@ -160,6 +164,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             activityAssemblyItem.ReleaseNotes = activityLibraryDC.ReleaseNotes;
             activityAssemblyItem.FriendlyName = activityLibraryDC.FriendlyName;
 
+            activityAssemblyItem.Env = activityLibraryDC.Environment.ToEnv();
+
             return activityAssemblyItem;
         }
 
@@ -191,6 +197,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             activityLibrary.Description = aai.Description;
             activityLibrary.Status = 1;
 
+            activityLibrary.Environment = aai.Env.ToString();
 
             return activityLibrary;
         }
@@ -216,7 +223,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             activityItem.Category = dc.ActivityCategoryName;
 
             activityItem.CreateDateTime = dc.InsertedDateTime;
-            activityItem.CreatedBy = dc.InsertedByUserAlias;
+            activityItem.CreatedBy = dc.InInsertedByUserAlias;
             activityItem.Description = dc.Description;
             activityItem.FullName = dc.Name;
             activityItem.Name = dc.ShortName ?? dc.Name;
@@ -227,11 +234,14 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             activityItem.ParentAssemblyItem = parentAssemblyItem;
 
             activityItem.Status = dc.StatusCodeName;
-            activityItem.UpdatedBy = dc.UpdatedByUserAlias;
+            activityItem.UpdatedBy = dc.InUpdatedByUserAlias;
             activityItem.UpdateDateTime = dc.UpdatedDateTime;
             activityItem.UserSelected = true;  // TODO: Why is this set to true?
             activityItem.Version = activityItem.OldVersion = dc.Version;
             activityItem.XamlCode = dc.Xaml;
+
+            activityItem.Env = dc.Environment.ToEnv();
+
             return activityItem;
         }
 
@@ -247,7 +257,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             workflowItem.Category = dc.ActivityCategoryName;
 
             workflowItem.CreateDateTime = dc.InsertedDateTime;
-            workflowItem.CreatedBy = dc.InsertedByUserAlias;
+            workflowItem.CreatedBy = dc.InInsertedByUserAlias;
             workflowItem.Description = dc.Description;
             workflowItem.FullName = dc.Name;
             workflowItem.Name = dc.Name;
@@ -255,7 +265,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             workflowItem.HasCodeBehind = dc.IsCodeBeside;
             workflowItem.ParentAssemblyItem = parentAssemblyItem;
             workflowItem.Status = dc.StatusCodeName;
-            workflowItem.UpdatedBy = dc.UpdatedByUserAlias;
+            workflowItem.UpdatedBy = dc.InUpdatedByUserAlias;
             workflowItem.UpdateDateTime = dc.UpdatedDateTime;
             workflowItem.IsSavedToServer = true;
             workflowItem.Version = workflowItem.OldVersion = dc.Version;
@@ -265,6 +275,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             workflowItem.WorkflowType = dc.WorkflowTypeName;
             workflowItem.IsOpenFromServer = true;
             workflowItem.IsTask = isTask;
+
+            workflowItem.Env = dc.Environment.ToEnv();
+
             return workflowItem;
         }
 
@@ -277,7 +290,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         public static StoreLibraryAndActivitiesRequestDC WorkflowToStoreLibraryAndActivitiesRequestDC(WorkflowItem workflow, IEnumerable<ActivityAssemblyItem> assemblyItemsUsed, List<TaskAssignment> tasks)
         {
             string libraryName = workflow.Name;
-            var library = GetActivityLibraryDC(libraryName, workflow.Category, workflow.Description, workflow.CreatedBy, workflow.Version, workflow.Status);
+            var library = GetActivityLibraryDC(libraryName, workflow.Category, workflow.Description, workflow.CreatedBy, workflow.Version, workflow.Status, workflow.Env);
             var dependencyList = new List<StoreActivityLibraryDependenciesGroupsRequestDC>(
                 assemblyItemsUsed.Select(asm => new StoreActivityLibraryDependenciesGroupsRequestDC
                 {
@@ -307,7 +320,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 TaskActivitiesList = tasks.Select(t => new StoreLibraryAndTaskActivityRequestDC()
                 {
                     EnforceVersionRules = true,
-                    ActivityLibrary = GetActivityLibraryDC(t.GetFriendlyName(workflow.Name), workflow.Category, workflow.Description, workflow.CreatedBy, t.Version, workflow.Status),
+                    ActivityLibrary = GetActivityLibraryDC(t.GetFriendlyName(workflow.Name), workflow.Category, workflow.Description, workflow.CreatedBy, t.Version, workflow.Status, workflow.Env),
                     StoreActivityLibraryDependenciesGroupsRequestDC = new StoreActivityLibraryDependenciesGroupsRequestDC()
                     {
                         Name = t.GetFriendlyName(workflow.Name),
@@ -331,7 +344,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         public static StoreLibraryAndTaskActivityRequestDC WorkflowToStoreLibraryAndTaskActivityRequestDC(WorkflowItem workflow, IEnumerable<ActivityAssemblyItem> assemblyItemsUsed)
         {
             string libraryName = workflow.Name;
-            var library = GetActivityLibraryDC(libraryName, workflow.Category, workflow.Description, workflow.CreatedBy, workflow.Version, workflow.Status);
+            var library = GetActivityLibraryDC(libraryName, workflow.Category, workflow.Description, workflow.CreatedBy, workflow.Version, workflow.Status, workflow.Env);
             var dependencyList = new List<StoreActivityLibraryDependenciesGroupsRequestDC>(
                 assemblyItemsUsed.Select(asm => new StoreActivityLibraryDependenciesGroupsRequestDC
                 {
@@ -348,6 +361,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 InUpdatedByUserAlias = Utility.GetCurrentUserName(),
                 EnforceVersionRules = true,
                 ActivityLibrary = library,
+                Environment = workflow.Env.ToString(),
                 StoreActivityLibraryDependenciesGroupsRequestDC = new StoreActivityLibraryDependenciesGroupsRequestDC()
                 {
                     Name = libraryName,
@@ -361,7 +375,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                         Guid = workflow.TaskActivityGuid.Value,
                         AssignedTo = Utility.GetCurrentUserName(),
                         Activity = ActivityItemToStoreActivitiyDC(workflow),
-                        Status = workflow.TaskActivityStatus.Value
+                        Status = workflow.TaskActivityStatus.Value,
+                        Environment = workflow.Env.ToString()
                     }
                 }
             };
@@ -373,24 +388,25 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             string description,
             string insertBy,
             string version,
-            string status)
+            string status,
+            Env env)
         {
             var library = new ActivityLibraryDC()
             {
                 Name = libraryName,
                 Executable = null,
-                AuthGroupName = AuthorizationService.GetWorkflowAuthGroupName(),
                 CategoryName = category,
                 ImportedBy = Utility.GetCurrentUserName(),
                 Description = description,
-                InsertedByUserAlias =
+                InInsertedByUserAlias =
                     !String.IsNullOrEmpty(insertBy)
                         ? insertBy
                         : Utility.GetCurrentUserName(),
                 VersionNumber = version,
-                UpdatedByUserAlias = Utility.GetCurrentUserName(),
+                InUpdatedByUserAlias = Utility.GetCurrentUserName(),
                 Guid = Guid.NewGuid(),
-                StatusName = status
+                StatusName = status,
+                Environment = env.ToString()
             };
             return library;
         }
@@ -417,12 +433,12 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                     VersionNumber = assembly.Version.ToString(),
                     Executable = File.ReadAllBytes(assembly.Location),
                     Description = assembly.Description,
-                    AuthGroupName = assembly.AuthorityGroup ?? AuthorizationService.GetWorkflowAuthGroupName(),
                     CategoryName = assembly.Category,
                     ImportedBy = Utility.GetCurrentUserName(),
-                    InsertedByUserAlias = !String.IsNullOrEmpty(assembly.CreatedBy) ? assembly.CreatedBy : Utility.GetCurrentUserName(),
-                    UpdatedByUserAlias = Utility.GetCurrentUserName(),
-                    Guid = Guid.NewGuid()
+                    InInsertedByUserAlias = !String.IsNullOrEmpty(assembly.CreatedBy) ? assembly.CreatedBy : Utility.GetCurrentUserName(),
+                    InUpdatedByUserAlias = Utility.GetCurrentUserName(),
+                    Guid = Guid.NewGuid(),
+                    Environment = assembly.Env.ToString()
                 }, // library for this workflow
                 StoreActivitiesList = new List<StoreActivitiesDC>(assembly.ActivityItems.Select(asm => DataContractTranslator.ActivityItemToStoreActivitiyDC(asm))),
                 StoreActivityLibraryDependenciesGroupsRequestDC = assemblyItemsUsed.IfNotNull(used =>

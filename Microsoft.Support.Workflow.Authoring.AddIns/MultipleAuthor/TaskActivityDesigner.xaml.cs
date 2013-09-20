@@ -17,126 +17,106 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using CWF.DataContracts;
+using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+using Microsoft.Support.Workflow.Authoring.Security;
 
-namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
-{
+namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor {
     /// <summary>
     /// Interaction logic for TaskActivityDesigner.xaml
     /// </summary>
-    public partial class TaskActivityDesigner
-    {
-        public TaskActivityDesigner()
-        {
-            InitializeComponent();
-            Loaded += TaskActivityDesigner_Loaded;
+    public partial class TaskActivityDesigner {
+        public string Alias { get; set; }
 
-            group.TextChanged += group_TextChanged;
+        public TaskActivityDesigner() {
+            InitializeComponent();
+
+            Loaded += TaskActivityDesigner_Loaded;
         }
 
-        private void TaskActivityDesigner_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void TaskActivityDesigner_Loaded(object sender, RoutedEventArgs e) {
+            Alias = GetAlias();
             Guid taskId = GetTaskId();
-            if (!string.IsNullOrWhiteSpace(GetAlias()))
-            {
-                Task.Factory.StartNew(() =>
-                {
-                    try
-                    {
+            SetLoading();
+            Task.Factory.StartNew(() => {
+                List<Principal> users = AuthorizationService.GetAuthorizedPrincipals(Permission.SaveWorkflow, Env.Dev, Env.Test);
+                Dispatcher.Invoke(new Action(() => {
+                    userList.ItemsSource = users;
+                    userList.SelectedItem = users.SingleOrDefault(p => p.SamAccountName == Alias);
+                    userList.IsEnabled = Body.IsEnabled;
+                    if (userList.SelectedValue == null) {
+                        userList.Text = string.Empty;
+                    }
+                }));
+            });
+            if (!string.IsNullOrWhiteSpace(Alias)) {
+                Task.Factory.StartNew(() => {
+                    try {
                         var taskDC = TaskService.GetLastVersionTaskActivityDC(taskId);
-                        this.Dispatcher.Invoke(new Action(() =>
-                        {
+                        Dispatcher.Invoke(new Action(() => {
                             SetStatus(taskDC.Status);
                             SetReadOnly();
                         }));
                     }
-                    catch (CommunicationException)
-                    {
-                        this.Dispatcher.Invoke(new Action(() =>
-                        {
+                    catch (CommunicationException) {
+                        Dispatcher.Invoke(new Action(() => {
                             SetStatus(TaskActivityStatus.New);
                         }));
                     }
                 });
             }
-            else
-            {
+            else {
                 SetStatus(TaskActivityStatus.New);
             }
         }
 
-        private void group_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            group.TextChanged -= group_TextChanged;
-            group_LostFocus(sender, null);
-        }
-
-        private void group_LostFocus(object sender, RoutedEventArgs e)
-        {
-            SetLoading();
-            string groupName = ((TextBox)sender).Text;
-            IEnumerable<Principal> users = new List<Principal>();
-            if (!string.IsNullOrWhiteSpace(groupName))
-            {
-                Task.Factory.StartNew(() =>
-                {
-                    users = PrincipalService.ListGroupsUsers(groupName);
-                    this.Dispatcher.Invoke(new Action(() =>
-                    {
-                        this.userList.ItemsSource = users;
-                        this.userList.IsEnabled = this.group.IsEnabled;
-                        if (userList.SelectedValue == null)
-                        {
-                            userList.Text = string.Empty;
-                        }
-                    }));
-                });
-            }
-        }
-
-        private void SetLoading()
-        {
+        private void SetLoading() {
             userList.IsEnabled = false;
             userList.Text = "Loading...";
         }
 
-        private void SetReadOnly()
-        {
-            this.group.IsEnabled = false;
-            this.userList.IsEnabled = false;
-            this.Body.IsEnabled = false;
+        private void SetReadOnly() {
+            userList.IsEnabled = Body.IsEnabled = false;
         }
 
-        private Guid GetTaskId()
-        {
-            return (Guid)this.ModelItem.Properties["TaskId"].ComputedValue;
+        private Guid GetTaskId() {
+            return (Guid)ModelItem.Properties["TaskId"].ComputedValue;
         }
 
-        private string GetAlias()
-        {
-            return (string)this.ModelItem.Properties["Alias"].ComputedValue;
+        private string GetAlias() {
+            return (string)ModelItem.Properties["Alias"].ComputedValue;
         }
 
-        private TaskActivityStatus GetStatus()
-        {
-            return (TaskActivityStatus)this.ModelItem.Properties["Status"].ComputedValue;
+        private TaskActivityStatus GetStatus() {
+            return (TaskActivityStatus)ModelItem.Properties["Status"].ComputedValue;
         }
 
-        private void SetStatus(TaskActivityStatus status)
-        {
+        private void SetStatus(TaskActivityStatus status) {
             this.ModelItem.Properties["Status"].SetValue(status);
         }
 
         private void userList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (e.AddedItems.Count > 0) {
+                ModelItem.Properties["Alias"].SetValue(Alias);
+
                 Principal selectedUser = e.AddedItems[0] as Principal;
-                string taskName = (string)this.ModelItem.Properties["DisplayName"].ComputedValue;
+                string taskName = (string)ModelItem.Properties["DisplayName"].ComputedValue;
                 if (taskName == typeof(TaskActivity).Name || (e.RemovedItems.Count > 0 && taskName == GetTaskName(e.RemovedItems[0] as Principal)))
-                    this.ModelItem.Properties["DisplayName"].SetValue(GetTaskName(selectedUser));
+                    ModelItem.Properties["DisplayName"].SetValue(GetTaskName(selectedUser));
             }
         }
 
         private string GetTaskName(Principal user) {
             return string.Format("Task for {0}", user.DisplayName);
+        }
+
+        private void userList_KeyUp(object sender, KeyEventArgs e) {
+            Principal principal = userList.SelectedItem as Principal;
+            if (principal != null && principal.DisplayName == userList.Text) {
+                ModelItem.Properties["Alias"].SetValue(Alias);
+            }
+            else {
+                ModelItem.Properties["Alias"].SetValue(null);
+            }
         }
     }
 }

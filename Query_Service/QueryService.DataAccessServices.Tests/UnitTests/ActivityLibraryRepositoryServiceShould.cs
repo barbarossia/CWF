@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.Support.Workflow.Service.Test.Common;
+//using Microsoft.Support.Workflow.Service.Test.Common;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.DynamicImplementations;
 using System.Data.Common;
@@ -13,6 +13,7 @@ using Microsoft.Support.Workflow.QueryService.Common;
 using CWF.DAL;
 using Microsoft.Support.Workflow.Service.Common.Logging.Config;
 using Microsoft.Support.Workflow.Service.Common.Logging;
+using Microsoft.Support.Workflow.Service.Test.Common;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.UnitTests
 {
@@ -211,6 +212,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.UnitTests
             request = new CWF.DataContracts.ActivityLibraryDC();
             request.Incaller = "v-sanja";
             request.IncallerVersion = "1.0.0.0";
+            request.InAuthGroupNames = new string[] { "pqocwfadmin" };
+            request.Environment = "Test";
             return request;
         }
 
@@ -243,6 +246,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.UnitTests
                 row[DataFieldName.ActivityLibrary.Status] = 2;
                 row[DataFieldName.ActivityLibrary.VersionNumber] = "1.0.0.1";
                 row[DataFieldName.ActivityLibrary.Executable] = new byte[10];
+                row[DataFieldName.ActivityLibrary.Environment] = "TEST";
                 table.Rows.Add(row);
             }
             return table;
@@ -302,6 +306,9 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.UnitTests
             table.Columns.Add(column);
 
             column = new DataColumn(DataFieldName.ActivityLibrary.ReleaseNotes, typeof(String[]));
+            table.Columns.Add(column);
+
+            column = new DataColumn(DataFieldName.ActivityLibrary.Environment, typeof(String));
             table.Columns.Add(column);
 
             return table;

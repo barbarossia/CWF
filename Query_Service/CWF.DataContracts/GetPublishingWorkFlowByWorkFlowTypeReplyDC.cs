@@ -14,7 +14,7 @@ namespace CWF.DataContracts
     /// Reply from Get Publishing WorkFlow By WorkFlow Type
     /// </summary>
     [DataContract]
-    public class GetPublishingWorkFlowByWorkFlowTypeReplyDC : ReplyHeader
+    public partial class GetPublishingWorkFlowByWorkFlowTypeReplyDC : ReplyHeader
     {
         private byte[] publishingDll;
 

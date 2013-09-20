@@ -76,6 +76,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -112,6 +113,7 @@
     <Compile Include="Authentication\AuthenticationHeaderInspector.cs" />
     <Compile Include="Authentication\AuthMessages.cs" />
     <Compile Include="Authentication\LoggingValues.cs" />
+    <Compile Include="Authentication\SecurityService.cs" />
     <Compile Include="Authentication\ServiceContext.cs" />
     <Compile Include="BusinessExceptionExtensions.cs" />
     <Compile Include="ExceptionExtensions.cs" />

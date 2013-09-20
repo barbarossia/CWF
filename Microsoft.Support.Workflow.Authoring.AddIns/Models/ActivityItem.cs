@@ -17,6 +17,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
     using System.ComponentModel.DataAnnotations;
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Microsoft.Support.Workflow.Authoring.ViewModels;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
 
     /// <summary>
     /// The activity item.
@@ -58,6 +59,16 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
         private bool isEdited = false;    // Has the item been edited? This is distinct from IsDirty. It indicates this item is dirty and focus has moved to some other item. Used in the Import Wizard.
         private string oldVersion;        // The version will be translate to service update lock
 
+        private Env env;
+        public Env Env
+        {
+            get { return this.env; }
+            set
+            {
+                this.env = value;
+                RaisePropertyChanged(() => this.Env);
+            }
+        }
 
         /// <summary>
         ///  Is this item currently being edited? Used in the Import Wizard to track the current item.
@@ -629,12 +640,19 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
             }
 
             // Check for a Name match, not using CompareTo 
-            bool isNameMatch = !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(otherObject.Name) && Name.Equals(otherObject.Name, StringComparison.InvariantCultureIgnoreCase);
+            bool isNameMatch = !string.IsNullOrEmpty(Name) &&
+                !string.IsNullOrEmpty(otherObject.Name) &&
+                Name.Equals(otherObject.Name, StringComparison.InvariantCultureIgnoreCase) &&
+                Env.Equals(otherObject.Env);
 
             // If the Name matches then return the CompareTo for the Versions
             if (isNameMatch)
             {
                 return thisVersion.CompareTo(otherVersion);
+            }
+            else if (!Env.Equals(otherObject.Env))
+            {
+                return 1;
             }
             else
             {

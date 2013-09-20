@@ -5,8 +5,9 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CWF.DataContracts;
 using System.Reflection;
-using Microsoft.Support.Workflow.Service.Test.Common;
+//using Microsoft.Support.Workflow.Service.Test.Common;
 using CWF.DAL;
+using Microsoft.Support.Workflow.Service.Test.Common;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.FunctionalTests
 {
@@ -15,7 +16,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
     {
         [Description("")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void AllowNullDescriptionWhenStoreActivitiesCreateOrUpdateIsCalled()
         {
@@ -26,7 +27,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
             Assert.IsNotNull(reply);
             Assert.AreEqual(0, reply.StatusReply.Errorcode);
 
-            var actual = Activities.StoreActivitiesGetByName(activity.Name, "v-sanja");
+            var actual = Activities.StoreActivitiesGetByName(activity.Name, "dev");
             Assert.IsNotNull(actual);
             Assert.AreEqual(1, actual.Count);
             Assert.AreEqual(activity.Guid, actual[0].Guid);
@@ -62,10 +63,13 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
                 IsCodeBeside = false,
                 Xaml = null,
                 Namespace = Utility.GenerateRandomString(20),
-                InsertedByUserAlias = "v-sanja",
-                UpdatedByUserAlias = "v-sanja",
+                InInsertedByUserAlias = "v-sanja",
+                InUpdatedByUserAlias = "v-sanja",
                 StatusCodeName = "Private",
-                StatusId = 1000
+                StatusId = 1000,
+                InAuthGroupNames = new string[] { "pqocwfauthors" },
+                Environment="Dev",
+
             };
         }
 

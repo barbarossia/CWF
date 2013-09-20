@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Query_Service.UnitTests;
 
 
 namespace Query_Service.Tests.FunctionalTests.Version_Control
@@ -31,7 +32,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         [Owner(OWNER)]
         [Description("Save project as Private Status" +
                      "Verify version and status of AL and SA")]
-        [TestCategory(TestCategory.Smoke)]
+        [TestCategory(TestCategory.Func)]
         [TestCategory(QualityGates.Functionality)]
         [TestMethod()]
         public void SaveProjectAsPrivate()
@@ -68,7 +69,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         [Owner(OWNER)]
         [Description("Save project as Public Status" +
                      "Verify version and status of AL and SA")]
-        [TestCategory(TestCategory.Smoke)]
+        [TestCategory(TestCategory.Func)]
         [TestCategory(QualityGates.Functionality)]
         [TestMethod()]
         public void SaveProjectAsPublic()
@@ -107,7 +108,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         [Owner(OWNER)]
         [Description("Save project as Private Status -> change the status to public" +
                      "Verify version and status of AL and SA")]
-        [TestCategory(TestCategory.Smoke)]
+        [TestCategory(TestCategory.Func)]
         [TestCategory(QualityGates.Functionality)]
         [TestMethod()]
         public void SavePrivateProjectAndThenMakeItPublic()
@@ -145,7 +146,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         [Owner(OWNER)]
         [Description("Save project as Public Status -> change the status to public" +
                      "Verify version and status of AL and SA")]
-        [TestCategory(TestCategory.Smoke)]
+        [TestCategory(TestCategory.Func)]
         [TestCategory(QualityGates.Functionality)]
         [TestMethod()]
         public void SavePublicProjectAndThenMakeItPrivate()
@@ -185,7 +186,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         [Owner(OWNER)]
         [Description("Create New project -> save as private -> Save new project as Public Status with name same as previous step" +
                      "Verify name collision error is thrown")]
-        [TestCategory(TestCategory.Smoke)]
+        [TestCategory(TestCategory.Func)]
         [TestCategory(QualityGates.Functionality)]
         [TestMethod()]
         public void CreateNewProjectWithExistingName()
@@ -197,6 +198,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
             var storeAct = VersionControlHelper.GetStoreActivitiesDC(workflow.ActivityLibrary, 1);
             StoreActList.Add(storeAct);
             workflow.StoreActivitiesList = StoreActList;
+            workflow.InAuthGroupNames = new string[] { "pqocwfadmin" };
 
             var result = VersionControlHelper.CreateAndUploadWorkFlow(workflow);
             Assert.AreEqual(0, result.Errorcode);
@@ -230,7 +232,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         [Owner(OWNER)]
         [Description("Create New project -> save as retired -> Save new project as Public Status with name same as previous step" +
                      "Verify name collision error is thrown")]
-        [TestCategory(TestCategory.Smoke)]
+        [TestCategory(TestCategory.Func)]
         [TestCategory(QualityGates.Functionality)]
         [TestMethod()]
         public void CreateNewProjectWithExistingNameAsRetired()
@@ -275,7 +277,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         [Owner(OWNER)]
         [Description("Create New project -> save as private->Publish Project" +
                      "Verify version and status of AL and SA should be public")]
-        [TestCategory(TestCategory.Smoke)]
+        [TestCategory(TestCategory.Func)]
         [TestCategory(QualityGates.Functionality)]
         [TestMethod()]
         [Ignore] //ignore since publish need specific environment

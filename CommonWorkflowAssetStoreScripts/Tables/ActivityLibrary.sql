@@ -1,9 +1,4 @@
 /****** Object:  Table [dbo].[ActivityLibrary]    Script Date: 06/12/2011 06:33:56 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActivityLibrary]') AND type in (N'U'))
-DROP TABLE [dbo].[ActivityLibrary]
-GO
-
-/****** Object:  Table [dbo].[ActivityLibrary]    Script Date: 06/12/2011 06:33:56 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,6 +7,8 @@ GO
 
 SET ANSI_PADDING ON
 GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActivityLibrary]') AND type in (N'U'))
 
 CREATE TABLE [dbo].[ActivityLibrary](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
@@ -35,6 +32,7 @@ CREATE TABLE [dbo].[ActivityLibrary](
 	[CategoryId] [bigint] NULL,
 	[FriendlyName]		  NVARCHAR(50)		NULL,
 	[ReleaseNotes]		  NVARCHAR(250)		NULL,
+	[Environment] [int] NULL,
  CONSTRAINT [PK_ActivityLibrary] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

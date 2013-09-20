@@ -1,3 +1,7 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Error_Handle]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Error_Handle]
+GO
+
 -- =============================================
 -- Author: Sanjeewa Jayasinghe (v-sanja)
 -- Description: Handles errors and raises to be caught in DAL.

@@ -61,6 +61,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 {
                     Name = activityAssemblyItem.Name,
                     VersionNumber = activityAssemblyItem.Version.ToString(),
+                    Environment = activityAssemblyItem.Env.ToString(),
                     Incaller = Environment.UserName,
                     IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                 };

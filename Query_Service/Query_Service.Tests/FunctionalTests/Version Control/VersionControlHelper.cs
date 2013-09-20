@@ -2,7 +2,6 @@
 using CWF.BAL.Versioning;
 using CWF.DAL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Query_Service.Testsproject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
     /// </summary>
     public class VersionControlHelper
     {
-        
+
         const string incallerversion = "1.2.3.7test";
         private static string GenerateRandomString(int size)
         {
@@ -36,10 +35,10 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
         /// to each status)
         /// </summary>
         public static ActivityLibraryDC GetActivityLibraryDC(string activityLibraryStatus, int activityLibraryStatusID)
-        {  
+        {
             var activityLibraryDC = new ActivityLibraryDC()
                 {
-                    Name = "test"+GenerateRandomString(4),
+                    Name = "test" + GenerateRandomString(4),
                     VersionNumber = "0.0.0.1",
                     Executable = new byte[10],
                     Description = GenerateRandomString(50),
@@ -54,12 +53,14 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
                     AuthGroupId = 2,
                     Incaller = Environment.UserName,
                     IncallerVersion = incallerversion,
-                    InsertedByUserAlias = Environment.UserName,
-                    UpdatedByUserAlias = Environment.UserName,
+                    InInsertedByUserAlias = Environment.UserName,
+                    InUpdatedByUserAlias = Environment.UserName,
                     Category = Guid.NewGuid(),
-                    CategoryId = 3
+                    CategoryId = 3,
+                    InAuthGroupNames = new string[] { "pqocwfadmin" },
+                    Environment = "Dev"
                 };
-                return activityLibraryDC;
+            return activityLibraryDC;
         }
 
         /// <summary>
@@ -85,10 +86,12 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
                 AuthGroupId = 2,
                 Incaller = Environment.UserName,
                 IncallerVersion = incallerversion,
-                InsertedByUserAlias = Environment.UserName,
-                UpdatedByUserAlias = Environment.UserName,
+                InInsertedByUserAlias = Environment.UserName,
+                InUpdatedByUserAlias = Environment.UserName,
                 Category = Guid.NewGuid(),
-                CategoryId = 3
+                CategoryId = 3,
+                InAuthGroupNames = new string[] { "pqocwfadmin" },
+                Environment = "Dev"
             };
             return activityLibraryDC;
         }
@@ -111,7 +114,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
             {
                 ActivityCategoryName = activityLibrary.CategoryName,
                 Description = GenerateRandomString(5),
-                Name = activityLibrary.Name.Substring(0,8),
+                Name = activityLibrary.Name.Substring(0, 8),
                 ShortName = activityLibrary.Name.Substring(0, 8),
                 IsCodeBeside = true,
                 Version = activityLibrary.VersionNumber,
@@ -129,8 +132,8 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
             storeActivity.Guid = Guid.NewGuid();
             storeActivity.Incaller = Environment.UserName;
             storeActivity.LockedBy = Environment.UserName;
-            storeActivity.UpdatedByUserAlias = Environment.UserName;
-            storeActivity.InsertedByUserAlias = Environment.UserName;
+            storeActivity.InUpdatedByUserAlias = Environment.UserName;
+            storeActivity.InInsertedByUserAlias = Environment.UserName;
             storeActivity.StatusId = activityLibrary.Status;
 
             storeActivity.IncallerVersion = activityLibrary.IncallerVersion;
@@ -142,10 +145,11 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
             storeActivity.AuthGroupId = activityLibrary.AuthGroupId;
             storeActivity.AuthGroupName = activityLibrary.AuthGroupName;
             storeActivity.Xaml = "<XamlBeginTag></XamlBeginTag>";
-            
+            storeActivity.InAuthGroupNames = new string[] { "pqocwfauthors" };
+            storeActivity.Environment = "Dev";
             return storeActivity;
         }
-        
+
         /// <summary>
         /// Thhis method gets information of the store activity and activity library. These are passed as input params
         /// </summary>
@@ -177,7 +181,7 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
             Assert.AreEqual(reply[0].ActivityLibrary.VersionNumber, version);
             Assert.AreEqual(reply[0].ActivityLibrary.Status, statusid);
             Assert.AreEqual(reply[0].ActivityLibrary.StatusName, statusName);
-            Assert.AreEqual(reply[0].StoreActivitiesList[0].ActivityLibraryName,reply[0].StoreActivitiesList[0].Name);
+            Assert.AreEqual(reply[0].StoreActivitiesList[0].ActivityLibraryName, reply[0].StoreActivitiesList[0].Name);
             Assert.AreEqual(reply[0].StoreActivitiesList[0].Version, version);
         }
 
@@ -197,6 +201,6 @@ namespace Query_Service.Tests.FunctionalTests.Version_Control
             result = CWF.BAL.Services.UploadActivityLibraryAndDependentActivities(workflow)[0].StatusReply;
             return result;
         }
-        
+
     }
 }

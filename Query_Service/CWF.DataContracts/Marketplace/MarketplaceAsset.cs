@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace CWF.DataContracts.Marketplace
 {
     [DataContract]
-    public class MarketplaceAsset
+    public class MarketplaceAsset : WorkflowReplayHeader
     {
         /// <summary>
         /// ActivityLibraryId

@@ -12,15 +12,23 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
     [TestClass]
     public class WorkflowTypeRepositoryServiceShould
     {
+        private const string DefaultEnv = "Dev";
+
         [Description("Verifies whether GetWorkflowTypes method returns the matching item when called with Name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnWorkflowTypeByNameWhenGetWorkflowTypesIsCalledWithValidName()
         {
             WorkFlowTypeCreateOrUpdateRequestDC expected = CreateWorkflowTypeObject();
             WorkflowTypeRepositoryService.WorkflowTypeCreateOrUpdate(expected);
-            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(0, expected.InName); // Valid name.
+            WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC()
+                {
+                    Id= 0,
+                    Name = expected.InName,
+                    Environment=DefaultEnv
+                };
+            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(request); // Valid name.
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual.WorkflowActivityType);
             Assert.IsTrue(actual.WorkflowActivityType.Count == 1);
@@ -32,25 +40,37 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetWorkflowTypes method does not return any items when called with invalid name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnNoneWhenGetWorkflowTypesIsCalledWithInvalidName()
         {
             WorkFlowTypeCreateOrUpdateRequestDC expected = CreateWorkflowTypeObject();
             WorkflowTypeRepositoryService.WorkflowTypeCreateOrUpdate(expected);
-            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(0, Guid.NewGuid().ToString()); // Invalid name.
+            WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC()
+            {
+                Id = 0,
+                Name = Guid.NewGuid().ToString(),
+                Environment=DefaultEnv
+            };
+            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(request); // Invalid name.
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual.WorkflowActivityType);
             Assert.IsTrue(actual.WorkflowActivityType.Count == 0);
 
             // Cleanup
-            var actualId = WorkflowTypeRepositoryService.GetWorkflowTypes(0, expected.InName).WorkflowActivityType[0].Id;
+            request = new WorkflowTypesGetRequestDC()
+            {
+                Id = 0,
+                Name=expected.InName,
+                Environment=DefaultEnv
+            };
+            var actualId = WorkflowTypeRepositoryService.GetWorkflowTypes(request).WorkflowActivityType[0].Id;
             WorkflowTypeTestDataAccessUtility.DeleteWorkflowType(actualId);
         }
 
         [Description("Verifies whether GetWorkflowTypes method returns the matching item when called with Id.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnWorkflowTypeByIdWhenGetWorkflowTypesIsCalledWithValidId()
         {
@@ -58,9 +78,20 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
             WorkflowTypeRepositoryService.WorkflowTypeCreateOrUpdate(expected);
 
             // Since we don't have the ID yet, first get by name and then use that Id to call get by Id.
-            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(0, expected.InName);           
+            WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC()
+            {
+                Id = 0,
+                Name = expected.InName,
+                Environment=DefaultEnv
+            };
+            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(request);
 
-            var actualById = WorkflowTypeRepositoryService.GetWorkflowTypes(actual.WorkflowActivityType[0].Id);  // Get by valid Id.
+            request = new WorkflowTypesGetRequestDC()
+            {
+                Id = actual.WorkflowActivityType[0].Id,
+                Environment=DefaultEnv
+            };
+            var actualById = WorkflowTypeRepositoryService.GetWorkflowTypes(request);  // Get by valid Id.
             Assert.IsNotNull(actualById);
             Assert.IsNotNull(actualById.WorkflowActivityType);
             Assert.IsTrue(actualById.WorkflowActivityType.Count == 1);
@@ -72,25 +103,36 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetWorkflowTypes method does not return any items when called with invalid Id.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnNoneWhenGetWorkflowTypesIsCalledWithInvalidId()
         {
             WorkFlowTypeCreateOrUpdateRequestDC expected = CreateWorkflowTypeObject();
             WorkflowTypeRepositoryService.WorkflowTypeCreateOrUpdate(expected);
-            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(-1); // Invalid Id.
+            WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC()
+            {
+                Id = -1,
+                Environment="Dev"
+            };
+            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(request); // Invalid Id.
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual.WorkflowActivityType);
             Assert.IsTrue(actual.WorkflowActivityType.Count == 0);
 
             // Cleanup
-            var actualId = WorkflowTypeRepositoryService.GetWorkflowTypes(0, expected.InName).WorkflowActivityType[0].Id;
+            request = new WorkflowTypesGetRequestDC()
+            {
+                Id = expected.InId,
+                Name = expected.InName,
+                Environment="Dev"
+            };
+            var actualId = WorkflowTypeRepositoryService.GetWorkflowTypes(request).WorkflowActivityType[0].Id;
             WorkflowTypeTestDataAccessUtility.DeleteWorkflowType(actualId);
         }
 
         [Description("Verifies whether GetWorkflowTypes method returns the matching item by Id when called with valid Id and invalid name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnWorkflowTypeWhenGetWorkflowTypesIsCalledWithValidIdAndInvalidName()
         {
@@ -98,9 +140,21 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
             WorkflowTypeRepositoryService.WorkflowTypeCreateOrUpdate(expected);
             
             // Since we don't have the ID yet, first get by name and then use that Id to call get by Id.
-            var actualTemp = WorkflowTypeRepositoryService.GetWorkflowTypes(0, expected.InName);
+            WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC()
+            {
+                Id = 0,
+                Name = expected.InName,
+                Environment=DefaultEnv
+            };
+            var actualTemp = WorkflowTypeRepositoryService.GetWorkflowTypes(request);
 
-            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(actualTemp.WorkflowActivityType[0].Id, Guid.NewGuid().ToString());  // Valid Id and invalid Name.
+            request = new WorkflowTypesGetRequestDC()
+            {
+                Id = actualTemp.WorkflowActivityType[0].Id,
+                Name = Guid.NewGuid().ToString(),
+                Environment=DefaultEnv
+            };
+            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(request);  // Valid Id and invalid Name.
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual.WorkflowActivityType);
             Assert.IsTrue(actual.WorkflowActivityType.Count == 1);
@@ -112,39 +166,61 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
 
         [Description("Verifies whether GetWorkflowTypes method does not return any items when called with invalid Id and valid name.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnNoneWhenGetWorkflowTypesIsCalledWithInvalidIdAndValidName()
         {
             WorkFlowTypeCreateOrUpdateRequestDC expected = CreateWorkflowTypeObject();
             WorkflowTypeRepositoryService.WorkflowTypeCreateOrUpdate(expected);
-            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(-1, expected.InName); // Invalid Id and valid Name.
+            WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC()
+            {
+                Id = -1,
+                Name = expected.InName,
+                Environment="Dev"
+            };
+            var actual = WorkflowTypeRepositoryService.GetWorkflowTypes(request); // Invalid Id and valid Name.
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual.WorkflowActivityType);
             Assert.IsTrue(actual.WorkflowActivityType.Count == 0);
 
             // Cleanup
-            var actualId = WorkflowTypeRepositoryService.GetWorkflowTypes(0, expected.InName).WorkflowActivityType[0].Id;
+            request = new WorkflowTypesGetRequestDC()
+            {
+                Id = 0,
+                Name = expected.InName,
+                Environment="Dev"
+            };
+            var actualId = WorkflowTypeRepositoryService.GetWorkflowTypes(request).WorkflowActivityType[0].Id;
             WorkflowTypeTestDataAccessUtility.DeleteWorkflowType(actualId);
         }
 
         [Description("Verifies whether GetWorkflowTypes method returns all the items when called without name or ID.")]
         [Owner("v-sanja")]
-        [TestCategory("Full")]
+        [TestCategory("Func")]
         [TestMethod]
         public void ReturnAllWorkflowTypesWhenGetWorkflowTypesIsCalledWithoutIdOrName()
         {
-            var initialList = WorkflowTypeRepositoryService.GetWorkflowTypes();
+            WorkflowTypesGetRequestDC request = new WorkflowTypesGetRequestDC()
+            {
+                Environment = "Dev"
+            };
+            var initialList = WorkflowTypeRepositoryService.GetWorkflowTypes(request);
             Assert.IsTrue(initialList.WorkflowActivityType.Count > 0);
 
             WorkFlowTypeCreateOrUpdateRequestDC newType = CreateWorkflowTypeObject();
             WorkflowTypeRepositoryService.WorkflowTypeCreateOrUpdate(newType);
 
-            var finalList = WorkflowTypeRepositoryService.GetWorkflowTypes();
+            var finalList = WorkflowTypeRepositoryService.GetWorkflowTypes(request);
             Assert.AreEqual(initialList.WorkflowActivityType.Count + 1, finalList.WorkflowActivityType.Count);
             
             // Cleanup
-            int newTypeId = WorkflowTypeRepositoryService.GetWorkflowTypes(0, newType.InName).WorkflowActivityType[0].Id;
+            WorkflowTypesGetRequestDC newrequest = new WorkflowTypesGetRequestDC()
+            {
+                Id = 0,
+                Name = newType.InName,
+                Environment=DefaultEnv
+            };
+            int newTypeId = WorkflowTypeRepositoryService.GetWorkflowTypes(newrequest).WorkflowActivityType[0].Id;
             WorkflowTypeTestDataAccessUtility.DeleteWorkflowType(newTypeId);
         }
 
@@ -158,7 +234,9 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices.Tests.Functional
                 Incaller = Guid.NewGuid().ToString(),
                 IncallerVersion = "1.0.0.0",
                 InInsertedByUserAlias = Environment.UserName,
-                InUpdatedByUserAlias = Environment.UserName
+                InUpdatedByUserAlias = Environment.UserName,
+                InAuthGroupNames = new string[] { "pqocwfadmin" },
+                Environment="Dev"
             };
         }
     }

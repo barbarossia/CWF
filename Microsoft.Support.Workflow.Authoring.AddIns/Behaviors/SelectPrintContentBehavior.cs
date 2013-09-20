@@ -21,7 +21,7 @@ namespace Microsoft.Support.Workflow.Authoring.Behaviors
     /// <summary>
     /// Help class of print selection
     /// </summary>
-    public class SelectPrintContentBehavior : FrameworkElement
+    public partial class SelectPrintContentBehavior : FrameworkElement
     {
         #region Dependency Property
 

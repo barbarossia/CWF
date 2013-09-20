@@ -478,6 +478,11 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         public const string WORKFLOW_TYPE_CREATE_OR_UPDATE_CALL_ERROR_MSG = " DAL.WorkflowTypeCreateOrUpdate.WorkflowType_CreateOrUpdate";
 
         public const string VersionIncorrectFaultReasonMessage = "Version number is incorrect";
+
+        public const string STORE_PERMISSION_GET_CALL_ERROR_MSG = " DAL.PermissionGet.Permission_Get";
+
+        //This is an invalid operation since the author is not allowed to view templates or publishing workflows.
+        public const string INVALID_PARMETER_VALUE_MARKETPLACE = "This is an invalid operation since the author is not allowed to view templates or publishing workflows.";
     }
 }
 

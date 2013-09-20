@@ -10,8 +10,9 @@ using CWF.WorkflowQueryService.UserError.Config;
 using Microsoft.Support.Workflow.QueryService.Common;
 using Microsoft.Support.Workflow.Service.Common.Tests;
 using Microsoft.Support.Workflow.Service.Test.Common;
+using Query_Service.UnitTests;
 
-namespace Query_Service.Tests.UnitTests
+namespace Query_Service.UnitTests
 {
     /// <summary>
     /// Before running these tests, copy the Config folder and its contents from this project to C:\Temp.

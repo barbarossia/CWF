@@ -13,6 +13,10 @@ SET ROWCOUNT 0
 SET TEXTSIZE 0
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActivityLibrary_Get]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[ActivityLibrary_Get]
+GO
+
  /**************************************************************************
 // Product:  CommonWF
 // FileName: ActivityLibrary_Get.sql
@@ -57,10 +61,11 @@ BEGIN
 		BEGIN				
 			SELECT al.[Id], al.[GUID], al.[Name], al.[AuthGroupId], ag.Name AS AuthGroupName, al.[Category], al.[CategoryId], 
 				ac.[Name] AS CategoryName, al.[Executable], al.[HasActivities], al.[Description], al.[ImportedBy], 
-				al.[VersionNumber], al.[Status], sc.Name as StatusName, al.[MetaTags], al.[FriendlyName], al.[ReleaseNotes]
+				al.[VersionNumber], al.[Status], sc.Name as StatusName, al.[MetaTags], al.[FriendlyName], al.[ReleaseNotes], E.[Name] AS Environment
 			FROM [dbo].[ActivityLibrary] al
 				JOIN [dbo].[AuthorizationGroup] ag ON ag.Id = al.AuthGroupId
 				JOIN [dbo].[StatusCode] sc on al.Status = sc.Code
+				JOIN Environment E ON al.Environment = E.Id
 				LEFT JOIN [dbo].[ActivityCategory] ac on al.CategoryId = ac.Id
 			WHERE al.Id = @InId
 				AND al.SoftDelete = 0
@@ -70,10 +75,11 @@ BEGIN
 		BEGIN	
 			SELECT al.[Id], al.[GUID], al.[Name], al.[AuthGroupId], ag.Name AS AuthGroupName, al.[Category], al.[CategoryId], 
 				ac.[Name] AS CategoryName, al.[Executable], al.[HasActivities], al.[Description], al.[ImportedBy],
-				al.[VersionNumber], al.[Status], sc.Name as StatusName, al.[MetaTags], al.[FriendlyName], al.[ReleaseNotes]
+				al.[VersionNumber], al.[Status], sc.Name as StatusName, al.[MetaTags], al.[FriendlyName], al.[ReleaseNotes], E.[Name] AS Environment
 			FROM [dbo].[ActivityLibrary] al
 				JOIN [dbo].[AuthorizationGroup] ag ON ag.Id = al.AuthGroupId
 				JOIN [dbo].[StatusCode] sc on al.Status = sc.Code
+				JOIN Environment E ON al.Environment = E.Id 
 				LEFT JOIN [dbo].[ActivityCategory] ac on al.CategoryId = ac.Id
 			WHERE al.GUID = @InGUID
 				AND al.SoftDelete = 0
@@ -96,10 +102,11 @@ BEGIN
 			-- one of them is provided.  Return all activity libraries if none is provided.
 			SELECT al.[Id], al.[GUID], al.[Name], al.[AuthGroupId], ag.Name AS AuthGroupName, al.[Category], al.[CategoryId], 
 				ac.[Name] AS CategoryName, al.[Executable], al.[HasActivities], al.[Description], al.[ImportedBy],
-				al.[VersionNumber], al.[Status], sc.Name as StatusName, al.[MetaTags], al.[FriendlyName], al.[ReleaseNotes]
+				al.[VersionNumber], al.[Status], sc.Name as StatusName, al.[MetaTags], al.[FriendlyName], al.[ReleaseNotes], E.[Name] AS Environment
 			FROM [dbo].[ActivityLibrary] al
 				JOIN [dbo].[AuthorizationGroup] ag ON ag.Id = al.AuthGroupId
 				JOIN [dbo].[StatusCode] sc on al.Status = sc.Code
+				JOIN Environment E ON al.Environment = E.Id 
 				LEFT JOIN [dbo].[ActivityCategory] ac on al.CategoryId = ac.Id
 			WHERE (@InName = al.Name OR @InNameExists <> 1) AND
 				(@InVersion = al.VersionNumber OR @InVersionExists <> 1)

@@ -168,26 +168,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// <returns></returns>
         public static List<ActivityAssemblyItem> ComputeDependencies(IWorkflowsQueryService client, List<ActivityAssemblyItem> assemblies)
         {
-            List<ActivityLibraryDC> assembliesOnServer;
+            List<ActivityLibraryDC> assembliesOnServer = new List<ActivityLibraryDC>();
             var dependencies = new MultiMap<int, int>();
             var neededIDs = new HashSet<int>();
-
-            try
-            {
-                assembliesOnServer = client.GetAllActivityLibraries(new GetAllActivityLibrariesRequestDC().SetIncaller()).List;
-            }
-            catch (FaultException<ServiceFault> ex)
-            {
-                throw new CommunicationException(ex.Detail.ErrorMessage);
-            }
-            catch (FaultException<ValidationFault> ex)
-            {
-                throw new BusinessValidationException(ex.Detail.ErrorMessage);
-            }
-            catch (Exception ex)
-            {
-                throw new CommunicationException(ex.Message);
-            }
 
             // get dependencies for each assembly
             foreach (var assembly in assemblies)
@@ -196,6 +179,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 // for some reason, QueryService sends back list of lists instead of flattened list
                 foreach (var dependencyContainer in dependenciesByID)
                 {
+                    assembliesOnServer.AddRange(dependencyContainer.Activities);
                     foreach (var dependency in dependencyContainer.StoreDependenciesDependentActiveLibraryList)
                     {
                         // If A needs B, then A is the "parent" according to the data contract

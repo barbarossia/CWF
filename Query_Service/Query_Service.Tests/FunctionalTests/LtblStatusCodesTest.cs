@@ -203,7 +203,7 @@ namespace Query_Service.Tests
         [WorkItem(22192)]
         [Description("Verify GET FROM ltblStatusCodes Table")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStatusCodeForValidId()
         {
@@ -213,7 +213,7 @@ namespace Query_Service.Tests
         [WorkItem(22190)]
         [Description("Verify GET FROM ltblStatusCodes Table with valid name")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStatusCodeForValidName()
         {
@@ -223,7 +223,7 @@ namespace Query_Service.Tests
         [WorkItem(22191)]
         [Description("Verify GET FROM ltblStatusCodes Table using Invalid Incode")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStatusCodeForInValidIDs()
         {

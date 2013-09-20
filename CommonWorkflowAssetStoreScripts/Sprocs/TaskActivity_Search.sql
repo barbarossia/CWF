@@ -1,31 +1,11 @@
-/**************************************************************************
-// Product:  CommonWF
-// FileName:[TaskActivity_Search]
-//
-// Copyright 2010 Microsoft Corporation. All rights reserved.
-// Microsoft Confidential
-***************************************************************************/
-/* *************************************************************************
-**    Name:   TaskActivity_Get                          *
-**    Desc:   Get TaskActivity rows.                             *
-**    Auth:   v-kason                                                     *
-**    Date:   03/10/2013                                                   *
-**                                                                         *
-****************************************************************************
-**   sproc logic flow: <Optional IF complex> 
-**   Parameter definition IF complex
-****************************************************************************
-**                  CHANGE HISTORY
-****************************************************************************
-**	Date:        Author:             Description:
-** ____________    ________________    ____________________________________
-**  03/10/2013     v-kason            Original implementation
-** *************************************************************************/
-
-/****** Object:  StoredProcedure [dbo].[TaskActivity_GetLatestVersion]   Script Date: 08/03/2012 16:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[TaskActivity_Search]    Script Date: 05/16/2013 01:48:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaskActivity_Search]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[TaskActivity_Search]
 GO
 
 CREATE PROCEDURE [dbo].[TaskActivity_Search]
@@ -143,6 +123,7 @@ BEGIN
 		InsertedDateTime datetime,
 		UpdatedByUserAlias nvarchar(50),
 		UpdatedDateTime datetime,
+		[Environment] nvarchar(50),
 		TaskActivityId bigint,
 		ActivityId bigint,
 		AssignedTo nvarchar(100),
@@ -168,6 +149,9 @@ BEGIN
 						CASE WHEN @SortColumn = 'Version' THEN sa.[Version] END DESC,
 						CASE WHEN @SortColumn = 'CreatedBy'  AND @SortAscending = 1  THEN sa.[InsertedByUserAlias] END ASC,
 						CASE WHEN @SortColumn = 'CreatedBy' THEN sa.[InsertedByUserAlias] END DESC,
+						CASE WHEN @SortColumn = 'Environment'  AND @SortAscending = 1  THEN  E.Id  END ASC,
+						CASE WHEN @SortColumn = 'Environment' THEN  E.Id  END DESC,
+						
 						CASE WHEN @SortColumn = 'CreatedTime'  AND @SortAscending = 1 THEN sa.InsertedDateTime END ASC,
 						CASE WHEN @SortColumn = 'CreatedTime' THEN sa.InsertedDateTime END DESC
 			            ) AS [RowNumber],
@@ -208,6 +192,7 @@ BEGIN
 				sa.InsertedDateTime,
 				sa.UpdatedByUserAlias,
 				sa.UpdatedDateTime,
+				E.Name  as [Environment],
 				ta.Id as TaskActivityId,
 				ta.ActivityId,
 				ta.AssignedTo,
@@ -222,6 +207,7 @@ BEGIN
 			JOIN WorkflowType wft ON sa.WorkflowTypeId = wft.Id
 			LEFT JOIN Icon ic ON sa.IconsId = ic.Id 
 			LEFT JOIN AuthorizationGroup ag ON ag.Id = al.AuthGroupId
+			JOIN Environment E ON sa.Environment = E.Id 
 			WHERE 
 			ta.[GUID] = @InTaskActivityGuid AND sa.SoftDelete = 0 
 			AND (@NeedSearch = 0 OR sa.Name like @SearchText)
@@ -240,6 +226,9 @@ BEGIN
 						CASE WHEN @SortColumn = 'Version' THEN sa.[Version] END DESC,
 						CASE WHEN @SortColumn = 'CreatedBy'  AND @SortAscending = 1  THEN sa.[InsertedByUserAlias] END ASC,
 						CASE WHEN @SortColumn = 'CreatedBy' THEN sa.[InsertedByUserAlias] END DESC,
+						CASE WHEN @SortColumn = 'Environment'  AND @SortAscending = 1  THEN E.Id END ASC,
+						CASE WHEN @SortColumn = 'Environment' THEN  E.Id  END DESC,
+						
 						CASE WHEN @SortColumn = 'CreatedTime'  AND @SortAscending = 1 THEN sa.InsertedDateTime END ASC,
 						CASE WHEN @SortColumn = 'CreatedTime' THEN sa.InsertedDateTime END DESC
 			            ) AS [RowNumber],
@@ -280,6 +269,7 @@ BEGIN
 				sa.InsertedDateTime,
 				sa.UpdatedByUserAlias,
 				sa.UpdatedDateTime,
+				E.Name  as [Environment],
 				ta.Id as TaskActivityId,
 				ta.ActivityId,
 				ta.AssignedTo,
@@ -294,6 +284,7 @@ BEGIN
 			JOIN WorkflowType wft ON sa.WorkflowTypeId = wft.Id
 			LEFT JOIN Icon ic ON sa.IconsId = ic.Id 
 			LEFT JOIN AuthorizationGroup ag ON ag.Id = al.AuthGroupId
+			JOIN Environment E ON sa.Environment = E.Id 
 			WHERE 
 			(@InAssignedTo = ta.AssignedTo OR @InAssignedToExists <> 1)
 			AND (@NeedSearch = 0 OR sa.Name like @SearchText)

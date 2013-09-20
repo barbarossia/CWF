@@ -87,8 +87,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 db.AddParameter(cmd, "@inActivityLibraryVersionNumber", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesRootActiveLibrary.ActivityLibraryVersionNumber);
                 db.AddParameter(cmd, "@inActivityLibraryDependentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesDependentActiveLibraryList[0].ActivityLibraryDependentName);
                 db.AddParameter(cmd, "@inActivityLibraryDependentVersionNumber", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesDependentActiveLibraryList[0].ActivityLibraryDependentVersionNumber);
-                db.AddParameter(cmd, "@InInsertedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InsertedByUserAlias);
-                db.AddParameter(cmd, "@InUpdatedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.UpdatedByUserAlias);
+                db.AddParameter(cmd, "@InInsertedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InInsertedByUserAlias);
+                db.AddParameter(cmd, "@InUpdatedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InUpdatedByUserAlias);
                 db.AddParameter(cmd, "@ReturnValue", DbType.Int32, ParameterDirection.ReturnValue, null, DataRowVersion.Default, 0);
                 db.AddOutParameter(cmd, "@outErrorString", DbType.String, 300);
 

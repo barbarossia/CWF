@@ -9,6 +9,7 @@ using CWF.DAL;
 using System.Diagnostics;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices
 {
@@ -24,20 +25,19 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         {
             var taskActivity = new TaskActivityDC();
             var storeActivityDc = new StoreActivitiesDC();
-            var status = new StatusReplyDC();
-            taskActivity.StatusReply = status;
-
-            Database db = null;
+            SqlDatabase db = null;
             DbCommand cmd = null;
             int retValue = 0;
             string outErrorString = string.Empty;
 
             try
             {
-                db = DatabaseFactory.CreateDatabase();
+                db = RepositoryHelper.CreateDatabase();
                 cmd = db.GetStoredProcCommand(StoredProcNames.TaskActivityCreateOrUpdate);
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
+                db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
+                db.AddParameter(cmd, "@InEnvironmentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);
                 db.AddParameter(cmd, "@InId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
                 db.AddParameter(cmd, "@InActivityId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityId);
                 db.AddParameter(cmd, "@InGuid", DbType.Guid, ParameterDirection.Input, null, DataRowVersion.Default, request.Guid);
@@ -89,10 +89,11 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                             storeActivityDc.ToolBoxtab = Convert.ToInt32(reader["ToolBoxtab"]);
                         storeActivityDc.Version = Convert.ToString(reader["Version"]);
                         storeActivityDc.WorkflowTypeName = Convert.ToString(reader["WorkFlowTypeName"]);
-                        storeActivityDc.InsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
+                        storeActivityDc.InInsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
                         storeActivityDc.InsertedDateTime = Convert.ToDateTime(reader["InsertedDateTime"]);
-                        storeActivityDc.UpdatedByUserAlias = Convert.ToString(reader["UpdatedByUserAlias"]);
+                        storeActivityDc.InUpdatedByUserAlias = Convert.ToString(reader["UpdatedByUserAlias"]);
                         storeActivityDc.UpdatedDateTime = Convert.ToDateTime(reader["UpdatedDateTime"]);
+                        storeActivityDc.Environment = Convert.ToString(reader["Environment"]);
                         taskActivity.Id = Convert.ToInt32(reader["TaskActivityId"]);
                         taskActivity.ActivityId = Convert.ToInt32(reader["ActivityId"]);
                         if (reader["AssignedTo"] != DBNull.Value)
@@ -106,25 +107,15 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                     retValue = Convert.ToInt32(cmd.Parameters["@ReturnValue"].Value);
                     if (retValue != 0)
                     {
-                        status.ErrorMessage = outErrorString;
-                        status.Errorcode = retValue;
-                        Logging.Log(retValue,
-                            EventLogEntryType.Error,
-                            "Store_TaskActivity_Create_OR_Update_Error_MSG",
-                            outErrorString);
+                        taskActivity.StatusReply.ErrorMessage = outErrorString;
+                        taskActivity.StatusReply.Errorcode = retValue;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                status.ErrorMessage = "Store_TaskActivity_Create_OR_Update_Error_MSG" + ex.Message;
-                status.Errorcode = SprocValues.GENERIC_CATCH_ID;
-                Logging.Log(SprocValues.GENERIC_CATCH_ID,
-                            EventLogEntryType.Error,
-                            "Store_TaskActivity_Create_OR_Update_Error_MSG",
-                            ex);
+                ex.HandleException();
             }
-            taskActivity.StatusReply = status;
             return taskActivity;
         }
 
@@ -136,18 +127,17 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         public static TaskActivityGetReplyDC SearchTaskActivities(TaskActivityGetRequestDC request)
         {
             TaskActivityGetReplyDC reply = new TaskActivityGetReplyDC();
-            StatusReplyDC status = new StatusReplyDC();
             string outErrorString = string.Empty;
             TaskActivityDC taskActivity = null;
-            Database db = null;
+            SqlDatabase db = null;
             DbCommand cmd = null;
             int retValue = 0;
             try
             {
-                db = DatabaseFactory.CreateDatabase();
+                db = RepositoryHelper.CreateDatabase();
                 cmd = db.GetStoredProcCommand(StoredProcNames.TaskActivitySearch);
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
-                db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
+                db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);              
                 db.AddParameter(cmd, "@InTaskActivityGUID", DbType.Guid, ParameterDirection.Input, null, DataRowVersion.Default, request.TaskActivityGuid);
                 db.AddParameter(cmd, "@InAssignedTo", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.AssignedTo);
                 db.AddParameter(cmd, "@InFilterOlder", DbType.Boolean, ParameterDirection.Input, null, DataRowVersion.Default, request.FilterOlder);
@@ -174,9 +164,9 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         sab.Version = Convert.ToString(reader["Version"]);
                         sab.Description = Convert.ToString(reader["Description"]);
                         sab.MetaTags = Convert.ToString(reader["MetaTags"]) ?? string.Empty;
-                        sab.InsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
+                        sab.InInsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
                         sab.InsertedDateTime = Convert.ToDateTime(reader["InsertedDateTime"]);
-
+                        sab.Environment = Convert.ToString(reader["Environment"]);
                         if (request.IncludeDetails)
                         {
                             if (reader["Locked"] == DBNull.Value)
@@ -206,7 +196,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                             sab.Namespace = Convert.ToString(reader["Namespace"]) ?? string.Empty;
                             sab.ToolBoxtab = reader["ToolBoxtab"] == DBNull.Value ? 0 : Convert.ToInt32(reader["ToolBoxtab"]);
                             sab.WorkflowTypeName = Convert.ToString(reader["WorkFlowTypeName"]);
-                            sab.UpdatedByUserAlias = Convert.ToString(reader["UpdatedByUserAlias"]);
+                            sab.InUpdatedByUserAlias = Convert.ToString(reader["UpdatedByUserAlias"]);
                             sab.UpdatedDateTime = Convert.ToDateTime(reader["UpdatedDateTime"]);
                             sab.StatusCodeName = Convert.ToString(reader["StatusCodeName"]);
                         }
@@ -231,40 +221,33 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                     outErrorString = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
                     if (retValue != 0)
                     {
-                        status.ErrorMessage = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
-                        status.Errorcode = retValue;
-                        Logging.Log(retValue,
-                                    EventLogEntryType.Error,
-                                    "TaskActivity_Get_ERROR_MSG",
-                                    outErrorString);
+                        reply.StatusReply.ErrorMessage = outErrorString;
+                        reply.StatusReply.Errorcode = retValue;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                status = Logging.Log(SprocValues.GENERIC_CATCH_ID,
-                                     EventLogEntryType.Error,
-                                     "TaskActivity_Get_ERROR_MSG",
-                                     ex);
+                ex.HandleException();
             }
-            reply.StatusReply = status;
             return reply;
         }
 
         public static TaskActivityDC TaskActivity_SetStatus(TaskActivityDC request) 
         {
             TaskActivityDC reply = new TaskActivityDC();
-            StatusReplyDC status = new StatusReplyDC();
             string outErrorString = string.Empty;
-            Database db = null;
+            SqlDatabase db = null;
             DbCommand cmd = null;
             int retValue = 0;
             try
             {
-                db = DatabaseFactory.CreateDatabase();
+                db = RepositoryHelper.CreateDatabase();
                 cmd = db.GetStoredProcCommand(StoredProcNames.TaskActivityUpdateStatus);
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
+                db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
+                db.AddParameter(cmd, "@InEnvironmentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);                
                 db.AddParameter(cmd, "@InTaskActivityGUID", DbType.Guid, ParameterDirection.Input, null, DataRowVersion.Default, request.Guid);
                 db.AddParameter(cmd, "@InId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
                 db.AddParameter(cmd, "@InStatus", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Status.ToString());
@@ -275,31 +258,20 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 outErrorString = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
                 if (retValue != 0)
                 {
-                    status.ErrorMessage = outErrorString;
-                    status.Errorcode = retValue;
-                    Logging.Log(retValue,
-                                EventLogEntryType.Error,
-                                "Update TaskActivity Status Error",
-                                outErrorString);
+                    reply.StatusReply.ErrorMessage = outErrorString;
+                    reply.StatusReply.Errorcode = retValue;
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                status.ErrorMessage = "Update TaskActivity Status Error: " + ex.Message;
-                status.Errorcode = SprocValues.GENERIC_CATCH_ID;
-                status = Logging.Log(SprocValues.GENERIC_CATCH_ID,
-                                     EventLogEntryType.Error,
-                                     "TaskActivity_UpdateStatus_ERROR_MSG",
-                                     ex);
+                ex.HandleException();
             }
-            reply.StatusReply = status;
             return reply;
         }
 
         public static TaskActivityDC TaskActivityGet(TaskActivityDC request)
         {
             TaskActivityDC reply = new TaskActivityDC();
-            StatusReplyDC status = new StatusReplyDC();
             string outErrorString = string.Empty;
             Database db = null;
             DbCommand cmd = null;
@@ -357,11 +329,12 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         sab.ToolBoxtab = reader["ToolBoxtab"] == DBNull.Value ? 0 : Convert.ToInt32(reader["ToolBoxtab"]);
                         sab.Version = Convert.ToString(reader["Version"]);
                         sab.WorkflowTypeName = Convert.ToString(reader["WorkFlowTypeName"]);
-                        sab.InsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
+                        sab.InInsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
                         sab.InsertedDateTime = Convert.ToDateTime(reader["InsertedDateTime"]);
-                        sab.UpdatedByUserAlias = Convert.ToString(reader["UpdatedByUserAlias"]);
+                        sab.InUpdatedByUserAlias = Convert.ToString(reader["UpdatedByUserAlias"]);
                         sab.UpdatedDateTime = Convert.ToDateTime(reader["UpdatedDateTime"]);
                         sab.StatusCodeName = Convert.ToString(reader["StatusCodeName"]);
+                        sab.Environment = Convert.ToString(reader["Environment"]);
                         reply.Id = Convert.ToInt32(reader["TaskActivityId"]);
                         reply.ActivityId = Convert.ToInt32(reader["ActivityId"]);
                         if (reader["AssignedTo"] != DBNull.Value)
@@ -376,23 +349,15 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                     outErrorString = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
                     if (retValue != 0)
                     {
-                        status.ErrorMessage = Convert.ToString(cmd.Parameters["@outErrorString"].Value);
-                        status.Errorcode = retValue;
-                        Logging.Log(retValue,
-                                    EventLogEntryType.Error,
-                                    "TaskActivity_Get_ERROR_MSG",
-                                    outErrorString);
+                        reply.StatusReply.ErrorMessage = outErrorString;
+                        reply.StatusReply.Errorcode = retValue;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                status = Logging.Log(SprocValues.GENERIC_CATCH_ID,
-                                     EventLogEntryType.Error,
-                                     "TaskActivity_Get_ERROR_MSG",
-                                     ex);
+                ex.HandleException();
             }
-            reply.StatusReply = status;
             return reply;
         }
     }

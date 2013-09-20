@@ -16,6 +16,11 @@ namespace CWF.WorkflowQueryService
     using Microsoft.Support.Workflow.Service.BusinessServices;
     using Microsoft.Support.Workflow.Service.DataAccessServices;
     using CWF.DataContracts.Marketplace;
+    using CWF.WorkflowQueryService.Authentication;
+    using System.Configuration;
+    using CWF.WorkflowQueryService.Resources;
+    using System.Linq;
+    using System.Reflection;
 
     /// <summary>
     /// Workflow query service exposes a DAL providing CRUD access to the PrototypeAssetStore DB
@@ -49,7 +54,8 @@ namespace CWF.WorkflowQueryService
 
             try
             {
-                reply = PublishingClass.PublishWorkflow(this, request.WorkflowName, request.WorkflowVersion);
+                request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+                reply = PublishingClass.PublishWorkflow(this, request);
                 reply.StatusReply.Errorcode = SprocValues.REPLY_ERRORCODE_VALUE_OK;
                 return reply;
             }
@@ -107,6 +113,7 @@ namespace CWF.WorkflowQueryService
 
             try
             {
+                request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
                 reply = CWF.BAL.Services.UploadActivityLibraryAndDependentActivities(request);
             }
             catch (VersionException ex)
@@ -260,6 +267,8 @@ namespace CWF.WorkflowQueryService
                 return reply;
             }
 
+            string[] authorGroups = SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb());
+            request.InAuthGroupName = authorGroups.First();
             return ActivityCategory.ActivityCategoryCreateOrUpdate(request);
         }
 
@@ -375,12 +384,12 @@ namespace CWF.WorkflowQueryService
         /// them as service faults to the caller.
         /// </summary>
         /// <returns>List of workflow types found.</returns>
-        public WorkflowTypeGetReplyDC WorkflowTypeGet()
+        public WorkflowTypeGetReplyDC WorkflowTypeGet(WorkflowTypesGetRequestDC request)
         {
             WorkflowTypeGetReplyDC reply = null;
             try
             {
-                reply = WorkflowTypeBusinessService.GetWorkflowTypes();
+                reply = WorkflowTypeBusinessService.GetWorkflowTypes(request);
             }
             catch (BusinessException e)
             {
@@ -418,6 +427,7 @@ namespace CWF.WorkflowQueryService
             ActivitySearchReplyDC reply = null;
             try
             {
+                request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
                 reply = ActivityBusinessService.SearchActivities(request);
             }
             catch (BusinessException e)
@@ -434,6 +444,7 @@ namespace CWF.WorkflowQueryService
 
         public MarketplaceSearchResult SearchMarketplace(MarketplaceSearchQuery request)
         {
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
             return MarketplaceRepositoryService.SearchMarketplace(request);
         }
 
@@ -452,24 +463,43 @@ namespace CWF.WorkflowQueryService
         /// <param name="request"></param>
         /// <param name="lockedTime"></param>
         /// <returns></returns>
-        public StatusReplyDC StoreActivitiesSetLock(StoreActivitiesDC request, DateTime lockedTime)
+        public StatusReplyDC StoreActivitiesUpdateLock(StoreActivitiesDC request, DateTime lockedTime)
         {
             if (request == null)
             {
                 return SetupStatusreplyNullRequestError();
             }
-            return CWF.BAL.Services.StoreActivitiesSetLock(request, lockedTime);
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return CWF.BAL.Services.StoreActivitiesUpdateLock(request, lockedTime);
+        }
+
+        /// <summary>
+        /// Override lock on StoreActivities
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="lockedTime"></param>
+        /// <returns></returns>
+        public StatusReplyDC StoreActivitiesOverrideLock(StoreActivitiesDC request, DateTime lockedTime)
+        {
+            if (request == null)
+            {
+                return SetupStatusreplyNullRequestError();
+            }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return CWF.BAL.Services.StoreActivitiesOverrideLock((request), lockedTime);
         }
 
         /// <summary>
         /// Gets the next version number for a workflow.
         /// </summary>
         /// <param name="request">An object describing the workflow for which we need a new version number.</param>
-        /// <param name="userName">The name of the user making the request.</param>
+        /// <param name="env">The name of the user making the request.</param>
         /// <returns></returns>
-        public Version GetNextVersion(StoreActivitiesDC request, string userName)
+        public Version GetNextVersion(StoreActivitiesDC request, string env)
         {
-            return CWF.BAL.Services.GetNextVersion(request, userName);
+            return CWF.BAL.Services.GetNextVersion(request, env);
         }
 
         /// <summary>
@@ -487,7 +517,7 @@ namespace CWF.WorkflowQueryService
                 reply[0].StatusReply = SetupStatusreplyNullRequestError();
                 return reply;
             }
-            return Activities.StoreActivitiesGetByName(request.Name, string.Empty);
+            return Activities.StoreActivitiesGetByName(request.Name, request.Environment);
         }
 
         [Obsolete("Used only by func test")]
@@ -506,6 +536,7 @@ namespace CWF.WorkflowQueryService
                 return reply;
             }
 
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
             return ActivityLibrary.ActivityLibraryCreateOrUpdate(request);
         }
 
@@ -522,6 +553,8 @@ namespace CWF.WorkflowQueryService
                 reply.StatusReply = SetupStatusreplyNullRequestError();
                 return reply;
             }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
             return WorkflowTypeBusinessService.WorkflowTypeCreateOrUpdate(request);
         }
 
@@ -538,6 +571,8 @@ namespace CWF.WorkflowQueryService
                 reply.StatusReply = SetupStatusreplyNullRequestError();
                 return reply;
             }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
             return WorkflowTypeBusinessService.SearchWorkflowTypes(request);
         }
 
@@ -554,7 +589,44 @@ namespace CWF.WorkflowQueryService
                 reply.StatusReply = SetupStatusreplyNullRequestError();
                 return reply;
             }
+
             return AuthorizationGroupBusinessService.GetAuthorizationGroups(request);
+        }
+
+        /// <summary>
+        /// Create Or Update AuthorizationGroup
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public AuthGroupsCreateOrUpdateReplyDC AuthorizationGroupCreateOrUpdate(AuthGroupsCreateOrUpdateRequestDC request)
+        {
+            if (request == null)
+            {
+                AuthGroupsCreateOrUpdateReplyDC reply = new AuthGroupsCreateOrUpdateReplyDC();
+                reply.StatusReply = SetupStatusreplyNullRequestError();
+                return reply;
+            }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return AuthorizationGroup.AuthGroupsCreateOrUpdate(request);
+        }
+
+        /// <summary>
+        /// Enable Or Disable AuthorizationGroup
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public AuthGroupsEnableOrDisableReplyDC AuthorizationGroupEnableOrDisable(AuthGroupsEnableOrDisableRequestDC request)
+        {
+            if (request == null)
+            {
+                AuthGroupsEnableOrDisableReplyDC reply = new AuthGroupsEnableOrDisableReplyDC();
+                reply.StatusReply = SetupStatusreplyNullRequestError();
+                return reply;
+            }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return AuthorizationGroup.AuthGroupsEnableOrDisable(request);
         }
 
         /// <summary>
@@ -603,6 +675,7 @@ namespace CWF.WorkflowQueryService
 
             try
             {
+                request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
                 reply = CWF.BAL.Services.UploadLibraryAndTaskActivities(request);
             }
             catch (VersionException ex)
@@ -636,6 +709,8 @@ namespace CWF.WorkflowQueryService
                 reply.StatusReply = SetupStatusreplyNullRequestError();
                 return reply;
             }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
             return TaskActivityBusinessService.GetTaskActivities(request);
         }
 
@@ -665,6 +740,8 @@ namespace CWF.WorkflowQueryService
                 reply.StatusReply = SetupStatusreplyNullRequestError();
                 return reply;
             }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
             return TaskActivityBusinessService.TaskActivityUpdateStatus(request);
         }
 
@@ -676,9 +753,91 @@ namespace CWF.WorkflowQueryService
                 reply.StatusReply = SetupStatusreplyNullRequestError();
                 return reply;
             }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
             return TaskActivityBusinessService.TaskActivityGetList(request);
         }
 
+        public PermissionGetListReply PermissionGetList(RequestHeader request)
+        {
+            return Permission.PermissionGet(request);
+        }
 
+        public string TenantGet()
+        {
+            if ((ConfigurationManager.AppSettings.Keys.Count > 0) && (!string.IsNullOrEmpty(AppSettings.TenantName)))
+            {
+                return AppSettings.TenantName;
+            }
+
+            return string.Empty;
+        }
+
+        public ChangeAuthorReply ChangeAuthor(ChangeAuthorRequest request)
+        {
+            if (request == null)
+            {
+                var reply = new ChangeAuthorReply();
+                reply.StatusReply = SetupStatusreplyNullRequestError();
+                return reply;
+            }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return Activities.ChangeAuthor(request);
+        }
+
+        public StoreActivitiesDC ActivityCopy(ActivityCopyRequest request)
+        {
+            if (request == null)
+            {
+                var reply = new StoreActivitiesDC();
+                reply.StatusReply = SetupStatusreplyNullRequestError();
+                return reply;
+            }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return ActivityBusinessService.ActivityCopy(request);
+        }
+
+        public ActivityMoveReply ActivityMove(ActivityMoveRequest request)
+        {
+            if (request == null)
+            {
+                var reply = new ActivityMoveReply();
+                reply.StatusReply = SetupStatusreplyNullRequestError();
+                return reply;
+            }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return Activities.ActivityMove(request);
+        }
+
+        public StoreActivitiesDC ActivityDelete(StoreActivitiesDC request)
+        {
+            if (request == null)
+            {
+                var reply = new StoreActivitiesDC();
+                reply.StatusReply = SetupStatusreplyNullRequestError();
+                return reply;
+            }
+
+            request.AddAuthGroupOnRequest(SecurityService.GetSecurityIdentifierArray(GetAuthorizationGroupsInDb()));
+            return Activities.StoreActivitiesDelete(request);
+        }
+
+        private string[] GetAuthorizationGroupsInDb()
+        {
+            AuthorizationGroupGetRequestDC request = new AuthorizationGroupGetRequestDC()
+            {
+                Incaller = Environment.UserName,
+                IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+            };
+
+            var result = GetAuthorizationGroups(request);
+            if (result.StatusReply.Errorcode != 0)
+                throw new UnauthorizedAccessException();
+
+            return result.AuthorizationGroups.Select(a => a.AuthGroupName).ToArray();
+        }
     }
 }

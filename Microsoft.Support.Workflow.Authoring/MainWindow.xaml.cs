@@ -193,11 +193,8 @@ namespace Microsoft.Support.Workflow.Authoring
             WorkAreaCanvas.Focus();
         }
 
-        private void wfName_KeyDown(object sender, KeyEventArgs e)
+        private void wfName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.Key != Key.Enter)
-                return;
-
             TextBox txt = sender as TextBox;
             var viewModel = DataContext as MainWindowViewModel;
             if ((null != viewModel) && (null != viewModel.FocusedWorkflowItem))

@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     
     [DataContract]
-    public class ActivitySearchReplyDC
+    public class ActivitySearchReplyDC : ReplyHeader
     {
         [DataMember]
         public List<StoreActivitiesDC> SearchResults { get; set; }

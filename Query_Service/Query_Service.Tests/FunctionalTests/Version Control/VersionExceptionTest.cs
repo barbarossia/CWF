@@ -1,5 +1,6 @@
 ﻿using CWF.BAL.Versioning;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Query_Service.Tests.Common;
 using System;
 
 namespace Query_Service.Tests
@@ -24,6 +25,7 @@ namespace Query_Service.Tests
         ///A test for VersionException Constructor
         ///</summary>
         [TestMethod()]
+        [TestCategory(TestCategory.Func)]
         public void VersionExceptionConstructorTest()
         {
             string message = new string('A', 150);

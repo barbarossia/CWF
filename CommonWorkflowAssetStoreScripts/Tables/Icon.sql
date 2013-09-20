@@ -5,6 +5,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Icon]') AND type in (N'U'))
+
 CREATE TABLE [dbo].[Icon](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,

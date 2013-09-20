@@ -12,6 +12,11 @@ SET NOCOUNT ON
 SET ROWCOUNT 0
 SET TEXTSIZE 0
 GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StatusCode_Get]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[StatusCode_Get]
+GO
+
  /**************************************************************************
 // Product:  CommonWF
 // FileName: StatusCode_Get.sql

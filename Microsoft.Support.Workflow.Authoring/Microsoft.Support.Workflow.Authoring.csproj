@@ -56,7 +56,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>Common\MicrosoftMinimum_WarningsAsErrors.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
@@ -102,6 +102,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Microsoft.Support.Workflow.Authoring.Startup</StartupObject>
@@ -121,6 +122,14 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.CSharp" />
@@ -135,6 +144,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -195,6 +205,7 @@
     <Compile Include="AssetStore\AssetStoreProxy.cs" />
     <Compile Include="Behaviors\WindowClosingBehavior.cs" />
     <Compile Include="Common\CachingChangedEventHandler.cs" />
+    <Compile Include="Common\Converters\EnumBooleanConverter.cs" />
     <Compile Include="Common\Converters\InverterBooleanConverter.cs" />
     <Compile Include="Common\Converters\NullToBrushConverter.cs" />
     <Compile Include="Common\Converters\InvertedNullToVisibilityConverter.cs" />
@@ -203,11 +214,13 @@
     </Compile>
     <Compile Include="Common\Converters\AllMatchToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\VersionToStringConverter.cs" />
+    <Compile Include="Common\EnvFilter.cs" />
     <Compile Include="Common\ExceptionHandling\BusinessValidationException.cs" />
     <Compile Include="Common\ExceptionHandling\MarketplaceExceptionHandler.cs" />
     <Compile Include="Common\MarketplaceStatus.cs" />
     <Compile Include="Common\Messages\AuthorizationMessages.cs" />
     <Compile Include="Common\Messages\CommonMessages.cs" />
+    <Compile Include="Common\SecurityGroupType.cs" />
     <Compile Include="Common\WorkflowTypeOperations.cs" />
     <Compile Include="Common\Messages\ImportMessages.cs" />
     <Compile Include="Common\Converters\CountConverter.cs">
@@ -257,14 +270,17 @@
     <Compile Include="UIControls\DataPaging.xaml.cs">
       <DependentUpon>DataPaging.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIControls\SearchTextBox.cs" />
     <Compile Include="UIControls\WorkflowDataPaging.xaml.cs">
       <DependentUpon>WorkflowDataPaging.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\ActivityAssemblyItemViewModel.cs" />
     <Compile Include="ViewModels\ActivityItemViewModel.cs" />
+    <Compile Include="ViewModels\DefaultValueSettingsViewModel.cs" />
+    <Compile Include="ViewModels\SingleDB\ChangeAuthorSummaryViewModel.cs" />
+    <Compile Include="ViewModels\SingleDB\ChangeAuthorViewModel.cs" />
     <Compile Include="ViewModels\ClickableMessageViewModel.cs" />
+    <Compile Include="ViewModels\SingleDB\CopyCurrentProjectViewModel.cs" />
     <Compile Include="ViewModels\DataPagingViewModel.cs" />
     <Compile Include="ViewModels\EditWorkflowTypeViewModel.cs" />
     <Compile Include="ViewModels\ManageWorkflowTypeViewModel.cs" />
@@ -279,9 +295,12 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SavingComfirmationViewModel.cs" />
     <Compile Include="ViewModels\SearchTaskActivityViewModel.cs" />
+    <Compile Include="ViewModels\SingleDB\EnvironmentSecurityOptionsViewModel.cs" />
     <Compile Include="ViewModels\SelectAssemblyAndActivityViewModel.cs" />
     <Compile Include="ViewModels\SelectImportAssemblyViewModel.cs" />
     <Compile Include="ViewModels\SelectWorkflowViewModel.cs" />
+    <Compile Include="ViewModels\SingleDB\MoveProjectViewModel.cs" />
+    <Compile Include="ViewModels\SingleDB\TenantSecurityOptionsViewModel.cs" />
     <Compile Include="ViewModels\UploadAssemblyViewModel.cs" />
     <Compile Include="ViewModels\UserInfoPaneViewModel.cs" />
     <Compile Include="ViewsExcludeFromCodeCoverage.cs" />
@@ -294,6 +313,21 @@
     </Compile>
     <Compile Include="Views\ClickableMessage.xaml.cs">
       <DependentUpon>ClickableMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DefaultValueSettingsView.xaml.cs">
+      <DependentUpon>DefaultValueSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SingleDB\ChangeAuthor.xaml.cs">
+      <DependentUpon>ChangeAuthor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SingleDB\ChangeAuthorSummary.xaml.cs">
+      <DependentUpon>ChangeAuthorSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SingleDB\CopyCurrentProject.xaml.cs">
+      <DependentUpon>CopyCurrentProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SingleDB\EnvironmentSecurityOptions.xaml.cs">
+      <DependentUpon>EnvironmentSecurityOptions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorMessageDialog.xaml.cs">
       <DependentUpon>ErrorMessageDialog.xaml</DependentUpon>
@@ -341,9 +375,13 @@
     <Compile Include="Views\SelectAssemblyAndActivityView.xaml.cs">
       <DependentUpon>SelectAssemblyAndActivityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SingleDB\MoveProject.xaml.cs">
+      <DependentUpon>MoveProject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SplashScreenView.xaml.cs">
       <DependentUpon>SplashScreenView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SingleDB\TenantSecurityOptions.xaml.cs" />
     <Compile Include="Views\UploadAssemblyView.xaml.cs">
       <DependentUpon>UploadAssemblyView.xaml</DependentUpon>
     </Compile>
@@ -361,6 +399,26 @@
     <Page Include="UIControls\WorkflowDataPaging.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DefaultValueSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SingleDB\ChangeAuthor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SingleDB\ChangeAuthorSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SingleDB\CopyCurrentProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SingleDB\EnvironmentSecurityOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ImportAssemblyView.xaml">
       <SubType>Designer</SubType>
@@ -558,7 +616,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SingleDB\MoveProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SplashScreenView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SingleDB\TenantSecurityOptions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -660,6 +726,7 @@
       <Name>Microsoft.Support.Workflow.Authoring.AddIns</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

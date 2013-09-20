@@ -63,7 +63,7 @@ namespace Query_Service.Tests
             getRequest.Version = version;
             getRequest.Locked = locked;
             getRequest.LockedBy = lockedBy;
-
+            getRequest.Environment = "Dev";
             try
             {
                 return devBranchProxy.StoreActivitiesSetLock(getRequest, DateTime.Now);
@@ -150,7 +150,6 @@ namespace Query_Service.Tests
         {
             getRequest = new StoreActivitiesDC();
             getReplyList = new List<StoreActivitiesDC>();
-
             VerifyGetForValidNameAndVersion(name, version, getRequest, getReplyList);
         }
 
@@ -384,7 +383,7 @@ namespace Query_Service.Tests
         [WorkItem(22195)]
         [Description("Verify GET FROM etblStoreActivities Table for Valid IDs")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStoreActivitiesForValidIDs()
         {
@@ -401,7 +400,7 @@ namespace Query_Service.Tests
         [WorkItem(22197)]
         [Description("Verify GET FROM etblStoreActivities Table for Valid name and version")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStoreActivitiesForValidNameAndVersion()
         {
@@ -413,7 +412,7 @@ namespace Query_Service.Tests
         [WorkItem(22196)]
         [Description("Verify GET FROM etblStoreActivities Table for Valid name and Invalid version")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStoreActivitiesForValidNameAndInvalidVersion()
         {
@@ -425,7 +424,7 @@ namespace Query_Service.Tests
         [WorkItem(22194)]
         [Description("Verify GET FROM etblStoreActivities Table for Valid guid")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStoreActivitiesForValidGuid()
         {
@@ -436,7 +435,7 @@ namespace Query_Service.Tests
         [WorkItem(22193)]
         [Description("Verify GET FROM etblStoreActivities Table for Invalid IDs")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetStoreActivitiesForInvalidIDs()
         {
@@ -456,7 +455,7 @@ namespace Query_Service.Tests
         [WorkItem(284020)]
         [Description("Verify check out locked activity for no action by different user")]
         [Owner("v-toy")]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyLockStoreActivity()
         {
@@ -468,7 +467,7 @@ namespace Query_Service.Tests
         [WorkItem(284021)]
         [Description("Verify check out locked activity for no action by different user")]
         [Owner("v-toy")]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyUnlockStoreActivity()
         {

@@ -6,6 +6,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Activity_Exists]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Activity_Exists]
+GO
 
 /**************************************************************************
 // Product:  CommonWF
@@ -33,16 +36,18 @@ GO
 ** *************************************************************************/
 CREATE PROCEDURE [dbo].[Activity_Exists]		
 		@InName varchar(255),
-		@InVersion nvarchar(50)
+		@InVersion nvarchar(50),
+		@InEnvironmentName nvarchar(50)
 --WITH ENCRYPTION
 AS
 BEGIN
     SET NOCOUNT ON
 		   
 	BEGIN TRY
-			SELECT [Activity].[Id]
-			FROM Activity
-			WHERE @inName = Name AND @InVersion = [Version]				 
+			SELECT sa.[Id]
+			FROM Activity sa
+			join Environment E on sa.Environment = E.Id
+			WHERE @inName = sa.Name AND @InVersion = sa.[Version] AND @InEnvironmentName = E.[Name]			 
 	END TRY
 	BEGIN CATCH
 		EXECUTE [dbo].Error_Handle 

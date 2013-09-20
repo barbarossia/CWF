@@ -5,6 +5,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[StatusCode]') AND type in (N'U'))
+
 CREATE TABLE [dbo].[StatusCode](
 	[Code] [bigint] NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,

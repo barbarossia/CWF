@@ -15,7 +15,7 @@ namespace CWF.DataContracts
     /// Get Activities by activity library name and version request class
     /// </summary>
     [DataContract]
-    public class GetActivitiesByActivityLibraryNameAndVersionRequestDC : RequestHeader
+    public class GetActivitiesByActivityLibraryNameAndVersionRequestDC : WorkflowRequestHeader
     {
         private string name;
         private string versionNumber;

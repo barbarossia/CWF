@@ -29,6 +29,8 @@ namespace Query_Service.Tests.Common
         /// A constant that marks Unit test cases.
         /// </summary>
         public const string Unit = "Unit";
+
+        public const string Func = "Func";
     }
 
     /// <summary>

@@ -463,7 +463,7 @@ namespace Query_Service.Tests
         [WorkItem(20907)]
         [Description("Verify GET FROM ltblActivityCategory Table for Valid IDs")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetActivityCategoriesForValidIDS()
         {
@@ -478,7 +478,7 @@ namespace Query_Service.Tests
         [WorkItem(21026)]
         [Description("Verify GET FROM ltblActivityCategory Table for Invalid IDs")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyGetActivityCategoriesForInvalidIDs()
         {
@@ -499,7 +499,7 @@ namespace Query_Service.Tests
         [WorkItem(20975)]
         [Description("Verify CreateOrUpdate FROM ltblActivityCategory Table with id = 0")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyCreateOrUpdateActivityCategories()
         {
@@ -509,7 +509,7 @@ namespace Query_Service.Tests
         [WorkItem(20977)]
         [Description("Verify CreateOrUpdate FROM ltblActivityCategory Table with null id")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyCreateOrUpdateActivityCategoriesWithNullID()
         {
@@ -519,7 +519,7 @@ namespace Query_Service.Tests
         [WorkItem(20976)]
         [Description("Verify CreateOrUpdate FROM ltblActivityCategory Table For Invalid Ids")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void VerifyCreateOrUpdateActivityCategoriesForInvalidId()
         {
@@ -547,7 +547,7 @@ namespace Query_Service.Tests
         [WorkItem(20962)]
         [Description("Verify ConcurrencyTesting FROM ltblActivityCategory Table")]
         [Owner(TEST_OWNER)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         [Ignore]
         public void VerifyConcurrencyTestingForActivityCategories()

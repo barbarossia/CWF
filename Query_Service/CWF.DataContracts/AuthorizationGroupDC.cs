@@ -16,6 +16,10 @@ namespace CWF.DataContracts
         public int AuthGroupId { get; set; }
         [DataMember]
         public string AuthGroupName { get; set; }
+        [DataMember]
+        public int RoleId { get; set; }
+        [DataMember]
+        public bool Enabled { get; set; }
     }
 
     [DataContract]
@@ -34,6 +38,8 @@ namespace CWF.DataContracts
         public int AuthGroupId { get; set; }
         [DataMember]
         public string AuthGroupName { get; set; }
+        [DataMember]
+        public int RoleId { get; set; }
     }
 
 }

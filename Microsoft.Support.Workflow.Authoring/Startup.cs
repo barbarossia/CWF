@@ -13,6 +13,9 @@ using System.Security.Principal;
 using System.Windows;
 using System.Reflection;
 using Microsoft.Support.Workflow.Authoring.Common.Messages;
+using Microsoft.Support.Workflow.Authoring.AddIns.Converters;
+using Microsoft.Support.Workflow.Authoring.AddIns.Logger;
+using System.Collections.ObjectModel;
 
 namespace Microsoft.Support.Workflow.Authoring
 {
@@ -20,6 +23,7 @@ namespace Microsoft.Support.Workflow.Authoring
     {
         private static App app = new App();
         private static SplashScreenView splashScreen = new SplashScreenView();
+        private static ILogWriter logger = new EventLogWriter();
         /// <summary>
         /// So we can handle errors differently during application startup
         /// </summary>
@@ -32,7 +36,13 @@ namespace Microsoft.Support.Workflow.Authoring
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             app.DispatcherUnhandledException += UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             ApplicationStartup(null, null);
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            logger.WriteEvent(EventIdValues.UNHANDELED_EXCEPTION, e.ToString());
         }
 
         private static void InitializationFinished()
@@ -79,6 +89,7 @@ namespace Microsoft.Support.Workflow.Authoring
             string details = (e is UserFacingException)
                 ? e.InnerException.IfNotNull(inner => inner.ToString())
                 : e.ToString();
+            logger.WriteEvent(EventIdValues.HANDELED_EXCEPTION, e.ToString());
             ErrorMessageDialog.Show(msg, details, owner: IsInitialized ? Utility.FuncGetCurrentActiveWindow(Application.Current) : null);
 
             if (!IsInitialized) // exception during startup should kill app instead of leaving "phantom" app running
@@ -96,25 +107,7 @@ namespace Microsoft.Support.Workflow.Authoring
         {
             //Check User Level to grant/deny access to app
             AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
-            var currentPrincipal = AuthorizationService.CurrentPrincipalFunc() as WindowsPrincipal;
-            switch (AuthorizationService.GetSecurityLevel(currentPrincipal))
-            {
-                case SecurityLevel.Author:
-                    break;
-                case SecurityLevel.Administrator:
-                    break;
-                case SecurityLevel.Offline:
-                    MessageBoxService.Show(AuthorizationMessages.Offline,
-                        Assembly.GetExecutingAssembly().GetName().Name, MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
-                    app.Shutdown();
-                    return;
-                default:
-                    MessageBoxService.Show(AuthorizationMessages.Unauthorized, Assembly.GetExecutingAssembly().GetName().Name, MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
-                    app.Shutdown();
-                    return;
-            }
+            Task.Factory.StartNew(() => { var m = AuthorizationService.EnvPermissionMaps; });
             app.Resources.Source = new Uri("pack://application:,,,/Resources/MergedDictionary.Xaml");
             splashScreen.Show();
             Task.Factory.StartNew(() =>
@@ -126,6 +119,13 @@ namespace Microsoft.Support.Workflow.Authoring
                 Utility.CheckForDeleteCache();
                 Caching.LoadFromLocal();
                 app.Dispatcher.BeginInvoke(new Action(InitializationFinished), DispatcherPriority.Background);
+                ObservableCollection<string> categories = AssetStore.AssetStoreProxy.Categories;
+                if (categories != null && (string.IsNullOrWhiteSpace(DefaultValueSettings.DefaultCategory) || !categories.Contains(DefaultValueSettings.DefaultCategory)))
+                {
+                    DefaultValueSettings.SetConfigValue(DefaultValueSettings.DefaultCategoryKey, categories.FirstOrDefault());
+                    DefaultValueSettings.RefreshConfigValues();
+                }
+
             });
             app.Run();
         }

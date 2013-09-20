@@ -18,6 +18,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using System.Threading;
     using System.Windows.Threading;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using Microsoft.Support.Workflow.Authoring.Common;
+    using System.Collections.Generic;
+    using Microsoft.Support.Workflow.Authoring.Security;
 
     /// <summary>
     /// ViewModel for OpenWorkflowFromServerView
@@ -41,7 +45,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private int pageSize = 13;
         private string sortColumn = DefaultSortColumn;
         private ListSortDirection sortDirection = ListSortDirection.Ascending;
-        private bool resetPageIndex = false;
+        private List<EnvFilter> envFilters;
 
         private DataPagingViewModel dpViewModel;
         /// <summary>
@@ -56,7 +60,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         public OpenWorkflowFromServerViewModel()
         {
-            SearchCommand = new DelegateCommand(new Action(SearchCommandExecuted), () => !string.IsNullOrEmpty(SearchFilter));
+            SearchCommand = new DelegateCommand(new Action(SearchCommandExecuted));
             OpenSelectedWorkflowCommand = new DelegateCommand(delegate { GetSelectedWorkflow(); }, () => SelectedWorkflow != null);
             SortCommand = new DelegateCommand<string>(new Action<string>(SortCommandExecute));
             this.DataPagingVM = new DataPagingViewModel();
@@ -64,17 +68,41 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             this.DataPagingVM.PageSize = pageSize;
             ExistingWorkflows = new ObservableCollection<StoreActivitiesDC>();
             WorkflowsView = new CollectionViewSource();
+            this.InitializeEnvs();
+            CanEdit = true;
+            OpenForEditing = DefaultValueSettings.OpenForEditingMode;
+            ShouldDownloadDependencies = DefaultValueSettings.EnableDownloadDependecies;
+        }
+
+        private void InitializeEnvs()
+        {
+            Env[] envs = AuthorizationService.GetAuthorizedEnvs(Permission.OpenWorkflow);
+            if (envs != null)
+            {
+                this.EnvFilters = envs.ToList().Select(e => new EnvFilter()
+                    {
+                        Env = e,
+                        IsFilted = false
+                    }).ToList();
+                this.EnvFilters.ForEach(e =>
+                {
+                    if (e.Env == DefaultValueSettings.Environment)
+                        e.IsFilted = true;
+                });
+            }
+            else
+                this.EnvFilters = new List<EnvFilter>();
         }
 
         private void SearchCommandExecuted()
         {
+
             this.DataPagingVM.ResetPageIndex = true;
             LoadData();
         }
 
         private void GetSelectedWorkflow()
         {
-
             if (SelectedWorkflow != null)
             {
                 using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
@@ -87,7 +115,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                         SelectedWorkflow = result[0];
                     }
                 }
-
             }
         }
 
@@ -107,8 +134,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         public void LoadData()
         {
+            if (!CanSearchWorkflows)
+            {
+                MessageBoxService.ShowInfo("Please specify an environment to search.");
+                return;
+            }
             WorkflowsQueryServiceUtility.UsingClient(LoadLiveData);
         }
+
+        public bool CanEdit { get; set; }
+        public bool OpenForEditing { get; set; }
 
         /// <summary>
         /// Gets or sets DataPagingViewModel
@@ -120,6 +155,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.dpViewModel = value;
                 RaisePropertyChanged(() => DataPagingVM);
+            }
+        }
+
+        public List<EnvFilter> EnvFilters
+        {
+            get { return this.envFilters; }
+            set
+            {
+                this.envFilters = value;
+                RaisePropertyChanged(() => this.EnvFilters);
             }
         }
 
@@ -265,9 +310,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
             set
             {
-                resetPageIndex = true;
                 filterOldVersions = value;
                 RaisePropertyChanged(() => FilterOldVersions);
+                this.DataPagingVM.ResetPageIndex = true;
                 LoadData();
             }
         }
@@ -308,7 +353,14 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 if (value != selectedWorkflow)
                 {
                     selectedWorkflow = value;
+
+                    CanEdit = selectedWorkflow == null || AuthorizationService.Validate(selectedWorkflow.Environment.ToEnv(), Permission.SaveWorkflow);
+                    if (!CanEdit)
+                        OpenForEditing = false;
+
                     RaisePropertyChanged(() => SelectedWorkflow);
+                    RaisePropertyChanged(() => CanEdit);
+                    RaisePropertyChanged(() => OpenForEditing);
                     OpenSelectedWorkflowCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -330,15 +382,31 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
         }
 
+        public bool CanSearchWorkflows
+        {
+            get
+            {
+                return this.EnvFilters.Any(i => i.IsFilted == true);
+            }
+        }
+
         /// <summary>
         /// Fill ExistingWorkflows collection with data
         /// </summary>
         [System.Security.Permissions.PermissionSetAttribute(System.Security.Permissions.SecurityAction.LinkDemand, Name = "FullTrust")]
         public void LoadLiveData(IWorkflowsQueryService client)
         {
+            if (this.EnvFilters.All(a => !a.IsFilted))
+            {
+                WorkflowsView = new CollectionViewSource();
+                existingWorkflows = new ObservableCollection<StoreActivitiesDC>();
+                WorkflowsView.Source = existingWorkflows;
+                return;
+            }
+
             ActivitySearchRequestDC request = new ActivitySearchRequestDC();
             request.SearchText = SearchFilter;
-            request.PageNumber = resetPageIndex ? 1 : this.DataPagingVM.PageIndex;
+            request.PageNumber = this.DataPagingVM.ResetPageIndex ? 1 : this.DataPagingVM.PageIndex;
             request.PageSize = pageSize;
             request.FilterByCreator = FilterByCreatedBy;
             request.FilterByDescription = FilterByDescription;
@@ -347,6 +415,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             request.FilterByTags = FilterByTags;
             request.FilterByType = FilterByType;
             request.FilterOlder = FilterOldVersions;
+            request.Environments = this.EnvFilters.Where(a => a.IsFilted).Select(e => e.Env.ToString()).ToList();
 
             if (!string.IsNullOrEmpty(sortColumn))
             {
@@ -356,10 +425,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
             try
             {
-                ActivitySearchReplyDC searchResults = null;
                 Utility.DoTaskWithBusyCaption("Loading...", () =>
                 {
-                    searchResults = client.SearchActivities(request);
+                    ActivitySearchReplyDC searchResults = client.SearchActivities(request);
+                    searchResults.StatusReply.CheckErrors();
                     this.DataPagingVM.ResultsLength = searchResults.ServerResultsLength;
                     ExistingWorkflows = new ObservableCollection<StoreActivitiesDC>(searchResults.SearchResults);
                 });

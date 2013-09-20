@@ -79,6 +79,14 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\Microsoft.Support.Workflow.Authoring\References\Microsoft.Practices.Prism.dll</HintPath>
@@ -155,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\SearchXamlControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ToolboxView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,14 +204,25 @@
     <Compile Include="Converters\BooleanInverterConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\EnumDisplayNameConverter.cs" />
+    <Compile Include="Converters\EnvPermissionConverter.cs" />
     <Compile Include="Converters\IntellisenseIconConverter.cs" />
+    <Compile Include="Data\Env.cs" />
+    <Compile Include="Data\Permission.cs" />
+    <Compile Include="DefaultValueSettings.cs" />
+    <Compile Include="LocalData\ServiceCache.cs" />
+    <Compile Include="Data\Role.cs" />
+    <Compile Include="Logger\EventCategory.cs" />
+    <Compile Include="Logger\EventIdValues.cs" />
+    <Compile Include="Logger\EventLogWriter.cs" />
+    <Compile Include="Logger\ILogWriter.cs" />
+    <Compile Include="Models\ActivityFocuceEventArgs.cs" />
     <Compile Include="Models\CompileMessages.cs" />
     <Compile Include="Models\CompileProject.cs" />
     <Compile Include="Models\SavingResult.cs" />
     <Compile Include="Models\TaskActivityAssignException.cs" />
     <Compile Include="Models\UserFacingException.cs" />
+    <Compile Include="Models\XamlIndexNode.cs" />
     <Compile Include="MultipleAuthor\MultipleAuthorService.cs" />
-    <Compile Include="MultipleAuthor\PrincipalService.cs" />
     <Compile Include="MultipleAuthor\TaskActivity.cs" />
     <Compile Include="MultipleAuthor\TaskActivityDesigner.xaml.cs">
       <DependentUpon>TaskActivityDesigner.xaml</DependentUpon>
@@ -223,12 +246,15 @@
     <Compile Include="References\ServiceReference.cs" />
     <Compile Include="References\ServiceReferenceExcludeFromCodeCoverage.cs" />
     <Compile Include="Security\AuthorizationService.cs" />
-    <Compile Include="Security\SecurityLevel.cs" />
     <Compile Include="Utilities\ArgumentService.cs" />
     <Compile Include="Utilities\DependencyAnalysisService.cs" />
     <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Utilities\FlowDocumentExtension.cs" />
+    <Compile Include="Utilities\LogicalTreeUtility.cs" />
     <Compile Include="Utilities\MessageBoxService.cs" />
     <Compile Include="Utilities\WorkflowsQueryServiceUtility.cs" />
+    <Compile Include="Utilities\XamlIndexNodeHelper.cs" />
+    <Compile Include="Utilities\XamlIndexTreeHelper.cs" />
     <Compile Include="Utilities\XamlService.cs" />
     <Compile Include="MultipleAuthor\GetTaskEventArgs.cs" />
     <Compile Include="ViewModels\ToolboxViewModel.cs" />
@@ -267,6 +293,11 @@
     <Compile Include="ViewModels\WorkflowEditorViewModel.cs" />
     <Compile Include="Views\AutoScrollPreventerBehavior.cs" />
     <Compile Include="Views\HelpProvider.cs" />
+    <Compile Include="Views\RichTextBoxHelper.cs" />
+    <Compile Include="Views\SearchTextBox.cs" />
+    <Compile Include="Views\SearchXamlControl.xaml.cs">
+      <DependentUpon>SearchXamlControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolboxView.xaml.cs">
       <DependentUpon>ToolboxView.xaml</DependentUpon>
     </Compile>
@@ -299,7 +330,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -324,7 +354,9 @@
   <ItemGroup>
     <Resource Include="Resources\GridSplitterBackgroundV1.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\clear.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

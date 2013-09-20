@@ -4,6 +4,7 @@ using System;
 using CWF.BAL.Versioning;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
 using CWF.WorkflowQueryService.Versioning;
+using Query_Service.Tests.Common;
 
 
 namespace Query_Service.Tests
@@ -26,6 +27,7 @@ namespace Query_Service.Tests
         ///A test for VersionFault Constructor
         ///</summary>
         [TestMethod()]
+        [TestCategory(TestCategory.Func)]
         public void VersionFaultConstructorTest()
         {
             var target = new VersionFault();
@@ -37,6 +39,7 @@ namespace Query_Service.Tests
         ///A test for Message
         ///</summary>
         [TestMethod()]
+        [TestCategory(TestCategory.Func)]
         public void MessageTest()
         {
             VersionFault target = new VersionFault();
@@ -53,6 +56,7 @@ namespace Query_Service.Tests
         ///A test for Rule
         ///</summary>
         [TestMethod()]
+        [TestCategory(TestCategory.Func)]
         public void RuleTest()
         {
             VersionFault target = new VersionFault(); 

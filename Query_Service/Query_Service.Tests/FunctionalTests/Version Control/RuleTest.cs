@@ -1,5 +1,6 @@
 ﻿using CWF.BAL.Versioning;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Query_Service.Tests.Common;
 using System;
 
 namespace Query_Service.Tests
@@ -26,6 +27,7 @@ namespace Query_Service.Tests
         ///A test for Rule Constructor
         ///</summary>
         [TestMethod()]
+        [TestCategory(TestCategory.Func)]
         public void RuleConstructorTest()
         {
             var newActionType = RequestedOperation.Compile;

@@ -9,6 +9,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
     using CWF.DataContracts;
     using Practices.EnterpriseLibrary.Data;
     using System.Data.SqlClient;
+    using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
     public static class ActivityLibrary
     {
@@ -22,19 +23,19 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             var reply = new ActivityLibraryDC();
             var status = new StatusReplyDC();
             int retValue = 0;
-            Database db = null;
+            SqlDatabase db = null;
             DbCommand cmd = null;
             string outErrorString = string.Empty;
             try
             {
-                db = DatabaseFactory.CreateDatabase();
+                db = RepositoryHelper.CreateDatabase();
                 cmd = db.GetStoredProcCommand(StoredProcNames.ActivityLibraryCreateOrUpdate);
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
+                db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));         
                 db.AddParameter(cmd, "@InId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
                 db.AddParameter(cmd, "@InGUID", DbType.Guid, ParameterDirection.Input, null, DataRowVersion.Default, request.Guid);
                 db.AddParameter(cmd, "@InName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Name);
-                db.AddParameter(cmd, "@InAuthGroup", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.AuthGroupName);
                 db.AddParameter(cmd, "@InCategoryGUID", DbType.Guid, ParameterDirection.Input, null, DataRowVersion.Default, request.Category);
                 db.AddParameter(cmd, "@InCategoryName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.CategoryName);
                 db.AddParameter(cmd, "@InExecutable", DbType.Binary, ParameterDirection.Input, null, DataRowVersion.Default, request.Executable);
@@ -43,13 +44,14 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 db.AddParameter(cmd, "@InImportedBy", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.ImportedBy);
                 db.AddParameter(cmd, "@InVersionNumber", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.VersionNumber);
                 db.AddParameter(cmd, "@InMetaTags", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.MetaTags);
-                db.AddParameter(cmd, "@InInsertedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InsertedByUserAlias);
-                db.AddParameter(cmd, "@InUpdatedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.UpdatedByUserAlias);
+                db.AddParameter(cmd, "@InInsertedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InInsertedByUserAlias);
+                db.AddParameter(cmd, "@InUpdatedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InUpdatedByUserAlias);
                 db.AddParameter(cmd, "@InFriendlyName", DbType.String, ParameterDirection.Input, null,
                                 DataRowVersion.Default, request.FriendlyName);
                 db.AddParameter(cmd, "@InReleaseNotes", DbType.String, ParameterDirection.Input, null,
                                DataRowVersion.Default, request.ReleaseNotes);
                 db.AddParameter(cmd, "@inStatusName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StatusName);
+                db.AddParameter(cmd, "@InEnvironmentTarget", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);
                 db.AddParameter(cmd, "@ReturnValue", DbType.Int32, ParameterDirection.ReturnValue, null, DataRowVersion.Default, 0);
                 db.AddOutParameter(cmd, "@outErrorString", DbType.String, 300);
 
@@ -152,6 +154,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         activeLibraryDCreply.VersionNumber = Convert.ToString(reader["VersionNumber"]);
                         activeLibraryDCreply.FriendlyName = Convert.ToString(reader["FriendlyName"]);
                         activeLibraryDCreply.ReleaseNotes = Convert.ToString(reader["ReleaseNotes"]);
+                        activeLibraryDCreply.Environment = Convert.ToString(reader["Environment"]);
                         reply.Add(activeLibraryDCreply);
                     }
                 }

@@ -27,11 +27,12 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
     using System.Threading;
     using System.Diagnostics;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+    using Microsoft.Support.Workflow.Authoring.AddIns.Data;
 
     /// <summary>
     /// Viewmodel for the Marketplace download wizard.
     /// </summary>
-    public class MarketplaceViewModel : ViewModelBase
+    public class MarketplaceViewModel :ViewModelBase
     {
         private const string loadAssetCaption = "Loading marketplace assets...";
         private string currentUserRole;
@@ -375,8 +376,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
                 SetDownloadSelections();
                 Utility.DoTaskWithBusyCaption(loadAssetCaption, () =>
                 {
-                    MarketplaceSearchResult result = null;
-                    result = client.SearchMarketplace(this.query);
+                    MarketplaceSearchResult result = client.SearchMarketplace(this.query);
+                    result.StatusReply.CheckErrors();
                     LoadMarketplace(result);
                 });
             }
@@ -435,9 +436,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
         private void SetDefaultValue()
         {
             //Get current user role
-            var currentPrincipal = AuthorizationService.CurrentPrincipalFunc() as WindowsPrincipal;
             this.FilterListEntries.Clear();
-            if (AuthorizationService.IsAdministrator(currentPrincipal))
+            if (AuthorizationService.Validate(Env.All, Permission.ViewMarketplace))
             {
                 new[] { "ALL", "PROJECTS", "ACTIVITIES", "TEMPLATES", "PUBLISHING", }
                                    .ToList()
@@ -494,7 +494,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
         /// <param name="results"></param>
         private void LoadMarketplace(MarketplaceSearchResult results)
         {
-            if (results == null)
+            if (results == null || results.Items == null)
             {
                 PageCount = 0;
                 CurrentPage = 1;

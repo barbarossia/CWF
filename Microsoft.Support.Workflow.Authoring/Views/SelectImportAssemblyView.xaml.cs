@@ -61,5 +61,13 @@ namespace Microsoft.Support.Workflow.Authoring.Views
                 vm.ChangeDefaultCategory();
             }
         }
+
+        private void HeaderCheckBox_PreviewMouseDown(object sender, MouseEventArgs e) {
+            var vm = this.DataContext as SelectImportAssemblyViewModel;
+            if (vm != null) {
+                vm.HeaderCheckboxClicked();
+                e.Handled = true;
+            }
+        }
     }
 }

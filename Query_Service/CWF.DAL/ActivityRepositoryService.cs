@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using CWF.DataContracts;
 using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices
 {
@@ -30,6 +31,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 database.AddParameter(command, StoredProcParamNames.Id, DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityLibrary.Id);
                 database.AddParameter(command, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityLibrary.Name);
                 database.AddParameter(command, StoredProcParamNames.Version, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityLibrary.VersionNumber);
+                database.AddParameter(command, "@InEnvironmentTarget", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityLibrary.Environment);
 
                 StoreActivitiesDC activity = null;
                 List<StoreActivitiesDC> activities = new List<StoreActivitiesDC>();
@@ -56,6 +58,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         activity.ToolBoxtab = reader[DataColumnNames.ToolBoxtab] != DBNull.Value ? Convert.ToInt32(reader[DataColumnNames.ToolBoxtab]) : 0;
                         activity.Version = Convert.ToString(reader[DataColumnNames.Version]);
                         activity.WorkflowTypeName = Convert.ToString(reader[DataColumnNames.WorkflowTypeName]);
+                        activity.Environment = Convert.ToString(reader[DataColumnNames.Environment]);
                         if (includeXaml)
                         {
                             activity.Xaml = Convert.ToString(reader[DataColumnNames.Xaml]) ?? string.Empty;
@@ -86,14 +89,17 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         {
             ActivitySearchReplyDC result = new ActivitySearchReplyDC();
             var resultCollection = new List<StoreActivitiesDC>();
-            Database database = null;
+            SqlDatabase database = null;
             DbCommand command = null;
             StoreActivitiesDC sab = null;
+            int retValue = 0;
+            string outErrorString = string.Empty;
 
             try
             {
-                database = DatabaseFactory.CreateDatabase();
+                database = RepositoryHelper.CreateDatabase();
                 command = database.GetStoredProcCommand(StoredProcNames.ActivitySearch);
+                database.AddParameter(command, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
                 database.AddParameter(command, "@SearchText", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SearchText);
                 database.AddParameter(command, "@SortColumn", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SortColumn);
                 database.AddParameter(command, "@SortAscending", DbType.Boolean, ParameterDirection.Input, null, DataRowVersion.Default, request.SortAscending);
@@ -106,7 +112,10 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 database.AddParameter(command, "@FilterByType", DbType.Boolean, ParameterDirection.Input, null, DataRowVersion.Default, request.FilterByType);
                 database.AddParameter(command, "@FilterByVersion", DbType.Boolean, ParameterDirection.Input, null, DataRowVersion.Default, request.FilterByVersion);
                 database.AddParameter(command, "@FilterByCreator", DbType.Boolean, ParameterDirection.Input, null, DataRowVersion.Default, request.FilterByCreator);
-            
+                database.AddParameter(command, "@InEnvironments", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetEnvironments(request.Environments));
+                database.AddParameter(command, "@ReturnValue", DbType.Int32, ParameterDirection.ReturnValue, null, DataRowVersion.Default, 0);
+                database.AddOutParameter(command, "@outErrorString", DbType.String, 300);
+
                 using (IDataReader reader = database.ExecuteReader(command))
                 {
                     while (reader.Read())
@@ -115,11 +124,12 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                         sab.Name = Convert.ToString(reader["Name"]);
                         sab.Description = Convert.ToString(reader["Description"]);
                         sab.Id = Convert.ToInt32(reader["Id"]);
-                        sab.InsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
+                        sab.InInsertedByUserAlias = Convert.ToString(reader["InsertedByUserAlias"]);
                         sab.MetaTags = Convert.ToString(reader["MetaTags"]);
                         sab.Guid = new Guid(Convert.ToString(reader["Guid"]));
                         sab.Version = Convert.ToString(reader["Version"]);
                         sab.WorkflowTypeName = Convert.ToString(reader["WorkFlowTypeName"]);
+                        sab.Environment = Convert.ToString(reader[DataColumnNames.Environment]);
                         if (reader["InsertedDateTime"] != DBNull.Value)
                         {
                             sab.InsertedDateTime = Convert.ToDateTime(reader["InsertedDateTime"]);
@@ -132,9 +142,15 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
 
                     if (reader.Read())
                     {
-                        result.ServerResultsLength = Convert.ToInt32(reader["Total"]);       
+                        result.ServerResultsLength = Convert.ToInt32(reader["Total"]);
                     }
-
+                    retValue = Convert.ToInt32(command.Parameters["@ReturnValue"].Value);
+                    outErrorString = Convert.ToString(command.Parameters["@outErrorString"].Value);
+                    if (retValue != 0)
+                    {
+                        result.StatusReply.ErrorMessage = outErrorString;
+                        result.StatusReply.Errorcode = retValue;
+                    }
                 }
             }
             catch (SqlException ex)
@@ -158,14 +174,13 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
 
             Database db = null;
             DbCommand cmd = null;
-            string outErrorString = string.Empty;
-            int retValue = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase();
                 cmd = db.GetStoredProcCommand(StoredProcNames.ActivityCheckExists);               
                 db.AddParameter(cmd, "@InName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Name);
                 db.AddParameter(cmd, "@InVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Version);
+                db.AddParameter(cmd, "@InEnvironmentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);
 
                 reply.Output = Convert.ToString(false);
 

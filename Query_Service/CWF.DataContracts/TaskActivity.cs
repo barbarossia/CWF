@@ -5,7 +5,7 @@
     using System.Collections.Generic;
 
     [DataContract]
-    public class TaskActivityDC:RequestReplyCommonHeader
+    public class TaskActivityDC : WorkflowRequestReplayHeader
     {
         /// <summary>
         /// The identity for the row entry
@@ -13,7 +13,7 @@
         [DataMember]
         public int Id { get; set; }
 
-        
+
         /// <summary>
         /// The TaskActivity Id in activity table
         /// </summary>
@@ -44,6 +44,6 @@
         /// </summary>
         [DataMember]
         public TaskActivityStatus Status { get; set; }
-        
+
     }
 }

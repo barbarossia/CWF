@@ -26,7 +26,7 @@ namespace Query_Service.Tests.FunctionalTests
         [WorkItem(97609)]
         [Description("Verify that ")]
         [Owner(ALIAS)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void ReturnErrorPublishAWorkflowForValidWorkflowServiceNameAndInvalidVersion()
         {
@@ -50,7 +50,7 @@ namespace Query_Service.Tests.FunctionalTests
         [WorkItem(97610)]
         [Description("Verify that ")]
         [Owner(ALIAS)]
-        [TestCategory(TestCategory.Full)]
+        [TestCategory(TestCategory.Func)]
         [TestMethod]
         public void ReturnErrorPublishAWorkflowForInvalidWorkflowServiceNameAndValidVersion()
         {

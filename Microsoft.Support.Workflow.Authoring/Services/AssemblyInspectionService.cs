@@ -122,6 +122,12 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 while (referencesToCheck.Any())
                 {
                     Tuple<string, Version> element = referencesToCheck.First().Key;
+                    if (element.Item1 == null || element.Item2 == null)
+                    {
+                        referencesToCheck.Remove(element);
+                        continue;
+                    }
+
                     string referenceName = element.Item1;
                     string referencePath = referenceName+".dll"; //referenceName + ".dll";
                     string referenceVersion = element.Item2.ToString();

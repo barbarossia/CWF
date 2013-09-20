@@ -13,6 +13,10 @@ SET ROWCOUNT 0
 SET TEXTSIZE 0
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActivityLibraryDependency_GetTree]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[ActivityLibraryDependency_GetTree]
+GO
+
 /**************************************************************************
 // Product:  CommonWF
 // FileName:ActivityLibraryDependency_GetTree.sql
@@ -40,16 +44,18 @@ GO
 ** *************************************************************************/
 CREATE PROCEDURE [dbo].[ActivityLibraryDependency_GetTree]
         @Name varchar(255),
-        @Version nvarchar(50)
+        @Version nvarchar(50),
+	@Environment nvarchar(50)
 AS
 BEGIN
     SET NOCOUNT ON 
     
     BEGIN TRY       
         DECLARE @TempId bigint
-        SELECT @TempId = ID
-        FROM dbo.ActivityLibrary
-        WHERE Name = @Name AND VersionNumber = @Version AND SoftDelete = 0;
+        SELECT @TempId = A.ID
+        FROM dbo.ActivityLibrary A
+	JOIN Environment E on A.Environment = E.Id
+        WHERE A.Name = @Name AND A.VersionNumber = @Version AND E.Name = @Environment AND A.SoftDelete = 0;
         
         WITH cte (Id, ActivityLibraryID, DependentActivityLibraryId)
         AS
@@ -62,8 +68,23 @@ BEGIN
             FROM dbo.ActivityLibraryDependency AS e
             JOIN cte ON e.ActivityLibraryID = cte.DependentActivityLibraryId
         )
-        SELECT DISTINCT Id, ActivityLibraryID, DependentActivityLibraryId
-        FROM cte;
+	SELECT DISTINCT Id, ActivityLibraryID, DependentActivityLibraryId INTO #TEMP
+        FROM cte
+
+	SELECT * FROM #TEMP
+
+	SELECT al.[Id], al.[Name], al.[VersionNumber], E.[Name] AS Environment
+	FROM ActivityLibrary al
+	JOIN Environment E on al.Environment = E.Id
+	JOIN #TEMP t on al.[Id] = t.[ActivityLibraryID]
+	UNION
+	SELECT al.[Id], al.[Name], al.[VersionNumber], E.[Name] AS Environment
+	FROM ActivityLibrary al
+	JOIN Environment E on al.Environment = E.Id
+	JOIN #TEMP t on al.[Id] = t.[DependentActivityLibraryId]
+	
+	DROP TABLE #TEMP 
+
     END TRY
     BEGIN CATCH
         EXECUTE [dbo].Error_Handle 

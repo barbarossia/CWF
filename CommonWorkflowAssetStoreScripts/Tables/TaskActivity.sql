@@ -4,8 +4,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[TaskActivity](
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaskActivity]') AND type in (N'U'))
 
+CREATE TABLE [dbo].[TaskActivity](
  [Id] [bigint] Identity(1,1) NOT NULL,
  [GUID] [uniqueidentifier] not null,
  [ActivityId] [bigint] not null,

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CWF.WorkflowQueryService;
-using System.ServiceModel;
-using Microsoft.Support.Workflow.QueryService.Common;
-using Microsoft.Support.Workflow.Service.Contracts.FaultContracts;
-using Microsoft.Support.Workflow.Service.Common.Tests;
-using Microsoft.Support.Workflow.Service.Test.Common;
+﻿using CWF.WorkflowQueryService;
 using CWF.WorkflowQueryService.UserError.Config;
+using Microsoft.Support.Workflow.QueryService.Common;
+using Microsoft.Support.Workflow.Service.Common.Tests;
+using Microsoft.Support.Workflow.Service.Contracts.FaultContracts;
+using Microsoft.Support.Workflow.Service.Test.Common;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.ServiceModel;
 
-namespace Query_Service.Tests.UnitTests
+namespace Query_Service.UnitTests
 {
     /// <summary>
     /// Defines the unit tests for FaultExceptionUtility class.

@@ -28,7 +28,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private const string defaultDomainPrefix = "domain";
         private const string defaultThumbnailPrefix = "thumbnailPhoto";
         private static readonly string defaultUserFilter = "(&(objectClass=user)(anr=" + Environment.UserName + "))";
-        private const string environmentFriendlyKey = "AssetStoreFriendlyName";
         
         /// <summary>
         /// Name of the current user
@@ -53,22 +52,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 userImage = value;
                 RaisePropertyChanged(()=>UserImage);
-            }
-        }
-
-        /// <summary>
-        /// Gets the friendly name for the current asset store the application is connecting to.
-        /// </summary>
-        public string EndpointFriendlyName
-        {
-            get
-            {
-                string result = null;
-                if (ConfigurationManager.AppSettings[environmentFriendlyKey] != null)
-                {
-                    result =  ConfigurationManager.AppSettings[environmentFriendlyKey].ToString(CultureInfo.InvariantCulture);
-                }
-                return result;
             }
         }
 

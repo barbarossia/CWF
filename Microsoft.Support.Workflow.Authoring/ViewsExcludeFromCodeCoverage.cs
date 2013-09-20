@@ -133,4 +133,23 @@ namespace Microsoft.Support.Workflow.Authoring.Views
     public partial class UploadAssemblyView
     {
     }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ChangeAuthor { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ChangeAuthorSummary { }
+    
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class CopyCurrentProject { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class EnvironmentSecurityOptions { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class MoveProject { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class TenantSecurityOptions { }
+
 }

@@ -10,6 +10,8 @@ namespace Microsoft.Support.Workflow.Authoring.Common.Messages
     /// </summary>
     internal static class CommonMessages
     {
+        public const string WorkflowNameErrorString = "Workflow Name is invalid. A valid workflow name must begin with a letter and only can includes [a-z,A-Z,0-9,_] characters.\r\n";
+        public const string ClassNameRegularExpression = @"^[a-zA-Z][a-zA-Z0-9_]*$";
         /// <summary>
         /// Default waiting message for any operation that contacts the server.
         /// </summary>
@@ -18,7 +20,7 @@ namespace Microsoft.Support.Workflow.Authoring.Common.Messages
         /// <summary>
         /// Title for the main window of the application.
         /// </summary>
-        public const string MainWindowCaption = "Common Workflow Foundry - {0} ({1})";
+        public const string MainWindowCaption = "Common Workflow Foundry - {0}";
 
         /// <summary>
         /// One of the content files is not a well formed xml document 

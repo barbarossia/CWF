@@ -1,3 +1,14 @@
+/****** Object:  StoredProcedure [dbo].[WorkflowType_CreateOrUpdate]    Script Date: 05/20/2013 23:49:46 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER OFF
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[WorkflowType_CreateOrUpdate]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[WorkflowType_CreateOrUpdate]
+
+GO
 
 /**************************************************************************
 // Product:  CommonWF
@@ -30,6 +41,8 @@
 CREATE PROCEDURE [dbo].[WorkflowType_CreateOrUpdate]
         @inCaller nvarchar(50),
         @inCallerversion nvarchar (50),
+        @InAuthGroupName	[dbo].[AuthGroupNameTableType] READONLY ,
+	@InEnvironmentTarget nvarchar(50),
         @InId bigint,
         @InGUID varchar (50),
         @Inname nvarchar (255),
@@ -77,6 +90,30 @@ BEGIN
         SET @outErrorString = 'Invalid Parameter Value (@inCallerversion)'
         RETURN 55101
     END
+    
+    DECLARE @EnvironmentID INT
+    SELECT @EnvironmentID = ID 
+    FROM Environment
+    WHERE [Name] = @InEnvironmentTarget
+    IF (@Environmentid IS NULL)
+    BEGIN
+        SET @outErrorString = 'Invalid Parameter Value (@InEnvironmentTarget)'
+        RETURN 55104
+    END
+    
+DECLARE @Return_Value int
+DECLARE @InEnvironments [dbo].[EnvironmentTableType]
+INSERT @InEnvironments (Name) Values (@InEnvironmentTarget)
+EXEC @Return_Value = dbo.ValidateSPPermission 
+	@InSPName = @cObjectName,
+	@InAuthGroupName = @InAuthGroupName,
+	@InEnvironments = @InEnvironments,
+	@OutErrorString =  @OutErrorString output
+IF (@Return_Value > 0)
+BEGIN		    
+	RETURN @Return_Value
+END
+
     DECLARE @InInsertedDateTime datetime
     SET @InInsertedDateTime = GETDATE()
     DECLARE @inUpdatedDateTime datetime
@@ -121,7 +158,7 @@ BEGIN
             BEGIN
 				SELECT @tempName1 = [Name]
 				from [dbo].WorkflowType
-				where @Inname = Name
+				where @Inname = Name and Environment = @EnvironmentID
 				if(@tempName1 IS NOT NULL)
 				BEGIN
 					SET @outErrorString = 'Invalid Parameter Value (@InName), The same workflow type Name already existed.'
@@ -166,7 +203,8 @@ BEGIN
                   InsertedByUserAlias, 
                   InsertedDateTime, 
                   UpdatedByUserAlias, 
-                  UpdatedDateTime)
+                  UpdatedDateTime,
+                  Environment)
                 VALUES
                 (@InGUID,
                  @Inname,
@@ -180,14 +218,15 @@ BEGIN
                  @InInsertedByUserAlias,
                  @InInsertedDateTime,
                  @InUpdatedByUserAlias, 
-                 @InUpdatedDateTime)
+                 @InUpdatedDateTime,
+                 @EnvironmentID)
         
          --COMMIT TRANSACTION
          END
          ELSE
          BEGIN
             DECLARE @AuthGroupID1 bigint
-            IF (@InAuthGroupId = 0 OR @InAuthGroupId IS NULL)
+            IF (@InAuthGroupId <> 0 and @InAuthGroupId IS NOT NULL)
             BEGIN
                 SELECT @AuthGroupID1 = [ID]
                 FROM [dbo].[AuthorizationGroup]
@@ -204,7 +243,7 @@ BEGIN
             BEGIN
 				SELECT @tempName2 = [Name]
 				from [dbo].WorkflowType
-				where @Inname = Name and @InId <> Id
+				where @Inname = Name and @InId <> Id and Environment = @EnvironmentID
 				if(@tempName2 IS NOT NULL)
 				BEGIN
 					SET @outErrorString = 'Invalid Parameter Value (@InName), The same workflow type Name already existed.'
@@ -254,7 +293,8 @@ BEGIN
 						SelectionWorkflowID = Coalesce(@SelectionWorkflowID, SelectionWorkflowID),
 						SoftDelete = @InSoftDelete,
 						UpdatedByUserAlias = Coalesce(@InUpdatedByUserAlias, UpdatedByUserAlias),
-						UpdatedDateTime = Coalesce(@InUpdatedDateTime, GETDATE())
+						UpdatedDateTime = Coalesce(@InUpdatedDateTime, GETDATE()),
+						Environment = Coalesce(@EnvironmentID, Environment)
 				WHERE Id = @InId
             END
          END
@@ -294,6 +334,7 @@ BEGIN
    RETURN @rc
 
 END
+
 GO
 
 

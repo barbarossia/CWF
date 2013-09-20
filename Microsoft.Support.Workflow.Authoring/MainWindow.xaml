@@ -4,6 +4,7 @@
         xmlns:t="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:local="clr-namespace:Microsoft.Support.Workflow.Authoring"
         xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters"
+        xmlns:converta="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Converters;assembly=Microsoft.Support.Workflow.Authoring.AddIns"
         xmlns:common="clr-namespace:Microsoft.Support.Workflow.Authoring.Common"
         xmlns:models="clr-namespace:Microsoft.Support.Workflow.Authoring.Models"
         xmlns:behaviors="clr-namespace:Microsoft.Support.Workflow.Authoring.Behaviors"
@@ -25,13 +26,12 @@
         >
     <Window.Resources>
         <convert:NegativeNumberConverter x:Key="NegativeNumberConverter" />
-        <convert:BooleanToVisibilityConverter x:Key="VisibleWhenEnabledConverter"
-                                                VisibleWhen="True"/>
-        <convert:BooleanToVisibilityConverter x:Key="VisibleWhenFalse"
-                                                VisibleWhen="False"/>
-        <convert:BooleanToVisibilityConverter x:Key="SavedToServerConverter"
-                                                VisibleWhen="False" />
         <convert:InverterBooleanConverter x:Key="BooleanInverterConverter"/>
+        <converta:BooleanToVisibilityConverter x:Key="VisibleWhenEnabledConverter"
+                                                VisibleWhen="True"/>
+        <converta:BooleanToVisibilityConverter x:Key="VisibleWhenFalse"
+                                                VisibleWhen="False"/>
+        <converta:EnvPermissionConverter x:Key="EnvPermissionConverter"/>
     </Window.Resources>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
@@ -220,15 +220,6 @@
                                                            Foreground="#FF454545"
                                                            Text="{Binding UserName}"></TextBlock>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock FontSize="11"
-                                                           Foreground="#FF454545"
-                                                           Text="Environment:"
-                                                           Margin="0,0,5,0"></TextBlock>
-                                                <TextBlock FontSize="11"
-                                                           Foreground="#FF454545"
-                                                           Text="{Binding EndpointFriendlyName, TargetNullValue='N/A'}"></TextBlock>
-                                            </StackPanel>
                                         </StackPanel>
                                         <Border VerticalAlignment="Top"
                                                 Height="48"
@@ -253,11 +244,38 @@
         </Style>
     </Window.Style>
     <Window.InputBindings>
+        <KeyBinding Command="{Binding NewWorkflowCommand}"
+                    Key="N"
+                    Modifiers="Ctrl"></KeyBinding>
+        <KeyBinding Command="{Binding OpenWorkflowCommand}" CommandParameter="FromServer"
+                    Key="O"
+                    Modifiers="Ctrl"></KeyBinding>
+        <KeyBinding Command="{Binding OpenTaskActivitiesCommand}"
+                    Key="T"
+                    Modifiers="Ctrl"></KeyBinding>
+        <KeyBinding Command="{Binding ManageWorkflowTypeCommand}"
+                    Key="M"
+                    Modifiers="Ctrl"></KeyBinding>
+        <KeyBinding Command="{Binding MoveProjectCommand}"
+                    Key="M"
+                    Modifiers="Ctrl+Shift"></KeyBinding>
+        <KeyBinding Command="{Binding CopyProjectCommand}"
+                    Key="C"
+                    Modifiers="Ctrl+Shift"></KeyBinding>
+        <KeyBinding Command="{Binding DeleteProjectCommand}"
+                    Key="D"
+                    Modifiers="Ctrl+Shift"></KeyBinding>
+        <KeyBinding Command="{Binding CompileCommand}"
+                    Key="B"
+                    Modifiers="Ctrl+Shift"></KeyBinding>
+        <KeyBinding Command="{Binding PublishCommand}"
+                    Key="P"
+                    Modifiers="Ctrl+Shift"></KeyBinding>
         <KeyBinding Command="{Binding PrintCommand}"
                     Key="P"
                     Modifiers="Ctrl"></KeyBinding>
         <KeyBinding Command="{Binding SaveFocusedWorkflowCommand}"
-                    CommandParameter="ToLocal"
+                    CommandParameter="ToServer"
                     Key="S"
                     Modifiers="Ctrl"></KeyBinding>
         <KeyBinding Command="{Binding RefreshCommand}"
@@ -280,7 +298,7 @@
                           >
                 <MenuItem Header="_File">
 
-                    <MenuItem  Command="{Binding NewWorkflowCommand}"
+                    <MenuItem InputGestureText="Ctrl+N" Command="{Binding NewWorkflowCommand}"
                                        Header="_New Project...">
                         <MenuItem.Icon>
                             <Image Height="16"
@@ -288,7 +306,7 @@
                                            Source="/Microsoft.Support.Workflow.Foundry;component/Resources/Images/NewWorkflow_Large.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Command="{Binding OpenWorkflowCommand}"
+                    <MenuItem InputGestureText="Ctrl+O" Command="{Binding OpenWorkflowCommand}"
                                       CommandParameter="FromServer"
                                       Header="_Open Project...">
                         <MenuItem.Icon>
@@ -297,7 +315,7 @@
                                            Source="Resources\Images\Open_Network.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    
+
                     <MenuItem Command="{Binding OpenWorkflowCommand}"
                                       CommandParameter="FromLocal"
                                       Header="Open Project from Disk...">
@@ -307,7 +325,7 @@
                                            Source="Resources\Images\Open_Large.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Command="{Binding OpenTaskActivitiesCommand}"
+                    <MenuItem InputGestureText="Ctrl+T" Command="{Binding OpenTaskActivitiesCommand}"
                               Header="Open My Task">
                         <MenuItem.Icon>
                             <Image Height="16"
@@ -316,7 +334,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem  Command="{Binding ManageWorkflowTypeCommand}"
+                    <MenuItem  InputGestureText="Ctrl+M" Command="{Binding ManageWorkflowTypeCommand}"
                                        Header="_Manage Workflow Type">
                     </MenuItem>
                     <Separator />
@@ -344,15 +362,23 @@
                                 Command="{Binding CheckInTaskActivityCommand}"
                                 Header="Check In My Task...">
                     </MenuItem>
-
-                    <Separator />
+                    <Separator/>
+                    <MenuItem Header="Move Project" InputGestureText="Ctrl+Shift+M" Command="{Binding MoveProjectCommand}">
+                    </MenuItem>
+                    <MenuItem Header="Copy Project" InputGestureText="Ctrl+Shift+C" Command="{Binding CopyProjectCommand}">
+                    </MenuItem>
+                    <MenuItem Header="Delete Project" InputGestureText="Ctrl+Shift+D" Command="{Binding DeleteProjectCommand}">
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Change Project Author" Command="{Binding ChangeAuthorCommand}">
+                    </MenuItem>
+                    <Separator/>
                     <MenuItem Command="{Binding ImportAssemblyCommand}"
                                       Header="Import Library...">
-
                         <MenuItem.Icon>
                             <Image Height="16"
-                                           Width="16"
-                                           Source="Resources\Images\ImportAssembly_Large.png" />
+                                   Width="16"
+                                   Source="Resources\Images\ImportAssembly_Large.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
@@ -368,8 +394,8 @@
                     </MenuItem>
 
                     <MenuItem 
-                                      Command="{Binding PrintAllCommand}"
-                                      Header="Print All...">
+                        Command="{Binding PrintAllCommand}"
+                        Header="Print All...">
                         <MenuItem.Icon>
                             <Image Height="16"
                                            Width="16"
@@ -483,7 +509,7 @@
 
                 </MenuItem>
                 <MenuItem Header="_Build">
-                    <MenuItem Command="{Binding CompileCommand}"
+                    <MenuItem InputGestureText="Ctrl+Shift+B" Command="{Binding CompileCommand}"
                                       Header="Compile Workflow"
                                       ToolTip="Compile workflow">
                         <MenuItem.Icon>
@@ -494,7 +520,7 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Publish">
-                    <MenuItem Command="{Binding PublishCommand}"
+                    <MenuItem InputGestureText="Ctrl+Shift+P" Command="{Binding PublishCommand}"
                                       Header="Publish Workflow">
                         <MenuItem.Icon>
                             <Image Height="16"
@@ -503,12 +529,21 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="Tools">
+                    <MenuItem Header="Environment Security Options"
+                              Command="{Binding OpenEnvSecurityOptionsCommand}"></MenuItem>
+                    <MenuItem Header="Tenant Security Options"
+                              Command="{Binding OpenTenantSecurityOptionsCommand}"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Default Value Setting Options" Command="{Binding DefaultValueSettingsCommand}"></MenuItem>
+                </MenuItem>
+
                 <MenuItem Header="_Help"
                                   IsEnabled="True">
                     <MenuItem Visibility="Collapsed"
                                       Height="25"
                                       IsEnabled="False"
-                                      Header="View Help">
+                                     Header="View Help">
                         <MenuItem.Icon>
                             <Image Height="16"
                                            Width="16"
@@ -606,15 +641,16 @@
                                    IsHidden="{Binding IsChecked,ElementName=menuWfInfo,Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
                                    ContextMenuTemplate="{x:Null}">
                             <StackPanel Orientation="Vertical">
-                                
+
                                 <TextBlock Margin="10,10,10,0"
                                                    Text="Workflow Name" />
                                 <TextBox Margin="10,0,10,0" 
                                          MaxLength="50" IsEnabled="{Binding FocusedWorkflowItem.IsReadOnly, Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
                                          Text="{Binding FocusedWorkflowItem.WorkflowName, Mode=TwoWay,NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" 
                                          x:Name="wfName"
-                                         KeyDown="wfName_KeyDown"/>
-
+                                         TextChanged="wfName_TextChanged"/>
+                                <TextBlock Margin="10,5,10,0" Text="Environment"></TextBlock>
+                                <TextBox Margin="10,0,10,0" IsReadOnly="True" Text="{Binding FocusedWorkflowItem.Env}"></TextBox>
                                 <common:VersionDisplay x:Name="VersionDisplay"
                                                                Margin="10,5,10,0"
                                                                Caption="Workflow Version"
@@ -774,7 +810,7 @@
                                                                                           VerticalAlignment="Center"
                                                                                           Margin="{TemplateBinding Padding}" />
                                                                 <TextBlock Text="*"
-                                                                                   Visibility="{Binding IsSavedToServer, Converter={StaticResource SavedToServerConverter}}"></TextBlock>
+                                                                                   Visibility="{Binding IsSavedToServer, Converter={StaticResource VisibleWhenFalse}}"></TextBlock>
                                                             </StackPanel>
                                                         </DockPanel>
                                                     </Border>

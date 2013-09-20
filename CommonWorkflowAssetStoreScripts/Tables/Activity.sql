@@ -4,6 +4,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Activity]') AND type in (N'U'))
+
 CREATE TABLE [dbo].[Activity](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[GUID] [uniqueidentifier] NOT NULL,
@@ -36,6 +38,7 @@ CREATE TABLE [dbo].[Activity](
 	[Timestamp] [timestamp] NOT NULL,
 	[Url] [nvarchar](150) NULL,
 	[ShortName] [nvarchar](50) NOT NULL,
+	[Environment] [int] NULL,
  CONSTRAINT [PK_Activity] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
