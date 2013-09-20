@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C00EA9A0-C0A6-41A2-825D-DDEDB6539FB0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Support.Workflow.Authoring.Tests</RootNamespace>
+    <AssemblyName>Microsoft.Support.Workflow.Authoring.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>True</IsCodedUITest>
+    <TestProjectType>WebTest</TestProjectType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.mscoree">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\obj\x86\Debug\Interop.mscoree.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="CodeActivityWithLongNamespace">
+      <HintPath>..\Lib\TestInputDLLs\CodeActivityWithLongNamespace.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DynamicImplementations, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e256c8e6f895da9f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.DynamicImplementations.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DynamicImplementations.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e256c8e6f895da9f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.DynamicImplementations.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.LoadTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Core.Presentation" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.AddIn" />
+    <Reference Include="System.AddIn.Contract" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Assemblies\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.ServiceModel.Channels" />
+    <Reference Include="System.ServiceModel.Internals, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Assemblies\System.ServiceModel.Internals.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Assemblies\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Windows.Controls, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Data">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.DataVisualization">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Docking">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.Navigation">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.RibbonBar">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Controls.RibbonBar.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data">
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Testinput_Lib1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b7972042be1d4a85, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\Testinput_Lib1.dll</HintPath>
+    </Reference>
+    <Reference Include="TestInput_Lib2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b7972042be1d4a85, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\TestInput_Lib2.dll</HintPath>
+    </Reference>
+    <Reference Include="Testinput_Lib3, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b7972042be1d4a85, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\Testinput_Lib3.dll</HintPath>
+    </Reference>
+    <Reference Include="TestInput_NoActivityLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\TestInput_NoActivityLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="ActivityLibrary1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\ActivityLibrary1.dll</HintPath>
+    </Reference>
+    <Reference Include="LibraryA">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\LibraryA.dll</HintPath>
+    </Reference>
+    <Reference Include="LibraryB">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\LibraryB.dll</HintPath>
+    </Reference>
+    <Reference Include="LibraryC">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\TestInputDLLs\LibraryC.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddIns\AddInDialogServiceUnitTest.cs" />
+    <Compile Include="AddIns\AddInMessageboxServiceUnitTest.cs" />
+    <Compile Include="AddIns\ErrorServiceUnitTest.cs" />
+    <Compile Include="AddIns\WorkflowOutlineNodeUnitTest.cs" />
+    <Compile Include="Behaviors\SelectPrintContentBehaviorUnitTest.cs" />
+    <Compile Include="Behaviors\SelectPrintContentHelperUnitTest.cs" />
+    <Compile Include="Behaviors\ZoomFactorHelperUnitTest.cs" />
+    <Compile Include="Common\DevFacingExceptionUnitTest.cs" />
+    <Compile Include="CompositeWorkflow\CompositeService.UnitTest.cs" />
+    <Compile Include="MultipleAuthor\ArgumentService.UnitTest.cs" />
+    <Compile Include="Services\AuthorizationServiceUnitTest.cs" />
+    <Compile Include="Services\ModelItemService.UnitTest.cs" />
+    <Compile Include="Services\XamlIndexTreeHelpUnitTest.cs" />
+    <Compile Include="StartUpUnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\VerifyRolePermission.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ActivityQuickInfoTest.cs" />
+    <Compile Include="AddIns\AddInCachingUnitTest.cs" />
+    <Compile Include="AddIns\AddinPreloaderUnitTest.cs" />
+    <Compile Include="AddIns\DesignerAddInUnitTest.cs" />
+    <Compile Include="AddIns\DesignerHostAdapters.UnitTest.cs" />
+    <Compile Include="AppUnitTest.cs" />
+    <Compile Include="AssetStore\AssetStoreProxyUnitTest.cs" />
+    <Compile Include="Behaviors\WindowClosingBehaviorUnitTest.cs" />
+    <Compile Include="Common\ExtensionMethodsUnitTest.cs" />
+    <Compile Include="Common\HelpProviderUnitTests.cs" />
+    <Compile Include="Common\MarketplaceExceptionHandlerUnitTest.cs" />
+    <Compile Include="Common\MultiMapUnitTests.cs" />
+    <Compile Include="CompositeWorkflow\CompositeWorkflowUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ChangeAuthorViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ContentItemTest.cs" />
+    <Compile Include="Converters\ActivityAssemblyItemsToToolboxWrappersConverterUnitTest.cs" />
+    <Compile Include="Converters\ActivityTypeToToolTipConverterUnitTest.cs" />
+    <Compile Include="Converters\AllMatchToVisibilityConverterUnitTest.cs" />
+    <Compile Include="Converters\BooleanInverterConverterUnitTest.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverterUnitTest.cs" />
+    <Compile Include="Converters\CachingStatusToBoolConverterUnitTest.cs" />
+    <Compile Include="Converters\CachingStatusToBrushConverterUnitTest.cs" />
+    <Compile Include="Converters\VersionToStringConverterUnitTest.cs" />
+    <Compile Include="Converters\CountConverterUnitTest.cs" />
+    <Compile Include="Converters\ErrorSectionConverterUnitTest.cs" />
+    <Compile Include="Converters\IntellisenseIconConverterUnitTest.cs" />
+    <Compile Include="Converters\InvertedNullToVisibilityConverterUnitTest.cs" />
+    <Compile Include="Converters\LocationTypeToBrushConverterUnitTest.cs" />
+    <Compile Include="Converters\LocationTypeToVisibilityConverterUnitTest.cs" />
+    <Compile Include="Converters\NegativeNumberConverterUnitTest.cs" />
+    <Compile Include="Converters\NullToBrushConverterUnitTest.cs" />
+    <Compile Include="Converters\NullToDefaultValueConverterUnitTest.cs" />
+    <Compile Include="ExceptionHandling\ActivityCategoryGetExceptionHandlingFunctionalTest.cs" />
+    <Compile Include="ExceptionHandling\ActivityLibrariesGetExceptionHandlingFunctionalTest.cs" />
+    <Compile Include="ExpressionEditor\ExpressionEditorInstanceUnitTest.cs" />
+    <Compile Include="ExpressionEditor\ExpressionEditorServiceUnitTest.cs" />
+    <Compile Include="ExpressionEditor\TreeNodeUnitTest.cs" />
+    <Compile Include="HelpClass\AssemblyHelper.cs" />
+    <Compile Include="HelpClass\DispatcherHelp.cs" />
+    <Compile Include="HelpClass\ExpectException.cs" />
+    <Compile Include="HelpClass\MarketplaceDataHelper.cs" />
+    <Compile Include="Models\CommonDataUnitTest.cs" />
+    <Compile Include="Models\CompileProject.UnitTests.cs" />
+    <Compile Include="Models\Compiler.FuncTests.cs" />
+    <Compile Include="Models\Compiler.UnitTests.cs" />
+    <Compile Include="Models\ActivityItemViewModelUnitTest.cs" />
+    <Compile Include="Application\App.FuncTest.cs" />
+    <Compile Include="DataAccess\TestDataProvider.cs" />
+    <Compile Include="DataAccess\TestDataUtility.cs" />
+    <Compile Include="Models\WorkflowItemUnitTests.cs" />
+    <Compile Include="Converters\NullToBooleanValueConverterUnitTest.cs" />
+    <Compile Include="PrintCustomization\DraggingWidgetHelperUnitTest.cs" />
+    <Compile Include="PrintCustomization\PrintCustomizationViewModelUnitTest.cs" />
+    <Compile Include="PrintCustomization\PrintHelperUnitTest.cs" />
+    <Compile Include="PrintCustomization\PrintViewModeOnUIUnitTest.cs" />
+    <Compile Include="PrintCustomization\ResizingAdornerUnitTest.cs" />
+    <Compile Include="PrintCustomization\ResizingThumbUnitTest.cs" />
+    <Compile Include="PrintCustomization\ScaleResizingAdornerUnitTest.cs" />
+    <Compile Include="PrintCustomization\WidgetDraggingEventArgsUnitTest.cs" />
+    <Compile Include="PrintCustomization\WidgetExtensionsUnitTest.cs" />
+    <Compile Include="SaveToServer\SaveEditedWorkflowToServerShould.cs" />
+    <Compile Include="SaveToServer\SaveNewWorkflowToServerShould.cs" />
+    <Compile Include="SelectAssembly\SelectAssemblyAndActivityShould.cs" />
+    <Compile Include="Services\ActivityAssemblyItemsToToolboxWrappersConverter.UnitTest.cs" />
+    <Compile Include="Services\AssemblyInspectionServiceUnitTest.cs" />
+    <Compile Include="Services\ContentManagerUnitTest.cs" />
+    <Compile Include="Services\DataCrontractTranslatorUnitTest.cs" />
+    <Compile Include="Services\DependencyAnalysisService.UnitTest.cs" />
+    <Compile Include="Services\DialogServiceUnitTest.cs" />
+    <Compile Include="Services\DragDropHelper_UnitTest.cs" />
+    <Compile Include="Services\FileServiceUnitTest.cs" />
+    <Compile Include="Services\MarketplaceAssetDownloaderUnitTest.cs" />
+    <Compile Include="Services\MessageBoxServiceUnitTest.cs" />
+    <Compile Include="Services\TextboxHintTextExtension_UnitTest.cs" />
+    <Compile Include="Services\Utility_AssemblyResolution.UnitTests.cs" />
+    <Compile Include="Services\DisposableAppDomain.cs" />
+    <Compile Include="Services\ToolboxControlService.UnitTests.cs" />
+    <Compile Include="Services\Utility.UnitTests.cs" />
+    <Compile Include="Services\ViewViewModelMappingsUnitTest.cs" />
+    <Compile Include="Services\WorkflowUploader.UnitTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\XamlService.UnitTest.cs" />
+    <Compile Include="TestInputs\Assemblies.cs" />
+    <Compile Include="UIControl\CustomToolTip_UnitTest.cs" />
+    <Compile Include="UIControl\DataPagingUnitTest.cs" />
+    <Compile Include="UIControl\SearchTextBoxUnitTest.cs" />
+    <Compile Include="UIMap.cs" />
+    <Compile Include="UIMap.Designer.cs">
+      <DependentUpon>UIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\DataCleanUp.cs" />
+    <Compile Include="Utilities\DataVerifier.cs" />
+    <Compile Include="Utilities\DynamicWorkFlow.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Utilities\WorkFlowProperties.cs" />
+    <Compile Include="VersionControl\VersionControlFunctionalTests.cs" />
+    <Compile Include="VersionControl\VersionDisplayUnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\ManageWorkflowTypeViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\PerformanceTest\CodedUITest.cs" />
+    <Compile Include="ViewModels\PerformanceTest\PerformanceFunctionalTest.cs" />
+    <Compile Include="ViewModels\UnitTest\AboutViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ActivityAssemblyItemViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ActivityItemViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ClickableMessageViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ContentSelectorViewModel.UnitTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Caching.UnitTests.cs" />
+    <Compile Include="Services\CachingIsolator.cs" />
+    <Compile Include="Services\WorkflowUploader.FuncTest.cs" />
+    <Compile Include="TestInputs\ActivityAssemblyItems.cs" />
+    <Compile Include="Utilities\TestUtilities.cs" />
+    <Compile Include="ViewModels\FuncTest\ContentSelectorViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\FuncTest\ImportAssemblyViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\CopyCurrentProjectViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\DataPagingViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\DefaultValueSettingsViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\EditWorkflowTypeViewModel_UnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\EnvSecurityOptionsViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ImportAssemblyViewModel.UnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\IntellisensePopupViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\MainWindowViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\MainViewModel_SingleDBUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\MainWindowViewModel.UnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\MarketplaceAssetDetails.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ManageWorkflowTypeViewModel_UnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\MarketplaceAssetDetails.UnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\MarketplaceViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\MarketplaceViewModel.UnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\MoveProjectViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\NewWorkflowViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\OpenActivityConfirmationViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\OpenWorkflowFromServerViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\OpenWorkflowFromServerViewModel.UnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\ReviewActivityViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ProjectExplorerViewModel_UnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\ReviewActivityViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\SavingComfirmationViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\SelectAssemblyAndActivityViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\SearchTaskActivityViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\SelectAssemblyAndActivityViewModel.UnitTest.cs" />
+    <Compile Include="ViewModels\FuncTest\UploadAssemblyViewModel.FuncTest.cs" />
+    <Compile Include="Utilities\WorkFlowActions.cs" />
+    <Compile Include="ViewModels\UnitTest\SelectImportAssemblyViewModel_UnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\SelectWorkflowsViewModel_UnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\TenantSecurityOptionsVieeModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\UploadAssemblyViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\UserInfoPaneViewModelUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\VersionDisplayViewModelUnitTest.cs" />
+    <Compile Include="Views\ActivityItemViewUnitTest.cs" />
+    <Compile Include="Views\ClickableMessageUnitTest.cs" />
+    <Compile Include="Views\ContentSelectorViewUnitTest.cs" />
+    <Compile Include="Views\ErrorMessageDialogUnitTest.cs" />
+    <Compile Include="Views\NewWorkflowViewUnitTest.cs" />
+    <Compile Include="Views\OpenWorkflowFromServerViewUnitTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\TestData\Assemblies\AjaxMin.dll" />
+    <Content Include="Data\TestData\Assemblies\ClientPassportManager.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.ApplicationServer.Caching.Client.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.ApplicationServer.Caching.Core.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.IT.RelationshipManagement.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.IT.RelationshipManagement.ServiceBroker.Proxies.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.IT.RelationshipManagement.ServiceModel.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.Live.CSSX.Compiler.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.Practices.ServiceLocation.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.Web.Services.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.WindowsFabric.Common.dll" />
+    <Content Include="Data\TestData\Assemblies\Microsoft.WindowsFabric.Data.Common.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.Activities.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.ContractSelectionDataSource.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.Core.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.DataSources.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.MapEntitlement.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.MetroProfile14.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.ProductList.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.Services.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.SRSubmission.dll" />
+    <Content Include="Data\TestData\Assemblies\OASP.SupportOptions.dll" />
+    <Content Include="Data\TestData\Assemblies\ResourceManager.dll" />
+    <Content Include="Data\TestData\Assemblies\System.Net.Http.dll" />
+    <Content Include="Data\TestData\Assemblies\System.ServiceModel.Internals.dll" />
+    <Content Include="Data\TestData\Assemblies\System.Web.Mvc.dll" />
+    <Content Include="Data\TestData\Assemblies\System.Web.Razor.dll" />
+    <Content Include="Data\TestData\Assemblies\System.Web.WebPages.Deployment.dll" />
+    <Content Include="Data\TestData\Assemblies\System.Web.WebPages.dll" />
+    <Content Include="Data\TestData\Assemblies\System.Web.WebPages.Razor.dll" />
+    <Content Include="Data\TestData\Assemblies\WizardActivityPack.Activities.dll" />
+    <Content Include="Data\TestData\Assemblies\WorkflowContext.dll" />
+    <Content Include="Data\TestData\test001.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TestData\TestWorkflowWithArgument.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\Content\EmptyWorkflowTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Content\SequenceTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Content\ComplexTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Data\Content\OASPConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Content\OASPLocalization.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Content\Taxonomy.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Content\ContentItemSchema.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Data\MarketplaceTestData\MKPUT1.wf" />
+    <None Include="Data\MarketplaceTestData\MKPUT3.wf" />
+    <None Include="UIMap.uitest" />
+    <None Include="ViewModels\PerformanceTest\CompileProject.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ViewModels\PerformanceTest\PublishProject.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ViewModels\PerformanceTest\SaveProject.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ViewModels\PerformanceTest\OpenProject.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Shadow Include="Test References\Microsoft.Support.Workflow.Authoring.AddIns.accessor" />
+    <Shadow Include="Test References\Microsoft.Support.Workflow.Authoring.accessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Content\Taxonomy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\MarketplaceTestData\Assemblies\ActivityAssemblyCatalog.txt" />
+    <Content Include="Data\MarketplaceTestData\Assemblies\System.Net.Http\4.0.0.0\System.Net.Http.dll" />
+    <Content Include="Data\MarketplaceTestData\Assemblies\System.ServiceModel.Internals\4.0.0.0\System.ServiceModel.Internals.dll" />
+    <Content Include="Data\Content\ContentDirectory.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Content\BrokenContentDirectory.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TestData\DifProf32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TestData\InvalidLibrary.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Microsoft.Support.Workflow.Authoring.AddIns\Microsoft.Support.Workflow.Authoring.AddIns.csproj">
+      <Project>{f81c921a-45a4-4e0e-aac1-37181e0d7bd5}</Project>
+      <Name>Microsoft.Support.Workflow.Authoring.AddIns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Microsoft.Support.Workflow.Authoring\Microsoft.Support.Workflow.Authoring.csproj">
+      <Project>{D30C261F-85A4-4A65-A5C9-6A27DABE9E7B}</Project>
+      <Name>Microsoft.Support.Workflow.Authoring</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\MarketplaceTestData\Assemblies\MKPUT1\" />
+    <Folder Include="Data\MarketplaceTestData\Assemblies\MKPUT3\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

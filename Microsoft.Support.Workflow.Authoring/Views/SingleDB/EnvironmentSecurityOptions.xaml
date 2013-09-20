@@ -1,0 +1,134 @@
+﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.Views.EnvironmentSecurityOptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Environment Security Options" 
+        Height="530" 
+        Width="750"
+        WindowStartupLocation="CenterScreen"
+        xmlns:views="clr-namespace:Microsoft.Support.Workflow.Authoring.Views">
+    <Window.Resources>
+        <DataTemplate x:Key="listBoxTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding AuthGroupName}" MinWidth="100"></TextBlock>
+                <Button Grid.Column="1" 
+                        CommandParameter="{Binding RelativeSource={RelativeSource 
+                                           Mode=FindAncestor,
+                                           AncestorType={x:Type ListBox}},
+                                           Path=SelectedItem}"
+                        Command="{Binding DataContext.RemoveSGGroupCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:EnvironmentSecurityOptions}}}" 
+                        Margin="8,0,0,0" 
+                        Cursor="Hand" 
+                        ToolTipService.ToolTip="Delete">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border BorderThickness="1" Width="18" Height="18">
+                                <Image Height="16"
+                                Source="/Microsoft.Support.Workflow.Foundry;component/Resources/Images/Cancel_24.png"
+                                Stretch="Fill"
+                                Width="16"
+                                />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"  Margin="10,10,5,0" x:Name="gridEnvironment" DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Tenant Endpoint:"></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding TenantEndpoint}" Grid.Row="1" Width="300" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Grid.Row="2" Text="Tenant Name"></TextBlock>
+            <TextBox IsReadOnly="True" Text="{Binding TenantName}" Grid.Row="3" Width="300" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Grid.Row="4" Text="Tenant Environment Admin Group"></TextBlock>
+            <TextBox Grid.Row="5" Text="{Binding TenantAdminGroup,UpdateSourceTrigger=PropertyChanged}" Width="300" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
+            <Button Grid.Row="5" Margin="320,2,0,0" Content="{Binding TestButtonTitle}" Command="{Binding TestCommand}" VerticalAlignment="Top" HorizontalAlignment="Left"  Width="75">
+            </Button>
+            <GroupBox Grid.Row="6" Header="Available Security Groups of Tenant">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center">
+                        <TextBlock Text="SG Type:" HorizontalAlignment="Left"></TextBlock>
+                        <ComboBox Margin="52,0,0,0" Width="130" ItemsSource="{Binding SGType}" SelectedItem="{Binding SelectedSGType,Mode=TwoWay}" HorizontalAlignment="Left"></ComboBox>
+                        <TextBlock Margin="200,0,0,0" Text="SG Name:" HorizontalAlignment="Left"></TextBlock>
+                        <TextBox Margin="260,0,0,0" Width="160" Text="{Binding SGName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"></TextBox>
+                        <Button Margin="455,0,0,0" Width="75" Content="Add" Command="{Binding AddSGGroupCommand}" HorizontalAlignment="Left"></Button>
+                        <!--<Button Margin="595,0,0,0" Width="75" Content="Remove" Command="{Binding RemoveSGGroupCommand}" HorizontalAlignment="Left"></Button>-->
+                    </Grid>
+                    <TextBlock Text="SGs of Viewer" Grid.Row="1" Grid.Column="0"></TextBlock>
+                    <ListBox  Grid.Row="2"
+                              Grid.Column="0"
+                              ItemsSource="{Binding ViewerGroups}" 
+                              ItemTemplate="{StaticResource listBoxTemplate}"
+                              Margin="0,0,10,0"
+                              HorizontalContentAlignment="Stretch">
+                    </ListBox>
+                    <TextBlock Text="SGs of Author" Grid.Row="1" Grid.Column="1"></TextBlock>
+                    <ListBox 
+                             Grid.Row="2" Grid.Column="1" 
+                             ItemsSource="{Binding AuthorGroups}" 
+                             ItemTemplate="{StaticResource listBoxTemplate}"
+                             Margin="0,0,10,0"
+                             HorizontalContentAlignment="Stretch"></ListBox>
+                    <TextBlock Text="SGs of Admin" Grid.Row="1" Grid.Column="2"></TextBlock>
+                    <ListBox
+                             Grid.Row="2" 
+                             ItemsSource="{Binding AdminGroups}" 
+                             ItemTemplate="{StaticResource listBoxTemplate}"
+                             Grid.Column="2" 
+                             Margin="0,0,10,0"
+                             HorizontalContentAlignment="Stretch">
+                    </ListBox>
+                    <TextBlock Text="SGs of Stage Author" Grid.Row="1" Grid.Column="3"></TextBlock>
+                    <ListBox
+                             Grid.Row="2" 
+                             ItemsSource="{Binding TenantStageAuthorGroups}" 
+                             ItemTemplate="{StaticResource listBoxTemplate}"
+                             Grid.Column="3" 
+                             Margin="0,0,10,0"
+                             HorizontalContentAlignment="Stretch">
+                    </ListBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,0,5,0">
+            <Button IsEnabled="{Binding CanSave}" Height="23" VerticalAlignment="Center"  Content="Save" Click="SaveButton_Click"  Width="75" HorizontalAlignment="Right" Margin="0,0,95,0"></Button>
+            <Button Height="23" VerticalAlignment="Center" Click="BtnCancel"  Content="Cancel" Width="75" HorizontalAlignment="Right"></Button>
+        </Grid>
+        <telerik:RadBusyIndicator 
+                DisplayAfter="00:00:00"
+                FontSize="18"
+                Grid.RowSpan="2"
+                IsBusy="{Binding IsBusy}"
+                BusyContent="{Binding BusyCaption}"
+            />
+    </Grid>
+</Window>

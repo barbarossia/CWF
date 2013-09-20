@@ -1,0 +1,110 @@
+﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.Views.TenantSecurityOptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Tenant Security Options" 
+        Height="680" 
+        Width="540"
+        WindowStartupLocation="CenterScreen"
+        xmlns:views="clr-namespace:Microsoft.Support.Workflow.Authoring.Views">
+    <Window.Resources>
+        <DataTemplate x:Key="listBoxTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding AuthGroupName}" MinWidth="100"></TextBlock>
+                <Button Grid.Column="1" 
+                        CommandParameter="{Binding RelativeSource={RelativeSource 
+                                           Mode=FindAncestor,
+                                           AncestorType={x:Type ListBox}},
+                                           Path=SelectedItem}"
+                        Command="{Binding DataContext.RemoveSGGroupCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:TenantSecurityOptions}}}" 
+                        Margin="8,0,0,0" 
+                        Cursor="Hand" 
+                        ToolTipService.ToolTip="Delete">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border BorderThickness="1" Width="18" Height="18">
+                                <Image Height="16"
+                                Source="/Microsoft.Support.Workflow.Foundry;component/Resources/Images/Cancel_24.png"
+                                Stretch="Fill"
+                                Width="16"
+                                />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid Margin="10,10,5,0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Tenant Viewer Group" Grid.Row="0"></TextBlock>
+            <ComboBox SelectedIndex="0" x:Name="comViewerGroups" DisplayMemberPath="AuthGroupName" ItemsSource="{Binding ViewerGroupsDisEnabled}" SelectedItem="{Binding SelectedDisenableViewerGroup,Mode=TwoWay}" Grid.Row="1" Width="260" HorizontalAlignment="Left"></ComboBox>
+            <Button x:Name="btnAddViewer" Command="{Binding AddSGGroupCommand}" CommandParameter="Viewer" Content="Add" Grid.Row="1" Margin="280,0,0,0" HorizontalAlignment="Left" Width="75"></Button>
+            
+            <ListBox x:Name="listViewer" 
+                     ItemsSource="{Binding ViewerGroupsEnabled}"
+                     ItemTemplate="{StaticResource listBoxTemplate}"
+                     Margin="0,5,30,10" 
+                     Grid.Row="2" ></ListBox>
+
+            <TextBlock Text="Tenant Author Group" Grid.Row="3"></TextBlock>
+            <ComboBox SelectedIndex="0" x:Name="comAuthorGroups" DisplayMemberPath="AuthGroupName" ItemsSource="{Binding AuthorGroupsDisEnabled}" SelectedItem="{Binding SelectedDisenableAuthorGroup,Mode=TwoWay}" Grid.Row="4" Width="260" HorizontalAlignment="Left"></ComboBox>
+            <Button x:Name="btnAddAuthor" Command="{Binding AddSGGroupCommand}" CommandParameter="Author" Content="Add" Grid.Row="4" Margin="280,0,0,0" HorizontalAlignment="Left" Width="75"></Button>
+
+            <ListBox x:Name="listAuthor" 
+                     
+                     ItemsSource="{Binding AuthorGroupsEnabled}"
+                     ItemTemplate="{StaticResource listBoxTemplate}"
+                     Margin="0,5,30,10" Grid.Row="5" ></ListBox>
+
+            <TextBlock Text="Tenant Admin Group" Grid.Row="6"></TextBlock>
+            <ComboBox SelectedIndex="0" x:Name="comAdminGroups" DisplayMemberPath="AuthGroupName" ItemsSource="{Binding AdminGroupsDisEnabled}" SelectedItem="{Binding SelectedDisenableAdminGroup,Mode=TwoWay}" Grid.Row="7" Width="260" HorizontalAlignment="Left"></ComboBox>
+            <Button x:Name="btnAddAdmin" Command="{Binding AddSGGroupCommand}" CommandParameter="Admin" Content="Add" Grid.Row="7" Margin="280,0,0,0" HorizontalAlignment="Left" Width="75"></Button>
+            <ListBox x:Name="listAdmin" 
+                     ItemTemplate="{StaticResource listBoxTemplate}"
+                     ItemsSource="{Binding AdminGroupsEnabled}" 
+                     
+                     Margin="0,5,30,10" 
+                     Grid.Row="8"></ListBox>
+
+            <TextBlock Text="Tenant Stage Author Group" Grid.Row="9"></TextBlock>
+            <ComboBox SelectedIndex="0" x:Name="comTenantStageAuthor" DisplayMemberPath="AuthGroupName" ItemsSource="{Binding StageAuthorGroupsDisEnabled}" SelectedItem="{Binding SelectedDisenableStageAuthorGroup,Mode=TwoWay}" Grid.Row="10" Width="260" HorizontalAlignment="Left"></ComboBox>
+            <Button x:Name="btnAddTenantStageAuthor" Command="{Binding AddSGGroupCommand}" CommandParameter="StageAuthor" Content="Add" Grid.Row="10" Margin="280,0,0,0" HorizontalAlignment="Left" Width="75"></Button>
+            <ListBox x:Name="listTenantStageAuthor" 
+                     ItemTemplate="{StaticResource listBoxTemplate}"
+                     ItemsSource="{Binding StageAuthorGroupsEnabled}" 
+                     Margin="0,5,30,10" 
+                     Grid.Row="11"></ListBox>
+            <Grid Grid.Row="12">
+                <Button Height="23" IsEnabled="{Binding CanSave}" Click="SaveButton_Click" VerticalAlignment="Center" Grid.Row="6" Content="Save" Width="75" HorizontalAlignment="Right" Margin="0,0,90,0"></Button>
+                <Button Height="23" VerticalAlignment="Center" Click="BtnCancel" Grid.Row="6" Content="Cancel"  Width="75" HorizontalAlignment="Right"></Button>
+            </Grid>
+        </Grid>
+        <telerik:RadBusyIndicator 
+                DisplayAfter="00:00:00"
+                FontSize="18"
+                Grid.RowSpan="2"
+                IsBusy="{Binding IsBusy}"
+                BusyContent="{Binding BusyCaption}"
+            />
+    </Grid>
+</Window>

@@ -1,0 +1,688 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OASPLocalization</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\patmorr</lastModifiedBy>
+  <lastModifiedDate>2012-08-14T14:53:00</lastModifiedDate>
+  <section name="UI">
+    <key name="contracttitle" value="Select a Contract or Agreement" />
+    <key name="TitleConfirmation" value="Confirmation" />
+    <key name="EmailMessage1" value="CONFIRMATION&lt;BR&gt;Confirmation number:{0}&lt;BR&gt;-------------------------------------------------------------------------&lt;BR&gt;Your support request was successfully submitted to Microsoft.&lt;BR&gt;&lt;BR&gt;A Microsoft professional will contact you within the response time specified for the support you chose.&lt;BR&gt;Print or save this page or record your confirmation number for your reference.&lt;BR&gt;-------------------------------------------------------------------------&lt;BR&gt;" />
+    <key name="EmailMessage1NoPPT" value="CONFIRMATION&lt;BR&gt;Confirmation number:{0}&lt;BR&gt;-------------------------------------------------------------------------&lt;BR&gt;Your support request was successfully submitted to Microsoft.&lt;BR&gt;&lt;BR&gt;A Microsoft professional will contact you within the response time specified for the support you chose.&lt;BR&gt;Print or save this page or record your confirmation number for your reference.&lt;BR&gt;-------------------------------------------------------------------------&lt;BR&gt;" />
+    <key name="firstnamelabel" value="First name:" />
+    <key name="firstselectoption" value="Select One" />
+    <key name="fullnamelabel" value="Full name:" />
+    <key name="genericfailure" value="We could not send your reply because of a system or network error. Please try again." />
+    <key name="sendfilesunavailable" value="The upload process is temporarily unavailable, please try again later.  If this is an urgent issue, contact your technical account manager (TAM) or e-mail &lt;a href=&quot;mailto:premier@microsoft.com&quot;&gt;premier@microsoft.com&lt;/a&gt; for more help." />
+    <key name="incDetailTitle" value="Incident Details" />
+    <key name="incidentdetailtitle" value="View Incident Detail" />
+    <key name="lastnamelabel" value="Last name:" />
+    <key name="lessLabel" value="Less detail" />
+    <key name="caseCreatedLabel" value="Case created:" />
+    <key name="caseNumberLabel" value="Case number:" />
+    <key name="caseTitleLabel" value="Case title:" />
+    <key name="confirmationEmailFrom" value="premier@microsoft.com" />
+    <key name="descriptionLabel" value="Description:" />
+    <key name="incidentRegionLabel" value="Incident Region:" />
+    <key name="removeButtonText" value="Remove" />
+    <key name="preferenceLabel" value="Contact preference:" />
+    <key name="problemDetailsLabel" value="Problem Details" />
+    <key name="sdpToolTitle" value="Save time by running this diagnostic tool" />
+    <key name="severityLabel" value="Severity:" />
+    <key name="altLanguageLabel" value="Secondary support language" />
+    <key name="languageDescription" value="If we don't have a support professional to help you immediately, you may receive support sooner in a secondary language." />
+    <key name="languageHeading" value="Language" />
+    <key name="primaryLanguageLabel" value="Primary support language:" />
+    <key name="slaCol1Heading" value="Severity" />
+    <key name="slaCol2Heading" value="Response Time" />
+    <key name="slaHeadingText" value="Response time for Premier Online incidents" />
+    <key name="incidentRegionDescText" value="Incident region determines support languages, business hours, and products that are available." />
+    <key name="reqdFieldDesc" value="Indicates required field" />
+    <key name="supportTopicL1Heading" value="Support Topic:" />
+    <key name="supportTopicL1Option" value="--- Please select a support topic ---" />
+    <key name="supportTopicL2Heading" value="Sub-topic:" />
+    <key name="ERROR_DELETING_FILE" value="The file was not deleted. Wait a few minutes and then try it again." />
+    <key name="ErrorCreatingSession" value="The file upload service server is not available at this time. Wait a few minutes and then try it again." />
+    <key name="FILE_SIZE_EXCEEDED" value="The file is too large to upload. Files must be smaller than 1 GB. Reduce the size of the file and then try it again." />
+    <key name="FILESESSION_EXPIRED" value="The session has expired. Please restart the workflow." />
+    <key name="FILEEXTENSION_IS_MISSING" value="There is no file name extension for the file. Add a file name extension such as .docx or .xlsx, and then try again." />
+    <key name="FILEEXTENSION_IS_TOOBIG" value="There are too many characters in the file name extension. Select a file that has a file name extension such as .docx or .xlsx, that is less than 10 characters long and then try it again." />
+    <key name="FILEEXTENSION_NOTSUPPORTED" value="The file name extension is not supported. Select a file that has a supported extension and then try it again." />
+    <key name="FILENAME_IS_TOOBIG" value="There are too many characters in the file name. Select a file name with 100 characters or fewer and then try it again." />
+    <key name="FILESESSIONID_IS_INVALID" value="The session is invalid. Please restart the workflow." />
+    <key name="MAXFILE_THRESHOLD_REACHED" value="More than five files are included in the upload session. Reduce the number of files in the upload session to five or fewer and then try it again." />
+    <key name="MAXSIZE_THRESHOLD_REACHED" value="The total size of the files in this upload session is 5 GB or more. Reduce the total size of the files to less than 5 GB and then try it again." />
+    <key name="SIMULTANEOUS_UPLOAD_ERROR" value="Only one upload is allowed at a time. Wait for the current upload to complete and then begin the next upload." />
+    <key name="SYSTEM_ERROR" value="The file upload service server is not available at this time. Wait a few minutes and then try it again." />
+    <key name="PhoneText" value="Please call this Phone Number to receive assistance with your support request" />
+    <key name="ProductIDLbl" value="Product ID number:" />
+    <key name="PaymentLbl" value="Payment:" />
+    <key name="CreditCardLbl" value="Credit card:" />
+    <key name="PPIPayment" value="{0} Paid by credit card" />
+    <key name="PPIPaymentVAT" value="{0} Paid by credit card (VAT will not be charged if VAT number is valid)" />
+    <key name="ConfPrintButton" value="Print" />
+    <key name="ConfSaveButton" value="Save" />
+    <key name="Return" value="Return" />
+    <key name="ProgressText" value="&lt;B&gt;Please wait&lt;/B&gt; for confirmation that your submission was successful.&lt;BR/&gt;This can take up to 10 minutes over a 56.6 kbps connection &lt;BR/&gt;&lt;B&gt;Do not refresh this page.&lt;/B&gt;" />
+    <key name="ConfChatButton" value="Start chat" />
+    <key name="ConfirmationEmailSubject" value="Support Request Number - {0}" />
+    <key name="NotMonitored" value="THIS MAILBOX IS NOT MONITORED - Please do not reply" />
+    <key name="SubmissionNoPPTNoDCMessage" value="" />
+    <key name="SubmissionNoPPTYesDCMessage" value="" />
+    <key name="OperatingSystem" value="Operating System:" />
+    <key name="SpamBlockerAlert" value="In case you don’t see a response from Microsoft in your inbox. Please also check “bulk mail” or “junk email” folders. If you are using a SPAM blocker tool, make sure that you can receive e-mail messages from *@microsoft.com." />
+    <key name="NoDataConfirmation" value="&lt;BR/&gt;&lt;BR/&gt;&lt;strong&gt;As specified, your data was not sent to Microsoft support.&lt;/strong&gt;&lt;BR/&gt;" />
+    <key name="ConfSuccessText" value="Your question was successfully submitted to Microsoft.&lt;BR/&gt;A Microsoft professional will contact you within the response time specified for the support you chose." />
+    <key name="Note" value="Note" />
+    <key name="ConfPhoneText" value="Your question was successfully submitted to Microsoft." />
+    <key name="AgentNote" value="\nNOTE: The problem description has been truncated. Please see case details for the complete text." />
+    <key name="CallbackConfPhoneText" value="The details of your issue will be routed to a support professional who will call you within 8 business hours to begin resolving your issue." />
+    <key name="SuccessfullySubmitted" value="Successfully Submitted!" />
+    <key name="ConfPrintNSave" value="Print or save this page, or record your confirmation number for your reference." />
+    <key name="EmailLbl" value="E-mail address:" />
+    <key name="ProblemLbl" value="Problem:" />
+    <key name="ConfirmationEmailFrom2" value="Microsoft Technical Support &lt;wradmin@microsoft.com&gt;" />
+    <key name="ConfirmationEmailSubject2" value="Support Request Number - {{srnumber}}" />
+    <key name="HoursOfOperPhoneTitle" value="&lt;B&gt;Business Hours&lt;/B&gt; (Pacific Time)" />
+    <key name="callbackworkinghours" value="{0}" />
+    <key name="severitya" value="&lt;b&gt; Severity A (Critical business impact) &lt;/b&gt;" />
+    <key name="severityb" value="&lt;b&gt; Severity B (Moderate business impact) &lt;/b&gt;" />
+    <key name="severityc" value="&lt;b&gt; Severity C (Minimum business impact) &lt;/b&gt;" />
+    <key name="DiagToolDetail" value="Run the Microsoft Support Diagnostic Tool so we can answer your request faster. This tool:" />
+    <key name="DiagToolDetail1" value="&lt;UL&gt;&lt;LI&gt;Will not change any settings on your computer(s).&lt;/LI&gt;&lt;LI&gt;Can be run on other computers by using removable media.&lt;/LI&gt;&lt;LI&gt;Automatically uploads diagnostic information to this support request.&lt;/LI&gt;&lt;/UL&gt;" />
+    <key name="DiagToolLinkText1" value="Start the" />
+    <key name="DiagToolLinkText2" value="Microsoft Support Diagnostic Tool." />
+    <key name="OMPendingTime" value="Your expected response time is:  &lt;B&gt;   Within 8 business hours after the pending credit card transaction is completed. &lt;/B&gt;" />
+    <key name="severityd" value="&lt;strong&gt; Severity D (Minimum business impact) &lt;/strong&gt;" />
+    <key name="severitydtime" value="Your expected response time is as follows: Within 8 hours" />
+    <key name="TitleDiagnostics" value="Microsoft Support Diagnostic Tool" />
+    <key name="ValidationError" value="Some information is missing or is incorrect. Please correct it and try again." />
+    <key name="Default" value="We could not send your information because of a system or a network error. Please try again in a few minutes." />
+    <key name="ReqdFName" value="Enter a valid first name." />
+    <key name="ReqdLName" value="Enter a valid last name." />
+    <key name="ReqdEmail" value="Enter a valid e-mail address (for example, someone@example.com)." />
+    <key name="ReqdPhone" value="Enter a valid phone number." />
+    <key name="EmailMismatch" value="The text in the E-mail address and the Confirm E-mail address fields do not match." />
+    <key name="PhoneMismatch" value="The text in the Phone Number and the Confirm Phone Number fields do not match." />
+    <key name="ReqdStAddr" value="Enter a valid street address." />
+    <key name="ReqdCity" value="Enter a valid city." />
+    <key name="ReqdState" value="Enter a valid state or province." />
+    <key name="ReqdPostalCode" value="Enter a vaild postal code." />
+    <key name="ReqdCountry" value="Select a valid country or region." />
+    <key name="TitleContactInfo" value="Provide contact information" />
+    <key name="SubmitInstruction" value="After you submit the support request, a confirmation e-mail containing your support request information will be sent to you. Make sure that your e-mail address is correct." />
+    <key name="SubmitInstructionPassport" value="You can keep track of the responses to your support request online. However, if you want to receive e-mail messages with these responses from a Microsoft support professional, click to select Send me the response by e-mail." />
+    <key name="SubmitInstructionChat" value="After the submission is complete, a confirmation page that contains a &lt;strong&gt;Start Chat&lt;/strong&gt; button will appear. Click the &lt;strong&gt;Start Chat&lt;/strong&gt; button to be connected to a support professional." />
+    <key name="ResponseViaEmail" value="Send me the response by e-mail." />
+    <key name="SubmitCancel" value="You will lose all the information that you have entered. Are you sure that you want to cancel?" />
+    <key name="SubmitCancelYes" value="Yes" />
+    <key name="SubmitCancelNo" value="No" />
+    <key name="closebutton" value="Close" />
+    <key name="ConfirmPhone" value="&lt;font color='Red'&gt;*&lt;/font&gt;Confirm phone number:" />
+    <key name="PhoneRequired" value="Phone number:" />
+    <key name="PhoneOptional" value="Phone number:" />
+    <key name="SecurityText" value="Microsoft is committed to your privacy. See the &lt;a href = 'http://go.microsoft.com/fwlink/p/?LinkId=81184' target='_blank'&gt;Privacy Statement&lt;/a&gt; for more information." />
+    <key name="Required" value="&lt;font color='Red'&gt;*&lt;/font&gt; Required" />
+    <key name="AlternateSpokenLanguage" value="Select alternate spoken language:" />
+    <key name="AlternateWrittenLanguage" value="Select alternate written language:" />
+    <key name="DefaultAlternateLanguageValue" value="Unknown" />
+    <key name="SelectEmailResponse" value="=&quot;&lt;b&gt;Responses :&lt;/b&gt;&lt;br&gt;You can keep track of the responses to your support request online. However, if you want to receive e-mail messages with these responses from a Microsoft support professional, click to select Send me the response by e-mail." />
+    <key name="StAddr1" value="&lt;font color='Red'&gt;*&lt;/font&gt;Street address:" />
+    <key name="StAddr2" value="Street address 2:" />
+    <key name="City" value="&lt;font color='Red'&gt;*&lt;/font&gt;City:" />
+    <key name="State" value="&lt;font color='Red'&gt;*&lt;/font&gt;State:" />
+    <key name="PostalCode" value="&lt;font color='Red'&gt;*&lt;/font&gt;Zip code:" />
+    <key name="Country" value="&lt;font color='Red'&gt;*&lt;/font&gt;Country or Region:" />
+    <key name="VatTaxCode" value="Vat/Tax code:" />
+    <key name="PhoneAdditional" value="Separate multiple phone numbers with commas.&lt;br/&gt; Example: 555-555-1234, 555-555-3894" />
+    <key name="AdditionalInfo" value="Additional information" />
+    <key name="OMRedirectWarning1" value="When you click continue, you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="OMRedirectWarning2" value="After you enter your credit card information, click the link on the confirmation page to return to this site to complete your support request." />
+    <key name="SelectState" value="Select a state:" />
+    <key name="SelectCountry" value="Select a country." />
+    <key name="altLanguageHelp" value="In addition to the primary language, which is based on your region, you may also select an alternate language for your communication with Microsoft. Microsoft will try to locate resources in the primary language of this site. If unavailable, Microsoft will try to locate a resource that is based on the alternate language that you have specified." />
+    <key name="vatRegHelp" value="Enter your VAT registration number." />
+    <key name="OMRedirectWarningChat" value="After you enter your credit card information, click the link on the confirmation page to return to this site to begin your &lt;strong&gt;Chat&lt;/strong&gt; session." />
+    <key name="hiddenfields" value="" />
+    <key name="tzone" value="Time zone:" />
+    <key name="reqdtimezone" value="Please select a time zone." />
+    <key name="ReqdPronFName" value="Enter a valid pronounced full name." />
+    <key name="ReqdTradFName" value="Enter a valid traditional full name" />
+    <key name="ConfirmEmail1" value="Confirm E-mail address:" />
+    <key name="Email1" value="E-mail address:" />
+    <key name="FName1" value="First name:" />
+    <key name="LName1" value="Last name:" />
+    <key name="PronFullName" value="Pronounced full name" />
+    <key name="PronFullName1" value="Pronounced fullName" />
+    <key name="TradFullName" value="Traditional full name" />
+    <key name="TradFullName1" value="Traditional fullName" />
+    <key name="Title" value="Enter Payment Details" />
+    <key name="AllianceContract" value="Alliance Support Contract &lt;Contract Number&gt;" />
+    <key name="NoSupportContract" value="The contracts shown below that are associated with your Windows Live™ ID account does not include support for this product.&lt;BR/&gt;&lt;BR/&gt;{0}&lt;BR/&gt;&lt;BR/&gt;Please &lt;MapContractLink&gt;use another contract&lt;/MapContractLink&gt; or go back and select a different payment method." />
+    <key name="PremierContract" value="The contracts shown below that are associated with your Windows Live™ ID account are Premier contracts.&lt;BR/&gt;&lt;BR/&gt;{0}&lt;BR/&gt;&lt;BR/&gt;Please &lt;MapContractLink&gt;use another contract&lt;/MapContractLink&gt; or visit &lt;PremierSiteLink&gt; Premier Site &lt;/PremierSiteLink&gt; to use the above contracts." />
+    <key name="HelpText" value="Select the contract with which you want to associate this support request, or use another contract." />
+    <key name="PremierHeading" value="Premier Contracts" />
+    <key name="PremierDescription" value="To use these contracts, visit  {0}." />
+    <key name="OtherHeading" value="Contracts" />
+    <key name="OtherDescription" value="These contracts cannot be used with {0}." />
+    <key name="UseAnotherContract" value="Use another contract" />
+    <key name="PersonalContract" value="Personal Support Contract &lt;Contract Number&gt;" />
+    <key name="ProfessionalContract" value="Professional Support Contract &lt;Contract Number&gt;" />
+    <key name="DataBlockHeading" value="Select  a support contract" />
+    <key name="CancelUploadText" value="Cancel" />
+    <key name="UploadProgressText" value="Uploading..." />
+    <key name="EulaTitle" value="I accept the {0}" />
+    <key name="EulaValidation" value="Please accept the license terms." />
+    <key name="labelname" value="Name:" />
+    <key name="labelemail" value="E-mail:" />
+    <key name="submit" value="Submit" />
+    <key name="Contract" value="Contract" />
+    <key name="KBLinkListTitle" value="Try recommended solutions" />
+    <key name="InvalidContractID" value="Access ID is not valid or was not entered.&lt;br/&gt;Verify that it is correct and please try again." />
+    <key name="EmailMessage2" value="CONFIRMATION&amp;lt;BR&amp;gt;Confirmation number:{{srnumber}}&amp;lt;BR&amp;gt;&amp;lt;BR&amp;gt;Your question was successfully submitted to Microsoft. &amp;lt;BR&amp;gt;&amp;lt;BR&amp;gt;A Microsoft professional will contact you within the response time specified for the support you chose.&amp;lt;BR&amp;gt;You can also view your response on the Support site when you have signed into Windows Live™ ID. &amp;lt;BR&amp;gt;Print or save this page or note the confirmation number for your reference.&amp;lt;BR&amp;gt;" />
+    <key name="MSSupportHeading" value="Microsoft support" />
+    <key name="AccessIdHeaderTxt" value="Access ID" />
+    <key name="AccessIdRequired" value="Please enter a value for Access ID." />
+    <key name="AccountLocked" value="You have entered your Access ID or Contract ID incorrectly multiple times. At this time, the ability to enter a Contract ID and Access ID has been locked. Please try again in an hour, or &lt;a href=&quot;http://support.microsoft.com/contactus#tab0&quot;&gt;conntact Microsoft&lt;/a&gt; to confirm that the Contract ID and Access ID combination is correct." />
+    <key name="ActiveStatusTxt" value="Active" />
+    <key name="ADchatcallheader" value="Answer Desk Premium Software Support - Microsoft Windows" />
+    <key name="ADchatcallsubheader1" value="Answer Desk is an assisted support service available for you online or on the phone. All support services are provided by highly trained and friendly Answer Techs." />
+    <key name="ADchatcallsubheader2" value="We think we can resolve your Windows problem with our Premium Software Support service. After diagnosing your issue, if appropriate, you will be offered the choice to purchase this service." />
+    <key name="AddAccessId" value="Add New Access ID" />
+    <key name="AddKey" value="Add" />
+    <key name="advancedchrg" value="Charges may apply.  &lt;a href=&quot;http://support.microsoft.com/gp/advanceddef&quot;  target=&quot;_blank&quot;&gt;Advanced and after hours&lt;/a&gt; support is available for an additional charge." />
+    <key name="altcontactcommunity" value="Alternatively, please contact our community network at &lt;a href=&quot;http://answers.microsoft.com/&quot;&gt;Microsoft Answers&lt;/a&gt; or visit &lt;a href=&quot;http://support.microsoft.com/&quot;&gt;Microsoft Support&lt;/a&gt; for access to extensive online self-help resources." />
+    <key name="AlternateLanguage" value="Select alternate language:" />
+    <key name="answerseverityquestions" value="To help us determine the severity of your problem, please answer the following questions:" />
+    <key name="appstoreemailconf" value="&lt;div style=&quot;font-size=36px;color:#707070;font-size:36px;font-weight:100&quot;&gt;&#xA;    &lt;span&gt;Thank You&lt;/span&gt;&#xA;  &lt;/div&gt;&#xA;  &lt;div style=&quot;padding-top:20px&quot;&gt;&#xA;    &lt;div style=&quot;margin-bottom:20px&quot;&gt;&#xA;      &lt;span&gt;Your request has been received, and a technical support  representative will contact you within one business day.&lt;/span&gt;&#xA;      &lt;div&gt;&#xA;        &lt;span&gt;View incident online:&lt;/span&gt;&#xA;        &lt;a href=&quot;http://support.microsoft.com/oas/default.aspx?tp=il&amp;amp;ln=en-us&quot; target=&quot;_blank&quot;&gt;http://support.microsoft.com/oas/default.aspx?tp=il&amp;amp;ln=en-us&lt;/a&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div style=&quot;color:#DB7100;font-size:18px;margin: 0 0 10px;margin-bottom:20px&quot;&gt;&#xA;      &lt;span&gt;Submission Details&lt;/span&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div&gt;&#xA;      &lt;span style=&quot;font-weight:bold&quot;&gt;Support Request Number:&lt;/span&gt;&#xA;      &lt;span&gt;{{srnumber}}&lt;/span&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;    &lt;div&gt;&lt;span style=&quot;font-weight:bold&quot;&gt;Incident Title: &lt;/span&gt;&lt;span&gt;{{problemtitle}}&lt;/span&gt;&lt;/div&gt;&#xA;&#xA;    &lt;div&gt;&#xA;      &lt;div style=&quot;margin-bottom:20px&quot;&gt;&#xA;        &lt;div&gt;&#xA;          &lt;span style=&quot;font-weight:bold&quot;&gt;Name:&lt;/span&gt;&#xA;          &lt;span&gt;{{name}}&lt;/span&gt;&#xA;        &lt;/div&gt;&#xA;        &lt;div&gt;&#xA;          &lt;span style=&quot;font-weight:bold&quot;&gt;E-mail:&lt;/span&gt;&#xA;          &lt;span&gt;{{emailaddress}}&lt;/span&gt;&#xA;        &lt;/div&gt;&#xA;        &lt;div&gt;&#xA;          &lt;span style=&quot;font-weight:bold&quot;&gt;Preferred contact email address:&lt;/span&gt;&#xA;          &lt;span&gt;{{prefemail}}&lt;/span&gt;&#xA;        &lt;/div&gt;&#xA;        &lt;div&gt;&#xA;          &lt;span style=&quot;font-weight:bold&quot;&gt;Phone:&lt;/span&gt;&#xA;          &lt;span&gt;{{phonenumber}}&lt;/span&gt;&#xA;        &lt;/div&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div style=&quot;margin-bottom:20px&quot;&gt;&#xA;      &lt;div&gt;&#xA;        &lt;span style=&quot;font-weight:bold&quot;&gt; Product:&lt;/span&gt;&#xA;        &lt;span&gt;{{pesid.Name}}&lt;/span&gt;&#xA;      &lt;/div&gt;&#xA;      &lt;div&gt;&#xA;        &lt;span style=&quot;font-weight:bold&quot;&gt;Problem type:&lt;/span&gt;&#xA;        &lt;span&gt;{{supporttopic_L1.STName}}&lt;/span&gt;&#xA;      &lt;/div&gt;&#xA;      &lt;div&gt;&#xA;        &lt;span style=&quot;font-weight:bold&quot;&gt;Category:&lt;/span&gt;&#xA;        &lt;span&gt;{{supporttopic_L2.STName}}&lt;/span&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div&gt;&#xA;      &#xA;      &#xA;    &lt;/div&gt;&#xA;  &lt;/div&gt;" />
+    <key name="AppstoreTitle" value="Provide a title for your issue" />
+    <key name="Atbrowse" value="Browse more Answer Techs" />
+    <key name="Atbusy" value="All our Answer Techs are with other customers right now. We are currently checking the system for the next available Answer Tech. We should be able to assist you in the next few minutes. Thanks for your patience." />
+    <key name="Atcallunavailable" value="If you are currently within those hours of operation, Answer Desk phone support may be temporarily unavailable. We appreciate your patience and we’re working on resolving this issue as soon as possible. Please call us directly at {PLACEHOLDER}." />
+    <key name="Atchatheader" value="Chat online with an Answer Tech" />
+    <key name="ATchatsubheader" value="Choose an Answer Tech to assist you immediately online. You can browse through a selection of available Answer Techs who are trained to help you with your specific support issue." />
+    <key name="Atchatunavailable" value="If you are currently within those hours of operation, Answer Desk online chat support services may be temporarily unavailable. We appreciate your patience and we’re working on resolving this issue as soon as possible." />
+    <key name="Atconfirminfo" value="Confirm or enter your information below and an Answer Tech will call you." />
+    <key name="Atfirstname" value="First name" />
+    <key name="Atlastname" value="Last name" />
+    <key name="Atphone" value="Phone number" />
+    <key name="Atrqcall" value="Request a call from an Answer Tech" />
+    <key name="ATScheck" value="Checking for Answer Techs" />
+    <key name="Atstartchat" value="Start a chat with a Microsoft Answer Tech" />
+    <key name="AttachFiles" value="If you would like to send files to Microsoft, click &lt;b&gt;the button&lt;/b&gt; below and then select the files to upload." />
+    <key name="Atunavailable" value="Thanks for your patience. You may have reached us outside of our online chat hours of operation:" />
+    <key name="Available" value="Available" />
+    <key name="back" value="&amp;lt; Back" />
+    <key name="baserror_SAAgreementExceeded" value="The Software Assurance Agreement has exceeded the number of incidents allocated for support. Contact your benefit administrator for more information." />
+    <key name="baserror_SAAgreementOnHold" value="The Software Assurance Agreement has been placed on hold. Contact your benefit administrator for more information." />
+    <key name="baserror_SAIdAndEmailMismatch" value="The Software Assurance Agreement Access ID does not match the e-mail address provided. Contact your benefit administrator for more information." />
+    <key name="baserror_SAIdDoesNotExist" value="The Software Assurance Agreement Access ID provided is not valid. Contact your benefit administrator for more information" />
+    <key name="baserror_SAProductIsNotSupported" value="The Software Assurance Agreement does not include support for {{pesid.Name}}. To continue, please select a different payment method." />
+    <key name="baserror_SAServiceError" value="The Software Assurance Agreement was not processed due to a network error. Please verify the information and try again in a few minutes." />
+    <key name="baserror_SASubscriptionEnded" value="The Software Assurance Agreement is not currently active. Contact your benefit administrator for more information." />
+    <key name="baserror_Unknown" value="The Software Assurance Agreement was not processed due to an error. Contact your benefit administrator for more information." />
+    <key name="BeforeStartDateStatusTxt" value="Before Start Date" />
+    <key name="callbackphone" value="Callback phone number:" />
+    <key name="callbacktime" value="Your expected callback time is: 4 to 8 hours" />
+    <key name="callbutton" value="Request a call" />
+    <key name="callsuccessreceived" value="Your callback request has been successfully received." />
+    <key name="cancelbutton" value="Cancel" />
+    <key name="cases" value="{PLACEHOLDER} case(s)" />
+    <key name="category" value="Category" />
+    <key name="categoryLBl" value="Category: " />
+    <key name="chatmsn" value="Chat with Microsoft" />
+    <key name="Chatnowbtn" value="Chat Now" />
+    <key name="ChatPrefix" value="CHAT:" />
+    <key name="chatreceived" value="Your chat request has been received" />
+    <key name="checkstatus" value="&lt;a href=&quot;http://support.microsoft.com/oas/default.aspx?tp=il&quot;  target=&quot;_blank&quot;&gt;Check the status of an incident.&lt;/a&gt;" />
+    <key name="choosepay" value="Choose how you would like to pay for support" />
+    <key name="choosepayment" value="Choose a payment method" />
+    <key name="choosetitle" value="Choose a title for this problem:" />
+    <key name="CityName_ar_eg" value="City:" />
+    <key name="CityName_ar_sa" value="City:" />
+    <key name="CityName_en_au" value="City:" />
+    <key name="CityName_en_gb" value="City:" />
+    <key name="CityName_en_hk" value="City:" />
+    <key name="CityName_en_id" value="City:" />
+    <key name="CityName_en_ie" value="City:" />
+    <key name="CityName_en_in" value="City:" />
+    <key name="CityName_en_my" value="City:" />
+    <key name="CityName_en_nz" value="City:" />
+    <key name="CityName_en_ph" value="City:" />
+    <key name="CityName_en_sg" value="City:" />
+    <key name="CityName_en_us" value="City:" />
+    <key name="CityName_en_za" value="City:" />
+    <key name="CityName_it" value="City:" />
+    <key name="CityName_ru" value="City:" />
+    <key name="CityName_sv" value="City:" />
+    <key name="CityName_zh_hk" value="City:" />
+    <key name="CityName_zh_tw" value="City:" />
+    <key name="class_chat" value="hide" />
+    <key name="commdiscgrp" value="Get help from the Community Discussion Group." />
+    <key name="commjunkmailwarning" value="Please make sure that mail from microsoft.com is not sent to your junk e-mail folder." />
+    <key name="commsevaresponsetime" value="within 2 hours" />
+    <key name="commsevbresponsetime" value="within 4 business hours" />
+    <key name="commsevcresponsetime" value="within 8 business hours" />
+    <key name="commsuccesstext" value="&lt;div&gt;&#xA;&lt;table border=0 cellspacing=0 cellpadding=0 width=700px&quot; style=&quot;margin-bottom:20px;&quot;&gt;&#xA;&lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt;&#xA;&lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Microsoft Support Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Submit Incident &lt;br/&gt;&lt;span style=&quot;font-size: 15px; color:black&quot;&gt;&lt;b&gt;Confirmation number: {{srnumber}}&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;br/&gt;&#xA;Your question was successfully submitted to Microsoft. A Microsoft professional will respond to you within the timeframe communicated during the workflow.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;http://support.microsoft.com/oas/default.aspx?tp=il&quot;&gt; View this incident &lt;/a&gt; at any time on Microsoft Support Online.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;b&gt;Save time by running this diagnostic tool&lt;/b&gt;&lt;br/&gt;&#xA;We have identified a diagnostic package that may help us to resolve your issue more quickly.&lt;br/&gt;&lt;br/&gt;&#xA;This diagnostic package will gather information from the systems you choose, and check for certain known problems. After the diagnostic has run you will have an opportunity to view the resulting report, and can elect to upload the collected information to Microsoft. The uploaded  data will be analyzed for a broader selection of known problems, and will also be made available to your assigned engineer.&lt;br/&gt;&lt;br/&gt;&#xA;Please follow the on-screen instructions to run the diagnostic after clicking the link. if you have any questions around the use of the diagnostic package, please discuss it further with your assigned engineer.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;{{datacollectionlaunchurl}}&quot;&gt;Start Microsoft Support Diagnostic Tool&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;&#xA;&lt;div style=&quot;background-color:gray; margin-left:20px&quot;&gt;&#xA;&lt;table style=&quot;padding: 10px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case number:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{{srnumber}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case created:&lt;/td&gt;&lt;td&gt;{{srcreatedate}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case title:&lt;/td&gt;&lt;td&gt;{{problemtitle}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Product:&lt;/td&gt;&lt;td&gt;{{pesid.GSAProductName}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Severity:&lt;/td&gt;&lt;td&gt;{{severitytext}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;E-mail address:&lt;/td&gt;&lt;td&gt;{{emailaddress}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Contact preference:&lt;/td&gt;&lt;td&gt;{{preferedcontact}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&#xA;&lt;div&gt;&#xA;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif; padding-left: 20px;&quot;&gt;Thank you,&lt;br/&gt;Microsoft Support Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&lt;div&gt;" />
+    <key name="commsuccesstext2" value="&lt;div&gt;&#xA;&lt;table border=0 cellspacing=0 cellpadding=0 width=700px&quot; style=&quot;margin-bottom:20px;&quot;&gt;&#xA;&lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt;&#xA;&lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Microsoft Support Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Submit Incident &lt;br/&gt;&lt;span style=&quot;font-size: 15px; color:black&quot;&gt;&lt;b&gt;Confirmation number: {{srnumber}}&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;br/&gt;&#xA;Your question was successfully submitted to Microsoft. A Microsoft professional will contact you within {{severityresponsehours}} business hours.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;http://support.microsoft.com/oas/default.aspx?tp=il&quot;&gt; View this incident &lt;/a&gt; at any time on Microsoft Support Online.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;div style=&quot;background-color:gray; margin-left:20px&quot;&gt;&#xA;&lt;table style=&quot;padding: 10px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case number:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{{srnumber}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case created:&lt;/td&gt;&lt;td&gt;{{srcreatedate}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case title:&lt;/td&gt;&lt;td&gt;{{problemtitle}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Product:&lt;/td&gt;&lt;td&gt;{{pesid.GSAProductName}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Severity:&lt;/td&gt;&lt;td&gt;{{severitytext}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;E-mail address:&lt;/td&gt;&lt;td&gt;{{emailaddress}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Contact preference:&lt;/td&gt;&lt;td&gt;{{preferedcontact}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&#xA;&lt;div&gt;&#xA;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif; padding-left: 20px;&quot;&gt;Thank you,&lt;br/&gt;Microsoft Support Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&lt;div&gt;" />
+    <key name="commsupport" value="Community support" />
+    <key name="completeform" value="Complete the form below to contact us." />
+    <key name="confirmationnum1" value="Confirmation number" />
+    <key name="confirmcontactinfo" value="Confirm your contact information" />
+    <key name="Confirmtitle" value="Confirmation number:" />
+    <key name="confnumber" value="Your confirmation number is:" />
+    <key name="connectwithrep" value="Connect directly with a Windows Store support representative to solve your issue quickly." />
+    <key name="contactinfo" value="Contact Information" />
+    <key name="contactMS" value="Contact Microsoft" />
+    <key name="contactnum" value="Contact number:" />
+    <key name="contactscheduled" value="Your call has already been scheduled and a support representative will call you back." />
+    <key name="contactus" value="Contact us" />
+    <key name="Contractdisplayformat" value="Professional Support Contract {0}" />
+    <key name="contracthelp" value="&lt;a href=&quot;http://support.microsoft.com/gp/contractlinks&quot; target=&quot;_blank&quot;&gt;Help&lt;/a&gt;" />
+    <key name="ContractPassword" value="Contract ID" />
+    <key name="contracts" value="Contract(s)" />
+    <key name="costofppi_en_au" value="Cost of ${{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_en_gb" value="Cost of £{{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_en_ie" value="Cost of €{{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_en_in" value="Cost of ${{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_en_nz" value="Cost of ${{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_en_sg" value="Cost of ${{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_en_us" value="Cost of ${{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_it" value="Cost of €{{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_ru" value="Cost of ${{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_sv" value="Cost of {{ppicostamount}}SEK per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_zh_hk" value="Cost of HKD{{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="costofppi_zh_tw" value="Cost of TWD{{ppicostamount}} per support request. Before your support request is submitted you will be redirected to a Microsoft billing site where you can enter your credit card information." />
+    <key name="CountryLabel_en_au" value="Country or Region:" />
+    <key name="CountryLabel_en_gb" value="Country or Region:" />
+    <key name="CountryLabel_en_hk" value="Country or Region:" />
+    <key name="CountryLabel_en_id" value="Country or Region:" />
+    <key name="CountryLabel_en_in" value="Country or Region:" />
+    <key name="CountryLabel_en_my" value="Country or Region:" />
+    <key name="CountryLabel_en_nz" value="Country or Region:" />
+    <key name="CountryLabel_en_ph" value="Country or Region:" />
+    <key name="CountryLabel_en_sg" value="Country or Region:" />
+    <key name="CountryLabel_en_us" value="Country or Region:" />
+    <key name="CountryName_en_au" value="Australia" />
+    <key name="CountryName_en_gb" value="United Kingdom" />
+    <key name="CountryName_en_hk" value="Hong Kong" />
+    <key name="CountryName_en_id" value="Indonesia" />
+    <key name="CountryName_en_in" value="India" />
+    <key name="CountryName_en_my" value="Malaysia" />
+    <key name="CountryName_en_nz" value="New Zealand" />
+    <key name="CountryName_en_ph" value="Philippines" />
+    <key name="CountryName_en_sg" value="Singapore" />
+    <key name="CountryName_en_us" value="United States" />
+    <key name="CreditCardBilling" value="Credit card billing information" />
+    <key name="creditcardcancel" value="You have canceled out of the credit card payment process. If you would like to use a different form of payment please restart your incident submission." />
+    <key name="csrwillcall" value="Your call request has been received. A support representative will call you back. Your estimated wait time is less than {{ccfCallbackwaittimevalue}} minute(s)." />
+    <key name="csrwillcontact" value="Your request has been received, and a customer service representative will contact you by email within one business day." />
+    <key name="CustomerAccountNameHeaderTxt" value="Company Name" />
+    <key name="customerservicecontact" value="A customer service representative will contact you within one business day." />
+    <key name="custsvcchat" value="&lt;a href=&quot;https://sales.liveperson.net/hc/21661174/?cmd=file&amp;file=visitorWantsToChat&amp;site=21661174&amp;byhref=1&amp;SESSIONVAR!skill=NA.EN.CS.COM.PSTSLS.OASAssist&amp;SESSIONVAR!langSelection=en-us&quot;  target=&quot;_blank&quot;&gt;Chat with customer service for help submitting this request.&lt;/a&gt;" />
+    <key name="DataBlockHeading1" value="Use a support contract" />
+    <key name="Default1" value="&lt;B&gt;Please select a product&lt;/B&gt;" />
+    <key name="DefaultContractError" value="There was a problem processing this request. Please try again after a few minutes." />
+    <key name="detsev" value="Determine Severity" />
+    <key name="emailbutton" value="Start email" />
+    <key name="emailconfirmationsubject" value="Confirmation for your incident" />
+    <key name="emailwithms" value="Email with Microsoft" />
+    <key name="EndDateHeaderTxt" value="End Date" />
+    <key name="entercntcinfo" value="Enter your contact info" />
+    <key name="entercontactinfo" value="Or enter contact information by clicking &lt;a id=&quot;enterdetails&quot; class=&quot;enterdetails b&quot; href=&quot;#&quot; &gt;here&lt;/a&gt;." />
+    <key name="ExpiredStatusTxt" value="Expired" />
+    <key name="FILESESSIONID_IS_NULL" value="FILESESSIONID_IS_NULL" />
+    <key name="fileupldhelp" value="&lt;a href=&quot;http://support.microsoft.com/gp/fileuploadhelp&quot; target=&quot;_blank&quot;&gt; Help&lt;/a&gt;" />
+    <key name="fileuploadbrowsetext" value="Click Browse to locate any files that you want to send to Microsoft" />
+    <key name="FileUploadDefaultError" value="There was an error in the file upload service. Wait a few minutes, refresh the page, and then try it again." />
+    <key name="finishlaterbutton" value="Finish Later" />
+    <key name="finishlatercontractfails" value="We are unable to complete submitting the draft incident that was saved as part of the Finish Later process. The contract status associated with this incident has changed.  Please restart the Incident Submission process and select an alternate contract." />
+    <key name="finishlateremailbody" value="&lt;div&gt;&lt;table border=0 cellspacing=0 cellpadding=0 width=700px&quot;&gt;&#xA;&lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt;&#xA;&lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Premier Online&lt;/td&gt; &lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Unfinished Incident Notice&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt; Dear Customer,&lt;br/&gt;&lt;br/&gt;&#xA;Thank you for beginning an online support request with Microsoft. To complete your online support request, visit {{finishlaterurl}} Complete the required fields, and then click &lt;b&gt;Submit incident&lt;/b&gt; to request assistance from Microsoft. This unfinished support request will be deleted exactly {{finishlaterexpirydays}} days from the moment this e-mail was sent to you.&lt;br/&gt;&lt;br/&gt;Please do not reply to this email. This is an unmonitored system generated e-mail.&lt;br/&gt;&lt;br/&gt;&#xA;Thank you,&lt;br/&gt;Microsoft Premier Online&#xA;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div&gt;" />
+    <key name="finishlateremailsubject" value="Microsoft - Saved Online Incident Submission" />
+    <key name="finishlaterfailgeneral" value="We are unable to complete submitting the draft incident that was saved as part of Finish Later, due to network or system down issues.  If this problem persists, restart the Submit Incident process." />
+    <key name="finishlaterheader" value="Finish Later" />
+    <key name="finishlaterppifails" value="We are unable to complete submitting the draft incident that was saved as part of the Finish Later process. The credit card information you provided will not be used. Please restart the Incident Submission process." />
+    <key name="finishlaterPUIDmismatch" value="We are unable to complete submitting the draft incident that was saved as part of Finish Later. The account used to sign-in, does not match the account used to save the draft incident.  Please sign-in with the account used to create the Finish Later draft incident." />
+    <key name="finishlatersubscriptionfails" value="We are unable to complete submitting the draft incident that was saved as part of Finish Later.  The subscription status associated with this incident has changed.  Please restart the incident submission process by selecting an alternate payment method." />
+    <key name="finishlatersuccessheader" value="Successfully saved!" />
+    <key name="finishlatersuccesssaved" value="Successfully saved!" />
+    <key name="finishlatersuccesstext1" value="An e-mail that contains a link to this support request has been sent to {{finishlateremail}}. This draft incident will expire in {{finishlaterexpirydays}} days on {{finishlaterexpdate}} " />
+    <key name="finishlatersuccesstext2" value="To complete your online support request, use the link provided in the E-mail.The unfinished support request will be deleted exactly {{finishlaterexpirydays}} days from the moment this e-mail was sent to you." />
+    <key name="gotopremiersite" value="Please use another contract or go to the &lt;a href=&quot;https://premier.microsoft.com&quot; target=&quot;_blank&quot;&gt;Premier Site&lt;/a&gt; to use the above contracts." />
+    <key name="havecontact" value="Have a {{pesid.Name}} technical support representative contact you." />
+    <key name="HelpText1" value="&lt;B&gt;Your Software Assurance license does not include support for this product. &lt;/B&gt;&lt;BR/&gt;&#xA;Select another product below or click Back to enter another SA Access ID." />
+    <key name="here" value="here" />
+    <key name="immcontactcommunity" value="For immediate support, please contact our community network at &lt;a href=&quot;http://answers.microsoft.com/&quot;&gt;Microsoft Answers&lt;/a&gt;  or visit &lt;a href=&quot;http://support.microsoft.com/&quot;&gt;Microsoft Support&lt;/a&gt;  for access to extensive online self-help resources." />
+    <key name="IncidentErrorOASP" value="The ability to view or submit an incident is temporarily unavailable on the Premier Online web site. If this error continues, please contact your technical account manager (TAM)." />
+    <key name="infoviewedcsr" value="Note: Information about the content you viewed on this site will be provided to the service representative to help provide you with better service." />
+    <key name="infoviewedtech" value="Note: Information about the content you viewed on this site will be provided to the technical support representative to help provide you with better service." />
+    <key name="InGracePeriodStatusTxt" value="In Grace Period" />
+    <key name="InvalidContractIdPwd" value="There is no contract available for this Access ID and Contract ID. Please make sure the information is entered correctly." />
+    <key name="ispremiercontractmissing" value="Is your &lt;a href=&quot;https://premier.microsoft.com/gp/prmrcontract_missing?&quot; target=&quot;_blank&quot;&gt;contract&lt;/a&gt; missing?" />
+    <key name="junkmailwarning" value="Please make sure that mail from premier@microsoft.com is not sent to your junk e-mail folder." />
+    <key name="KBLinkListTitle1" value="These articles may help resolve your issue:" />
+    <varType name="KeyBracket" keyPrefix="((" keySuffix="))" />
+    <key name="labelemail1" value="E-mail:&amp;nbsp;&amp;nbsp;" />
+    <key name="lengtherror" value="needs to be minimum of 5 and a maximum of 7800 characters" />
+    <key name="lengtherrormessage" value="Number of characters must be between {0} to {1}" />
+    <key name="MapContractAddHeader" value="To add a new Access ID, type your Access ID, type your Contract ID, and then click Add." />
+    <key name="MapContractListHeader" value="You currently have access to the following Access IDs which are mapped to your Windows Live™ ID." />
+    <key name="MapContractRemoveHeader" value="To remove an Access ID, click the &lt;strong&gt;Remove&lt;/strong&gt; link for that Access ID." />
+    <key name="metrodevforums" value="Metro style app dev forums" />
+    <key name="metroforums" value="Forums" />
+    <key name="metrostylecomm" value="Get help from the Windows Store support community." />
+    <key name="metrostyledevcomm" value="Get help from the Metro style app developer community." />
+    <key name="mpoConfirmationEmailFrom2" value="Microsoft Technical Support &lt;premier@microsoft.com&gt;" />
+    <key name="MPOSeverityANote" value="A – Critical (Incidents must be created by phone)" />
+    <key name="MPOSeverityNote" value="&lt;b&gt;Note:&lt;/b&gt; After-hours support calls are in English only" />
+    <key name="mposeverityResponseText" value="Your question was successfully submitted to Microsoft. A Microsoft professional will respond to you in e-mail within {{severityresponsehours}} business hours." />
+    <key name="mposuccesstext" value="&lt;div&gt;&#xA;&lt;table border=0 cellspacing=0 cellpadding=0 width=700px&quot; style=&quot;margin-bottom:20px;&quot;&gt;&#xA;&lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt;&#xA;&lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Submit Incident &lt;br/&gt;&lt;span style=&quot;font-size: 15px; color:black&quot;&gt;&lt;b&gt;Confirmation number: {{srnumber}}&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;br/&gt;&#xA;Your question was successfully submitted to Microsoft. A Microsoft professional will respond to you within {{severityresponsehours}} business hours.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;https://premier.microsoft.com/Incident/Detail?incno={{srnumber}}&quot;&gt; View this incident &lt;/a&gt; at any time on Microsoft Premier Online.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;b&gt;Save time by running this diagnostic tool&lt;/b&gt;&lt;br/&gt;&#xA;We have identified a diagnostic package that may help us to resolve your issue more quickly.&lt;br/&gt;&lt;br/&gt;&#xA;This diagnostic package will gather information from the systems you choose, and check for certain known problems. After the diagnostic has run you will have an opportunity to view the resulting report, and can elect to upload the collected information to Microsoft. The uploaded  data will be analyzed for a broader selection of known problems, and will also be made available to your assigned engineer.&lt;br/&gt;&lt;br/&gt;&#xA;If it is within your company policy to run this diagnostic package on affected systems, please follow the on-screen instructions to run the diagnostic after clicking the link. if you have any questions around the use of the diagnostic package, please discuss it further with your assigned engineer.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;{{datacollectionlaunchurl}}&quot;&gt;Start Microsoft Support Diagnostic Tool&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;&#xA;&lt;div style=&quot;background-color:gray; margin-left:20px&quot;&gt;&#xA;&lt;table style=&quot;padding: 10px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case number:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{{srnumber}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case created:&lt;/td&gt;&lt;td&gt;{{srcreatedate}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case title:&lt;/td&gt;&lt;td&gt;{{problemtitle}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Product:&lt;/td&gt;&lt;td&gt;{{pesid.GSAProductName}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Severity:&lt;/td&gt;&lt;td&gt;{{severity.selectedtext}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;E-mail address:&lt;/td&gt;&lt;td&gt;{{emailaddress}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Contact preference:&lt;/td&gt;&lt;td&gt;{{preferedcontact}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&#xA;&lt;div&gt;&#xA;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif; padding-left: 20px;&quot;&gt;Thank you,&lt;br/&gt;Microsoft Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&lt;div&gt;" />
+    <key name="mposuccesstext2" value="&lt;div&gt;&#xA;&lt;table border=0 cellspacing=0 cellpadding=0 width=700px&quot; style=&quot;margin-bottom:20px;&quot;&gt;&#xA;&lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt;&#xA;&lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Submit Incident &lt;br/&gt;&lt;span style=&quot;font-size: 15px; color:black&quot;&gt;&lt;b&gt;Confirmation number: {{srnumber}}&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;br/&gt;&#xA;Your question was successfully submitted to Microsoft. A Microsoft professional will respond to you within {{severityresponsehours}} business hours.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;https://premier.microsoft.com/Incident/Detail?incno={{srnumber}}&quot;&gt; View this incident &lt;/a&gt; at any time on Microsoft Premier Online.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;div style=&quot;background-color:gray; margin-left:20px&quot;&gt;&#xA;&lt;table style=&quot;padding: 10px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case number:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{{srnumber}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case created:&lt;/td&gt;&lt;td&gt;{{srcreatedate}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case title:&lt;/td&gt;&lt;td&gt;{{problemtitle}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Product:&lt;/td&gt;&lt;td&gt;{{pesid.GSAProductName}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Severity:&lt;/td&gt;&lt;td&gt;{{severity.selectedtext}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;E-mail address:&lt;/td&gt;&lt;td&gt;{{emailaddress}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Contact preference:&lt;/td&gt;&lt;td&gt;{{preferedcontact}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&#xA;&lt;div&gt;&#xA;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif; padding-left: 20px;&quot;&gt;Thank you,&lt;br/&gt;Microsoft Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&lt;div&gt;" />
+    <key name="msdntechnote" value="&lt;b&gt;Note:&lt;/b&gt; You must activate your Technical Support benefit in order to submit this request. If you have not yet activated your benefits, please use our &lt;a href=&quot;https://sales.liveperson.net/hc/21661174/?cmd=file&amp;file=visitorWantsToChat&amp;site=21661174&amp;byhref=1&amp;SESSIONVAR!skill=NA.EN.CS.COM.PSTSLS.OASAssist&amp;SESSIONVAR!langSelection=en-us&quot;  target=&quot;_blank&quot;&gt;customer service chat&lt;/a&gt; to do so. They will give you the information to use on this page." />
+    <key name="next" value="Next &amp;gt;" />
+    <key name="nextstep" value="Next Step:" />
+    <key name="nocharge" value="No charge" />
+    <key name="nocomponentcode" value="We are not able to find a service associated with this contract and cannot complete the incident submission process at this time.  If this is an urgent issue, contact your technical account manager (TAM) or e-mail &lt;a href=&quot;mailto:premier@microsoft.com&quot;&gt;premier@microsoft.com&lt;/a&gt; for more help." />
+    <key name="nonmpofinishlateremailbody" value="&lt;div&gt;&lt;table border=0 cellspacing=0 cellpadding=0 width=&quot;700px&quot;&gt; &lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt; &lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Microsoft Online Support&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Unfinished Incident Notice&lt;/td&gt;&lt;/tr&gt; &lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt; Dear Customer,&lt;br/&gt;&lt;br/&gt; Thank you for beginning an online support request with Microsoft. To complete your online support request, visit {{finishlaterurl}} Complete the required fields, and then click &lt;b&gt;Submit incident&lt;/b&gt; to request assistance from Microsoft. This unfinished support request will be deleted exactly {{finishlaterexpirydays}} days from the moment this e-mail was sent to you.&lt;br/&gt;&lt;br/&gt;Please do not reply to this email. This is an unmonitored system generated e-mail.&lt;br/&gt;&lt;br/&gt; Thank you,&lt;br/&gt;Microsoft Online Support&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div&gt;" />
+    <key name="NoResults" value="&lt;i&gt;No results found&lt;/i&gt;" />
+    <key name="nosupporttopic" value="There are no specific support topic's for this product" />
+    <key name="notabletocomplcall" value="We are unable to complete your callback request." />
+    <key name="Note1" value="Note:" />
+    <key name="Note2" value="If your product is not listed below," />
+    <key name="nousecontracts" value="These contracts cannot be used with {{pesid.Name}}" />
+    <key name="onebizday" value="Response within one business day" />
+    <key name="onlineHeadingText" value="Premier online incidents" />
+    <key name="optional" value="(optional)" />
+    <key name="origincontractselectionlabel" value="Please select which type of contract to use for this Incident Submission" />
+    <key name="PasswordRequired" value="Please enter a value for Contract ID." />
+    <key name="paycreditcardheader" value="Pay for Support with a credit card" />
+    <key name="payforsupport" value="How would you like to pay for support?" />
+    <key name="paymethod" value="Payment method:" />
+    <key name="phonecontactmethod" value="Phone:&amp;nbsp;" />
+    <key name="pleaseselect" value="Please select" />
+    <key name="pleasewait" value="Please wait" />
+    <key name="plssignin" value="Please sign in" />
+    <key name="plssignout" value="Please sign out" />
+    <key name="pmttype" value="Payment type:" />
+    <key name="popupblocked" value="A popup blocker may be preventing us from opening the chat window. If you have a popup blocker, try disabling it to open the window." />
+    <key name="ppi" value="Credit Card" />
+    <key name="prefcontactmethod" value="Preferred Contact Method:" />
+    <key name="preferredemail" value="Preferred contact email address: " />
+    <key name="PremierContract1" value="The contracts shown below are associated with your Windows Live™ ID account." />
+    <key name="PremierContractdisplayformat" value="Premier Support Contract {0}" />
+    <key name="premiercontracttext" value="The contracts shown below that are associated with your Windows Live™ ID account are Premier contracts" />
+    <key name="premierproductmissing1" value="Is your &lt;a href=&quot;https://premier.microsoft.com/gp/prmrprodmissing&quot; target=&quot;_blank&quot;&gt;product or version&lt;/a&gt; missing?" />
+    <key name="premierseverityresponsedetails" value="For more details, please see the &lt;a href=&quot;https://premier.microsoft.com/gp/PRMRSISevDetails&quot; target=&quot;_blank&quot;&gt;Incident Severity Table&lt;/a&gt;" />
+    <key name="privacyack" value="By submitting this information, you acknowledge it will be handled in accordance with the terms of the &lt;a href=&quot;http://go.microsoft.com/fwlink/p/?LinkId=248685&quot; target=&quot;_blank&quot;&gt;Privacy and cookies policy&lt;/a&gt;." />
+    <key name="PrivacyLink" value="privacy policy." />
+    <key name="privacystat248685" value="Review our &lt;a href=&quot;http://go.microsoft.com/fwlink/?LinkId=248685&quot;&gt;privacy statement&lt;/a&gt;." />
+    <key name="privacystatement" value="All information is transmitted over an encrypted channel. By submitting this information, you acknowledge it complies with the terms of the Microsoft Premier online &lt;a href=&quot;http://go.microsoft.com/fwlink/p/?LinkId=248685&quot; target=&quot;_blank&quot;&gt;privacy policy&lt;/a&gt;" />
+    <key name="prmrcontacttam" value="If this is an urgent issue, contact your technical account manager (TAM) or e-mail &lt;a href=&quot;mailto:premier@microsoft.com&quot;&gt;premier@microsoft.com&lt;/a&gt; for more help." />
+    <key name="prmrfileupldhelp" value="&lt;a href=&quot;https://premier.microsoft.com/gp/mpofileuploadhelp&quot; target=&quot;_blank&quot;&gt; Help&lt;/a&gt;" />
+    <key name="problemtype" value="Problem type: " />
+    <key name="probtitlecounter" value="&lt;span id= &quot;used&quot; class= &quot;oasp-literal&quot;&gt;&lt;/span&gt;&amp;nbsp; of 200 characters" />
+    <key name="probtitlelabel" value="Incident title" />
+    <key name="productlbl1" value="&lt;B&gt;Product and version:&lt;/B&gt; {0}" />
+    <key name="productnotsupportbycontract" value="The product selected is not associated with your contract for support. Please select a product associated with your contract in order to complete the incident submission process. If you continue to see this error, contact your technical account manager (TAM) or e-mail &lt;a href=&quot;mailto:premier@microsoft.com&quot;&gt;premier@microsoft.com&lt;/a&gt;" />
+    <key name="ProfessionalContractHeader" value="Professional Support Contract" />
+    <key name="ProfessionalContracttooltip" value="&lt;a href=&quot;http://support.microsoft.com/gp/contractlinks&quot; title=&quot;More information&quot; target=&quot;_blank&quot;&gt;Professional Support Contract&lt;/a&gt;" />
+    <key name="purchasesupport" value="Purchase support" />
+    <key name="purchasetechsupport" value="Purchase Technical Support" />
+    <key name="reconfirmcallinfo" value="Please confirm your details below and try re-submitting your callback request. If you still experience a problem, call us directly at {PLACEHOLDER} within these hours of operation:" />
+    <key name="RemoveConfirm" value="Are you sure that you want to remove this Access ID?" />
+    <key name="RemoveHeaderTxt" value="Action" />
+    <key name="RemoveLinkTxt" value="Remove" />
+    <key name="reqdRegion" value="Please choose a preferred support region" />
+    <key name="ReqdTitle" value="Please enter a title" />
+    <key name="requestassistance" value="Request assistance" />
+    <key name="requestcsrcall" value="Request a Windows Store support representative to call you back." />
+    <key name="requestcsremail" value="Request a Store support representative to contact you through email." />
+    <key name="rqdetails" value="Your request details:" />
+    <key name="rqfirstname" value="Please enter a valid first name" />
+    <key name="rqlastname" value="Please enter a valid last name" />
+    <key name="rqphone" value="Please enter a valid phone number" />
+    <key name="SAAccessID" value="Software Assurance Access ID:" />
+    <key name="saagreement" value="Software Assurance Agreement" />
+    <key name="saagreementinfo" value="Provide Software Assurance Agreement Information" />
+    <key name="sacont" value="Software Assurance Contract(s)" />
+    <key name="sacontractdisplayformat" value="Software Assurance Access ID: {0}" />
+    <key name="sahelp" value="&lt;a href=&quot;http://www.microsoft.com/licensing/default.aspx&quot; title=&quot;More information&quot; target=&quot;_blank&quot;&gt;Help&lt;/a/&gt;" />
+    <key name="sainfo" value="The Software Assurance Access ID is provided to authorize individuals by a company's Software Assurance Support Benefits Administrator. For more information, contact your benefits administrator or your Microsoft sales representative." />
+    <key name="sanote" value="Type the Access ID and e-mail address for the contract that you want to use for this support request.&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Callback support will be decremented from your contract’s limited phone support provision. &lt;/li&gt;&#xA;&lt;li&gt; E-mail support will be covered under your contract’s unlimited online support request provision for non-critical support &lt;/li&gt;&#xA;&lt;/ul&gt;" />
+    <key name="saveforlaterbutton" value="Save" />
+    <key name="saveforlatertext1" value="Save what I have completed on this incident so that I can submit it later." />
+    <key name="saveforlatertext2" value="If you click &lt;strong&gt;Save&lt;/strong&gt; we will e-mail you instructions that let you know how to return to this incident and complete it at another time." />
+    <key name="ScheduleNameHeaderTxt" value="Schedule" />
+    <key name="scopingquestionformat" value="Q: {0} A: {1}" />
+    <key name="scquestiontitlelabel" value="&lt;span id= &quot;usedsq&quot; class= &quot;oasp-literal &quot;&gt;&lt;/span&gt;&amp;nbsp;  of 8000 characters" />
+    <key name="sdpToolDescription" value="&lt;br/&gt;&lt;b&gt;Save time by running this diagnostic tool&lt;/b&gt;&lt;br/&gt;&#xA;We have identified a diagnostic package that may help us to resolve your issue more quickly.&lt;br/&gt;&lt;br/&gt;&#xA;This diagnostic package will gather information from the systems you choose, and check for certain known problems. After the diagnostic has run you will have an opportunity to view the resulting report, and can elect to upload the collected information to Microsoft. The uploaded  data will be analyzed for a broader selection of known problems, and will also be made available to your assigned engineer.&lt;br/&gt;&lt;br/&gt;&#xA;If it is within your company policy to run this diagnostic package on affected systems, please follow the on-screen instructions to run the diagnostic after clicking the link. if you have any questions around the use of the diagnostic package, please discuss it further with your assigned engineer.&lt;br/&gt;" />
+    <key name="- Select a state -" value="- Select a state -" />
+    <key name="selectcategory" value="Please select a category" />
+    <key name="selectcontract" value="Select a contract" />
+    <key name="selectpay" value="Select a payment method" />
+    <key name="selectproblemtype" value="Please select a problem type" />
+    <key name="selectprodfam" value="Please select a product list" />
+    <key name="selectproductgroup" value="Please select from which list you want to select your product" />
+    <key name="selectpurchasecountry" value="Which country was your software purchased in?" />
+    <key name="selectseverity" value="Select the severity of your request" />
+    <key name="selectsubscription" value="Select a Windows Store account" />
+    <key name="SelectSubscriptionAssociated" value="The Windows Store account(s) shown below are associated with your Windows Live™ ID account." />
+    <key name="selectsupportservice" value="Select Support Service" />
+    <key name="selectsupporttopicfirst" value="Please select a Support Topic" />
+    <key name="selecttimezone" value="Please select your time zone:" />
+    <key name="selfhelp" value="Self Help" />
+    <key name="sessionchanged" value="You have logged in with a different account. Please sign in using your previous account information to continue your session, or click Start over to start a new workflow using the current account." />
+    <key name="sessionstartnewlink" value="Start over" />
+    <key name="sessiontimedout" value="Your session has expired. Please sign in to continue your workflow or click Start over to start a new workflow." />
+    <key name="severitybresponsetime" value="2 hours from case creation" />
+    <key name="severitybtext" value="Severity B" />
+    <key name="severitycresponsetime" value="4 business hours" />
+    <key name="severityctext" value="Severity C" />
+    <key name="severityinfo1" value="Please phone a Microsoft support professional at {{sevPhone}}" />
+    <key name="severityresponesetime" value="Your expected response time is: " />
+    <key name="severityResponseText" value="Your question was successfully submitted to Microsoft. A Microsoft professional will contact you within {{severityresponsehours}} business hours." />
+    <key name="showless" value="Show less" />
+    <key name="showmore" value="Show more" />
+    <key name="signin" value="Sign In" />
+    <key name="signindetails" value="Please sign in and provide more details about your issue" />
+    <key name="signinidentity" value="Sign in to help us verify your identity. This will enable us to help you more quickly." />
+    <key name="signout" value="Sign Out" />
+    <key name="SpamBlockerAlert1" value="If you are using a spam blocker tool, make sure that you can receive e-mail messages from *@microsoft.com. You may receive a web survey invitation for this support engagement. Invitations will come from: services.feedback@microsoft.com with the subject line &quot;Microsoft Customer Satisfaction Survey&quot;. Surveys may be completed within a week of receiving the email. We look forward to hearing about your experience with our services. Your responses are critical in our effort to continue to provide you with the highest level of service. We understand your time is valuable and appreciate you taking 5 minutes to complete the survey. Thank you for your time!" />
+    <key name="specificdescription" value="Be specific when describing your issue. This detail helps us resolve your issue more quickly." />
+    <key name="srnumber" value="Support Request Number: {0}" />
+    <key name="StAddr1Label" value="Street address:" />
+    <key name="StAddr2Label" value="Street address 2:" />
+    <key name="stars" value="{PLACEHOLDER} star(s)" />
+    <key name="StartDateHeaderTxt" value="Start Date" />
+    <key name="startdiagnostictext" value="Start the Microsoft Support Diagnostic Tool" />
+    <key name="startrequest" value="Start request" />
+    <key name="statelabel_ar_eg" value="State/Province:" />
+    <key name="statelabel_ar_sa" value="State/Province:" />
+    <key name="statelabel_en_au" value="State/Province:" />
+    <key name="statelabel_en_gb" value="State/Province:" />
+    <key name="statelabel_en_hk" value="State/Province:" />
+    <key name="statelabel_en_id" value="State/Province:" />
+    <key name="statelabel_en_ie" value="State/Province:" />
+    <key name="statelabel_en_in" value="State/Province:" />
+    <key name="statelabel_en_my" value="State/Province:" />
+    <key name="statelabel_en_nz" value="State/Province:" />
+    <key name="statelabel_en_ph" value="State/Province:" />
+    <key name="statelabel_en_sg" value="State/Province:" />
+    <key name="statelabel_en_us" value="State/Province:" />
+    <key name="statelabel_en_za" value="State/Province:" />
+    <key name="statelabel_it" value="State/Province:" />
+    <key name="statelabel_ru" value="State/Province:" />
+    <key name="statelabel_sv" value="State/Province:" />
+    <key name="statelabel_zh_hk" value="State/Province:" />
+    <key name="statelabel_zh_tw" value="State/Province:" />
+    <key name="StatusHeaderTxt" value="Status" />
+    <key name="step1" value="Step 1" />
+    <key name="step2" value="Step 2" />
+    <key name="step3" value="Step 3" />
+    <key name="step4" value="Step 4" />
+    <key name="submissiondet" value="Submission Details" />
+    <key name="submit1" value="Submit Incident &gt; Step 1 of 3" />
+    <key name="submit2" value="Submit Incident &gt; Step 2 of 3" />
+    <key name="submit3" value="Submit Incident &gt; Step 3 of 3" />
+    <key name="SubscriptionAvailable" value="Windows Store account available for use" />
+    <key name="SubscriptionNotAvailable" value="Windows Store account no longer available for use" />
+    <key name="SubscriptionNotAvailableError" value="The Windows Store account associated with your Windows Live™ ID account is no longer available for use.  Please select an alternate payment method from above." />
+    <key name="SubTitle1" value="Select a support topic" />
+    <key name="successtext" value="&lt;div&gt;&#xA;&lt;table border=0 cellspacing=0 cellpadding=0 width=700px&quot; style=&quot;margin-bottom:20px;&quot;&gt;&#xA;&lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt;&#xA;&lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Submit Incident &lt;br/&gt;&lt;span style=&quot;font-size: 15px; color:black&quot;&gt;&lt;b&gt;Confirmation number: {{srnumber}}&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;br/&gt;&#xA;Your question was successfully submitted to Microsoft. A Microsoft professional will respond to you within 4 business hours.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;https://premier.microsoft.com/Incident/Detail?incno={{srnumber}}&quot;&gt; View this incident &lt;/a&gt; at any time on Microsoft Premier Online.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;b&gt;Save time by running this diagnostic tool&lt;/b&gt;&lt;br/&gt;&#xA;We have identified a diagnostic package that may help us to resolve your issue more quickly.&lt;br/&gt;&lt;br/&gt;&#xA;This diagnostic package will gather information from the systems you choose, and check for certain known problems. After the diagnostic has run you will have an opportunity to view the resulting report, and can elect to upload the collected information to Microsoft. The uploaded  data will be analyzed for a broader selection of known problems, and will also be made available to your assigned engineer.&lt;br/&gt;&lt;br/&gt;&#xA;If it is within your company policy to run this diagnostic package on affected systems, please follow the on-screen instructions to run the diagnostic after clicking the link. if you have any questions around the use of the diagnostic package, please discuss it further with your assigned engineer.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;{{datacollectionlaunchurl}}&quot;&gt;Start Microsoft Support Diagnostic Tool&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;&#xA;&lt;div style=&quot;background-color:gray; margin-left:20px&quot;&gt;&#xA;&lt;table style=&quot;padding: 10px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case number:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{{srnumber}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case created:&lt;/td&gt;&lt;td&gt;{{srcreatedate}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case title:&lt;/td&gt;&lt;td&gt;{{problemtitle}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Product:&lt;/td&gt;&lt;td&gt;{{pesid.GSAProductName}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Severity:&lt;/td&gt;&lt;td&gt;{{severitytext}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;E-mail address:&lt;/td&gt;&lt;td&gt;{{emailaddress}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Contact preference:&lt;/td&gt;&lt;td&gt;{{preferedcontact}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&#xA;&lt;div&gt;&#xA;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif; padding-left: 20px;&quot;&gt;Thank you,&lt;br/&gt;Microsoft Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&lt;div&gt;" />
+    <key name="successtext2" value="&lt;div&gt;&#xA;&lt;table border=0 cellspacing=0 cellpadding=0 width=700px&quot; style=&quot;margin-bottom:20px;&quot;&gt;&#xA;&lt;tr&gt;&lt;td width=&quot;50px&quot; style=&quot;background-color:blue; padding-left:5px&quot;&gt;&lt;/td&gt;&#xA;&lt;td width=&quot;650px&quot; style=&quot;background-color:blue; height:30px; padding-left:150px; font-size:20px; font-family:arial; color:white&quot;&gt;Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;background-color:gray;height:30px; font-size:20px; margin-top:0; padding-left:20px; font-family:arial; color:white&quot;&gt;Submit Incident &lt;br/&gt;&lt;span style=&quot;font-size: 15px; color:black&quot;&gt;&lt;b&gt;Confirmation number: {{srnumber}}&lt;/b&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;padding-left:20px; padding-top: 20px; padding-bottom: 20px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;br/&gt;&#xA;Your question was successfully submitted to Microsoft. A Microsoft professional will respond to you within 4 business hours.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;a href=&quot;https://premier.microsoft.com/Incident/Detail?incno={{srnumber}}&quot;&gt; View this incident &lt;/a&gt; at any time on Microsoft Premier Online.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;div style=&quot;background-color:gray; margin-left:20px&quot;&gt;&#xA;&lt;table style=&quot;padding: 10px; line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif;&quot;&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case number:&lt;/b&gt;&lt;/td&gt;&lt;td&gt;{{srnumber}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case created:&lt;/td&gt;&lt;td&gt;{{srcreatedate}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Case title:&lt;/td&gt;&lt;td&gt;{{problemtitle}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Product:&lt;/td&gt;&lt;td&gt;{{pesid.GSAProductName}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Severity:&lt;/td&gt;&lt;td&gt;{{severitytext}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;E-mail address:&lt;/td&gt;&lt;td&gt;{{emailaddress}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;b&gt;Contact preference:&lt;/td&gt;&lt;td&gt;{{preferedcontact}}&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&#xA;&lt;div&gt;&#xA;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;line-height: 24px; font-family: Arial, Helvetica, Tahoma, sans-serif; padding-left: 20px;&quot;&gt;Thank you,&lt;br/&gt;Microsoft Premier Online&lt;/td&gt;&lt;/tr&gt;&#xA;&lt;/table&gt;&lt;div&gt;" />
+    <key name="supportrequesttitle" value="Support request title:" />
+    <key name="supportrequesttitletext" value="Support Request Number: " />
+    <key name="supportservice" value="Support Service:" />
+    <key name="supporttype" value="Support Type:" />
+    <key name="talkwithms" value="Talk with Microsoft" />
+    <key name="techsupportcontact" value="Response within one business day." />
+    <key name="techsupportcontactcomm" value="Have a technical support representative contact you within one business day (Pacific Time)." />
+    <key name="techsupportcontactcontract" value="Have a technical support representative contact you. You must already have a contract for Metro style development support." />
+    <key name="techsupportcontactppi" value="Have a technical support representative contact you. " />
+    <key name="techsupportcontactyou" value="Have a technical support representative contact you." />
+    <key name="techsuppwillcontact" value="Your request has been received, and a technical support  representative will contact you within one business day." />
+    <key name="telenumber" value="Telephone number where we can reach you:" />
+    <key name="tellproblem" value="First, tell us about the {{pesid.Name}} problem you need help with…" />
+    <key name="tellusmore" value="Tell us more about your issue" />
+    <key name="thankusigningin" value="Thank you for signing in" />
+    <key name="ThankYou" value="Thank You" />
+    <key name="thencontact" value="Then, choose a contact method" />
+    <key name="timermessage" value="Wait time: {0} minute(s)" />
+    <key name="Timetoresponse" value="4 to 8 hours" />
+    <key name="Title1" value="Product and Problem" />
+    <key name="titleproblemdescription1" value="Problem Description:&amp;nbsp;" />
+    <key name="toomanyattempts" value="Invalid request. Too many attempts have been made. Please try again later." />
+    <key name="trackonline" value="Track your request online at any time at &lt;a href=&quot;http://support.microsoft.com/oas/default.aspx?tp=il&quot; target=&quot;_blank&quot;&gt;http://support.microsoft.com/oas/default.aspx?tp=il&lt;/a&gt;." />
+    <key name="typeofissue" value="Tell  us about the problem you need help with." />
+    <key name="unabletocompleteFLtext" value="We are unable to complete submitting the incident that was saved as part of Finish Later. This draft support request is no longer available or has encountered a network or system failure. If this problem persists, restart the Submit Incident process." />
+    <key name="unabletocompleteFLtitle" value="Unable to Complete Finish Later" />
+    <key name="unabletosubmitheader" value="Unable to Submit Request" />
+    <key name="unabletosubmittext" value="We are unable to complete the incident submission request at this time due to network or system down issues. Would you like to use our &lt;strong&gt;Finish Later&lt;/strong&gt; option to save the incident for {{finishlaterexpirydays}} days and try submitting again at a later time?" />
+    <key name="Unabletosubmittext2" value="Please use the &lt;strong&gt;Previous&lt;/strong&gt; button to use &lt;strong&gt;Finish Later&lt;/strong&gt;. Or restart the incident submission process by selecting &lt;strong&gt;Submit Incident&lt;/strong&gt;." />
+    <key name="UNKNOWNERR" value="UNKNOWNERR" />
+    <key name="usecontract" value="Use my contract to get help" />
+    <key name="UseCreditCard" value="Use a credit card" />
+    <key name="vatisdown" value="We're sorry, but the VAT validation server is not responding. To continue, remove the VAT code." />
+    <key name="viewincidentlinktext1" value="&lt;a href=&quot;https://premier.microsoft.com/Incident/List&quot; target=&quot;_blank&quot;&gt;View this incident&lt;/a&gt; at any time on Microsoft Premier Online." />
+    <key name="viewselfhelp" value="View self-help articles" />
+    <key name="visitdiscgrp" value="Visit discussion group" />
+    <key name="visitforums" value="Visit forums" />
+    <key name="whatisseverity" value="Severity: &lt;a href=&quot;https://premier.microsoft.com/gp/PRMRSISevDetails&quot; target=&quot;_blank&quot;&gt;what does this mean?&lt;/a&gt;" />
+    <key name="whichtypeofservice" value="Which type of service do you want to use for this request" />
+    <key name="whysignin" value="Sign in so we can have your account information ready when we start the support session." />
+    <key name="ZipLabel_ar_eg" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_ar_sa" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_au" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_gb" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_hk" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_id" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_ie" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_in" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_my" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_nz" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_ph" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_sg" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_us" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_en_za" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_it" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_ru" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_sv" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_zh_hk" value="ZIP/Postal Code:" />
+    <key name="ZipLabel_zh_tw" value="ZIP/Postal Code:" />
+    <key name="pdesc" value="What:&#xA;{0} &#xA;&#xA; Symptoms:&#xA;{1} &#xA;&#xA; Error:&#xA;{2} &#xA;&#xA; Result:&#xA;{3} &#xA;&#xA; Systems:&#xA;{4} &#xA;&#xA;Articles:&#xA;{5}" />
+    <key name="reqddesc1" value="Please describe the issue." />
+    <key name="reqddesc2" value="Please describe the symptoms." />
+    <key name="remainingcharstext" value="{0} of {1}" />
+    <key name="option1" value="Free form description" />
+    <key name="option2" value="Guided description" />
+    <key name="question1" value="&lt;font color='Red'&gt;*&lt;/font&gt; What is the issue?" />
+    <key name="question2" value="&lt;font color='Red'&gt;*&lt;/font&gt; What symptoms did you notice that led you to submit this support request?" />
+    <key name="question3" value="What is the exact text of any error messages that you received that are associated with this problem?" />
+    <key name="question4" value="What is occurring and what do you expect to be occurring?" />
+    <key name="question5" value="What system and version are you using when the problem occurs?" />
+    <key name="question6" value="Are there any online articles that match the problem, even if the solution is not working?&lt;BR&gt;(Include links to the articles.)" />
+    <key name="defaultrequiredmessage" value="This is a required field." />
+    <key name="maxlength" value="8000" />
+    <key name="questionsloggingformat" value="Form - {0}. Questions Answered - {1}." />
+    <key name="requiredindicator" value="&lt;span class='ReqStar'&gt;*&lt;/span&gt;" />
+    <key name="Close" value="Close" />
+    <key name="ChatConfSuccessText" value="To start your chat session, click the &lt;B&gt;Start Chat&lt;/B&gt;button below.&lt;/BR&gt;" />
+    <key name="Continue" value="Continue" />
+    <key name="NameLbl" value="Full name:" />
+    <key name="ProductLbl" value="Product: " />
+    <key name="SAIDLbl" value="SA access ID:" />
+    <key name="ContractIDLbl" value="Contract access ID:" />
+    <key name="CallbackLbl" value="Contact numbers:" />
+    <key name="IncidentTitle" value="Incident title:" />
+    <key name="ConfirmationNum" value="Support request number:" />
+    <key name="SeverityRating" value="Severity rating:" />
+    <key name="ResponseType" value="Type of response:" />
+    <key name="CallbackFormat" value="The details of your issue will be routed to a support professional. A support professional will call you to begin resolving your issue. Call back phone number is {0}" />
+    <key name="EmailFormat" value="Email to {0}" />
+    <key name="ResponseTime" value="Response time:" />
+    <key name="ViewIncident" value="View incident online:" />
+    <key name="altlanguagenone" value="None" />
+    <key name="AttachFilesTitle" value="List of the files that you have attached:&lt;br/&gt;&lt;br/&gt;These files will be sent to Microsoft when you submit this support request." />
+    <key name="CallbackSupported" value="According to your Software Assurance Access ID, you are entitled to call-back support. Select your preferred option, and then click Continue." />
+    <key name="useCallback" value="Submit my request for a callback." />
+    <key name="useEmail" value="Submit my request through e-mail." />
+    <key name="Product" value="Select a product" />
+    <key name="NoneSelected" value="Select a product" />
+    <key name="Version" value="Select a version or edition" />
+    <key name="NoneSelectedVer" value="Select a product version or edition" />
+    <key name="BackLink" value="enter a different Software Assurance Access ID." />
+    <key name="chooseoption" value="Select your preferred option." />
+    <key name="SubTitle" value="Select a product from your Software Assurance agreement" />
+    <key name="SeverityInfo" value="Your severity rating is:" />
+    <key name="TimeInfo" value="Your expected callback time is:" />
+    <key name="severityhelptip" value="There are three levels of problem severity:&lt;br&gt;&lt;br&gt;&lt;b&gt;Severity A (Critical business impact)&lt;/b&gt;&lt;br&gt;The problem currently has a critical effect on my business. My business is not performing at minimal levels of performance or my business is completely down.  I will provide the necessary resources to work with Microsoft on this problem.&lt;br&gt;&lt;br&gt;&lt;b&gt;Severity B (Moderate business impact)&lt;/b&gt;&lt;br&gt;The problem currently affects some areas of my business. My business has moderate loss or degradation of services. Work can reasonably continue, but only in a damaged manner.&lt;br&gt;&lt;br&gt;&lt;b&gt;Severity C (Minimum business impact)&lt;/b&gt;&lt;br&gt;The problem currently has a minimal effect on my business and I have an acceptable workaround." />
+    <key name="severityxlabel" value="CRITICAL and cannot be submitted online." />
+    <key name="severityxdefaultphonenumber" value="1-800-MICROSOFT" />
+    <key name="BrowseText" value="Browse" />
+    <key name="TitleProblemDescription" value="Problem Description" />
+    <key name="fileupload" value="File Upload" />
+    <key name="ProblemTitle" value="Microsoft Office Diagnostics found this customer is crashing too often" />
+    <key name="lblContactMethodHeader" value="Contact method" />
+    <key name="phonecontactmethod_1_12936" value="Phone" />
+    <key name="supporttopicheader" value="Select a support topic" />
+    <key name="supporttopicheaderdesc" value="" />
+    <key name="supporttopicimg" value="/oas/Images/product.gif" />
+    <key name="supporttopiclbl" value="Support topic:" />
+    <key name="subtopiclbl" value="Sub-topic:" />
+    <key name="supporttopicdefaulttext" value="--- Please select a support topic---" />
+    <key name="supporttopicdefaultdesc" value="To route your request to the appropriate support engineer, choose a support topic. If your support topic is not listed, select &lt;strong&gt;Other&lt;/strong&gt;, and then click &lt;strong&gt;Continue&lt;/strong&gt; to proceed." />
+    <key name="subtopicdefaulttext" value="--- Please select a support sub-topic---" />
+    <key name="subtopicdefaultdesc" value="If your support sub-topic is not listed, select &lt;strong&gt;Other&lt;/strong&gt;, and then click &lt;strong&gt;Continue&lt;/strong&gt; to proceed." />
+    <key name="supporttopichelptext" value="Support topics help us to quickly route your request to the support engineer who is best able to address your problem." />
+    <key name="missingdesc" value="This support topic will help us to route your request to the appropriate support engineer." />
+    <key name="other" value="Other" />
+    <key name="reqdsuptopic" value="Please select a support topic that describes the problem.  If your support topic is not listed, select Other to proceed." />
+    <key name="optionstext" value="Print or save this page, or record your confirmation number for future reference." />
+    <key name="oslabel" value="Operating System:" />
+    <key name="phonenumberlabel" value="Phone number: (for example 877-555-0100)" />
+    <key name="prem" value="Premier Contract:" />
+    <key name="premcont" value="Premier Contract(s)" />
+    <key name="reqdPrFirstName" value="Please enter your pronounced first name." />
+    <key name="reqdPrLastName" value="Please enter your pronounced last name." />
+    <key name="allInputRequiredText" value="All input required" />
+    <key name="pronouncedfirstnamelabel" value="Pronounced First Name:" />
+    <key name="pronouncedlastnamelabel" value="Pronounced Last Name:" />
+    <key name="previous" value="« Previous" />
+    <key name="print" value="Print" />
+    <key name="prod" value="Please select a product " />
+    <key name="prodnamelabel" value="Product:" />
+    <key name="reqdfirstname" value="Please enter your first name" />
+    <key name="reqdfullname" value="Please enter your full name" />
+    <key name="reqdlastname" value="Please enter your last name" />
+    <key name="responsetext" value="Your question was successfully submitted to Microsoft. A Microsoft professional will respond to you within 2 - 4 business hours." />
+    <key name="saveacopy" value="Save a copy" />
+    <key name="selectOS" value="Select an Operating System" />
+    <key name="selecttitle" value="Select a Region, Product, and Topic" />
+    <key name="SItitle" value="Describe the Problem" />
+    <key name="submitinstructionstext" value="After you submit the help request, a Support Professional will e-mail you a response. Make sure your e-mail address is correct." />
+    <key name="submittitle" value="Submit Incident" />
+    <key name="titlelabel" value="Incident title ({0} of {1} characters)" />
+    <key name="validemail" value="Please enter a valid e-mail address (for example, joesmith@hotmail.com)" />
+    <key name="ver" value="Version:" />
+  </section>
+</configuration>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+	<name>SharedContext</name>
+	<description>SharedContextElements</description>
+	<lastModifiedBy>REDMOND\v-frvan</lastModifiedBy>
+	<lastModifiedDate>2011-01-10</lastModifiedDate>
+	<section name="SharedContext">
+		<varType name="acceptterms" value="Accept Terms and Conditions" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="altlanguage" value="Alternative Language" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="rpsbirthday" value="login profile birthday" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="city" value="City" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="companyname" value="Company name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="contractaccessid" value="Contract Access ID's" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="contractid" value="Contract ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="countrycode" value="CountryCode" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="createallowedroles" value="MPO roles allowed to submit SR" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="createdreplies" value="Created Replies" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="createdthreads" value="Created Threads" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="crmtype" value="CRMtype" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="customeraccountname" value="customeraccountname" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="consumercomponentcode" value="consumercomponentcode" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="customertype" value="Customer Type" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="datacollectlink" value="Link to Data Collection Information" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="defaultaccessid" value="default access id" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="defaultcontractscheduleobjid" value="scheduled for default access id" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="eligibilitykeytype" value="Eligibility Key Type" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="enterpriseprofileproducts" value="grouped pesid's per enterprise" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="entitlledproducts" value="Backend entitledproducts" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="emailaddress" value="e-mail" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="emailaddressconfirm" value="e-mail address confirmation" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="enddate" value="enddate" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="entitlementvalue" value="Entitlement Value" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="entitlementtype" value="Entitlement Type" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="fileuploadlink" value="link to data from file upload" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="firstname" value="First Name:  " PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="firstnamepronounced" value="Pronounced First Name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="gsaid" value="Product id OAS" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="guid" value="GUID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="Incidentsavailable" value="Iincidentsavailable" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="instalsiteid" value="Install Site ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="joinedthreads" value="Joined Threads" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="kbview" value="KB articles viewed id's" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="languagespoken" value="Spoken Language" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="languagewritten" value="Written Language" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="lastName" value="Last Name: " PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="lastnamepronounced" value="Pronounced Last Name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="rpsliveid" value="signin email rps" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="locale" value="locale" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="localeinfo" value="counntry code and locale" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="manifestid" value="manifestid" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metroaddress1" value="METRO address1" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metroaddress2" value="METRO address2" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metroaddress3" value="METRO address3" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metrocity" value="METRO city" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metrofirstname" value="METRO first name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metroid" value="METRO ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metrolastname" value="METRO last name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metrophone" value="METRO phone" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metropostcode" value="METRO postalcode" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="metrostate" value="METRO state" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="msnphone" value="MSN Phone number" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="mssolveerrorcode" value="MSSolve error code" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="namestyle" value="namestyle" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="notifyemail" value="notify by E-Mail indicator" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="origsystemname" value="Originating System Name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="osname" value="Operating System name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="pesid" value="Product id PES" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="phonenumber" value="Phone Number " PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="phonenumberconfirm" value="Phone number confirmation" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="postcode" value="Postcode" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="preferedcontact" value="Prefered contact medium" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrfirstname" value="premier firsname" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrlastname" value="premier lastname" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrfullname" value="premier fullname" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrfirstnamepronounced" value="premier pronounced firstname" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrlastnamepronounced" value="premier pronounced lastname" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmremailaddress" value="premier e-mail address" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrcompanyname" value="premier company name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrdefaultcontractscheduleobjid" value="premier default contract odject id" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmrdefaultaccessid" value="premier default access id" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmruserprofileproducts" value="premier user profile products" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="prmremnterpriseprofileproducts" value="premier enterprise profile products" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="problemtitle" value="Problem title" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="productid" value="Productid" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="Productmatch" value="productmatch" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="producttype" value="product type" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="Productct" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="productname" value="Product Name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="productversion" value="Product Version" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="puid" value="PUID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="referer" value="Referer" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="regregisterneeded" value="reregisterneeded" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="regionid" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="regioninfo" value="counntry code and region id" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="role" value="role" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="rolename" value="rolename" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="rpssiginurl" value="rps sign in URL" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="rpssignouturl" value="rps sign out URL" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="saaccessid" value="Software Assurance Access ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="saentitlement" value="Software Assurance entitlement" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="said" value="Software assurance ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="saidprogcode" value="SA Program Code" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="Scheduleid" value="scheduleid" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="schedulecountrey" value="schedulecountry" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="schedulename" value="schedulename" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="scopinguestionid" value="scopingquestionid" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="scopingqa" value="Scoping questions and answers" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="serviceclustername" value="serviceclustername" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="serviceid" value="seviceid" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="severity" value="Severity selections" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="srdate" value="SR Date and Time" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="solutionassetsid" value="Solutions assets (multiple entries)" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="srnumber" value="SR Number" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="startdate" value="startdate" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="stateprov" value="State or Province" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="street" value="Street" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="street2" value="Street 2" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="supportoption" value="Support Option" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="supporttopicid" value="Support Topic ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="tennantid" value="Tennant ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="timezone" value="Time Zone ID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="timezoneid" value="Timezone NGIMvalue" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="timezonename" value="Time Zone name" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="timezonetext" value="Time Zone OAStext" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="timezonevalue" value="Time Zone OASvalue" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="useragent" value="User Agent" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="userprofileproducts" value="comma separated list of pesids" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="viewedthreads" value="Viewed Threads" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="votedhelpful" value="Voted Helpful" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+		<varType name="xid" value="XID" PrivacyCategory="LBI" IsBIPersistable="True" IsInferred="False" IsSecure="False"/>
+	</section>
+</configuration>

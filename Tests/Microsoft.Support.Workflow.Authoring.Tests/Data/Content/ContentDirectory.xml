@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content>
+    <ContentFile>
+        <FilePath>Content\Taxonomy.xml</FilePath>
+        <SchemaPath>Content\Taxonomy.xsd</SchemaPath>
+    </ContentFile>
+    <ContentFile>
+        <FilePath>Content\OASPConfiguration.xml</FilePath>
+        <SchemaPath>Content\ContentItemSchema.xsd</SchemaPath>
+    </ContentFile>
+    <ContentFile>
+        <FilePath>Content\OASPLocalization.xml</FilePath>
+        <SchemaPath>Content\ContentItemSchema.xsd</SchemaPath>
+    </ContentFile>
+</Content>

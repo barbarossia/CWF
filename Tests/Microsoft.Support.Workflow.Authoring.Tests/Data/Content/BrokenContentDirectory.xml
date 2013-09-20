@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content>
+  <ContentFile>
+    <FilePath>\\pqooasiwb03\xmlstore\public\cf\en-us\Taxonomy.xml</FilePath>
+    <SchemaPath>\\pqooasiwb03\xmlstore\public\cf\en-us\Taxonomy.xsd</SchemaPath>
+  </ContentFile>
+  <ContentFile>
+    <FilePath>\\pqooasiwb03\xmlstore\public\cf\en-us\OASPConfiguration.xml</FilePath>
+    <SchemaPath>\\pqooasiwb03\xmlstore\public\cf\en-us\ContentItemSchema.xsd</SchemaPath>
+  </ContentFile>
+  <ContentFile>
+    <FilePath>\\pqooasiwb03\xmlstore\public\cf\en-us\OASPLocalization.xml</FilePath>
+    <SchemaPath>\\pqooasiwb03\xmlstore\public\cf\en-us\ContentItemSchema.xsd</SchemaPath>
+  </ContentFile>
+</Content

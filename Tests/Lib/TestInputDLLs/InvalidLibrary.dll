@@ -1,0 +1,23 @@
+                using (var impl = new ImplementationOfType(typeof(Compiler_Accessor)))
+                {
+                    impl.Register(() => Compiler_Accessor.GenerateVisualStudioProjectFile(Argument<CompileProject>.Any, Argument<string>.Any)).Execute<CompileProject, string>(
+                        (CompileProject project, string path) =>
+                        {
+                            Compiler_Accessor.GenerateVisualStudioProjectFile(project, path);
+
+                        });
+
+                    //// Set
+                    CompileResult result = Compiler.Compile(compileProjectObj);
+
+                    // Verify
+                    Assert.AreNotEqual(null, result);
+                    Assert.AreEqual(BuildResultCode.Failure, result.BuildResultCode);
+                }
+
+
+
+
+
+C:\enlist\CWF\Tests\Lib\Microsoft.DynamicImplementations.Extensions.dll
+C:\enlist\CWF\Tests\Lib\Microsoft.DynamicImplementations.dll

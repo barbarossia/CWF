@@ -1,0 +1,2 @@
+ALTER TABLE [Activity] ALTER COLUMN [Environment] INT NOT NULL
+GO

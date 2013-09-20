@@ -1,0 +1,1219 @@
+<configuration caseSensitive="no" xmlns="http://schemas.microsoft.com/support/2003/02/config">
+  <name>OASPConfiguration</name>
+  <description>
+  </description>
+  <lastModifiedBy>REDMOND\patmorr</lastModifiedBy>
+  <lastModifiedDate>2012-08-14T11:18:00</lastModifiedDate>
+  <section name="common">
+    <varType name="KeyBracket" keyPrefix="" keySuffix="" />
+    <collection name="Languages" collectionType="orderedmap" caseSensitive="no">
+      <key name="ar" value="Arabic" />
+      <key name="ar-me" value="Arabic" />
+      <key name="bg" value="Bulgarian" />
+      <key name="cs" value="Czech" />
+      <key name="da" value="Danish" />
+      <key name="DE" value="German" />
+      <key name="de-at" value="German" />
+      <key name="de-ch" value="German" />
+      <key name="el" value="Greek" />
+      <key name="en-au" value="English" />
+      <key name="en-ca" value="English" />
+      <key name="en-gb" value="English" />
+      <key name="en-hk" value="English" />
+      <key name="en-id" value="English" />
+      <key name="en-ie" value="English" />
+      <key name="en-in" value="English" />
+      <key name="en-me" value="English" />
+      <key name="en-nz" value="English" />
+      <key name="en-ph" value="English" />
+      <key name="en-sg" value="English" />
+      <key name="EN-US" value="English" />
+      <key name="en-za" value="English" />
+      <key name="en-zw" value="English" />
+      <key name="es_ar" value="Spanish" />
+      <key name="es-bo" value="Spanish" />
+      <key name="es-cl" value="Spanish" />
+      <key name="es-co" value="Spanish" />
+      <key name="es-cr" value="Spanish" />
+      <key name="es-do" value="Spanish" />
+      <key name="es-ec" value="Spanish" />
+      <key name="es-es" value="Spanish" />
+      <key name="es-gt" value="Spanish" />
+      <key name="es-mx" value="Spanish" />
+      <key name="es-pa" value="Spanish" />
+      <key name="es-pe" value="Spanish" />
+      <key name="es-pr" value="Spanish" />
+      <key name="es-py" value="Spanish" />
+      <key name="es-sv" value="Spanish" />
+      <key name="es-uy" value="Spanish" />
+      <key name="es-ve" value="Spanish" />
+      <key name="et" value="Estonian" />
+      <key name="fi" value="Finnish" />
+      <key name="FR" value="French" />
+      <key name="fr-al" value="French" />
+      <key name="fr-be" value="French" />
+      <key name="fr-ca" value="French" />
+      <key name="fr-ch" value="French" />
+      <key name="fr-lu" value="French" />
+      <key name="fr-mo" value="French" />
+      <key name="fr-tu" value="French" />
+      <key name="he" value="Hebrew" />
+      <key name="hi" value="Hindi" />
+      <key name="hi-in" value="Hindi" />
+      <key name="hr" value="Croatian" />
+      <key name="hu" value="Hungarian" />
+      <key name="id" value="Indonesian" />
+      <key name="id-id" value="Bahasa" />
+      <key name="is-is" value="Icelandic" />
+      <key name="it" value="Italian" />
+      <key name="ja" value="Japanese" />
+      <key name="JP" value="Japanese" />
+      <key name="kk-kz" value="Kazak" />
+      <key name="ko" value="Korean" />
+      <key name="lt" value="Lithuanian" />
+      <key name="lv" value="Latvian" />
+      <key name="en-my" value="English" />
+      <key name="nl" value="Dutch" />
+      <key name="nl-be" value="Dutch" />
+      <key name="no" value="Norwegian" />
+      <key name="pl" value="Polish" />
+      <key name="pt" value="Portuguese" />
+      <key name="pt-br" value="Portuguese" />
+      <key name="ro" value="Romanian" />
+      <key name="ru" value="Russian" />
+      <key name="sk" value="Slovakian" />
+      <key name="sl" value="Slovenian" />
+      <key name="sr" value="Serbian" />
+      <key name="sv" value="Swedish" />
+      <key name="th" value="Thai" />
+      <key name="tr" value="Turkish" />
+      <key name="uk-ua" value="Ukrainian" />
+      <key name="vi-vn" value="Vietnamese" />
+      <key name="zh-cn" value="Simplified Chinese" />
+      <key name="zh-hk" value="Traditional Chinese" />
+      <key name="zh-sg" value="Simplified Chinese" />
+      <key name="zh-tw" value="Traditional Chinese" />
+    </collection>
+    <collection name="CountryList" collectionType="map" caseSensitive="yes">
+      <key name="AFGHANISTAN" value="AF" />
+      <key name="ALBANIA" value="AL" />
+      <key name="ALGERIA" value="DZ" />
+      <key name="ANGOLA" value="AO" />
+      <key name="ANTARCTICA" value="AQ" />
+      <key name="ARGENTINA" value="AR" />
+      <key name="ARMENIA" value="AM" />
+      <key name="AUSTRIA" value="AT" />
+      <key name="AZERBAIJAN" value="AZ" />
+      <key name="BAHRAIN" value="BH" />
+      <key name="BANGLADESH" value="BD" />
+      <key name="BELARUS" value="BY" />
+      <key name="BELGIUM" value="BE" />
+      <key name="BELIZE" value="BZ" />
+      <key name="BERMUDA" value="BM" />
+      <key name="BHUTAN" value="BT" />
+      <key name="BOLIVIA" value="BO" />
+      <key name="BOSNIA AND HERZEGOWINA" value="BA" />
+      <key name="BOTSWANA" value="BW" />
+      <key name="BRAZIL" value="BR" />
+      <key name="BRUNEI DARUSSALAM" value="BN" />
+      <key name="BULGARIA" value="BG" />
+      <key name="BURUNDI" value="BI" />
+      <key name="CAMBODIA" value="KH" />
+      <key name="CAMEROON" value="CM" />
+      <key name="CANADA" value="CA" />
+      <key name="CENTRAL AFRICAN REPUBLIC" value="CF" />
+      <key name="CHAD" value="TD" />
+      <key name="CHILE" value="CL" />
+      <key name="CHINA" value="CN" />
+      <key name="COLOMBIA" value="CO" />
+      <key name="CONGO" value="CG" />
+      <key name="COSTA RICA" value="CR" />
+      <key name="CROATIA" value="HR" />
+      <key name="CYPRUS" value="CY" />
+      <key name="CZECH REPUBLIC" value="CZ" />
+      <key name="DENMARK" value="DK" />
+      <key name="DJIBOUTI" value="DJ" />
+      <key name="DOMINICAN REPUBLIC" value="DO" />
+      <key name="ECUADOR" value="EC" />
+      <key name="EGYPT" value="EG" />
+      <key name="EL SALVADOR" value="SV" />
+      <key name="EQUATORIAL GUINEA" value="GQ" />
+      <key name="ERITREA" value="ER" />
+      <key name="ESTONIA" value="EE" />
+      <key name="ETHIOPIA" value="ET" />
+      <key name="FIJI" value="FJ" />
+      <key name="FINLAND" value="FI" />
+      <key name="FRANCE" value="FR" />
+      <key name="FRENCH GUIANA" value="GF" />
+      <key name="GAMBIA" value="GM" />
+      <key name="GEORGIA" value="GE" />
+      <key name="GERMANY" value="DE" />
+      <key name="GHANA" value="GH" />
+      <key name="GREECE" value="GR" />
+      <key name="GREENLAND" value="GL" />
+      <key name="GRENADA" value="GD" />
+      <key name="GUADELOUPE" value="GP" />
+      <key name="GUAM" value="GU" />
+      <key name="GUATEMALA" value="GT" />
+      <key name="GUINEA-BISSAU" value="GW" />
+      <key name="GUINEA" value="GN" />
+      <key name="GUYANA" value="GY" />
+      <key name="HAITI" value="HT" />
+      <key name="HONDURAS" value="HN" />
+      <key name="HONG KONG S.A.R." value="HK" />
+      <key name="HUNGARY" value="HU" />
+      <key name="ICELAND" value="IS" />
+      <key name="INDIA" value="IN" />
+      <key name="INDONESIA" value="ID" />
+      <key name="IRELAND" value="IE" />
+      <key name="ISRAEL" value="IL" />
+      <key name="ITALY" value="IT" />
+      <key name="JAMAICA" value="JM" />
+      <key name="JAPAN" value="JP" />
+      <key name="JORDAN" value="JO" />
+      <key name="KAZAKHSTAN" value="KZ" />
+      <key name="KENYA" value="KE" />
+      <key name="KOREA" value="KR" />
+      <key name="KUWAIT" value="KW" />
+      <key name="KYRGYZSTAN" value="KG" />
+      <key name="LAOS" value="LA" />
+      <key name="LATVIA" value="LV" />
+      <key name="LEBANON" value="LB" />
+      <key name="LIBERIA" value="LR" />
+      <key name="LIECHTENSTEIN" value="LI" />
+      <key name="LITHUANIA" value="LT" />
+      <key name="LUXEMBOURG" value="LU" />
+      <key name="MACAU" value="MO" />
+      <key name="MACEDONIA, FYRO" value="MK" />
+      <key name="MADAGASCAR" value="MG" />
+      <key name="MALAWI" value="MW" />
+      <key name="MALAYSIA" value="MY" />
+      <key name="MALI" value="ML" />
+      <key name="MARTINIQUE" value="MQ" />
+      <key name="MAURITANIA" value="MR" />
+      <key name="MEXICO" value="MX" />
+      <key name="MOLDOVA" value="MD" />
+      <key name="MONACO" value="MC" />
+      <key name="MONGOLIA" value="MN" />
+      <key name="MOROCCO" value="MA" />
+      <key name="MOZAMBIQUE" value="MZ" />
+      <key name="MYANMAR" value="MM" />
+      <key name="NAMIBIA" value="NA" />
+      <key name="NEPAL" value="NP" />
+      <key name="NETHERLANDS" value="NL" />
+      <key name="NEW CALEDONIA" value="NC" />
+      <key name="NEW ZEALAND" value="NZ" />
+      <key name="NICARAGUA" value="NI" />
+      <key name="NIGER" value="NE" />
+      <key name="NIGERIA" value="NG" />
+      <key name="NORWAY" value="NO" />
+      <key name="OMAN" value="OM" />
+      <key name="PAKISTAN" value="PK" />
+      <key name="PALAU" value="PW" />
+      <key name="PANAMA" value="PA" />
+      <key name="PAPUA NEW GUINEA" value="PG" />
+      <key name="PARAGUAY" value="PY" />
+      <key name="PERU" value="PE" />
+      <key name="PHILIPPINES" value="PH" />
+      <key name="POLAND" value="PL" />
+      <key name="PORTUGAL" value="PT" />
+      <key name="PUERTO RICO" value="PR" />
+      <key name="QATAR" value="QA" />
+      <key name="ROMANIA" value="RO" />
+      <key name="RUSSIAN FEDERATION" value="RU" />
+      <key name="RWANDA" value="RW" />
+      <key name="SAMOA" value="WS" />
+      <key name="SAN MARINO" value="SM" />
+      <key name="SAUDI ARABIA" value="SA" />
+      <key name="SENEGAL" value="SN" />
+      <key name="SEYCHELLES" value="SC" />
+      <key name="SIERRA LEONE" value="SL" />
+      <key name="SINGAPORE" value="SG" />
+      <key name="SLOVAKIA" value="SK" />
+      <key name="SLOVENIA" value="SI" />
+      <key name="SOLOMON ISLANDS" value="SB" />
+      <key name="SOMALIA" value="SO" />
+      <key name="SOUTH AFRICA" value="ZA" />
+      <key name="SPAIN" value="ES" />
+      <key name="SRI LANKA" value="LK" />
+      <key name="SURINAME" value="SR" />
+      <key name="SWAZILAND" value="SZ" />
+      <key name="SWEDEN" value="SE" />
+      <key name="SWITZERLAND" value="CH" />
+      <key name="TAIWAN" value="TW" />
+      <key name="TAJIKISTAN" value="TJ" />
+      <key name="TANZANIA" value="TZ" />
+      <key name="THAILAND" value="TH" />
+      <key name="TOGO" value="TG" />
+      <key name="TONGA" value="TO" />
+      <key name="TRINIDAD AND TOBAGO" value="TT" />
+      <key name="TUNISIA" value="TN" />
+      <key name="TURKEY" value="TR" />
+      <key name="TURKMENISTAN" value="TM" />
+      <key name="UGANDA" value="UG" />
+      <key name="UKRAINE" value="UA" />
+      <key name="UNITED ARAB EMIRATES" value="AE" />
+      <key name="UNITED KINGDOM" value="GB" />
+      <key name="UNITED STATES" value="US" />
+      <key name="URUGUAY" value="UY" />
+      <key name="UZBEKISTAN" value="UZ" />
+      <key name="VATICAN CITY" value="VA" />
+      <key name="VENEZUELA" value="VE" />
+      <key name="VIET NAM" value="VN" />
+      <key name="WESTERN SAHARA" value="EH" />
+      <key name="YEMEN" value="YE" />
+      <key name="SERBIA AND MONTENEGRO" value="YU" />
+      <key name="DEMOCRATIC REPUBLIC OF CONGO" value="CD" />
+      <key name="ZAMBIA" value="ZM" />
+      <key name="ZIMBABWE" value="ZW" />
+    </collection>
+    <collection name="CreditCardList" collectionType="map" caseSensitive="yes">
+      <collection name="ca" collectionType="map" caseSensitive="yes">
+        <key name="Discover" value="NOVUS" />
+      </collection>
+      <collection name="us" collectionType="map" caseSensitive="yes">
+        <key name="Discover" value="NOVUS" />
+      </collection>
+      <key name="VISA" value="Visa" />
+      <key name="American Express" value="AMEX" />
+      <key name="MasterCard" value="MC" />
+    </collection>
+    <collection name="Emealist" collectionType="map" caseSensitive="yes">
+      <key name="AE" value="1" />
+      <key name="AF" value="1" />
+      <key name="AL" value="1" />
+      <key name="AM" value="1" />
+      <key name="AO" value="1" />
+      <key name="AQ" value="0" />
+      <key name="AR" value="0" />
+      <key name="AT" value="1" />
+      <key name="AU" value="0" />
+      <key name="AZ" value="1" />
+      <key name="BA" value="1" />
+      <key name="BD" value="0" />
+      <key name="BE" value="1" />
+      <key name="BG" value="1" />
+      <key name="BH" value="1" />
+      <key name="BI" value="1" />
+      <key name="BM" value="0" />
+      <key name="BN" value="1" />
+      <key name="BO" value="0" />
+      <key name="BR" value="0" />
+      <key name="BT" value="0" />
+      <key name="BW" value="1" />
+      <key name="BY" value="1" />
+      <key name="BZ" value="0" />
+      <key name="CA" value="0" />
+      <key name="CF" value="1" />
+      <key name="CG" value="1" />
+      <key name="CH" value="1" />
+      <key name="CI" value="1" />
+      <key name="CL" value="0" />
+      <key name="CM" value="1" />
+      <key name="CN" value="0" />
+      <key name="CO" value="0" />
+      <key name="CR" value="0" />
+      <key name="CY" value="1" />
+      <key name="CZ" value="1" />
+      <key name="DE" value="1" />
+      <key name="DJ" value="1" />
+      <key name="DK" value="1" />
+      <key name="DO" value="0" />
+      <key name="DZ" value="1" />
+      <key name="EC" value="0" />
+      <key name="EE" value="1" />
+      <key name="EG" value="1" />
+      <key name="el" value="Greek" />
+      <key name="ER" value="1" />
+      <key name="ES" value="1" />
+      <key name="ET" value="1" />
+      <key name="FI" value="1" />
+      <key name="FJ" value="0" />
+      <key name="FR" value="1" />
+      <key name="GB" value="1" />
+      <key name="GD" value="0" />
+      <key name="GE" value="1" />
+      <key name="GF" value="0" />
+      <key name="GH" value="1" />
+      <key name="GL" value="1" />
+      <key name="GM" value="1" />
+      <key name="GN" value="1" />
+      <key name="GP" value="1" />
+      <key name="GQ" value="1" />
+      <key name="GR" value="1" />
+      <key name="GT" value="0" />
+      <key name="GU" value="0" />
+      <key name="GW" value="1" />
+      <key name="GY" value="1" />
+      <key name="HK" value="0" />
+      <key name="HN" value="0" />
+      <key name="HR" value="1" />
+      <key name="HT" value="0" />
+      <key name="HU" value="1" />
+      <key name="ID" value="0" />
+      <key name="IE" value="1" />
+      <key name="IL" value="0" />
+      <key name="IN" value="0" />
+      <key name="IS" value="1" />
+      <key name="IT" value="1" />
+      <key name="JM" value="0" />
+      <key name="JO" value="1" />
+      <key name="JP" value="0" />
+      <key name="KE" value="1" />
+      <key name="KG" value="1" />
+      <key name="KH" value="0" />
+      <key name="KR" value="0" />
+      <key name="KW" value="1" />
+      <key name="KZ" value="1" />
+      <key name="LA" value="0" />
+      <key name="LB" value="1" />
+      <key name="LI" value="1" />
+      <key name="LK" value="0" />
+      <key name="LR" value="1" />
+      <key name="LT" value="1" />
+      <key name="LU" value="1" />
+      <key name="LV" value="1" />
+      <key name="MA" value="1" />
+      <key name="MC" value="1" />
+      <key name="MD" value="1" />
+      <key name="MG" value="1" />
+      <key name="MK" value="1" />
+      <key name="ML" value="1" />
+      <key name="MM" value="0" />
+      <key name="MN" value="0" />
+      <key name="MO" value="0" />
+      <key name="MQ" value="0" />
+      <key name="MR" value="1" />
+      <key name="MU" value="1" />
+      <key name="MW" value="1" />
+      <key name="MX" value="0" />
+      <key name="MY" value="0" />
+      <key name="MZ" value="1" />
+      <key name="NA" value="1" />
+      <key name="NC" value="0" />
+      <key name="NE" value="1" />
+      <key name="NG" value="1" />
+      <key name="NI" value="0" />
+      <key name="NL" value="1" />
+      <key name="NO" value="1" />
+      <key name="NP" value="0" />
+      <key name="NZ" value="0" />
+      <key name="OM" value="1" />
+      <key name="PA" value="0" />
+      <key name="PE" value="0" />
+      <key name="PG" value="0" />
+      <key name="PH" value="0" />
+      <key name="PK" value="1" />
+      <key name="PL" value="1" />
+      <key name="PR" value="0" />
+      <key name="PT" value="1" />
+      <key name="PW" value="0" />
+      <key name="PY" value="0" />
+      <key name="QA" value="1" />
+      <key name="RO" value="1" />
+      <key name="RU" value="1" />
+      <key name="RW" value="1" />
+      <key name="SA" value="1" />
+      <key name="SB" value="0" />
+      <key name="SC" value="1" />
+      <key name="SE" value="1" />
+      <key name="SG" value="0" />
+      <key name="SI" value="1" />
+      <key name="SK" value="1" />
+      <key name="SL" value="1" />
+      <key name="SM" value="1" />
+      <key name="SN" value="1" />
+      <key name="SO" value="1" />
+      <key name="SR" value="0" />
+      <key name="SV" value="0" />
+      <key name="SZ" value="1" />
+      <key name="TD" value="1" />
+      <key name="TG" value="1" />
+      <key name="TH" value="0" />
+      <key name="Title" value="Problem title" />
+      <key name="TJ" value="1" />
+      <key name="TM" value="1" />
+      <key name="TN" value="1" />
+      <key name="TO" value="0" />
+      <key name="TR" value="1" />
+      <key name="TT" value="0" />
+      <key name="TW" value="0" />
+      <key name="TZ" value="1" />
+      <key name="UA" value="1" />
+      <key name="UG" value="1" />
+      <key name="US" value="0" />
+      <key name="UY" value="0" />
+      <key name="WS" value="0" />
+      <key name="ZA" value="1" />
+    </collection>
+    <collection name="LanguageList" collectionType="map" caseSensitive="yes">
+      <key name="de" value="German" />
+      <key name="fr" value="French" />
+      <key name="ja" value="Japanese" />
+      <key name="en" value="" />
+      <key name="zh" value="Chinese" />
+      <key name="cn" value="All Languages" />
+    </collection>
+    <collection name="OS" collectionType="orderedmap" caseSensitive="no">
+      <key name="Win7" value="Microsoft Windows 7" />
+      <key name="Win8" value="Microsoft Windows 8" />
+      <key name="WinVis" value="Microsoft Windows Vista" />
+      <key name="WinXp" value="Microsoft Windows XP" />
+    </collection>
+    <collection name="OSList" collectionType="orderedmap" caseSensitive="yes">
+      <key name="Windows 7" value="NON" />
+      <key name="Other" value="NON" />
+      <key name="- Select an operating system -" value="" />
+      <key name="Macintosh" value="MAC" />
+      <key name="Unix" value="UNX" />
+      <key name="Windows 8" value="NON" />
+      <key name="Windows Server 2012" value="NON" />
+      <key name="Windows Server 2008 R2" value="W32" />
+      <key name="Windows Server 2008" value="W32" />
+      <key name="Windows 2000" value="W00" />
+      <key name="Windows Server 2003" value="W00" />
+      <key name="Windows Vista" value="VIS" />
+      <key name="Windows XP" value="W00" />
+      <key name="XBox" value="XBX" />
+    </collection>
+    <collection name="StateList_en_us" collectionType="map" caseSensitive="yes">
+      <key name="AK" value="Alaska" />
+      <key name="AL" value="Alabama" />
+      <key name="AR" value="Arkansas" />
+      <key name="AZ" value="Arizona" />
+      <key name="CA" value="California" />
+      <key name="CO" value="Colorado" />
+      <key name="CT" value="Connecticut" />
+      <key name="DC" value="District of Columbia" />
+      <key name="DE" value="Delaware" />
+      <key name="FL" value="Florida" />
+      <key name="GA" value="Georgia" />
+      <key name="HI" value="Hawaii" />
+      <key name="IA" value="Iowa" />
+      <key name="ID" value="Idaho" />
+      <key name="IL" value="Illinois" />
+      <key name="IN" value="Indiana" />
+      <key name="KS" value="Kansas" />
+      <key name="KY" value="Kentucky" />
+      <key name="LA" value="Louisiana" />
+      <key name="MA" value="Massachusetts" />
+      <key name="MD" value="Maryland" />
+      <key name="ME" value="Maine" />
+      <key name="MI" value="Michigan" />
+      <key name="MN" value="Minnesota" />
+      <key name="MO" value="Missouri" />
+      <key name="MS" value="Mississippi" />
+      <key name="MT" value="Montana" />
+      <key name="NC" value="New York" />
+      <key name="ND" value="North Dakota" />
+      <key name="NE" value="Nebraska" />
+      <key name="NH" value="New Hampshire" />
+      <key name="NJ" value="New Jersey" />
+      <key name="NM" value="New Mexico" />
+      <key name="NV" value="Nevada" />
+      <key name="NY" value="New York" />
+      <key name="OH" value="Ohio" />
+      <key name="OK" value="Oklahoma" />
+      <key name="OR" value="Oregon" />
+      <key name="PA" value="Pennsylvania" />
+      <key name="RI" value="Rhode Island" />
+      <key name="SC" value="South Carolina" />
+      <key name="SD" value="South Dakota" />
+      <key name="TN" value="Tennessee" />
+      <key name="TX" value="Texas" />
+      <key name="UT" value="Utah" />
+      <key name="VA" value="Virginia" />
+      <key name="VT" value="Vermont" />
+      <key name="WA" value="Washington" />
+      <key name="WI" value="Wisconsin" />
+      <key name="WV" value="West Virginia" />
+      <key name="WY" value="Wyoming" />
+    </collection>
+    <collection name="regionList" collectionType="map" caseSensitive="yes">
+      <key name="AE;ar" value="United Arab Emirates (Arabic)" />
+      <key name="AE;en-me" value="United Arab Emirates (English)" />
+      <key name="AF;en-in" value="Afghanistan" />
+      <key name="AG;en-gb" value="Antigua and Barbuda" />
+      <key name="AI;en-gb" value="Anguilla" />
+      <key name="AL;sl" value="Albania" />
+      <key name="AM;en-me" value="Armenia" />
+      <key name="AN;nl" value="Netherlands Antilles" />
+      <key name="AO;en-za" value="Angola" />
+      <key name="AQ;en-au" value="Antartica" />
+      <key name="AR;es-ar" value="Argentina" />
+      <key name="AT;de-at" value="Austria" />
+      <key name="AU;en-au" value="Australia" />
+      <key name="AW;nl" value="Aruba" />
+      <key name="AZ;ru" value="Azerbaijan" />
+      <key name="BA;hr" value="Bosnia and Herzegovina" />
+      <key name="BB;en-gb" value="Barbados" />
+      <key name="BD;en-in" value="Bangladesh" />
+      <key name="BE;fr-be" value="Belgium (French)" />
+      <key name="BE;nl-be" value="Belgium (Dutch)" />
+      <key name="BF;fr" value="Burkina Faso" />
+      <key name="BG;BG" value="Bulgaria" />
+      <key name="BH;en-me" value="Bahrain" />
+      <key name="BI;en-me" value="Burundi" />
+      <key name="BJ;fr" value="Benin" />
+      <key name="BM;en-us" value="Bermuda" />
+      <key name="BN;id-id" value="Brunei Darussalam" />
+      <key name="BO;es-bo" value="Bolivia" />
+      <key name="BR;pt-br" value="Brazil" />
+      <key name="BS;en-gb" value="Bahamas, The" />
+      <key name="BT;en-in" value="Bhutan" />
+      <key name="BW;en-za" value="Botswana" />
+      <key name="BY;ru" value="Belarus" />
+      <key name="BZ;en-us" value="Belize" />
+      <key name="CA;en-ca" value="Canada (English)" />
+      <key name="CA;fr-ca" value="Canada (French)" />
+      <key name="CD;en-za" value="Democratic Republic Of Congo" />
+      <key name="CF;en-me" value="Central African Republic" />
+      <key name="CG;en-me" value="Congo" />
+      <key name="CH;de-ch" value="Switzerland (German)" />
+      <key name="CH;fr-ch" value="Switzerland (French)" />
+      <key name="CI;FR" value="Cote d'Ivoire" />
+      <key name="CL;es-cl" value="Chile" />
+      <key name="CM;en-me" value="Cameroon" />
+      <key name="CN;zh-cn" value="China" />
+      <key name="CO;es-co" value="Colombia" />
+      <key name="CR;es-cr" value="Costa Rica" />
+      <key name="CV;pt" value="Cape Verde" />
+      <key name="CY;el" value="Cyprus (Greek)" />
+      <key name="CY;tr" value="Cyprus (Turkish)" />
+      <key name="CZ;cs" value="Czech Republic" />
+      <key name="DE;de" value="Germany" />
+      <key name="DJ;en-me" value="Djibouti" />
+      <key name="DK;da" value="Denmark" />
+      <key name="DO;es-do" value="Dominican Republic" />
+      <key name="DZ;ar" value="Algeria (Arabic)" />
+      <key name="DZ;fr-al" value="Algeria (French)" />
+      <key name="EC;es-ec" value="Ecuador" />
+      <key name="EE;et" value="Estonia" />
+      <key name="EG;ar" value="Egypt" />
+      <key name="EH;ar" value="Western Sahara" />
+      <key name="ER;en-me" value="Eritrea" />
+      <key name="ES;es-es" value="Spain" />
+      <key name="ET;en-me" value="Ethiopia" />
+      <key name="FI;fi" value="Finland" />
+      <key name="FJ;en-au" value="Fiji" />
+      <key name="FO;da" value="Faroe Islands" />
+      <key name="FR;fr" value="France" />
+      <key name="GA;fr" value="Gabon" />
+      <key name="GB;en-gb" value="United Kingdom" />
+      <key name="GD;en-us" value="Grenada" />
+      <key name="GE;en-me" value="Georgia" />
+      <key name="GF;fr-ca" value="French Guiana" />
+      <key name="GH;en-gb" value="Ghana" />
+      <key name="GI;en-gb" value="Gibraltar" />
+      <key name="GL;en-ca" value="Greenland" />
+      <key name="GM;en-gb" value="Gambia" />
+      <key name="GN;en-gb" value="Guinea (English)" />
+      <key name="GN;FR" value="Guinea (French)" />
+      <key name="GP;en-us" value="Guadeloupe" />
+      <key name="GQ;en-za" value="Equatorial Guinea" />
+      <key name="GR;el" value="Greece" />
+      <key name="GT;es-gt" value="Guatemala" />
+      <key name="GU;en-au" value="Guam" />
+      <key name="GW;en-gb" value="Guinea-Bissau" />
+      <key name="GY;en-us" value="Guyana" />
+      <key name="HK;en-hk" value="Hong Kong S.A.R. (English)" />
+      <key name="HK;zh-hk" value="Hong Kong S.A.R. (Chinese)" />
+      <key name="HN;es-gt" value="Honduras" />
+      <key name="HR;hr" value="Croatia" />
+      <key name="HT;en-us" value="Haiti" />
+      <key name="HU;hu" value="Hungary" />
+      <key name="ID;en-id" value="Indonesia (English)" />
+      <key name="ID;id" value="Indonesia" />
+      <key name="ID;id-id" value="Indonesia (Bahasa)" />
+      <key name="IE;en-ie" value="Ireland" />
+      <key name="IL;he" value="Israel" />
+      <key name="IN;en-in" value="India (English)" />
+      <key name="IN;hi-in" value="India (Hindi)" />
+      <key name="IQ;ar" value="Iraq" />
+      <key name="IS;is-is" value="Iceland" />
+      <key name="IT;IT" value="Italy" />
+      <key name="JM;en-us" value="Jamaica" />
+      <key name="JO;ar" value="Jordan" />
+      <key name="JP;ja" value="Japan" />
+      <key name="KE;fr" value="Kenya" />
+      <key name="KG;en-in" value="Kyrgyzstan" />
+      <key name="KH;en-id" value="Cambodia" />
+      <key name="KM;fr" value="Comoros" />
+      <key name="KN;en-gb" value="St Kitts &amp; Nevis" />
+      <key name="KR;KO" value="Korea" />
+      <key name="KW;ar" value="Kuwait" />
+      <key name="KY;en-gb" value="Cayman Islands" />
+      <key name="KZ;kk-kz" value="Kazakhstan" />
+      <key name="LA;en-in" value="Lao People's Democratic Republic" />
+      <key name="LB;ar" value="Lebanon" />
+      <key name="LC;en-gb" value="Saint Lucia" />
+      <key name="LI;de" value="Liechtenstein" />
+      <key name="LK;en-in" value="Sri Lanka" />
+      <key name="LR;en-gb" value="Liberia" />
+      <key name="LS;en-gb" value="Lesotho" />
+      <key name="LT;lt" value="Lithuania" />
+      <key name="LU;fr-lu" value="Luxembourg" />
+      <key name="LV;lv" value="Latvia" />
+      <key name="LY;ar" value="Libyan Arab Jamahiriya" />
+      <key name="MA;ar" value="Morocco (Arabic)" />
+      <key name="MA;fr-mo" value="Morocco (French)" />
+      <key name="MC;fr" value="Monaco" />
+      <key name="MD;ro" value="Moldova, Republic Of" />
+      <key name="ME;sr" value="Montenegro" />
+      <key name="MG;en-za" value="Madagascar" />
+      <key name="MK;sl" value="Macedonia, The Former Yugoslav Republic Of" />
+      <key name="ML;fr-mo" value="Mali" />
+      <key name="MM;en-in" value="Myanmar" />
+      <key name="MN;en-hk" value="Mongolia" />
+      <key name="MO;en-hk" value="Macau" />
+      <key name="MP;en" value="Northern Mariana Islands" />
+      <key name="MQ;en-us" value="Martinique" />
+      <key name="MR;ar" value="Mauritania (Arabic)" />
+      <key name="MR;FR" value="Mauritania (French)" />
+      <key name="MS;en-gb" value="Montserrat" />
+      <key name="MT;en-gb" value="Malta" />
+      <key name="MU;fr" value="Mauritius" />
+      <key name="MW;en-za" value="Malawi" />
+      <key name="MX;es-mx" value="Mexico" />
+      <key name="MY;en-my" value="Malaysia" />
+      <key name="MZ;en-za" value="Mozambique" />
+      <key name="NA;en-za" value="Namibia" />
+      <key name="NC;en-au" value="New Caledonia" />
+      <key name="NE;fr-mo" value="Niger" />
+      <key name="NG;en-gb" value="Nigeria" />
+      <key name="NI;es-cr" value="Nicaragua" />
+      <key name="NL;nl" value="Netherlands" />
+      <key name="NO;no" value="Norway" />
+      <key name="NP;en-in" value="Nepal" />
+      <key name="NZ;en-nz" value="New Zealand" />
+      <key name="OM;ar" value="Oman" />
+      <key name="PA;es-pa" value="Panama" />
+      <key name="PE;es-pe" value="Peru" />
+      <key name="PF;fr" value="French Polynesia" />
+      <key name="PG;en-au" value="Papua New Guinea" />
+      <key name="PH;en-ph" value="Philippines" />
+      <key name="PK;en-in" value="Pakistan" />
+      <key name="PL;pl" value="Poland" />
+      <key name="PN;en-gb" value="Pitcairn Islands" />
+      <key name="PR;es-pr" value="Puerto Rico" />
+      <key name="PT;pt" value="Portugal" />
+      <key name="PW;en-au" value="Palau" />
+      <key name="PY;es-py" value="Paraguay" />
+      <key name="QA;ar" value="Qatar" />
+      <key name="RE;fr" value="Reunion" />
+      <key name="RO;ro" value="Romania" />
+      <key name="RS;sr" value="Serbia" />
+      <key name="RU;ru" value="Russian Federation" />
+      <key name="RW;en-me" value="Rwanda" />
+      <key name="SA;ar" value="Saudi Arabia" />
+      <key name="SB;en-au" value="Solomon Islands" />
+      <key name="SC;en-me" value="Seychelles" />
+      <key name="SD;ar" value="Sudan" />
+      <key name="SE;sv" value="Sweden" />
+      <key name="SG;en-sg" value="Singapore" />
+      <key name="SH;en-gb" value="St Helena" />
+      <key name="SI;sl" value="Slovenia" />
+      <key name="SJ; no" value="Svalbard and Jan Mayen" />
+      <key name="SK;sk" value="Slovak Republic" />
+      <key name="SL;en-gb" value="Sierra Leone" />
+      <key name="SM;it" value="San Marino" />
+      <key name="SN;fr" value="Senegal" />
+      <key name="SO;en-me" value="Somalia" />
+      <key name="SR;en-us" value="Suriname" />
+      <key name="ST;pt" value="Sao Tomé and Príncipe" />
+      <key name="SV;es-sv" value="El Salvador" />
+      <key name="SY;ar" value="Syrian Arab Republic" />
+      <key name="SZ;en-za" value="Swaziland" />
+      <key name="TC;en-gb" value="Turks and Caicos Islands" />
+      <key name="TD;en-me" value="Chad" />
+      <key name="TG;fr" value="Togo" />
+      <key name="TH;th" value="Thailand" />
+      <key name="TJ;en-id" value="Tajikistan" />
+      <key name="TM;ru" value="Turkmenistan" />
+      <key name="TN;ar" value="Tunisia (Arabic)" />
+      <key name="TN;fr-tu" value="Tunisia  (French)" />
+      <key name="TO;en-au" value="Tonga" />
+      <key name="TR;tr" value="Turkey" />
+      <key name="TT;es-ve" value="Trinidad And Tobago" />
+      <key name="TW;zh-tw" value="Taiwan" />
+      <key name="TZ;en-me" value="Tanzania, United Republic Of" />
+      <key name="UA;uk-ua" value="Ukraine" />
+      <key name="UG;en-me" value="Uganda" />
+      <key name="US;en-us" value="United States" />
+      <key name="UY;es-uy" value="Uruguay" />
+      <key name="UZ;ru" value="Uzbekistan" />
+      <key name="VA;it" value="Vatican City State (Holy See)" />
+      <key name="VC;en-gb" value="Saint Vincent and The Grenadines" />
+      <key name="VE;es-ve" value="Venezuela" />
+      <key name="VN;vi-vn" value="Vietnam" />
+      <key name="WS;en-us" value="Samoa" />
+      <key name="YE;ar" value="Yemen" />
+      <key name="ZA;en-za" value="South Africa" />
+      <key name="ZM;en-za" value="Zambia" />
+      <key name="ZW;en-za" value="Zimbabwe" />
+    </collection>
+    <collection name="TimeZone" collectionType="map" caseSensitive="no">
+      <customType className="OasTimeZone" name="t1" oastext="(GMT-12:00) International Date Line West" oasvalue="-720" ngimtext="InternationalDateLineWest" ngimvalue="0">
+      </customType>
+      <customType className="OasTimeZone" name="t2" oastext="(GMT-11:00) Midway Island, Samoa" oasvalue="-660" ngimtext="MidwayIsland_Samoa" ngimvalue="1">
+      </customType>
+      <customType className="OasTimeZone" name="t3" oastext="(GMT-10:00) Hawaii" oasvalue="-600" ngimtext="Hawaii" ngimvalue="2">
+      </customType>
+      <customType className="OasTimeZone" name="t4" oastext="(GMT-09:00) Alaska" oasvalue="-540" ngimtext="Alaska" ngimvalue="3">
+      </customType>
+      <customType className="OasTimeZone" name="t5" oastext="(GMT-08:00) Pacific Time (U.S., Canada, and Tijuana)" oasvalue="-480" ngimtext="PacificTime_US_And_Canada_Tijuana" ngimvalue="4">
+      </customType>
+      <customType className="OasTimeZone" name="t6" oastext="(GMT-07:00) Mountain Time (U.S. and Canada)" oasvalue="-420" ngimtext="MountainTime_US_And_Canada" ngimvalue="10">
+      </customType>
+      <customType className="OasTimeZone" name="t7" oastext="(GMT-07:00) Chihuahua, La Paz, Mazatlan" oasvalue="-420" ngimtext="Chihuahua_LaPaz_Mazatlan" ngimvalue="13">
+      </customType>
+      <customType className="OasTimeZone" name="t8" oastext="(GMT-07:00) Arizona" oasvalue="-420" ngimtext="Arizona" ngimvalue="15">
+      </customType>
+      <customType className="OasTimeZone" name="t9" oastext="(GMT-06:00) Central Time (U.S. and Canada)" oasvalue="-360" ngimtext="CentralTime_US_And_Canada" ngimvalue="20">
+      </customType>
+      <customType className="OasTimeZone" name="t10" oastext="(GMT-06:00) Saskatchewan" oasvalue="-360" ngimtext="Saskatchewan" ngimvalue="25">
+      </customType>
+      <customType className="OasTimeZone" name="t11" oastext="(GMT-06:00) Guadalajara, Mexico City, Monterrey" oasvalue="-360" ngimtext="Guadalajara_MexicoCity_Monterrey" ngimvalue="30">
+      </customType>
+      <customType className="OasTimeZone" name="t12" oastext="(GMT-06:00) Central America" oasvalue="-360" ngimtext="CentralAmerica" ngimvalue="33">
+      </customType>
+      <customType className="OasTimeZone" name="t13" oastext="(GMT-05:00) Eastern Time (US &amp; Canada)" oasvalue="-300" ngimtext="EasternTime_US_And_Canada" ngimvalue="35">
+      </customType>
+      <customType className="OasTimeZone" name="t14" oastext="(GMT-05:00) Indiana (East)" oasvalue="-300" ngimtext="Indiana_East" ngimvalue="40">
+      </customType>
+      <customType className="OasTimeZone" name="t15" oastext="(GMT-05:00) Bogota, Lima, Quito, Rio Branco" oasvalue="-300" ngimtext="Bogota_Lima_Quito" ngimvalue="45">
+      </customType>
+      <customType className="OasTimeZone" name="t16" oastext="(GMT-04:00) Atlantic Time (Canada)" oasvalue="-240" ngimtext="AtlanticTime_Canada" ngimvalue="50">
+      </customType>
+      <customType className="OasTimeZone" name="t17" oastext="(GMT-04:30) Caracas, La Paz" oasvalue="-270" ngimtext="Caracas_LaPaz" ngimvalue="55">
+      </customType>
+      <customType className="OasTimeZone" name="t18" oastext="(GMT-04:00) Santiago" oasvalue="-240" ngimtext="Santiago" ngimvalue="56">
+      </customType>
+      <customType className="OasTimeZone" name="t19" oastext="(GMT-03:30) Newfoundland" oasvalue="-210" ngimtext="Newfoundland" ngimvalue="60">
+      </customType>
+      <customType className="OasTimeZone" name="t20" oastext="(GMT-03:00) Brasilia" oasvalue="-180" ngimtext="Brasilia" ngimvalue="65">
+      </customType>
+      <customType className="OasTimeZone" name="t21" oastext="(GMT-03:00) Buenos Aires, Georgetown" oasvalue="-180" ngimtext="BuenosAires_Georgetown" ngimvalue="70">
+      </customType>
+      <customType className="OasTimeZone" name="t22" oastext="(GMT-03:00) Greenland" oasvalue="-180" ngimtext="Greenland" ngimvalue="73">
+      </customType>
+      <customType className="OasTimeZone" name="t23" oastext="(GMT-02:00) Mid-Atlantic" oasvalue="-120" ngimtext="MidAtlantic" ngimvalue="75">
+      </customType>
+      <customType className="OasTimeZone" name="t24" oastext="(GMT-01:00) Azores" oasvalue="-60" ngimtext="Azores" ngimvalue="80">
+      </customType>
+      <customType className="OasTimeZone" name="t25" oastext="(GMT-01:00) Cape Verde Islands" oasvalue="-60" ngimtext="CapeVerdeIs" ngimvalue="83">
+      </customType>
+      <customType className="OasTimeZone" name="t26" oastext="(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London" oasvalue="0" ngimtext="GreenwichMeanTime_Dublin_Edinburgh_Lisbon_London" ngimvalue="85">
+      </customType>
+      <customType className="OasTimeZone" name="t27" oastext="(GMT) Casablanca, Monrovia, Reykjavik" oasvalue="0" ngimtext="Casablanca_Monrovia" ngimvalue="90">
+      </customType>
+      <customType className="OasTimeZone" name="t28" oastext="(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague" oasvalue="60" ngimtext="Belgrade_Bratislava_Budapest_Ljubljana_Prague" ngimvalue="95">
+      </customType>
+      <customType className="OasTimeZone" name="t29" oastext="(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb" oasvalue="60" ngimtext="Sarajevo_Skopje_Warsaw_Zagreb" ngimvalue="100">
+      </customType>
+      <customType className="OasTimeZone" name="t30" oastext="(GMT+01:00) Brussels, Copenhagen, Madrid, Paris" oasvalue="60" ngimtext="Brussels_Copenhagen_Madrid_Paris" ngimvalue="105">
+      </customType>
+      <customType className="OasTimeZone" name="t31" oastext="(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna" oasvalue="60" ngimtext="Amsterdam_Berlin_Bern_Rome_Stockholm_Vienna" ngimvalue="110">
+      </customType>
+      <customType className="OasTimeZone" name="t32" oastext="(GMT+01:00) West Central Africa" oasvalue="60" ngimtext="WestCentralAfrica" ngimvalue="113">
+      </customType>
+      <customType className="OasTimeZone" name="t33" oastext="(GMT+02:00) Bucharest" oasvalue="120" ngimtext="Bucharest" ngimvalue="115">
+      </customType>
+      <customType className="OasTimeZone" name="t34" oastext="(GMT+02:00) Cairo" oasvalue="120" ngimtext="Cairo" ngimvalue="120">
+      </customType>
+      <customType className="OasTimeZone" name="t35" oastext="(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius" oasvalue="120" ngimtext="Helsinki_Kyiv_Riga_Sofia_Tallinn_Vilnius" ngimvalue="125">
+      </customType>
+      <customType className="OasTimeZone" name="t36" oastext="(GMT+02:00) Athens, Bucharest, Istanbul" oasvalue="120" ngimtext="Athens_Istanbul_Minsk" ngimvalue="130">
+      </customType>
+      <customType className="OasTimeZone" name="t37" oastext="(GMT+02:00) Jerusalem" oasvalue="120" ngimtext="Jerusalem" ngimvalue="135">
+      </customType>
+      <customType className="OasTimeZone" name="t38" oastext="(GMT+02:00) Harare, Pretoria" oasvalue="120" ngimtext="Harare_Pretoria" ngimvalue="140">
+      </customType>
+      <customType className="OasTimeZone" name="t39" oastext="(GMT+03:00) Moscow, St. Petersburg, Volgograd" oasvalue="180" ngimtext="Moscow_StPetersburg_Volgograd" ngimvalue="145">
+      </customType>
+      <customType className="OasTimeZone" name="t40" oastext="(GMT+03:00) Kuwait, Riyadh" oasvalue="180" ngimtext="Kuwait_Riyadh" ngimvalue="150">
+      </customType>
+      <customType className="OasTimeZone" name="t41" oastext="(GMT+03:00) Nairobi" oasvalue="180" ngimtext="Nairobi" ngimvalue="155">
+      </customType>
+      <customType className="OasTimeZone" name="t42" oastext="(GMT+03:00) Baghdad" oasvalue="180" ngimtext="Baghdad" ngimvalue="158">
+      </customType>
+      <customType className="OasTimeZone" name="t43" oastext="(GMT+03:30) Tehran" oasvalue="210" ngimtext="Tehran" ngimvalue="160">
+      </customType>
+      <customType className="OasTimeZone" name="t44" oastext="(GMT+04:00) Abu Dhabi, Muscat" oasvalue="240" ngimtext="AbuDhabi_Muscat" ngimvalue="165">
+      </customType>
+      <customType className="OasTimeZone" name="t45" oastext="(GMT+04:00) Baku, Tbilisi and Yerevan" oasvalue="240" ngimtext="Baku_Tbilisi_Yerevan" ngimvalue="170">
+      </customType>
+      <customType className="OasTimeZone" name="t46" oastext="(GMT+04:30) Kabul" oasvalue="270" ngimtext="Kabul" ngimvalue="175">
+      </customType>
+      <customType className="OasTimeZone" name="t47" oastext="(GMT+05:00) Ekaterinburg" oasvalue="300" ngimtext="Ekaterinburg" ngimvalue="180">
+      </customType>
+      <customType className="OasTimeZone" name="t48" oastext="(GMT+05:00) Islamabad, Karachi, Tashkent" oasvalue="300" ngimtext="Islamabad_Karachi_Tashkent" ngimvalue="185">
+      </customType>
+      <customType className="OasTimeZone" name="t49" oastext="(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi" oasvalue="360" ngimtext="Chennai_Kolkata_Mumbai_NewDelhi" ngimvalue="190">
+      </customType>
+      <customType className="OasTimeZone" name="t50" oastext="(GMT+05:45) Kathmandu" oasvalue="345" ngimtext="Kathmandu" ngimvalue="193">
+      </customType>
+      <customType className="OasTimeZone" name="t51" oastext="(GMT+06:00) Astana, Dhaka" oasvalue="360" ngimtext="Astana_Dhaka" ngimvalue="195">
+      </customType>
+      <customType className="OasTimeZone" name="t52" oastext="(GMT+05:30) Sri Jayawardenepura" oasvalue="330" ngimtext="SriJayawardenepura" ngimvalue="200">
+      </customType>
+      <customType className="OasTimeZone" name="t53" oastext="(GMT+06:00) Almaty, Novosibirsk" oasvalue="360" ngimtext="Almaty_Novosibirsk" ngimvalue="201">
+      </customType>
+      <customType className="OasTimeZone" name="t54" oastext="(GMT+06:30) Yangon (Rangoon)" oasvalue="390" ngimtext="Yangon_Rangoon" ngimvalue="203">
+      </customType>
+      <customType className="OasTimeZone" name="t55" oastext="(GMT+07:00) Bangkok, Hanoi, Jakarta" oasvalue="420" ngimtext="Bangkok_Hanoi_Jakarta" ngimvalue="205">
+      </customType>
+      <customType className="OasTimeZone" name="t56" oastext="(GMT+07:00) Krasnoyarsk" oasvalue="420" ngimtext="Krasnoyarsk" ngimvalue="207">
+      </customType>
+      <customType className="OasTimeZone" name="t57" oastext="(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi" oasvalue="480" ngimtext="Beijing_Chongqing_HongKongSAR_Urumqi" ngimvalue="210">
+      </customType>
+      <customType className="OasTimeZone" name="t58" oastext="(GMT+08:00) Kuala Lumpur, Singapore" oasvalue="480" ngimtext="KualaLumpur_Singapore" ngimvalue="215">
+      </customType>
+      <customType className="OasTimeZone" name="t59" oastext="(GMT+08:00) Taipei" oasvalue="480" ngimtext="Taipei" ngimvalue="220">
+      </customType>
+      <customType className="OasTimeZone" name="t60" oastext="(GMT+08:00) Perth" oasvalue="480" ngimtext="Perth" ngimvalue="225">
+      </customType>
+      <customType className="OasTimeZone" name="t61" oastext="(GMT+08:00) Irkutsk, Ulaan Bataar" oasvalue="480" ngimtext="Irkutsk_UlaanBataar" ngimvalue="227">
+      </customType>
+      <customType className="OasTimeZone" name="t62" oastext="(GMT+09:00) Seoul" oasvalue="540" ngimtext="Seoul" ngimvalue="230">
+      </customType>
+      <customType className="OasTimeZone" name="t63" oastext="(GMT+09:00) Osaka, Sapporo, Tokyo" oasvalue="540" ngimtext="Osaka_Sapporo_Tokyo" ngimvalue="235">
+      </customType>
+      <customType className="OasTimeZone" name="t64" oastext="(GMT+09:00) Yakutsk" oasvalue="540" ngimtext="Yakutsk" ngimvalue="240">
+      </customType>
+      <customType className="OasTimeZone" name="t65" oastext="(GMT+09:30) Darwin" oasvalue="570" ngimtext="Darwin" ngimvalue="245">
+      </customType>
+      <customType className="OasTimeZone" name="t66" oastext="(GMT+09:30) Adelaide" oasvalue="570" ngimtext="Adelaide" ngimvalue="250">
+      </customType>
+      <customType className="OasTimeZone" name="t67" oastext="(GMT+10:00) Canberra, Melbourne, Sydney" oasvalue="600" ngimtext="Canberra_Melbourne_Sydney" ngimvalue="255">
+      </customType>
+      <customType className="OasTimeZone" name="t68" oastext="(GMT+10:00) Brisbane" oasvalue="600" ngimtext="Brisbane" ngimvalue="260">
+      </customType>
+      <customType className="OasTimeZone" name="t69" oastext="(GMT+10:00) Hobart" oasvalue="600" ngimtext="Hobart" ngimvalue="265">
+      </customType>
+      <customType className="OasTimeZone" name="t70" oastext="(GMT+10:00) Vladivostok" oasvalue="600" ngimtext="Vladivostok" ngimvalue="270">
+      </customType>
+      <customType className="OasTimeZone" name="t71" oastext="(GMT+10:00) Guam, Port Moresby" oasvalue="600" ngimtext="Guam_PortMoresby" ngimvalue="275">
+      </customType>
+      <customType className="OasTimeZone" name="t72" oastext="(GMT+11:00) Magadan, Solomon Is., New Caledonia" oasvalue="660" ngimtext="Magadan_SolomonIs_NewCaledonia" ngimvalue="280">
+      </customType>
+      <customType className="OasTimeZone" name="t73" oastext="(GMT+12:00) Fiji, Kamchatka, Marshall Islands" oasvalue="720" ngimtext="FijiIslands_Kamchatka_MarshallIs" ngimvalue="285">
+      </customType>
+      <customType className="OasTimeZone" name="t74" oastext="(GMT+12:00) Auckland, Wellington" oasvalue="720" ngimtext="Auckland_Wellington" ngimvalue="290">
+      </customType>
+      <customType className="OasTimeZone" name="t75" oastext="(GMT+13:00) Nuku'alofa" oasvalue="780" ngimtext="Nukualofa" ngimvalue="300">
+      </customType>
+    </collection>
+    <collection name="alternatelanguages" collectionType="orderedmap" caseSensitive="no">
+      <key name="ja-jp" value="Japanese" />
+      <key name="en-us" value="English" />
+      <key name="es-es" value="Spanish" />
+      <key name="fr-fr" value="French" />
+      <key name="de-de" value="German" />
+    </collection>
+    <collection name="OASComponentCodes" collectionType="map" caseSensitive="no">
+      <varType name="3EX" value="Third Tier Support – Exchange Server" description=":  Third Tier Support Hours." />
+      <varType name="3OC" value="Third Tier Support – OCS" description=":  Third Tier Support Hours." />
+      <varType name="3RD" value="Third Tier Support " description=":  Third Tier Support Hours." />
+      <varType name="3SC" value="Third Tier Support – System Center" description=":  Third Tier Support Hours." />
+      <varType name="3SM" value="Third Tier Support – SMS" description=":  Third Tier Support Hours." />
+      <varType name="3SP" value="Third Tier Support – SharePoint Server" description=":  Third Tier Support Hours." />
+      <varType name="3SQ" value="Third Tier Support – SQL Server" description=":  Third Tier Support Hours." />
+      <varType name="3TL" value="Third Tier Support – Lync" description=":  Third Tier Support Hours." />
+      <varType name="3WS" value="Third Tier Support – Windows Server" description=":  Third Tier Support Hours." />
+      <varType name="Default" value="Standard Services" description=":  Standard Services purchased on your contract." />
+      <varType name="ERB" value="EAP PRS As Needed BizTalk" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="ERQ" value="EAP PRS as Needed for SQL" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="ERS" value="EAP PRS as Needed SharePoint" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="ISI" value="Internal System Incident" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="MCU" value="PMC Dedicated As-Needed PRS Hrs" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PAH" value="PREM APP Mgnt As-Needed PRS Hrs" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PDP" value="PDW – As Needed PRS Hours" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PGI" value="Premier Global Pool of Incidents" description=":  Incidents for Problem Resolution Service Requests." />
+      <varType name="PGP" value="Pooled Problem Resolution Hours" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PMD" value="PMC Mediaroom – Problem Resolution" description=": Hours for Problem Resolution Service Requests." />
+      <varType name="PMP" value="PMC Standard As Needed PRS Hours" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PR7" value="Premier Prob Res Supp Hrs 24x7" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRD" value="PDW – As Needed PRS Hours" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRE" value="EAP Reactive Support " description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRH" value="Problem Resolution Hourly" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRI" value="Problem Resolution Incident" description=":  Incidents for Problem Resolution Service Requests." />
+      <varType name="PRM" value="Problem Resolution Mission Critical" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRN" value="USNAT Included Product Problem Resolution Support Hours" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRO" value="USNAT Excluded Product Problem Resolution Support Hours" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRP" value="PMC Dedicated Team – Problem Resolution" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="PRU" value="Premier Ultimate Reactive Support" description=":  Hours for Problem Resolution Service Requests." />
+      <varType name="SU" value="Support Assistance Hours" description=":  Hours for Advisory Service Requests." />
+      <varType name="SUN" value="USNAT Included Product Support Assistance Hours" description=":  Hours for Problem Resolution Service Requests." />
+    </collection>
+    <collection name="contactmethod" collectionType="map" caseSensitive="no">
+      <key name="contactemail" value="Email" />
+      <key name="contactphone" value="Phone" />
+    </collection>
+    <collection name="severityquestions" collectionType="map" caseSensitive="no">
+      <collection name="First" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does the issue concern a &lt;strong&gt;production server, service, or in-production application &lt;/strong&gt; that is currently down or do you have a loss of a business system that is causing a critical work stoppage?" />
+        <varType name="A1" text="Yes" value="1" nextLevel="Q4" />
+        <varType name="A2" text="No" value="2" nextLevel="Q2" />
+      </collection>
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does this issue make you unable to deploy or to ship on schedule?" />
+        <varType name="A1" text="Yes" value="1" nextLevel="Q4" />
+        <varType name="A2" text="No" value="2" nextLevel="Q3" />
+      </collection>
+      <collection name="Q3" collectionType="map" caseSensitive="no">
+        <key name="title" value="Does the issue have the potential to cause a company-wide work stoppage?" />
+        <varType name="A1" text="Yes" value="B" />
+        <varType name="A2" text="No" value="C" />
+      </collection>
+      <collection name="Q4" collectionType="map" caseSensitive="no">
+        <key name="title" value="If this issue cannot be resolved during regular business hours, will you and your staff be available to work the issue at any hour?" />
+        <varType name="A1" text="Yes" value="1" nextLevel="Q5" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+      <collection name="Q5" collectionType="map" caseSensitive="no">
+        <key name="title" value="The severity of your issue has been set as &lt;strong&gt;CRITICAL&lt;/strong&gt;. A support professional will start working on this immediately and will work 24 hours a day until the issue is resolved&lt;br /&gt;&lt;br /&gt;Do you agree that this severity is appropriate and that you or someone in your company is available immediately to work on this issue and potentially 24 hours a day until it is resolved?" />
+        <varType name="A1" text="Yes" value="A" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+    </collection>
+    <collection name="PremierCustomersBlacklistDomains" collectionType="map" caseSensitive="yes">
+      <key name="yahoo.com" value="" />
+    </collection>
+    <collection name="MPOselectproductgroup" collectionType="map" caseSensitive="no">
+      <key name="myprofile" value="My Profile Products" />
+      <key name="allproducts" value="All Products" />
+    </collection>
+    <collection name="Eula" collectionType="map" caseSensitive="no">
+      <key name="eula" value="I accept the &lt;a href=&quot;http://support.microsoft.com/gp/csa/en-us?p=1&amp;ln=en-us&quot; target=&quot;_blank&quot;&gt;Agreement for Microsoft Services&lt;/a&gt;.&lt;span style=&quot;color:red&quot;&gt;*&lt;/span&gt;" />
+    </collection>
+    <collection name="langlist" collectionType="map" caseSensitive="no">
+      <key name="DE-de" value="Deutsch" />
+      <key name="ES-es" value="Español" />
+      <key name="FR-fr" value="Français" />
+      <key name="JA-jp" value="日本語" />
+      <key name="en-US" value="English" />
+    </collection>
+    <collection name="businesshours" collectionType="map" caseSensitive="no">
+      <key name="close" value="01" />
+      <key name="open" value="13" />
+    </collection>
+    <collection name="contactpreference" collectionType="map" caseSensitive="no">
+      <key name="Email" value="Contact me by e-mail and update this site" />
+      <key name="Phone" value="Contact me by phone and update this site" />
+      <key name="Web" value="Update this site only" />
+    </collection>
+    <collection name="contInfoEmailAlert" collectionType="map" caseSensitive="no">
+      <key name="contInfoEmailAlert" value="E-mail me each time the support engineer updates this incident" />
+    </collection>
+    <collection name="EntitlementType" collectionType="map" caseSensitive="no">
+      <key name="Contract" value="Contract" />
+      <key name="ppi" value="Credit Card" />
+      <key name="subscription" value="Windows Store account" />
+    </collection>
+    <collection name="commcontactpreference" collectionType="map" caseSensitive="no">
+      <key name="Email" value="By Email" />
+      <key name="Phone" value="By Phone" />
+    </collection>
+    <collection name="msdnseverityquestions" collectionType="map" caseSensitive="no">
+      <collection name="First" collectionType="map" caseSensitive="no">
+        <key name="Title" value="Does this issue concern a &lt;b&gt;“testing”&lt;/b&gt; or &lt;b&gt;“development”&lt;/b&gt; environment where the problem could prevent the scheduled deployment of an immediately pending release?" />
+        <varType name="A1" text="Yes" value="1" nextLevel="Q4" />
+        <varType name="A2" text="No" value="2" nextLevel="Q2" />
+      </collection>
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <key name="Title" value="Does this issue make you unable to deploy or to ship on schedule?" />
+        <varType name="A1" text="Yes" value="1" nextLevel="Q4" />
+        <varType name="A2" text="No" value="2" nextLevel="Q3" />
+      </collection>
+      <collection name="Q3" collectionType="map" caseSensitive="no">
+        <key name="Title" value="Does the issue have the potential to cause a company-wide work stoppage?" />
+        <varType name="A1" text="Yes" value="B" />
+        <varType name="A2" text="No" value="C" />
+      </collection>
+      <collection name="Q4" collectionType="map" caseSensitive="no">
+        <key name="Title" value="If this issue cannot be resolved during regular business hours, will you and your staff be available to work the issue at any hour?" />
+        <varType name="A1" text="Yes" value="1" nextLevel="Q5" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+      <collection name="Q5" collectionType="map" caseSensitive="no">
+        <key name="Title" value="The severity of your issue has been set as &lt;strong&gt;CRITICAL&lt;/strong&gt;. A support professional will start working on this immediately and will work 24 hours a day until the issue is resolved&lt;br /&gt;&lt;br /&gt;Do you agree that this severity is appropriate and that you or someone in your company is available immediately to work on this issue and potentially 24 hours a day until it is resolved?" />
+        <varType name="A1" text="Yes" value="A" />
+        <varType name="A2" text="No" value="B" />
+      </collection>
+    </collection>
+    <collection name="AfterHoursCost" collectionType="map" caseSensitive="no">
+      <key name="cost" value="515" />
+      <key name="desc" value="Professional PPI Phone 24 hours" />
+      <key name="sku" value="0-PRO247PPIUS-01" />
+    </collection>
+    <collection name="CommEntitlementType" collectionType="map" caseSensitive="no">
+      <key name="Contract" value="Contract" />
+      <key name="MSDNtechnetsub" value="MSDN/TechNet Subscription" />
+      <key name="PPI" value="Credit Card" />
+      <key name="SA" value="Software Assurance" />
+    </collection>
+    <collection name="noseverityproducts" collectionType="map" caseSensitive="no">
+      <key name="14749" value="" />
+    </collection>
+    <collection name="SeverityList" collectionType="map" caseSensitive="no">
+      <key name="B" value="B - Urgent" />
+      <key name="C" value="C - Important" />
+    </collection>
+    <collection name="PPIseverityquestions" collectionType="map" caseSensitive="no">
+      <collection name="First" collectionType="map" caseSensitive="no">
+        <varType name="A1" text="Yes" value="1" nextLevel="Q4" />
+        <varType name="A2" text="No" value="2" nextLevel="Q2" />
+        <key name="Title" value="Does the issue concern a &lt;strong&gt;production server, service, or in-production application &lt;/strong&gt; that is currently down or do you have a loss of a business system that is causing a critical work stoppage?" />
+      </collection>
+      <collection name="Q2" collectionType="map" caseSensitive="no">
+        <varType name="A1" text="Yes" value="1" nextLevel="Q4" />
+        <varType name="A2" text="No" value="2" nextLevel="Q3" />
+        <key name="Title" value="Does this issue make you unable to deploy or to ship on schedule?" />
+      </collection>
+      <collection name="Q3" collectionType="map" caseSensitive="no">
+        <varType name="A1" text="Yes" value="B" />
+        <varType name="A2" text="No" value="C" />
+        <key name="Title" value="Does the issue have the potential to cause a company-wide work stoppage?" />
+      </collection>
+      <collection name="Q4" collectionType="map" caseSensitive="no">
+        <varType name="A1" text="Yes" value="1" nextLevel="Q5" />
+        <varType name="A2" text="No" value="B" />
+        <key name="Title" value="If this issue cannot be resolved during regular business hours, will you and your staff be available to work the issue at any hour?" />
+      </collection>
+      <collection name="Q5" collectionType="map" caseSensitive="no">
+        <varType name="A1" text="Yes" value="A" />
+        <varType name="A2" text="No" value="B" />
+        <key name="Title" value="The severity of your issue has been set as &lt;strong&gt;CRITICAL&lt;/strong&gt;. A support professional will start working on this immediately and will work 24 hours a day until the issue is resolved. Since this is being submitted as a critical issue outside of business hours there will be an additional charge. The cost for this support request will be $515.&lt;br /&gt;&lt;br /&gt; Do you agree that this severity is appropriate and that you or someone in your company is available immediately to work on this issue and potentially 24 hours a day until it is resolved, and to pay the additional charge for after-hours support?" />
+      </collection>
+    </collection>
+    <collection name="premiumproducts" collectionType="map" caseSensitive="no">
+      <key name="13594" value="" />
+      <key name="13599" value="" />
+      <key name="13795" value="" />
+      <key name="13825" value="" />
+      <key name="13844" value="" />
+      <key name="14388" value="" />
+      <key name="14749" value="" />
+    </collection>
+    <collection name="msdncontractsiteid" collectionType="map" caseSensitive="no">
+      <key name="424" value="" />
+      <key name="682" value="" />
+      <key name="683" value="" />
+      <key name="796" value="" />
+    </collection>
+    <collection name="premiumsiteid" collectionType="map" caseSensitive="no">
+      <key name="681" value="" />
+    </collection>
+    <collection name="Support Countries" collectionType="map" caseSensitive="no">
+      <key name="AR-AR" value="Middle East  (Arabic)" />
+      <key name="AR-AE" value="United Arab Emirates" />
+      <key name="ar-EG" value="Egypt" />
+      <key name="AR-SA" value="Saudi Arabia" />
+      <key name="BG-BG" value="Bulgaria" />
+      <key name="CS-CS" value="Czech Republic" />
+      <key name="DA-DA" value="Denmark" />
+      <key name="DE-DE" value="Germany" />
+      <key name="DE-AT" value="Austria" />
+      <key name="DE-CH" value="Switzerland (German)" />
+      <key name="EL-EL" value="Greece" />
+      <key name="EN-AU" value="Australia" />
+      <key name="EN-CA" value="Canada (English)" />
+      <key name="EN-GB" value="United Kingdom" />
+      <key name="EN-HK" value="Hong Kong (English)" />
+      <key name="en-ID" value="Indonesia (English)" />
+      <key name="EN-IE" value="Ireland" />
+      <key name="EN-IN" value="India (English)" />
+      <key name="EN-ME" value="Middle East (English)" />
+      <key name="EN-MY" value="Malaysia" />
+      <key name="EN-NZ" value="New Zealand" />
+      <key name="EN-PH" value="Philippines" />
+      <key name="EN-SG" value="Singapore" />
+      <key name="EN-US" value="United States" />
+      <key name="EN-ZA" value="South Africa" />
+      <key name="en-zw" value="South East Africa" />
+      <key name="ES-AR" value="Argentina" />
+      <key name="ES-BO" value="Bolivia" />
+      <key name="ES-CL" value="Chile" />
+      <key name="ES-CO" value="Colombia" />
+      <key name="ES-CR" value="Costa Rica" />
+      <key name="ES-DO" value="Dominican Republic" />
+      <key name="ES-EC" value="Ecuador" />
+      <key name="ES-ES" value="Spain" />
+      <key name="ES-GT" value="Guatemala" />
+      <key name="ES-MX" value="México" />
+      <key name="ES-PA" value="Panamá" />
+      <key name="ES-PE" value="Perú" />
+      <key name="ES-PR" value="Puerto Rico" />
+      <key name="ES-PY" value="Paraguay" />
+      <key name="ES-SV" value="El Salvador" />
+      <key name="ES-UY" value="Uruguay" />
+      <key name="ES-VE" value="Venezuela" />
+      <key name="ET-ET" value="Estonia" />
+      <key name="FI-FI" value="Finland" />
+      <key name="FR-FR" value="France" />
+      <key name="FR-AL" value="Algeria" />
+      <key name="FR-BE" value="Belgium (French)" />
+      <key name="FR-CA" value="Canada (French)" />
+      <key name="FR-CH" value="Switzerland (French)" />
+      <key name="FR-LU" value="Luxembourg" />
+      <key name="FR-MO" value="Morocco" />
+      <key name="FR-TU" value="Tunisia" />
+      <key name="HE-HE" value="Israel" />
+      <key name="HI-IN" value="India (Hindi)" />
+      <key name="HR-HR" value="Croatia" />
+      <key name="hr-BA" value="Bosnia and Herzegovina" />
+      <key name="HU-HU" value="Hungary" />
+      <key name="id-ID" value="Indonesia (Bahasa)" />
+      <key name="is-is" value="Iceland" />
+      <key name="IT-IT" value="Italy" />
+      <key name="JA" value="Japan" />
+      <key name="kk-kz" value="Kazakhstan" />
+      <key name="KO-KO" value="Korea" />
+      <key name="LT-LT" value="Lithuania" />
+      <key name="LV-LV" value="Latvia" />
+      <key name="NL-NL" value="Netherlands" />
+      <key name="NL-BE" value="Belgium (Dutch)" />
+      <key name="NO-NO" value="Norway" />
+      <key name="PL-PL" value="Poland" />
+      <key name="PT-PT" value="Portugal" />
+      <key name="PT-BR" value="Brazil" />
+      <key name="RO-RO" value="Romania" />
+      <key name="RU-RU" value="Russia" />
+      <key name="SK-SK" value="Slovakia" />
+      <key name="SL-SL" value="Slovenia" />
+      <key name="SR-SR" value="Serbia" />
+      <key name="SR-ME" value="Montenegro" />
+      <key name="SV-SV" value="Sweden" />
+      <key name="TH-TH" value="Thailand" />
+      <key name="TR-TR" value="Turkey" />
+      <key name="UK-UA" value="Ukraine" />
+      <key name="vi-vn" value="Vietnam" />
+      <key name="ZH-CN" value="China" />
+      <key name="ZH-HK" value="Hong Kong (SAR)" />
+      <key name="ZH-TW" value="Taiwan" />
+    </collection>
+    <collection name="MPOSeverityListBC" collectionType="map" caseSensitive="no">
+      <key name="B" value="B – Urgent (Response is within 2 hours)" />
+      <key name="C" value="C – Important (Response is within 4 business hours)" />
+    </collection>
+    <collection name="AzureProductList" collectionType="map" caseSensitive="no">
+      <varType name="1" value="Windows Azure" PESID="13185" />
+      <varType name="2" value="Windows Azure Access Control" PESID="14785" />
+      <varType name="3" value="Windows Azure Cache" PESID="14783" />
+      <varType name="4" value="Windows Azure Service" PESID="13185" />
+      <varType name="5" value="Windows Azure Service Bus" PESID="13186" />
+      <varType name="6" value="Windows Azure SQL Database" PESID="13491" />
+      <varType name="7" value="Windows Azure Subscriptions, Accounts and Billing" PESID="14234" />
+    </collection> 
+    <collection name="MPOSeverityListABC" collectionType="map" caseSensitive="no">
+      <key name="A" value="A – Critical (Response is within 15 minutes)" />
+      <key name="B" value="B – Urgent (Response is within 2 hours)" />
+      <key name="C" value="C – Important (Response is within 4 business hours)" />
+    </collection>
+    <collection name="MPOSeverityBOptions" collectionType="map" caseSensitive="no">
+      <key name="24x7SupportOptIn" value="I want to receive 24x7 support which will include English-only support outside of business hours" />
+      <key name="24x7SupportOptOut" value="I want to receive support during business hours only" />
+    </collection>
+  </section>
+</configuration>
