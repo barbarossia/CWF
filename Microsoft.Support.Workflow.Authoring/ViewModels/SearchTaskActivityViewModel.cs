@@ -42,6 +42,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.selectedActivity = value;
                 RaisePropertyChanged(() => SelectedActivity);
+
+                OpenActivityCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -149,7 +151,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         public SearchTaskActivityViewModel()
         {
             SearchCommand = new DelegateCommand(new Action(SearchCommandExecuted));
-            OpenActivityCommand = new DelegateCommand(GetSelectedActivity);
+            OpenActivityCommand = new DelegateCommand(GetSelectedActivity, () => { return SelectedActivity != null; });
             SortCommand = new DelegateCommand<string>(new Action<string>(SortCommandExecute));
             this.DataPagingVM = new DataPagingViewModel();
             this.DataPagingVM.SearchExecute = this.LoadData;

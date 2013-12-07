@@ -105,6 +105,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
         {
             this.WorkflowDesigner = new DesignerHostAdapters(this.Name, this.XamlCode, this.References, this.IsTask);
             this.WorkflowDesigner.SetWorkflowName(this.Name);
+            this.WorkflowDesigner.ClearUndo();
             this.WorkflowDesigner.DesignerChanged += this.DesignerChanged;
             this.WorkflowDesigner.DesignerReloaded += this.DesignerReload;
             this.WorkflowDesigner.PrintStateChanged += this.OnPrintStateChanged;

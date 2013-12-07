@@ -139,7 +139,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 MessageBoxService.ShowInfo("Please specify an environment to search.");
                 return;
             }
-            WorkflowsQueryServiceUtility.UsingClient(LoadLiveData);
+            using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
+            {
+                LoadLiveData(client);
+            }
         }
 
         public bool CanEdit { get; set; }
@@ -329,13 +332,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             set
             {
                 searchFilter = value.Trim();
-                SearchCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(() => SearchFilter);
-                if (string.IsNullOrEmpty(searchFilter))
-                {
-                    this.DataPagingVM.ResetPageIndex = true;
-                    LoadData();
-                }
             }
         }
 
@@ -423,34 +420,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 request.SortAscending = sortDirection == ListSortDirection.Ascending;
             }
 
-            try
+            Utility.WithContactServerUI(() =>
             {
-                Utility.DoTaskWithBusyCaption("Loading...", () =>
-                {
-                    ActivitySearchReplyDC searchResults = client.SearchActivities(request);
-                    searchResults.StatusReply.CheckErrors();
-                    this.DataPagingVM.ResultsLength = searchResults.ServerResultsLength;
-                    ExistingWorkflows = new ObservableCollection<StoreActivitiesDC>(searchResults.SearchResults);
-                });
-                WorkflowsView = new CollectionViewSource();
-                WorkflowsView.Source = existingWorkflows;
-            }
-            catch (FaultException<ServiceFault> ex)
-            {
-                throw new CommunicationException(ex.Detail.ErrorMessage);
-            }
-            catch (FaultException<ValidationFault> ex)
-            {
-                throw new BusinessValidationException(ex.Detail.ErrorMessage);
-            }
-            catch (Exception ex)
-            {
-                throw new CommunicationException(ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                ActivitySearchReplyDC searchResults = client.SearchActivities(request);
+                searchResults.StatusReply.CheckErrors();
+                this.DataPagingVM.ResultsLength = searchResults.ServerResultsLength;
+                ExistingWorkflows = new ObservableCollection<StoreActivitiesDC>(searchResults.SearchResults);
+            });
+
+            WorkflowsView = new CollectionViewSource();
+            WorkflowsView.Source = existingWorkflows;
         }
 
     }

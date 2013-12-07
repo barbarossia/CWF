@@ -202,7 +202,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
                 while (temp.Parent != null)
                 {
                     temp = temp.Parent;
-                    path = temp.Id + "\\" + path;
+                    path = temp.Id + seperator + path;
                 }
                 this.projectExplorerTree.BringPathIntoView(path);
                 this.projectExplorerTree.Focus();

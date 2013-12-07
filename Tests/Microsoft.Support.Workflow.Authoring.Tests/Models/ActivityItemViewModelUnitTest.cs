@@ -61,8 +61,8 @@ namespace Microsoft.Support.Workflow.Authoring.Tests
                 {
                     ActivityItemViewModel target = new ActivityItemViewModel();
                     int itemCount = 0;
-                    System.ComponentModel.ICollectionView actual = target.Categories;
-                    foreach (var col in actual.SourceCollection)
+                    ObservableCollection<string> actual = target.Categories;
+                    foreach (var col in actual)
                     {
                         itemCount++;
                     }

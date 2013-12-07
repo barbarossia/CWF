@@ -9,32 +9,18 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            if (targetType != typeof(bool))
-            {
+            if (targetType != typeof(bool) && targetType != typeof(bool?))
                 throw new InvalidOperationException("The target must be a boolean");
-            }
+
+            if (value == null)
+                return null;
 
             return !(bool)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            if (targetType != typeof(bool))
-            {
-                throw new InvalidOperationException("The target must be a boolean");
-            }
-
-            return !(bool)value;
+            return Convert(value, targetType, parameter, culture);
         }
     }
 }

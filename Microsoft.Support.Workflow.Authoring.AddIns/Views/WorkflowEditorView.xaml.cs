@@ -478,6 +478,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             if (workflowItem.XamlCode.Trim() != txtXaml)
             {
                 // copy back the Xaml to where the designer can read it from
+                workflowItem.RaiseDesignerChanged();
                 XamlIndexTreeHelper.Refresh(txtXaml);
                 workflowItem.XamlCode = txtXaml;
                 workflowItem.RefreshDesignerFromXamlCode();
@@ -615,6 +616,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
                         TxtXamlCode.HighlightSelection(selection.Offset, selection.Length);
                     }
                     catch (ArgumentNullException)
+                    {
+                        selection = null;
+                    }
+                    catch (ApplicationException)
                     {
                         selection = null;
                     }

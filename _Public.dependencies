@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Sample dependencies file. add dependency nodes as required. -->
-<dependencies>
-  <dependency destinationPath="..\public\FXCop\foo" >
-    <teamFoundationSource path="$/Public/ext/FXCop/10.0/x86" changeSet="Latest" />
-  </dependency>
-</dependencies>
-

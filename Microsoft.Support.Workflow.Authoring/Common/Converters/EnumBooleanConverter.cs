@@ -26,7 +26,7 @@ namespace Microsoft.Support.Workflow.Authoring.Common.Converters
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             string parameterString = parameter as string;
-            if (parameterString == null)
+            if (string.IsNullOrEmpty(parameterString) || !(bool)value)
                 return DependencyProperty.UnsetValue;
 
             return Enum.Parse(targetType, parameterString);

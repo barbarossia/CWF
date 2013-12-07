@@ -32,8 +32,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 Database database = DatabaseFactory.CreateDatabase();
-                DbCommand command = null;
-                command = database.GetStoredProcCommand(StoredProcNames.ActivityLibraryDependencyGetTree);
+                DbCommand command = RepositoryHelper.PrepareCommandCommand(database, StoredProcNames.ActivityLibraryDependencyGetTree);
 
                 database.AddParameter(command, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, Convert.ToString(request.StoreDependenciesRootActiveLibrary.ActivityLibraryName));
                 database.AddParameter(command, StoredProcParamNames.Version, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, Convert.ToString(request.StoreDependenciesRootActiveLibrary.ActivityLibraryVersionNumber));

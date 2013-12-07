@@ -8,6 +8,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using System.ComponentModel;
     using AssetStore;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// View Model for the Activity item view. Provides values for combo boxes (etc), and monitors selected values for the same
@@ -27,7 +28,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
         }
 
-        public ICollectionView Categories { get { return AssetStoreProxy.ActivityCategories.View; } }
+        public ObservableCollection<string> Categories { get { return AssetStoreProxy.Categories; } }
 
         public string SelectedCategory
         {

@@ -82,12 +82,12 @@ BEGIN
 
 			DECLARE @StartIndex int
 			IF @PageNumber > 1 
-				SET @StartIndex = @PageSize * (@PageNumber - 1)
+				SET @StartIndex = @PageSize * (@PageNumber - 1) + 1
 			ELSE
 				SET @StartIndex = 1
 
 			IF (@SearchText IS NOT NULL AND @SearchText != '')
-				SET @SearchText = '%' + @SearchText + '%'
+				SET @SearchText = '%' + Replace(@SearchText,'_', '[_]') + '%'
 			
 			declare @Environment table (Id int)
 			insert into @Environment(Id)
@@ -115,7 +115,7 @@ BEGIN
 				WHERE sa.SoftDelete = 0 AND sa.XAML IS NOT NULL 
 				AND ta.ActivityId IS NULL
 				AND (@FilterOlder IS NULL OR @FilterOlder = 0 OR not exists 
-				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and Id > sa.Id)) AND
+				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and SoftDelete = 0  and Id > sa.Id )) AND
 				(
 				(@FilterByName IS NOT NULL AND @FilterByName != 0 AND sa.Name LIKE @SearchText) OR
 				(@FilterByDescription IS NOT NULL AND @FilterByDescription != 0 AND sa.[Description] LIKE @SearchText) OR
@@ -160,7 +160,7 @@ BEGIN
 				WHERE sa.SoftDelete = 0 AND sa.XAML IS NOT NULL
 				AND ta.ActivityId IS NULL
 				AND (@FilterOlder IS NULL OR @FilterOlder = 0 OR not exists 
-				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and Id > sa.Id)) AND
+				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and SoftDelete = 0  and Id > sa.Id )) AND
 				(
 				(@FilterByName IS NOT NULL AND @FilterByName != 0 AND sa.Name LIKE @SearchText) OR
 				(@FilterByDescription IS NOT NULL AND @FilterByDescription != 0 AND sa.[Description] LIKE @SearchText) OR
@@ -192,12 +192,14 @@ BEGIN
 							CASE WHEN @SortColumn = 'workflowtypename' THEN WorkFlowTypeName END DESC,
 							CASE WHEN @SortColumn = 'description'  AND @SortAscending = 1  THEN [Description] END ASC,
 							CASE WHEN @SortColumn = 'description' THEN [Description] END,
-							CASE WHEN @SortColumn = 'createdby'  AND @SortAscending = 1  THEN [InsertedByUserAlias] END ASC,
-							CASE WHEN @SortColumn = 'createdby' THEN [InsertedByUserAlias] END DESC,
-							CASE WHEN @SortColumn = 'tags'  AND @SortAscending = 1 THEN [MetaTags] END ASC,
-							CASE WHEN @SortColumn = 'tags' THEN [MetaTags] END DESC,
+							CASE WHEN @SortColumn = 'ininsertedbyuseralias'  AND @SortAscending = 1  THEN [InsertedByUserAlias] END ASC,
+							CASE WHEN @SortColumn = 'ininsertedbyuseralias' THEN [InsertedByUserAlias] END DESC,
+							CASE WHEN @SortColumn = 'metatags'  AND @SortAscending = 1 THEN [MetaTags] END ASC,
+							CASE WHEN @SortColumn = 'metatags' THEN [MetaTags] END DESC,
 							CASE WHEN @SortColumn = 'id'  AND @SortAscending = 1 THEN [Id] END ASC, 
-							CASE WHEN @SortColumn = 'id' THEN [Id] END DESC) AS [RowNumber],
+							CASE WHEN @SortColumn = 'id' THEN [Id] END DESC,
+							CASE WHEN @SortColumn = 'environment' AND @SortAscending = 1 THEN [Environment] END ASC, 
+							CASE WHEN @SortColumn = 'environment' THEN [Environment] END DESC) AS [RowNumber],
 						s.Id, 
 						s.[GUID], 
 						s.Name,
@@ -239,7 +241,7 @@ BEGIN
 			WHERE sa.SoftDelete = 0 AND sa.XAML IS NOT NULL 
 			AND ta.ActivityId IS NULL
 			AND (@FilterOlder IS NULL OR @FilterOlder = 0 OR not exists 
-				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and Id > sa.Id))			
+				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and SoftDelete = 0  and Id > sa.Id ))			
 			)
 
 			SELECT @TotalCount= COUNT(Id) FROM cteCount
@@ -277,7 +279,7 @@ BEGIN
 			WHERE sa.SoftDelete = 0 AND sa.XAML IS NOT NULL
 			AND ta.ActivityId IS NULL
 			AND (@FilterOlder IS NULL OR @FilterOlder = 0 OR not exists 
-				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and Id > sa.Id))
+				(SELECT 1 FROM Activity where Name = sa.Name and Environment = sa.Environment and SoftDelete = 0  and Id > sa.Id ))
 			),
 			ctePage(
 				RowNumber,
@@ -294,20 +296,22 @@ BEGIN
 				(
 				SELECT ROW_NUMBER() OVER 
 				(ORDER BY							
-						CASE WHEN @SortColumn = 'name' AND @SortAscending = 1 THEN Name END ASC,
-						CASE WHEN @SortColumn = 'name' THEN Name END DESC,
-						CASE WHEN @SortColumn = 'version' AND @SortAscending = 1 THEN [Version] END ASC,
-						CASE WHEN @SortColumn = 'version' THEN [Version] END DESC,
-						CASE WHEN @SortColumn = 'workflowtypename' AND @SortAscending = 1 THEN WorkFlowTypeName END ASC,
-						CASE WHEN @SortColumn = 'workflowtypename' THEN WorkFlowTypeName END DESC,
-						CASE WHEN @SortColumn = 'description'  AND @SortAscending = 1  THEN [Description] END ASC,
-						CASE WHEN @SortColumn = 'description' THEN [Description] END,
-						CASE WHEN @SortColumn = 'createdby'  AND @SortAscending = 1  THEN [InsertedByUserAlias] END ASC,
-						CASE WHEN @SortColumn = 'createdby' THEN [InsertedByUserAlias] END DESC,
-						CASE WHEN @SortColumn = 'tags'  AND @SortAscending = 1 THEN [MetaTags] END ASC,
-						CASE WHEN @SortColumn = 'tags' THEN [MetaTags] END DESC,
-						CASE WHEN @SortColumn = 'id'  AND @SortAscending = 1 THEN [Id] END ASC, 
-						CASE WHEN @SortColumn = 'id' THEN [Id] END DESC) AS [RowNumber],
+							CASE WHEN @SortColumn = 'name' AND @SortAscending = 1 THEN Name END ASC,
+							CASE WHEN @SortColumn = 'name' THEN Name END DESC,
+							CASE WHEN @SortColumn = 'version' AND @SortAscending = 1 THEN [Version] END ASC,
+							CASE WHEN @SortColumn = 'version' THEN [Version] END DESC,
+							CASE WHEN @SortColumn = 'workflowtypename' AND @SortAscending = 1 THEN WorkFlowTypeName END ASC,
+							CASE WHEN @SortColumn = 'workflowtypename' THEN WorkFlowTypeName END DESC,
+							CASE WHEN @SortColumn = 'description'  AND @SortAscending = 1  THEN [Description] END ASC,
+							CASE WHEN @SortColumn = 'description' THEN [Description] END,
+							CASE WHEN @SortColumn = 'ininsertedbyuseralias'  AND @SortAscending = 1  THEN [InsertedByUserAlias] END ASC,
+							CASE WHEN @SortColumn = 'ininsertedbyuseralias' THEN [InsertedByUserAlias] END DESC,
+							CASE WHEN @SortColumn = 'metatags'  AND @SortAscending = 1 THEN [MetaTags] END ASC,
+							CASE WHEN @SortColumn = 'metatags' THEN [MetaTags] END DESC,
+							CASE WHEN @SortColumn = 'id'  AND @SortAscending = 1 THEN [Id] END ASC, 
+							CASE WHEN @SortColumn = 'id' THEN [Id] END DESC,
+							CASE WHEN @SortColumn = 'environment' AND @SortAscending = 1 THEN [Environment] END ASC, 
+							CASE WHEN @SortColumn = 'environment' THEN [Environment] END DESC) AS [RowNumber],
 					s.Id, 
 					s.[GUID], 
 					s.Name,
@@ -343,6 +347,9 @@ BEGIN
 END
 
 
+GO
+
+GRANT EXECUTE ON [dbo].[Activity_Search] TO [MarketplaceService];
 GO
 
 

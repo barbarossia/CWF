@@ -1,0 +1,52 @@
+﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.Views.Options"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:t="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters"
+        Title="Options"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Height="500" Width="780">
+    <Window.Resources>
+        <convert:InverterBooleanConverter x:Key="BooleanInverterConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ListBox 
+            BorderBrush="Transparent"
+            ItemContainerStyle="{DynamicResource ListBoxItemFilter}"
+            SelectedItem="{Binding SelectedOptionPage}"
+            SelectionMode="Single"
+            ItemsSource="{Binding OptionPages}"
+            DisplayMemberPath="Title"
+            Background="#FFEFEFF2">
+            <ListBox.Style>
+                <Style TargetType="{x:Type ListBox}">
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                </Style>
+            </ListBox.Style>
+        </ListBox>
+        <Frame Margin="5,0" Grid.Column="1" NavigationUIVisibility="Hidden"  Content="{Binding SelectedOptionPage, UpdateSourceTrigger=PropertyChanged}"></Frame>
+       
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Background="#FFEFEFF2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button IsEnabled="{Binding HasSaved, Converter={StaticResource BooleanInverterConverter}}" Content="Save" Click="SaveButtonClick" Width="60" Margin="571,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"></Button>
+            <Button Content="Cancel" Click="CancelButtonClick" Margin="0,0,10,0" Width="60" VerticalAlignment="Center" HorizontalAlignment="Right"></Button>
+            <Button IsEnabled="{Binding HasSaved, Converter={StaticResource BooleanInverterConverter}}" Content="Apply" Click="ApplyButtonClick" Width="60" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"></Button>
+        </StackPanel>
+       
+        <t:RadBusyIndicator Grid.RowSpan="5"
+                            DisplayAfter="00:00:00"
+                            FontSize="18"
+                            IsBusy="{Binding IsBusy}"
+                            BusyContent="{Binding BusyCaption}"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2" />
+    </Grid>
+</Window>

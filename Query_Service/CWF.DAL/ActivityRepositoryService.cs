@@ -27,7 +27,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 Database database = DatabaseFactory.CreateDatabase();
-                DbCommand command = database.GetStoredProcCommand(StoredProcNames.ActivityGetByActivityLibrary);
+                DbCommand command = RepositoryHelper.PrepareCommandCommand(database, StoredProcNames.ActivityGetByActivityLibrary);
+
                 database.AddParameter(command, StoredProcParamNames.Id, DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityLibrary.Id);
                 database.AddParameter(command, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityLibrary.Name);
                 database.AddParameter(command, StoredProcParamNames.Version, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.ActivityLibrary.VersionNumber);
@@ -98,7 +99,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 database = RepositoryHelper.CreateDatabase();
-                command = database.GetStoredProcCommand(StoredProcNames.ActivitySearch);
+                command = RepositoryHelper.PrepareCommandCommand(database, StoredProcNames.ActivitySearch);
+                
                 database.AddParameter(command, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
                 database.AddParameter(command, "@SearchText", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SearchText);
                 database.AddParameter(command, "@SortColumn", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SortColumn);
@@ -177,7 +179,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = DatabaseFactory.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityCheckExists);               
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityCheckExists);
+                
                 db.AddParameter(cmd, "@InName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Name);
                 db.AddParameter(cmd, "@InVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Version);
                 db.AddParameter(cmd, "@InEnvironmentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);

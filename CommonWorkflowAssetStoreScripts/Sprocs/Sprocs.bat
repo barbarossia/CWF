@@ -185,6 +185,10 @@ sqlcmd -S %server% -d %database% -E -b -i "Activity_Move.sql"
 if %ERRORLEVEL% NEQ 0 goto errors
 echo "   **** Created sproc Activity_Move"
 
+sqlcmd -S %server% -d %database% -E -b -i "PermissionGrant.sql"
+if %ERRORLEVEL% NEQ 0 goto errors
+echo "   **** Grant sproc Permission"
+
 goto done
 
 REM: error handler

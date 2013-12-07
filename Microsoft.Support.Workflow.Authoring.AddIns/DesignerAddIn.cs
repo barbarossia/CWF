@@ -119,6 +119,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             WorkflowEditorVM.Name = name;
         }
 
+        public void ClearUndo() {
+            WorkflowEditorVM.ClearUndo();
+        }
+
         public void InitWorkflow(string name, string xaml, bool isTask)
         {
             this.isTask = isTask;

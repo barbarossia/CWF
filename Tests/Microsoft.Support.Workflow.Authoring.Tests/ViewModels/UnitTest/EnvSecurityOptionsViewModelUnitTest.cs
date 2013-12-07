@@ -108,30 +108,28 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
                     Assert.IsTrue(vm.CanSave);
 
                     //test tenantadmingroup exist
-                    using (var impAuthorizationService = new ImplementationOfType(typeof(AuthorizationService)))
+                    using (var impDialog = new ImplementationOfType(typeof(MessageBoxService)))
                     {
-                        using (var impDialog = new ImplementationOfType(typeof(MessageBoxService)))
-                        {
-                            bool isShowError = false;
-                            bool isShowInfo = false;
+                        bool isShowInfo = false;
+                        impDialog.Register(() => MessageBoxService.ShowInfo(Argument<string>.Any)).Execute(() => { isShowInfo = true; return MessageBoxResult.OK; });
 
-                            impDialog.Register(() => MessageBoxService.ShowInfo(Argument<string>.Any)).Execute(() => { isShowInfo = true; return MessageBoxResult.OK; });
-                            impDialog.Register(() => MessageBoxService.ShowError(Argument<string>.Any)).Execute(() => { isShowError = true; return MessageBoxResult.OK; });
-
-                            //the tanant admin group is same as one author group
-                            vm.AuthorGroups = new System.Collections.ObjectModel.ObservableCollection<AuthorizationGroupDC>() 
+                        //the tanant admin group is same as one author group
+                        vm.AuthorGroups = new System.Collections.ObjectModel.ObservableCollection<AuthorizationGroupDC>() 
                             {
                                 new AuthorizationGroupDC(){AuthGroupName="test",RoleId = (int)Role.Author},
                             };
-                            vm.AdminGroups = new ObservableCollection<AuthorizationGroupDC>();
-                            vm.ViewerGroups = new ObservableCollection<AuthorizationGroupDC>();
+                        vm.AdminGroups = new ObservableCollection<AuthorizationGroupDC>();
+                        vm.ViewerGroups = new ObservableCollection<AuthorizationGroupDC>();
+                        vm.TenantStageAuthorGroups = new ObservableCollection<AuthorizationGroupDC>();
 
-                            vm.SaveCommand.Execute();
-                            Assert.IsTrue(isShowInfo);
+                        vm.SaveCommand.Execute();
+                        Assert.IsTrue(isShowInfo);
 
-
-                            //the admintenantgroup not exist
-                            isShowError = false;
+                        //the admintenantgroup not exist
+                        bool isShowError = false;
+                        impDialog.Register(() => MessageBoxService.ShowError(Argument<string>.Any)).Execute(() => { isShowError = true; return MessageBoxResult.OK; });
+                        using (var impAuthorizationService = new ImplementationOfType(typeof(AuthorizationService)))
+                        {
                             impAuthorizationService.Register(() => AuthorizationService.GroupExists(Argument<string>.Any))
                             .Return(false);
                             vm.AuthorGroups = new System.Collections.ObjectModel.ObservableCollection<AuthorizationGroupDC>();
@@ -234,6 +232,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
                         vm.ViewerGroups = new ObservableCollection<AuthorizationGroupDC>();
                         vm.AuthorGroups = new ObservableCollection<AuthorizationGroupDC>();
                         vm.AdminGroups = new ObservableCollection<AuthorizationGroupDC>();
+                        vm.TenantStageAuthorGroups = new ObservableCollection<AuthorizationGroupDC>();
 
                         //Test addcommand can execute
                         vm.IsTesting = true;
@@ -297,6 +296,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
                         vm.ViewerGroups = new ObservableCollection<AuthorizationGroupDC>();
                         vm.AuthorGroups = new ObservableCollection<AuthorizationGroupDC>();
                         vm.AdminGroups = new ObservableCollection<AuthorizationGroupDC>();
+                        vm.TenantStageAuthorGroups = new ObservableCollection<AuthorizationGroupDC>();
                         Assert.IsFalse(vm.TestCommand.CanExecute());
                         vm.TenantAdminGroup = "test";
                         Assert.IsTrue(vm.TestCommand.CanExecute());

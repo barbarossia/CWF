@@ -9,7 +9,7 @@
         Width="700"
         WindowStartupLocation="CenterScreen"
         Background="#FFF9F9F9"
-        Title="Select a workfliow">
+        Title="Select a workflow">
     <Grid Margin="10,0">
         <Grid.Resources>
             <VisualBrush x:Key="SearchHint" TileMode="None" Stretch="None" AlignmentX="Left">
@@ -80,6 +80,8 @@
                 GridLinesVisibility="None"
                 AutoGenerateColumns="False"
                 HorizontalScrollBarVisibility="Auto"
+                SelectionUnit="FullRow"
+                SelectionMode="Single"
                 SelectedItem="{Binding SelectedActivity,Mode=TwoWay}"
                 >
                 <DataGrid.Columns>

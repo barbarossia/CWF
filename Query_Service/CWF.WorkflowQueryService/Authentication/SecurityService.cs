@@ -16,7 +16,7 @@ namespace CWF.WorkflowQueryService.Authentication
         {
             ServiceSecurityContext securityContext = ServiceSecurityContext.Current;
             var principal = new WindowsPrincipal(securityContext.WindowsIdentity);
-            return authorGroups.Where(a => principal.IsInRole(a)).ToArray();             
+            return authorGroups.Where(a => principal.IsInRole(string.Format(@"redmond\{0}", a))).ToArray();             
         }
     }
 }

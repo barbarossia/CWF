@@ -275,7 +275,15 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
 
         private void BringIntoViewNextPattern()
         {
-            currentFindedPatternPosition++;
+            if (currentFindedPatternPosition >= findedPatterns.Count - 1)
+            {
+                TextPointer lastPointer = findedPatterns.Last().End;
+                var pattern = FlowDocumentExtension.GetNextMatching(Document, filterText, lastPointer);
+                if (pattern != null)
+                {
+                    findedPatterns.Add(pattern);
+                }
+            }
 
             if (findedPatterns == null || findedPatterns.Count == 0)
             {
@@ -318,13 +326,18 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             if (filterText != findTextBox.Text)
             {
                 FlowDocumentExtension.ClearTextDecorations(Document);
+                EnableOrDisableBtns(false, false);
             }
             filterText = findTextBox.Text;
 
-            findedPatterns = FlowDocumentExtension.GetAllMatchingInParagraph(Document, filterText, false);
-
-            currentFindedPatternPosition = -1;
-            BringIntoViewNextPattern();
+            findedPatterns = new List<TextRange>();
+            var pattern = FlowDocumentExtension.GetNextMatching(Document, filterText, null);
+            if (pattern != null)
+            {
+                findedPatterns.Add(pattern);
+                currentFindedPatternPosition = 0;
+                BringIntoViewNextPattern();
+            }
         }
 
         #endregion
@@ -352,6 +365,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
             }
             else
             {
+                currentFindedPatternPosition++;
                 BringIntoViewNextPattern();
             }
         }

@@ -31,7 +31,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
@@ -237,7 +237,7 @@
     <Compile Include="PrintCustomization\PrintCustomizationViewModel.cs" />
     <Compile Include="PrintCustomization\PrintHelper.cs" />
     <Compile Include="PrintCustomization\PrintViewMode.cs" />
-    <Compile Include="PrintCustomization\PrintViewModeOnUI.cs" />
+    <Compile Include="Models\EnumOnUI.cs" />
     <Compile Include="PrintCustomization\ResizingAdorner.cs" />
     <Compile Include="PrintCustomization\ResizingThumb.cs" />
     <Compile Include="PrintCustomization\ScaleResizingAdorner.cs" />

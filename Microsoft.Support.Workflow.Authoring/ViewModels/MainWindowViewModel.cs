@@ -79,6 +79,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             OnStoreActivitesUnlock = StoreActivitesUnlock;
         }
 
+        public DelegateCommand ClosingCommand { get; private set; }
 
         public DelegateCommand OpenEnvSecurityOptionsCommand { get; private set; }
 
@@ -209,7 +210,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         public DelegateCommand ShowClickableMessageCommand { get; private set; }
 
-        public DelegateCommand DefaultValueSettingsCommand { get; private set; }
+        public DelegateCommand OpenOptionsCommand { get; private set; }
+
+        public DelegateCommand OpenCDSPackagesManagerCommand { get; private set; }
 
         public Env AllEnvs { get; private set; }
         public Env AnyEnv { get; private set; }
@@ -449,7 +452,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             return null != FocusedWorkflowItem &&
                    !FocusedWorkflowItem.IsService &&
                    FocusedWorkflowItem.IsValid &&
-                   AuthorizationService.Validate(FocusedWorkflowItem.Env, Permission.CompileWorkflow);
+                   (!FocusedWorkflowItem.IsOpenFromServer ||
+                   AuthorizationService.Validate(FocusedWorkflowItem.Env, Permission.CompileWorkflow));
         }
 
         /// <summary>
@@ -595,7 +599,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     {
                         shouldCancel = !SaveToServer(itemToClose);
                     }
-                    if (result.Value.HasFlag(SavingResult.Unlock))
+                    if (result.Value.HasFlag(SavingResult.Unlock) && CheckActivitiesUnlock(itemToClose))
                     {
                         OnStoreActivitesUnlockWithBusy(itemToClose, result.Value.HasFlag(SavingResult.Save));
                     }
@@ -649,8 +653,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void InitializeCommands()
         {
-            DefaultValueSettingsCommand = new DelegateCommand(DefaultValueSettingCommandExecute);
+            ClosingCommand = new DelegateCommand(CloseCommandExecute, CheckShouldCancelExit);
 
+            OpenOptionsCommand = new DelegateCommand(DefaultValueSettingCommandExecute);
+            OpenCDSPackagesManagerCommand = new DelegateCommand(OpenCDSPackagesManagerCommandExecute);
             OpenEnvSecurityOptionsCommand = new DelegateCommand(OpenEnvSecurityOptionsCommandExecute, OpenEnvSecurityOptionsCommandCanExecute);
             OpenTenantSecurityOptionsCommand = new DelegateCommand(OpenTenantSecurityOptionsCommandExecute, OpenTenantSecurityOptionsCommandCanExecute);
             MoveProjectCommand = new DelegateCommand(MoveProjectCommandExecute, MoveProjectCommandCanExecute);
@@ -686,9 +692,15 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             ManageWorkflowTypeCommand = new DelegateCommand(ManageWokflowTypesCommandExecute, CanManageWorflowTypeCommandExecute);
         }
 
+        private void OpenCDSPackagesManagerCommandExecute() 
+        {
+            var viewModel = new CDSPackagesManagerViewModel();
+            DialogService.ShowDialog(viewModel);
+        }
+
         private void DefaultValueSettingCommandExecute()
         {
-            var viewModel = new DefaultValueSettingsViewModel();
+            var viewModel = new OptionsViewModel();
             DialogService.ShowDialog(viewModel);
         }
 
@@ -1129,10 +1141,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
             if (needToSave)
             {
-                FocusedWorkflowItem.IsReadOnly = true;
                 FocusedWorkflowItem.IsSavedToServer = true;
                 FocusedWorkflowItem.IsDataDirty = false;
             }
+            FocusedWorkflowItem.IsReadOnly = true;
 
             UnlockCommand.RaiseCanExecuteChanged();
         }
@@ -1544,13 +1556,13 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         public bool UploadWorkflowWithBusy(WorkflowItem workflow)
         {
             bool result = false;
-            Utility.DoTaskWithBusyCaption("Saving...", () =>
+            using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
             {
-                result = WorkflowsQueryServiceUtility.UsingClientReturn(client =>
+                Utility.WithContactServerUI(() =>
                 {
-                    return UploadWorkflow(client, workflow);
-                });
-            }, false);
+                    result = UploadWorkflow(client, workflow);
+                }, false);
+            }
 
             return result;
         }
@@ -1580,12 +1592,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 ErrorMessageType = "Error Saving to Server";
                 ErrorMessage = upResult.ErrorMessage + "\r\n\r\nYour changes were not successfully saved to the server.";
                 return false;
-            }
-            else
-            {
-                OnStoreActivitesUnlock(workflow, false);
-                workflow.OriginalName = workflow.Name;
-                workflow.OldVersion = workflow.Version;
             }
 
             if (workflowDC != null && fakeLibrary != null)
@@ -1695,6 +1701,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void UpdateCommandsCanExecute()
         {
+            ClosingCommand.RaiseCanExecuteChanged();
             NewWorkflowCommand.RaiseCanExecuteChanged();
             SaveFocusedWorkflowCommand.RaiseCanExecuteChanged();
             OpenWorkflowCommand.RaiseCanExecuteChanged();
@@ -1888,5 +1895,51 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 });
             }
         }
+
+        private bool CheckActivitiesUnlock(WorkflowItem workflow)
+        {
+            if (workflow.IsReadOnly)
+                return false;
+
+            StoreActivitiesDC wf = null;
+            WorkflowsQueryServiceUtility.UsingClient(client =>
+                {
+                    StoreActivitiesDC workflowDC = new StoreActivitiesDC()
+                    {
+                        Name = workflow.Name,
+                        Version = workflow.Version,
+                        Environment = workflow.Env.ToString()
+                    };
+                    workflowDC.SetIncaller();
+
+                    var result = client.StoreActivitiesGet(workflowDC);
+                    if (result.Any())
+                    {
+                        wf = result[0];
+                        wf.StatusReply.CheckErrors();
+                    }
+                });
+
+                if (wf.Locked)
+                {
+                    if (wf.LockedBy == Environment.UserName)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        bool canOverrideLock = AuthorizationService.Validate(wf.Environment.ToEnv(), Permission.OverrideLock);
+                        if (!canOverrideLock)
+                        {
+                            MessageBoxService.LockChangedWhenAuthorUnlocking(wf.LockedBy);
+                            return false;
+                        }
+
+                    }
+                }
+
+                return true;
+        }
+
     }
 }

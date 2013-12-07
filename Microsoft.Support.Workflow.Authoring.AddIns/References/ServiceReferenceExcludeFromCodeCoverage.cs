@@ -127,7 +127,109 @@ namespace CWF.DataContracts
 
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class ActivityMoveReply { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ActivitySearchReplyDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ActivitySearchRequestDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class AuthGroupsCreateOrUpdateRequestDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class AuthorizationGroupDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class AuthorizationGroupGetReplyDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class AuthorizationGroupGetRequestDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class GetMissingActivityLibrariesReply { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class GetMissingActivityLibrariesRequest { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class StoreLibraryAndTaskActivityRequestDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class TaskActivityGetListReply { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class TaskActivityGetListRequest { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class TaskActivityGetReplyDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkFlowTypeCreateOrUpdateRequestDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkflowReplayHeader { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkflowRequestHeader { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkflowRequestReplayHeader { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkflowSearchRequestHeader { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkflowTypeSearchDC { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkflowTypeSearchReply { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class WorkflowTypesGetRequestDC { }
 }
 
 [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public partial class WorkflowsQueryServiceClient { }
+
+namespace CWF.DataContracts.Marketplace
+{
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ActivityQuickInfo { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class MarketplaceAsset { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class MarketplaceAssetDetails { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class MarketplaceSearchDetail { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class MarketplaceSearchQuery { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class MarketplaceSearchResult { }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class SortCriterion { }
+}
+
+namespace CWF.BAL.Versioning
+{
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class Rule { }
+}
+
+namespace CWF.WorkflowQueryService.Versioning
+{
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class VersionFault { }
+}
+
+namespace Microsoft.Support.Workflow.Service.Contracts.FaultContracts
+{
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class ServiceFault { }
+}

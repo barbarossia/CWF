@@ -12,39 +12,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Microsoft.Support.Workflow.Authoring.Views
-{
+namespace Microsoft.Support.Workflow.Authoring.Views {
     /// <summary>
     /// Interaction logic for DefaultValueSettingsView.xaml
     /// </summary>
-    public partial class DefaultValueSettingsView : Window
-    {
-        public DefaultValueSettingsView()
-        {
+    public partial class DefaultValueSettingsView : Page, IOptionPage {
+        private DefaultValueSettingsViewModel vm;
+
+        public event EventHandler HasSavedChanged;
+
+        public DefaultValueSettingsView() {
             InitializeComponent();
+
+            vm = new DefaultValueSettingsViewModel();
+            DataContext = vm;
+
+            vm.PropertyChanged += (s, e) => {
+                if (e.PropertyName == "HasSaved" && HasSavedChanged != null)
+                    HasSavedChanged(this, new EventArgs());
+            };
         }
 
-        private void Cancel(object sender, RoutedEventArgs e)
-        {
-            var viewModel = this.DataContext as DefaultValueSettingsViewModel;
-            if (viewModel != null && viewModel.HasChanged)
-            {
-                MessageBoxResult result = MessageBox.Show("Are you sure to cancel without saving?", "Confirmation", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                    this.Close();
-            }
-            else { this.Close(); }
+        public bool HasSaved {
+            get { return vm.HasSaved; }
         }
 
-        private void Save(object sender, RoutedEventArgs e)
-        {
-            var viewModel = this.DataContext as DefaultValueSettingsViewModel;
-            if (viewModel != null)
-            {
-                viewModel.SaveCommand.Execute();
-                if (viewModel.HasSaved)
-                    this.Close();
-            }
+        public void Save() {
+            vm.Save();
         }
     }
 }

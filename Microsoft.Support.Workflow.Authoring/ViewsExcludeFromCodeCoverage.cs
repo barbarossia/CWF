@@ -35,6 +35,26 @@ namespace Microsoft.Support.Workflow.Authoring.UIControls
 namespace Microsoft.Support.Workflow.Authoring.Views
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class CDSPackagesManagerView
+    {
+    }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class CDSIntegrationView
+    {
+    }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class DefaultValueSettingsView
+    {
+    }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class Options
+    {
+    }
+
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class AboutView
     {
     }
@@ -151,5 +171,10 @@ namespace Microsoft.Support.Workflow.Authoring.Views
 
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public partial class TenantSecurityOptions { }
+}
 
+namespace Microsoft.Support.Workflow.Authoring.Behaviors
+{
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public partial class TextBoxFilters { }
 }

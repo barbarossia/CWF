@@ -55,7 +55,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
                 vm.EnableDownloadDependencies = false;
                 vm.SearchWorkflowScope = SearchScope.SearchCurrentWorkflow;
                 vm.OpenForEditing = OpenMode.Readonly;
-                vm.SaveCommand.Execute();
+                vm.Save();
                 Assert.IsTrue(vm.EnableTaskAssignment);
                 Assert.IsFalse(vm.EnableDownloadDependencies);
                 Assert.AreEqual(vm.SearchWorkflowScope, SearchScope.SearchCurrentWorkflow);

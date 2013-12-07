@@ -43,6 +43,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
         //operate workflow
         void SetReadOnly(bool isReadOnly);
         void SetWorkflowName(string name);
+        void ClearUndo();
         void InitWorkflow(string name, string xaml, bool isTask);
 
         //commands

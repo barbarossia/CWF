@@ -20,28 +20,18 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.Converters
         public void Aconvert_TestBooleanInverterConverterConvert()
         {
             object value;
-            bool result;
+            object result;
             BooleanInverterConverter converter = new BooleanInverterConverter();
 
-            try
-            {
-                value = null;
-                converter.Convert(value, typeof(bool), null, null);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(typeof(ArgumentNullException), ex.GetType());
-            }
+            value = null;
+            result = converter.Convert(value, typeof(bool), null, null);
+            Assert.IsNull(result);
 
-            try
+            value = 1;
+            TestUtilities.Assert_ShouldThrow<InvalidOperationException>(() =>
             {
-                value = 1;
                 converter.Convert(value, null, null, null);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(typeof(InvalidOperationException), ex.GetType());
-            }
+            });
 
             value = true;
             result = (bool)converter.Convert(value, typeof(bool), null, null);
@@ -50,13 +40,26 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.Converters
 
         [WorkItem(321689)]
         [TestMethod]
-        [Description("Check BooleanInverterConverter doesn't implement back conversion.")]
         [Owner("v-ery")]
         [TestCategory("Unit-NoDif")]
         public void Aconvert_TestBooleanInverterConverterConvertBack()
         {
-            var converter = new BooleanInverterConverter();
-            var result = (bool)converter.Convert(true, typeof(bool), null, null);
+            object value;
+            object result;
+            BooleanInverterConverter converter = new BooleanInverterConverter();
+
+            value = null;
+            result = converter.ConvertBack(value, typeof(bool), null, null);
+            Assert.IsNull(result);
+
+            value = 1;
+            TestUtilities.Assert_ShouldThrow<InvalidOperationException>(() =>
+            {
+                converter.ConvertBack(value, null, null, null);
+            });
+
+            value = true;
+            result = (bool)converter.ConvertBack(value, typeof(bool), null, null);
             Assert.AreEqual(false, result);
         }
     }

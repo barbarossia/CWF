@@ -1,4 +1,0 @@
-This file is used to Lock our update of CurrentVersion.txt
-We found that there was still a window of oppurtuntity to 
-get the wrong version if we locked the version file. This
-file never gets updated so there is no checkin latency.

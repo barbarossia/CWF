@@ -50,13 +50,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         /// </summary>
         private const string WorkflowTypeDefaultWfservice = "WorkflowService";
 
-
-
-        /// <summary>
-        /// Content of context menu
-        /// </summary>
-        private const string ShowXamlMenuHeader = "Show XAML";
-
         /// <summary>
         /// Perfix at workflow name
         /// </summary>
@@ -141,10 +134,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         #endregion
 
         #region events
-        /// <summary>
-        /// The show xaml.
-        /// </summary>
-        public event ShowXamlEventHander ShowXaml;
 
         /// <summary>
         /// notify host the designer changed
@@ -361,6 +350,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             }
         }
 
+        public WorkflowEditorViewModel() : this(null)
+        {
+        }
+
         public WorkflowEditorViewModel(CancellationTokenSource token)
         {
             this.cancellationToken = token;
@@ -377,17 +370,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             this.IsTask = isTask;
             // Make sure we have a Designer
             RefreshDesignerFromXamlCode();
-
-            // Add Show XAML menu item to context menu
-            MenuItem showXamlMenuItem = new MenuItem { Header = ShowXamlMenuHeader };
-            showXamlMenuItem.Click += ShowXamlMenuItem_Click;
-
-            if (WorkflowDesigner.ContextMenu != null)
-            {
-                // If it's a activity has no Designer, it doesn't has context menu...
-                WorkflowDesigner.ContextMenu.Items.Add(showXamlMenuItem);
-            }
-
         }
 
         private void OnSetName()
@@ -421,6 +403,12 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             // Reload the designer since Xaml has changed\
             WorkflowDesigner = new WorkflowDesigner();
             IsReadOnly = isReadonly;
+        }
+
+        public void ClearUndo() {
+            List<UndoUnit> undoList = typeof(UndoEngine).GetField("undoBuffer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(WorkflowDesigner.Context.Services.GetService<UndoEngine>()) as List<UndoUnit>;
+            undoList.Clear();
         }
 
         #region private method
@@ -599,22 +587,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         }
 
         /// <summary>
-        /// The on show xaml.
-        /// </summary>
-        private void OnShowXaml()
-        {
-            if (ShowXaml != null)
-            {
-                var activity =
-                    workflowDesigner.Context.Items.GetValue<Selection>().PrimarySelection.GetCurrentValue() as Activity;
-                if (activity != null)
-                {
-                    ShowXaml.Invoke(this, new ShowXamlEventArgs { Activity = activity });
-                }
-            }
-        }
-
-        /// <summary>
         /// The workflow as an Activity, or null if conversion fails
         /// </summary>
         [SuppressMessage("Microsoft.Reliability", "CA2000", Justification = "XmlReader.Dispose() will dispose of StringReader too. System.Xaml uses this same pattern in XamlServices.Parse.")]
@@ -714,27 +686,13 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             }
         }
 
-        /// <summary>
-        /// The show xaml menu item_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The event args.
-        /// </param>
-        private void ShowXamlMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            OnShowXaml();
-        }
-
         private void RaisePrintStateChanged()
         {
             if (this.PrintStateChanged != null)
                 PrintStateChanged(this, EventArgs.Empty);
         }
 
-        private void RaiseDesignerChanged()
+        public void RaiseDesignerChanged()
         {
             if (this.DesignerChanged != null && !this.IsReadOnly)
                 DesignerChanged(this, EventArgs.Empty);
@@ -766,15 +724,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             {
                 CompositeWorkflow.ModelService_PropertiesChanged(e.PropertiesChanged);
             }
-        }
-
-        public void DownloadTaskDependency(TaskActivityDC taskActivityDC)
-        {
-            this.GetTaskLastVersionChanged(
-                this,
-                new GetTaskEventArgs(
-                    taskActivityDC.Activity.ActivityLibraryName,
-                    taskActivityDC.Activity.ActivityLibraryVersion));
         }
 
         public void DownloadTaskDependency(IEnumerable<TaskActivityDC> taskActivityDCs)

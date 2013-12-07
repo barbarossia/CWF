@@ -227,7 +227,6 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                                          .ToList()
                                          .ForEach(item =>
                                                       {
-                                                          item.Category = assembly.Category;
                                                           sections = item.Name.Split(".".ToCharArray());
                                                           item.DisplayName = ToolboxControlService.GetHumanReadableName(sections[sections.Length - 1]);
                                                       }));

@@ -27,7 +27,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = DatabaseFactory.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityLibraryDependencyCreteOrUpdateListHead);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityLibraryDependencyCreteOrUpdateListHead);
+
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@inActivityLibraryName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Name);
@@ -80,7 +81,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = DatabaseFactory.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityLibraryDependencyCreateOrUpdate);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityLibraryDependencyCreateOrUpdate);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@inActivityLibraryName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesRootActiveLibrary.ActivityLibraryName);

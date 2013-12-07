@@ -22,7 +22,12 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.Services
 
         public DisposableAppDomain()
         {
-            _appDomain = AppDomain.CreateDomain("DisposableAppDomain");
+            _appDomain = AppDomain.CreateDomain("DisposableAppDomain", null, new AppDomainSetup
+            {
+                ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+                ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile,
+                ApplicationName = AppDomain.CurrentDomain.SetupInformation.ApplicationName,
+            });
         }
 
         public void Dispose()

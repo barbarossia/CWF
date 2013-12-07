@@ -74,40 +74,6 @@ namespace AuthoringToolTests.Services
         [TestMethod]
         [Owner("v-ery")]
         [TestCategory("Unit-Dif")]
-        public void Caching_TestComputeDependenciesExceptions()
-        {
-            using (var client = new Mock<IWorkflowsQueryService>())
-            {
-                client.Expect(c => c.GetAllActivityLibraries(null))
-                    .Where(request => request != null)
-                    .Throw(new FaultException<ServiceFault>(new ServiceFault()));
-                client.Expect(c => c.GetAllActivityLibraries(null))
-                    .Where(request => request != null)
-                    .Throw(new FaultException<ValidationFault>(new ValidationFault()));
-                client.Expect(c => c.GetAllActivityLibraries(null))
-                    .Where(request => request != null)
-                    .Throw(new Exception());
-
-                TestUtilities.Assert_ShouldThrow<CommunicationException>(() =>
-                {
-                    Caching.ComputeDependencies(client.Instance, new List<ActivityAssemblyItem>());
-                });
-                TestUtilities.Assert_ShouldThrow<BusinessValidationException>(() =>
-                {
-                    Caching.ComputeDependencies(client.Instance, new List<ActivityAssemblyItem>());
-                });
-                TestUtilities.Assert_ShouldThrow<CommunicationException>(() =>
-                {
-                    Caching.ComputeDependencies(client.Instance, new List<ActivityAssemblyItem>());
-                });
-                client.Verify();
-            }
-        }
-
-        [WorkItem(323454)]
-        [TestMethod]
-        [Owner("v-ery")]
-        [TestCategory("Unit-Dif")]
         public void Caching_TestGetExecutableBytesExceptions()
         {
             using (var client = new Mock<IWorkflowsQueryService>())
@@ -285,6 +251,23 @@ namespace AuthoringToolTests.Services
                 {
                     new StoreActivityLibrariesDependenciesDC
                     {
+                        Activities = new List<ActivityLibraryDC> {
+                        // Dependencies have no runtime representation, only a DB representation in terms of IDs. 
+                        // We need to give each library an ID in order to decode dependencies.                        
+                        new ActivityLibraryDC {
+                            Id = 3, Name = lib3.Name, VersionNumber = lib3.Version.ToString(),Environment="dev"
+                        },
+                        new ActivityLibraryDC {
+                            Id = 2, Name = lib2.Name, VersionNumber = lib2.Version.ToString(),Environment="dev"
+                        },
+                        new ActivityLibraryDC {
+                            Id = 1, Name = lib1.Name, VersionNumber = lib1.Version.ToString(),Environment="dev"
+                        },
+                        // Something else just to make sure it doesn't get downloaded
+                        new ActivityLibraryDC {
+                            Id = 4, Name = "SomeOtherLibrary", VersionNumber = "1.0.0.0",Environment="dev"
+                        }
+                    },
                         StoreDependenciesDependentActiveLibraryList =
                             new List<StoreDependenciesDependentActiveLibrary>
                             {
@@ -302,28 +285,6 @@ namespace AuthoringToolTests.Services
                     }
                 });
 
-            stubClient.Register(inst => inst.GetAllActivityLibraries(Argument<GetAllActivityLibrariesRequestDC>.Any))
-                .Return(new GetAllActivityLibrariesReplyDC
-                {
-                    Errorcode = 0,
-                    List = new List<ActivityLibraryDC> {
-                        // Dependencies have no runtime representation, only a DB representation in terms of IDs. 
-                        // We need to give each library an ID in order to decode dependencies.                        
-                        new ActivityLibraryDC {
-                            Id = 3, Name = lib3.Name, VersionNumber = lib3.Version.ToString(),Environment="dev"
-                        },
-                        new ActivityLibraryDC {
-                            Id = 2, Name = lib2.Name, VersionNumber = lib2.Version.ToString(),Environment="dev"
-                        },
-                        new ActivityLibraryDC {
-                            Id = 1, Name = lib1.Name, VersionNumber = lib1.Version.ToString(),Environment="dev"
-                        },
-                        // Something else just to make sure it doesn't get downloaded
-                        new ActivityLibraryDC {
-                            Id = 4, Name = "SomeOtherLibrary", VersionNumber = "1.0.0.0",Environment="dev"
-                        }
-                    }
-                });
             var client = stubClient.Instance;
 
             using (new CachingIsolator(lib1))
@@ -419,7 +380,7 @@ namespace AuthoringToolTests.Services
         public void Caching_TestDownloadAssembliesNotNull()
         {
             var lib1 = TestInputs.ActivityAssemblyItems.TestInput_Lib1;
-            var download = new List<ActivityAssemblyItem>(){lib1};
+            var download = new List<ActivityAssemblyItem>() { lib1 };
             var bytes = File.ReadAllBytes(lib1.Location);
             using (var client = new Mock<IWorkflowsQueryService>())
             {

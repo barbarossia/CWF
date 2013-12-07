@@ -54,7 +54,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
@@ -137,6 +137,10 @@
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Ribbon for WPF\V3.5\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="NuGet.Core, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\NuGet.Core.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Activities.Presentation" />
@@ -198,13 +202,27 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\packageicon.png" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="AssetStore\AssetStoreProxy.cs" />
+    <Compile Include="Behaviors\TextBoxFilters.cs" />
     <Compile Include="Behaviors\WindowClosingBehavior.cs" />
+    <Compile Include="CDS\CDSInstalledRepository.cs" />
+    <Compile Include="CDS\CDSService.cs" />
+    <Compile Include="CDS\CDSUpdateRepository.cs" />
+    <Compile Include="CDS\AggregateRepositoryHelper.cs" />
+    <Compile Include="CDS\CDSOnlineRepository.cs" />
+    <Compile Include="CDS\CDSRepositoryBase.cs" />
+    <Compile Include="CDS\CDSSortByType.cs" />
+    <Compile Include="CDS\CDSConstants.cs" />
+    <Compile Include="CDS\CWFFileSystem.cs" />
+    <Compile Include="CDS\PackageSourceBuilder.cs" />
+    <Compile Include="CDS\QueryExtensions.cs" />
     <Compile Include="Common\CachingChangedEventHandler.cs" />
+    <Compile Include="Common\Converters\PackageTitleConverter.cs" />
     <Compile Include="Common\Converters\EnumBooleanConverter.cs" />
     <Compile Include="Common\Converters\InverterBooleanConverter.cs" />
     <Compile Include="Common\Converters\NullToBrushConverter.cs" />
@@ -213,13 +231,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Converters\AllMatchToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\PackageIconConverter.cs" />
+    <Compile Include="Common\Converters\PackageStatusConverter.cs" />
     <Compile Include="Common\Converters\VersionToStringConverter.cs" />
     <Compile Include="Common\EnvFilter.cs" />
     <Compile Include="Common\ExceptionHandling\BusinessValidationException.cs" />
+    <Compile Include="Common\ExceptionHandling\CDSPackageException.cs" />
     <Compile Include="Common\ExceptionHandling\MarketplaceExceptionHandler.cs" />
     <Compile Include="Common\MarketplaceStatus.cs" />
     <Compile Include="Common\Messages\AuthorizationMessages.cs" />
     <Compile Include="Common\Messages\CommonMessages.cs" />
+    <Compile Include="Common\PagedList.cs" />
     <Compile Include="Common\SecurityGroupType.cs" />
     <Compile Include="Common\WorkflowTypeOperations.cs" />
     <Compile Include="Common\Messages\ImportMessages.cs" />
@@ -247,6 +269,7 @@
     <Compile Include="Models\ContentFileItem.cs" />
     <Compile Include="Models\CompileException.cs" />
     <Compile Include="Models\MarketplaceAssetModel.cs" />
+    <Compile Include="CDS\NugetConfigManager.cs" />
     <Compile Include="Models\WorkflowItem.cs" />
     <Compile Include="Models\WorkflowTemplateItem.cs" />
     <Compile Include="NonTrasparentWindowsGeneratedItemsFactory.cs" />
@@ -276,6 +299,15 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\ActivityAssemblyItemViewModel.cs" />
     <Compile Include="ViewModels\ActivityItemViewModel.cs" />
+    <Compile Include="ViewModels\CDSIntegrationViewModel.cs" />
+    <Compile Include="ViewModels\CDSPackagesManagerViewModel.cs" />
+    <Compile Include="ViewModels\OptionsViewModel.cs" />
+    <Compile Include="Views\CDSIntegrationView.xaml.cs">
+      <DependentUpon>CDSIntegrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CDSPackagesManagerView.xaml.cs">
+      <DependentUpon>CDSPackagesManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DefaultValueSettingsViewModel.cs" />
     <Compile Include="ViewModels\SingleDB\ChangeAuthorSummaryViewModel.cs" />
     <Compile Include="ViewModels\SingleDB\ChangeAuthorViewModel.cs" />
@@ -316,6 +348,10 @@
     </Compile>
     <Compile Include="Views\DefaultValueSettingsView.xaml.cs">
       <DependentUpon>DefaultValueSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IOptionPage.cs" />
+    <Compile Include="Views\Options.xaml.cs">
+      <DependentUpon>Options.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SingleDB\ChangeAuthor.xaml.cs">
       <DependentUpon>ChangeAuthor.xaml</DependentUpon>
@@ -400,7 +436,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\CDSIntegrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CDSPackagesManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DefaultValueSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Options.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -498,6 +546,7 @@
     </EmbeddedResource>
     <Resource Include="References\Microsoft.Practices.ServiceLocation.xml" />
     <Content Include="References\Microsoft.Windows.Shell.dll" />
+    <Content Include="References\NuGet.Core.dll" />
     <Content Include="References\Workflow.Activity.dll" />
     <Resource Include="Resources\Images\WhatsThis.png" />
     <Page Include="Common\VersionDisplay.xaml">

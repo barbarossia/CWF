@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F71C1F89-E75F-445E-9EB8-879B9696DEAF}"
 	ProjectSection(SolutionItems) = preProject
 		Authoring1.vsmdi = Authoring1.vsmdi
@@ -28,7 +28,32 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Support.Workflow.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Support.Workflow.Authoring.AddIns", "Microsoft.Support.Workflow.Authoring.AddIns\Microsoft.Support.Workflow.Authoring.AddIns.csproj", "{F81C921A-45A4-4E0E-AAC1-37181E0D7BD5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0BE48E6E-3ED2-4C60-BF6D-E90CD314B412}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://pqoetfs10:8080/tfs/production
+		SccProjectUniqueName0 = Microsoft.Support.Workflow.Authoring.AddIns\\Microsoft.Support.Workflow.Authoring.AddIns.csproj
+		SccProjectName0 = Microsoft.Support.Workflow.Authoring.AddIns
+		SccAuxPath0 = http://pqoetfs10:8080/tfs/production
+		SccLocalPath0 = Microsoft.Support.Workflow.Authoring.AddIns
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = Microsoft.Support.Workflow.Authoring\\Microsoft.Support.Workflow.Authoring.csproj
+		SccProjectName1 = Microsoft.Support.Workflow.Authoring
+		SccAuxPath1 = http://pqoetfs10:8080/tfs/production
+		SccLocalPath1 = Microsoft.Support.Workflow.Authoring
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = Tests\\Microsoft.Support.Workflow.Authoring.Tests\\Microsoft.Support.Workflow.Authoring.Tests.csproj
+		SccProjectName2 = Tests/Microsoft.Support.Workflow.Authoring.Tests
+		SccAuxPath2 = http://pqoetfs10:8080/tfs/production
+		SccLocalPath2 = Tests\\Microsoft.Support.Workflow.Authoring.Tests
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Authoring1.vsmdi
 	EndGlobalSection

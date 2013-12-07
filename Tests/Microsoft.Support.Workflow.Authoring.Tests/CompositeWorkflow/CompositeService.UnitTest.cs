@@ -9,6 +9,7 @@ using Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
 using Microsoft.Support.Workflow.Authoring.CompositeActivity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Support.Workflow.Authoring.AddIns.CompositeActivity;
 
 namespace Microsoft.Support.Workflow.Authoring.Tests.CompositeWorkflow
 {

@@ -11,10 +11,8 @@ using System.Text;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
-
     public class DefaultValueSettingsViewModel : NotificationObject
     {
-        private const string SaveFailedMsg = "Save the default value settings failed, please check the settings and try again later.";
         private ObservableCollection<string> categories;
 
         public bool TaskAssignmentFeatureChanged { get; set; }
@@ -27,7 +25,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.enableDownloadDependencies = value;
                 RaisePropertyChanged(() => EnableDownloadDependencies);
-                RaisePropertyChanged(() => HasChanged);
+                RaisePropertyChanged(() => HasSaved);
             }
         }
 
@@ -39,7 +37,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.openForEditing = value;
                 RaisePropertyChanged(() => OpenForEditing);
-                RaisePropertyChanged(() => HasChanged);
+                RaisePropertyChanged(() => HasSaved);
             }
         }
 
@@ -51,7 +49,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.defaultEnv = value;
                 RaisePropertyChanged(() => DefaultEnv);
-                RaisePropertyChanged(() => HasChanged);
+                RaisePropertyChanged(() => HasSaved);
             }
         }
 
@@ -74,7 +72,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.enableSearchWholeWorkflow = value;
                 RaisePropertyChanged(() => SearchWorkflowScope);
-                RaisePropertyChanged(() => HasChanged);
+                RaisePropertyChanged(() => HasSaved);
             }
         }
 
@@ -86,7 +84,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.enableTaskAssignment = value;
                 RaisePropertyChanged(() => EnableTaskAssignment);
-                RaisePropertyChanged(() => HasChanged);
+                RaisePropertyChanged(() => HasSaved);
                 if (this.EnableTaskAssignment != DefaultValueSettings.EnableTaskAssignment)
                     TaskAssignmentFeatureChanged = true;
                 else
@@ -103,7 +101,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 this.defaultCategory = value;
                 RaisePropertyChanged(() => this.DefaultCategory);
-                RaisePropertyChanged(() => HasChanged);
+                RaisePropertyChanged(() => HasSaved);
             }
         }
 
@@ -119,25 +117,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         public bool HasSaved
         {
-            get;
-            private set;
-        }
-
-        public bool HasChanged
-        {
             get
             {
-                return this.EnableDownloadDependencies != DefaultValueSettings.EnableDownloadDependecies
-                     || (this.SearchWorkflowScope == SearchScope.SearchWholeWorkflow) != DefaultValueSettings.SearchWholeWorkflow
-                     || this.DefaultEnv != DefaultValueSettings.Environment
-                     || this.EnableTaskAssignment != DefaultValueSettings.EnableTaskAssignment
-                     || (this.OpenForEditing == OpenMode.Editing) != DefaultValueSettings.OpenForEditingMode
-                     || this.DefaultCategory != DefaultValueSettings.DefaultCategory;
-
+                return this.EnableDownloadDependencies == DefaultValueSettings.EnableDownloadDependecies
+                    && (this.SearchWorkflowScope == SearchScope.SearchWholeWorkflow) == DefaultValueSettings.SearchWholeWorkflow
+                    && this.DefaultEnv == DefaultValueSettings.Environment
+                    && this.EnableTaskAssignment == DefaultValueSettings.EnableTaskAssignment
+                    && (this.OpenForEditing == OpenMode.Editing) == DefaultValueSettings.OpenForEditingMode
+                    && this.DefaultCategory == DefaultValueSettings.DefaultCategory;
             }
         }
-
-        public DelegateCommand SaveCommand { get; set; }
 
         public DefaultValueSettingsViewModel()
         {
@@ -146,36 +135,22 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             this.enableTaskAssignment = DefaultValueSettings.EnableTaskAssignment;
             this.defaultEnv = DefaultValueSettings.Environment;
             this.defaultCategory = DefaultValueSettings.DefaultCategory;
-            this.Categories = AssetStore.AssetStoreProxy.Categories;
+            try {
+                this.Categories = AssetStore.AssetStoreProxy.Categories;
+            }
+            catch { }
             this.OpenForEditing = DefaultValueSettings.OpenForEditingMode ? OpenMode.Editing : OpenMode.Readonly;
             this.Envs = new List<Env> { Env.Dev, Env.Test, Env.Stage, Env.Prod };
-            this.SaveCommand = new DelegateCommand(this.SaveCommandExecute, () => HasChanged);
         }
 
-        private void SaveCommandExecute()
-        {
-            try
-            {
-                HasSaved = false;
-                Utility.DoTaskWithBusyCaption("Saving", () =>
-                {
-                    DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnableDownloadDependeciesKey, EnableDownloadDependencies.ToString());
-                    DefaultValueSettings.SetConfigValue(DefaultValueSettings.OpenForEditingModeKey, (this.OpenForEditing == OpenMode.Editing).ToString());
-                    DefaultValueSettings.SetConfigValue(DefaultValueSettings.SearchWholeWorkflowKey, (this.SearchWorkflowScope == SearchScope.SearchWholeWorkflow).ToString());
-                    DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnvKey, this.DefaultEnv.ToString());
-                    DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnableTaskAssignmentKey, this.EnableTaskAssignment.ToString());
-                    DefaultValueSettings.SetConfigValue(DefaultValueSettings.DefaultCategoryKey, this.DefaultCategory);
-                    DefaultValueSettings.RefreshConfigValues();
-                   
-                    HasSaved = true;
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBoxService.ShowException(ex, SaveFailedMsg);
-            }
+        public void Save() {
+            DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnableDownloadDependeciesKey, EnableDownloadDependencies.ToString());
+            DefaultValueSettings.SetConfigValue(DefaultValueSettings.OpenForEditingModeKey, (this.OpenForEditing == OpenMode.Editing).ToString());
+            DefaultValueSettings.SetConfigValue(DefaultValueSettings.SearchWholeWorkflowKey, (this.SearchWorkflowScope == SearchScope.SearchWholeWorkflow).ToString());
+            DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnvKey, this.DefaultEnv.ToString());
+            DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnableTaskAssignmentKey, this.EnableTaskAssignment.ToString());
+            DefaultValueSettings.SetConfigValue(DefaultValueSettings.DefaultCategoryKey, this.DefaultCategory);
+            DefaultValueSettings.RefreshConfigValues();
         }
-
-
     }
 }

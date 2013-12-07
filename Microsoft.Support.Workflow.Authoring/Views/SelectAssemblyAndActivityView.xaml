@@ -134,7 +134,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <views:ActivityItemView x:Name="activityItemView"
-                                        DataContext="{Binding CurrentActivityAssemblyItem}" />
+                                        DataContext="{Binding CurrentActivityItem}" />
                 <GridSplitter VerticalAlignment="Center"
                               HorizontalAlignment="Stretch"
                               Height="6"

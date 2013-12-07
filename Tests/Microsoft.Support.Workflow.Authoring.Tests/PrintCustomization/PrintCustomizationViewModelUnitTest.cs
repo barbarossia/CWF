@@ -80,8 +80,8 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.PrintCustomization
                         Assert.AreEqual(print.Name, printCustomizationViewModel.CurrentPrinter.Name);
 
                         var viewModes = printCustomizationViewModel.ViewModes;
-                        Assert.IsTrue(viewModes.Any(v => v.ViewMode == PrintViewMode.ActualSize));
-                        Assert.IsTrue(viewModes.Any(v => v.ViewMode == PrintViewMode.FitToWindow));
+                        Assert.IsTrue(viewModes.Any(v => v.Value == PrintViewMode.ActualSize));
+                        Assert.IsTrue(viewModes.Any(v => v.Value == PrintViewMode.FitToWindow));
 
                         printCustomizationViewModel.IsSettingEnabled = true;
                         Assert.IsTrue(printCustomizationViewModel.IsSettingEnabled);

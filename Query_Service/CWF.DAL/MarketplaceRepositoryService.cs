@@ -73,7 +73,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                     request.SortCriteria = new List<SortCriterion>() { new SortCriterion() { FieldName = "UpdatedDate", IsAscending = false } };
 
                 SqlDatabase database = RepositoryHelper.CreateDatabase();
-                DbCommand command = database.GetStoredProcCommand("[dbo].[Marketplace_Search]");
+                DbCommand command = RepositoryHelper.PrepareCommandCommand(database, "[dbo].[Marketplace_Search]");
 
                 database.AddParameter(command, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
                 database.AddParameter(command, "@SearchText", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SearchText);
@@ -161,7 +161,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 Database database = DatabaseFactory.CreateDatabase();
-                DbCommand command = database.GetStoredProcCommand("[dbo].[Marketplace_GetAssetDetails]");
+                DbCommand command = RepositoryHelper.PrepareCommandCommand(database, "[dbo].[Marketplace_GetAssetDetails]");
+
                 database.AddParameter(command, StoredProcParamNames.Id, DbType.Int64, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
                 database.AddParameter(command, "@AssetType", DbType.Int16, ParameterDirection.Input, null, DataRowVersion.Default, request.AssetType);
 

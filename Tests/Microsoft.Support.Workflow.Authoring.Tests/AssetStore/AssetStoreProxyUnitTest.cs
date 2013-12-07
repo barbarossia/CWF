@@ -24,7 +24,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.AssetStore
         [Owner("v-kason")]
         [TestCategory("Unit-Dif")]
         [TestMethod]
-        public void AssetStore_VerifyAssetStoreProxy()
+        public void aaaaAssetStore_VerifyAssetStoreProxy()
         {
             using (var client = new Implementation<WorkflowsQueryServiceClient>())
             {
@@ -52,14 +52,16 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.AssetStore
 
                 WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient = () => client.Instance;
 
+                Assert.AreEqual("test", AssetStoreProxy.TenantName);
+
                 //verify get woekflow types
                 AssetStoreProxy.GetWorkflowTypes(Env.Test);
-                Assert.IsTrue(AssetStoreProxy.WorkflowTypes.Count == 0);
+                Assert.AreEqual(0, AssetStoreProxy.WorkflowTypes.Count);
 
                 //verify get categories
                 AssetStoreProxy.GetActivityCategories();
                 ObservableCollection<string> source = AssetStoreProxy.ActivityCategories.Source as ObservableCollection<string>;
-                Assert.IsTrue(source.Count == 3);
+                Assert.AreEqual(2, source.Count);
 
                 //verify add new workflow category
                 string categoryName = string.Empty;
@@ -72,7 +74,6 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.AssetStore
                 }
 
                 Assert.IsTrue(AssetStoreProxy.ActivityCategoryCreateOrUpdate("newcategory"));
-                Assert.AreEqual(AssetStoreProxy.TenantName, "test");
                 WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient = () => new WorkflowsQueryServiceClient();
             }
 

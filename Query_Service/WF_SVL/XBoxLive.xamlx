@@ -1,0 +1,214 @@
+﻿<WorkflowService mc:Ignorable="sap" ConfigurationName="XBoxLive" sap:VirtualizedContainerService.HintSize="564,1358" Name="XBoxLive" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:msw="clr-namespace:Microsoft.Support.Workflow;assembly=CommonWorkflowSystemLibrary" xmlns:mswa="clr-namespace:Microsoft.Support.Workflow.Activity;assembly=CWFS_ActivityLibrary" xmlns:mswc="clr-namespace:Microsoft.Support.Workflow.Context;assembly=Context" xmlns:mswchm="clr-namespace:Microsoft.Support.Workflow.Context.HelperClasses.MenuClasses;assembly=Context" xmlns:mswchm1="clr-namespace:Microsoft.Support.Workflow.Context.HelperClasses.MessageClasses;assembly=Context" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://tempuri.org/" xmlns:p1="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:s1="clr-namespace:System;assembly=System" xmlns:s2="clr-namespace:System;assembly=System.Xml" xmlns:s3="clr-namespace:System;assembly=System.Core" xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" xmlns:ssa="clr-namespace:System.ServiceModel.Activities;assembly=System.ServiceModel.Activities" xmlns:ssx="clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel" xmlns:st="clr-namespace:System.Text;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p1:Sequence DisplayName="Sequential Service" sad:XamlDebuggerXmlReader.FileName="C:\Users\v-evsmit\Documents\Projects\Msft CSS CWF\Visual Studio\WF_Svc_Context\WF_SVL\XBoxLive.xamlx" sap:VirtualizedContainerService.HintSize="534,1328" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+    <p1:Sequence.Variables>
+      <p1:Variable x:TypeArguments="CorrelationHandle" Name="handle" />
+      <p1:Variable x:TypeArguments="x:Boolean" Default="False" Name="completed" />
+      <p1:Variable x:TypeArguments="mswchm:QnA" Default="[New QnA(&quot;How are you connected;Q11-Wired,Q22-Wireless&quot;)]" Name="varQnA" />
+      <p1:Variable x:TypeArguments="mswc:ContextObj" Name="gblCntxt" />
+      <p1:Variable x:TypeArguments="CorrelationHandle" Name="gblHandle" />
+    </p1:Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <p1:While sap:VirtualizedContainerService.HintSize="512,1204" Condition="[Not completed]">
+      <p1:Sequence sap:VirtualizedContainerService.HintSize="486,1088">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Receive x:Name="__ReferenceID0" CanCreateInstance="True" CorrelatesWith="[gblHandle]" DisplayName="ReceiveRequest" sap:VirtualizedContainerService.HintSize="464,90" OperationName="LoopQs" ServiceContractName="p:IService">
+          <Receive.CorrelatesOn>
+            <XPathMessageQuery x:Key="key1">
+              <XPathMessageQuery.Namespaces>
+                <ssx:XPathMessageContextMarkup>
+                  <x:String x:Key="xg0">http://schemas.datacontract.org/2004/07/Microsoft.Support.Workflow.Context</x:String>
+                  <x:String x:Key="xgSc">http://tempuri.org/</x:String>
+                </ssx:XPathMessageContextMarkup>
+              </XPathMessageQuery.Namespaces>sm:body()/xgSc:LoopQs/xgSc:p_cntxt/xg0:CurWFcontext/xg0:WfId</XPathMessageQuery>
+          </Receive.CorrelatesOn>
+          <Receive.CorrelationInitializers>
+            <RequestReplyCorrelationInitializer CorrelationHandle="[handle]" />
+          </Receive.CorrelationInitializers>
+          <ReceiveParametersContent>
+            <p1:OutArgument x:TypeArguments="mswc:ContextObj" x:Key="p_cntxt">[gblCntxt]</p1:OutArgument>
+          </ReceiveParametersContent>
+        </Receive>
+        <p1:If Condition="[(gblCntxt.QAMenu.Count = 0)]" sap:VirtualizedContainerService.HintSize="464,458">
+          <p1:If.Then>
+            <p1:Sequence DisplayName="AssignQnASequence" sap:VirtualizedContainerService.HintSize="301,352">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                <p1:Assign.To>
+                  <p1:OutArgument x:TypeArguments="mswchm1:DisplayMessage">[gblCntxt.msg]</p1:OutArgument>
+                </p1:Assign.To>
+                <p1:Assign.Value>
+                  <p1:InArgument x:TypeArguments="mswchm1:DisplayMessage">[New DisplayMessage("..Started")]</p1:InArgument>
+                </p1:Assign.Value>
+              </p1:Assign>
+              <p1:InvokeMethod sap:VirtualizedContainerService.HintSize="242,130" MethodName="Add">
+                <p1:InvokeMethod.TargetObject>
+                  <p1:InArgument x:TypeArguments="scg3:List(mswchm:QnA)">[gblCntxt.QAMenu]</p1:InArgument>
+                </p1:InvokeMethod.TargetObject>
+                <p1:InArgument x:TypeArguments="mswchm:QnA">[varQnA]</p1:InArgument>
+              </p1:InvokeMethod>
+            </p1:Sequence>
+          </p1:If.Then>
+        </p1:If>
+        <p1:If Condition="[Not (String.IsNullOrEmpty(gblCntxt.QAMenu(0).Ans))]" sap:VirtualizedContainerService.HintSize="464,206">
+          <p1:If.Then>
+            <p1:Switch x:TypeArguments="x:String" DisplayName="Check and Finish Switch&lt;String&gt;" Expression="[gblCntxt.QAMenu(0).Ans.ToUpper]" sap:VirtualizedContainerService.HintSize="219,100">
+              <p1:Switch.Default>
+                <p1:Sequence sap:VirtualizedContainerService.HintSize="458,378">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                    <p1:Assign.To>
+                      <p1:OutArgument x:TypeArguments="x:String">[gblCntxt.msg.Messages]</p1:OutArgument>
+                    </p1:Assign.To>
+                    <p1:Assign.Value>
+                      <p1:InArgument x:TypeArguments="x:String">[gblCntxt.QAMenu(0).Ans + "-Is Invalid...Choose Q11 or Q22, Thankyou"]</p1:InArgument>
+                    </p1:Assign.Value>
+                  </p1:Assign>
+                  <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                    <p1:Assign.To>
+                      <p1:OutArgument x:TypeArguments="x:Boolean">[gblCntxt.IsFinish]</p1:OutArgument>
+                    </p1:Assign.To>
+                    <p1:Assign.Value>
+                      <p1:InArgument x:TypeArguments="x:Boolean">False</p1:InArgument>
+                    </p1:Assign.Value>
+                  </p1:Assign>
+                  <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                    <p1:Assign.To>
+                      <p1:OutArgument x:TypeArguments="x:Boolean">[completed]</p1:OutArgument>
+                    </p1:Assign.To>
+                    <p1:Assign.Value>
+                      <p1:InArgument x:TypeArguments="x:Boolean">False</p1:InArgument>
+                    </p1:Assign.Value>
+                  </p1:Assign>
+                </p1:Sequence>
+              </p1:Switch.Default>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <p1:Sequence x:Key="Q11" sap:VirtualizedContainerService.HintSize="456,378">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                  <p1:Assign.To>
+                    <p1:OutArgument x:TypeArguments="x:String">[gblCntxt.msg.Messages]</p1:OutArgument>
+                  </p1:Assign.To>
+                  <p1:Assign.Value>
+                    <p1:InArgument x:TypeArguments="x:String" xml:space="preserve">You have choosen Q11;  Your Session Ends...</p1:InArgument>
+                  </p1:Assign.Value>
+                </p1:Assign>
+                <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                  <p1:Assign.To>
+                    <p1:OutArgument x:TypeArguments="x:Boolean">[gblCntxt.IsFinish]</p1:OutArgument>
+                  </p1:Assign.To>
+                  <p1:Assign.Value>
+                    <p1:InArgument x:TypeArguments="x:Boolean">True</p1:InArgument>
+                  </p1:Assign.Value>
+                </p1:Assign>
+                <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                  <p1:Assign.To>
+                    <p1:OutArgument x:TypeArguments="x:Boolean">[completed]</p1:OutArgument>
+                  </p1:Assign.To>
+                  <p1:Assign.Value>
+                    <p1:InArgument x:TypeArguments="x:Boolean">True</p1:InArgument>
+                  </p1:Assign.Value>
+                </p1:Assign>
+              </p1:Sequence>
+              <p1:Sequence x:Key="Q22" sap:VirtualizedContainerService.HintSize="456,378">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                  <p1:Assign.To>
+                    <p1:OutArgument x:TypeArguments="x:String">[gblCntxt.msg.Messages]</p1:OutArgument>
+                  </p1:Assign.To>
+                  <p1:Assign.Value>
+                    <p1:InArgument x:TypeArguments="x:String" xml:space="preserve">You have choosen Q22;  Your Session Ends...</p1:InArgument>
+                  </p1:Assign.Value>
+                </p1:Assign>
+                <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                  <p1:Assign.To>
+                    <p1:OutArgument x:TypeArguments="x:Boolean">[gblCntxt.IsFinish]</p1:OutArgument>
+                  </p1:Assign.To>
+                  <p1:Assign.Value>
+                    <p1:InArgument x:TypeArguments="x:Boolean">True</p1:InArgument>
+                  </p1:Assign.Value>
+                </p1:Assign>
+                <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                  <p1:Assign.To>
+                    <p1:OutArgument x:TypeArguments="x:Boolean">[completed]</p1:OutArgument>
+                  </p1:Assign.To>
+                  <p1:Assign.Value>
+                    <p1:InArgument x:TypeArguments="x:Boolean">True</p1:InArgument>
+                  </p1:Assign.Value>
+                </p1:Assign>
+              </p1:Sequence>
+            </p1:Switch>
+          </p1:If.Then>
+          <p1:If.Else>
+            <p1:Sequence sap:VirtualizedContainerService.HintSize="220,100">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                <p1:Assign.To>
+                  <p1:OutArgument x:TypeArguments="x:String">[gblCntxt.msg.Messages]</p1:OutArgument>
+                </p1:Assign.To>
+                <p1:Assign.Value>
+                  <p1:InArgument x:TypeArguments="x:String">-Choose Q11 or Q22, Thankyou</p1:InArgument>
+                </p1:Assign.Value>
+              </p1:Assign>
+              <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                <p1:Assign.To>
+                  <p1:OutArgument x:TypeArguments="x:Boolean">[gblCntxt.IsFinish]</p1:OutArgument>
+                </p1:Assign.To>
+                <p1:Assign.Value>
+                  <p1:InArgument x:TypeArguments="x:Boolean">False</p1:InArgument>
+                </p1:Assign.Value>
+              </p1:Assign>
+              <p1:Assign sap:VirtualizedContainerService.HintSize="242,58">
+                <p1:Assign.To>
+                  <p1:OutArgument x:TypeArguments="x:Boolean">[completed]</p1:OutArgument>
+                </p1:Assign.To>
+                <p1:Assign.Value>
+                  <p1:InArgument x:TypeArguments="x:Boolean">False</p1:InArgument>
+                </p1:Assign.Value>
+              </p1:Assign>
+            </p1:Sequence>
+          </p1:If.Else>
+        </p1:If>
+        <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendResponse" sap:VirtualizedContainerService.HintSize="464,90">
+          <SendParametersContent>
+            <p1:InArgument x:TypeArguments="mswc:ContextObj" x:Key="p_cntxt">[gblCntxt]</p1:InArgument>
+          </SendParametersContent>
+        </SendReply>
+      </p1:Sequence>
+    </p1:While>
+  </p1:Sequence>
+</WorkflowService>

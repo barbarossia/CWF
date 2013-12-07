@@ -1,0 +1,9 @@
+﻿Documentation for creating custom activities
+
+
+Linking a Designer to a Custom Activity
+
+There are three ways for linking a Custom Activity Designer to a Custom Activity
+
+1) C# Code
+If the activity is a code activity, or if a code-beside is 

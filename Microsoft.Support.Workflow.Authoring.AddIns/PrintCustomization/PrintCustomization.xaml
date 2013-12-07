@@ -30,7 +30,7 @@
             <TextBlock Text="{Binding PaperSize.PaperName, StringFormat=Paper: {0}}" Style="{StaticResource StatusBarLabel}"></TextBlock>
             <TextBlock Text="{Binding PageOrientation, StringFormat=Orientation: {0}}" Style="{StaticResource StatusBarLabel}"></TextBlock>
             <TextBlock Text="View:" Style="{StaticResource StatusBarLabel}"></TextBlock>
-            <ComboBox SelectedValue="{Binding ViewMode}" ItemsSource="{Binding ViewModes}" DisplayMemberPath="DisplayName" SelectedValuePath="ViewMode" Width="150" Style="{StaticResource StatusBarElement}"></ComboBox>
+            <ComboBox SelectedValue="{Binding ViewMode}" ItemsSource="{Binding ViewModes}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Width="150" Style="{StaticResource StatusBarElement}"></ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <CheckBox IsChecked="{Binding IncludeXaml}" IsEnabled="{Binding IsSettingEnabled}" Content="Include XAML" Height="Auto" Style="{StaticResource StatusBarElement}"></CheckBox>

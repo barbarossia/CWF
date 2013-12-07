@@ -57,21 +57,21 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
 
             wf.Env = Env.Test;
             pv.Invoke("InitializeNextStatus");
-            CollectionAssert.AreEquivalent(vm.AvaliableNextStatus, new ObservableCollection<Env>() { Env.Dev});
+            CollectionAssert.AreEquivalent(vm.AvaliableNextStatus, new ObservableCollection<Env>() { Env.Dev, Env.Stage });
 
-            //wf.Env = Env.Stage;
-            //pv.Invoke("InitializeNextStatus");
-            //CollectionAssert.AreEquivalent(vm.AvaliableNextStatus, new ObservableCollection<Env>() { Env.Test, Env.Prod });
+            wf.Env = Env.Stage;
+            pv.Invoke("InitializeNextStatus");
+            CollectionAssert.AreEquivalent(vm.AvaliableNextStatus, new ObservableCollection<Env>() { Env.Test, Env.Prod });
 
-            //wf.Env = Env.Prod;
-            //pv.Invoke("InitializeNextStatus");
-            //CollectionAssert.AreEquivalent(vm.AvaliableNextStatus, new ObservableCollection<Env>() { Env.Stage });
+            wf.Env = Env.Prod;
+            pv.Invoke("InitializeNextStatus");
+            CollectionAssert.AreEquivalent(vm.AvaliableNextStatus, new ObservableCollection<Env>() { Env.Stage });
         }
 
         [Owner("v-kason")]
         [TestCategory("Unit-Dif")]
         [TestMethod]
-        public void MoveProjectViewModel_TestMoveProjectCommandExecute()
+        public void aaaMoveProjectViewModel_TestMoveProjectCommandExecute()
         {
             WorkflowItem wf = TestWorkflowItemGenerator.GetWorkflowItemNoDesigner();
             wf.Env = Authoring.AddIns.Data.Env.Dev;

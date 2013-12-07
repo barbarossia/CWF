@@ -22,9 +22,9 @@ SELECT A1.[GUID]
 	,A1.[InsertedDateTime]
 	,A1.[UpdatedByUserAlias]
 	,A1.[UpdatedDateTime] 
-	FROM [CommonWorkflowAssetStoreOASP5].[dbo].[ActivityCategory] A1 
+	FROM [@DBName].[dbo].[ActivityCategory] A1 
 	LEFT JOIN [dbo].[ActivityCategory] A ON A.[GUID] = A1.[GUID] 
-	join [CommonWorkflowAssetStoreOASP5].[dbo].[AuthorizationGroup] TAG on A1.[AuthGroupId] = TAG.[Id]
+	join [@DBName].[dbo].[AuthorizationGroup] TAG on A1.[AuthGroupId] = TAG.[Id]
 	join [dbo].[AuthorizationGroup] AG on TAG.[Name] = AG.[Name]
 	WHERE A.Id IS NULL
 

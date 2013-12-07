@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Support.Workflow.Authoring.PrintCustomization;
+using Microsoft.Support.Workflow.Authoring.Models;
 
 namespace Microsoft.Support.Workflow.Authoring.Tests.PrintCustomization
 {
@@ -16,12 +17,12 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.PrintCustomization
         [TestCategory("Unit")]
         public void PrintViewModel_PrintViewModeOnUITest()
         {
-            PrintViewModeOnUI printViewModeOnUI = new PrintViewModeOnUI(PrintViewMode.ActualSize);
-            Assert.AreEqual(PrintViewMode.ActualSize, printViewModeOnUI.ViewMode);
+            EnumOnUI<PrintViewMode> printViewModeOnUI = new EnumOnUI<PrintViewMode>(PrintViewMode.ActualSize);
+            Assert.AreEqual(PrintViewMode.ActualSize, printViewModeOnUI.Value);
             Assert.AreEqual("Actual Size", printViewModeOnUI.DisplayName);
 
-            printViewModeOnUI = new PrintViewModeOnUI(PrintViewMode.FitToWindow);
-            Assert.AreEqual(PrintViewMode.FitToWindow, printViewModeOnUI.ViewMode);
+            printViewModeOnUI = new EnumOnUI<PrintViewMode>(PrintViewMode.FitToWindow);
+            Assert.AreEqual(PrintViewMode.FitToWindow, printViewModeOnUI.Value);
             Assert.AreEqual("Fit To Window", printViewModeOnUI.DisplayName);
         }
     }

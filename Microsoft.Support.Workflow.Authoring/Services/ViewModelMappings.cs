@@ -45,6 +45,8 @@
                 {typeof(TenantSecurityOptionsViewModel),typeof(TenantSecurityOptions)},
                 {typeof(ChangeAuthorSummaryViewModel),typeof(ChangeAuthorSummary)},
                 {typeof(DefaultValueSettingsViewModel),typeof(DefaultValueSettingsView)},
+                {typeof(CDSPackagesManagerViewModel),typeof(CDSPackagesManagerView)},
+                {typeof(OptionsViewModel),typeof(Options)},
             };
         }
 

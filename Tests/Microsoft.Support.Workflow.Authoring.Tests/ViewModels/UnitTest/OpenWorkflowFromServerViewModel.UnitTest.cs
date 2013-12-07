@@ -54,7 +54,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels
                        try { vm.LoadLiveData(client.Instance); }
                        catch (Exception ex)
                        {
-                           Assert.IsTrue(ex is CommunicationException);
+                           Assert.IsTrue(ex is UserFacingException);
                        }
 
                        client.Register(inst => inst.SearchActivities(Argument<ActivitySearchRequestDC>.Any)).Execute(() =>
@@ -69,7 +69,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels
                        try { vm.LoadLiveData(client.Instance); }
                        catch (Exception ex)
                        {
-                           Assert.IsTrue(ex is BusinessValidationException);
+                           Assert.IsTrue(ex is UserFacingException);
                        }
 
                        client.Register(inst => inst.SearchActivities(Argument<ActivitySearchRequestDC>.Any)).Execute(() =>
@@ -82,7 +82,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels
                        try { vm.LoadLiveData(client.Instance); }
                        catch (Exception ex)
                        {
-                           Assert.IsTrue(ex is CommunicationException);
+                           Assert.IsTrue(ex is Exception);
                        }
                        TestUtilities.ResetWorkflowsQueryServiceClientAfterMock();
                    }

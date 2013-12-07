@@ -15,6 +15,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Support.Workflow.Authoring.CompositeActivity;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
 using System.Threading;
+using Microsoft.Support.Workflow.Authoring.Models;
 
 namespace Microsoft.Support.Workflow.Authoring.PrintCustomization
 {
@@ -131,11 +132,11 @@ namespace Microsoft.Support.Workflow.Authoring.PrintCustomization
         /// <summary>
         /// Available view modes
         /// </summary>
-        public PrintViewModeOnUI[] ViewModes
+        public EnumOnUI<PrintViewMode>[] ViewModes
         {
             get
             {
-                return ((PrintViewMode[])Enum.GetValues(typeof(PrintViewMode))).Select(m => new PrintViewModeOnUI(m)).ToArray();
+                return EnumOnUI<PrintViewMode>.GetUIModels();
             }
         }
         /// <summary>

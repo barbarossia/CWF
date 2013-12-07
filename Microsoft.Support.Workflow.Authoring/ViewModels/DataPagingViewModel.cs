@@ -13,7 +13,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private int pageSize;
         private bool resetPageIndex = false;
         private int totalResults;
-        private int pageIndex = 1;
+        private int pageIndex = 0;
         private int totalPages;
 
         public DelegateCommand FirstPageCommand { get; set; }
@@ -60,6 +60,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             set
             {
                 pageIndex = value;
+                CheckPagingStatus();
                 RaisePropertyChanged(() => PageIndex);
             }
         }
@@ -104,22 +105,22 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     PageIndex = 1;
                     ExecutePaging();
                 },
-                () => PageIndex > 1);
+                () => TotalPages > 0 && PageIndex > 1);
             PreviousPageCommand = new DelegateCommand(delegate
             {
-                PageIndex--;
+                PageIndex = PageIndex > TotalPages ? TotalPages : PageIndex - 1;
                 ExecutePaging();
-            }, () => PageIndex > 1);
+            }, () => TotalPages > 0 && PageIndex > 1);
             NextPageCommand = new DelegateCommand(delegate
             {
                 PageIndex++;
                 ExecutePaging();
-            }, () => PageIndex < TotalPages);
+            }, () => TotalPages > 0 && PageIndex < TotalPages);
             LastPageCommand = new DelegateCommand(delegate
             {
                 PageIndex = TotalPages;
                 ExecutePaging();
-            }, () => PageIndex < TotalPages);
+            }, () => TotalPages > 0 && PageIndex < TotalPages);
         }
 
         public void ExecutePaging()

@@ -54,7 +54,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityDelete);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityDelete);
+
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
@@ -102,7 +103,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityCreateOrUpdate);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityCreateOrUpdate);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
@@ -216,7 +218,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = DatabaseFactory.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityGet);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityGet);
+
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
@@ -315,7 +318,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = DatabaseFactory.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityGetByName);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityGetByName);
+
                 db.AddParameter(cmd, "@Name", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, activityName);
                 db.AddParameter(cmd, "@Env", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, env);
 
@@ -380,8 +384,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityUpdateLock);
-
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityUpdateLock);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
@@ -427,8 +431,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityOverrideLock);
-
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityOverrideLock);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
@@ -468,7 +472,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityChangeAuthor);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityChangeAuthor);
 
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
@@ -509,7 +513,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityCopy);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityCopy);
 
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
@@ -602,8 +606,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.ActivityMove);
-
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.ActivityMove);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));

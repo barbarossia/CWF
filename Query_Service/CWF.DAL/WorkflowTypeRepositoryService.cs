@@ -34,7 +34,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.WorkflowTypeCreateOrUpdate);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.WorkflowTypeCreateOrUpdate);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InHandleVariable", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InHandleVariable);
@@ -90,8 +91,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 WorkflowTypesGetBase wfat = null;
 
                 SqlDatabase db = RepositoryHelper.CreateDatabase();
-                DbCommand cmd = db.GetStoredProcCommand(StoredProcNames.WorkflowTypeGet);
-                
+                DbCommand cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.WorkflowTypeGet);
+
                 db.AddParameter(cmd, "@InEnvironmentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Environment);
                 db.AddParameter(cmd, StoredProcParamNames.Id, DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
                 db.AddParameter(cmd, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Name);
@@ -165,7 +166,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 WorkflowTypeSearchDC wfat = null;
 
                 SqlDatabase db = RepositoryHelper.CreateDatabase();
-                DbCommand cmd = db.GetStoredProcCommand(StoredProcNames.WorkflowType_Search);
+                DbCommand cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.WorkflowType_Search);
 
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));           
                 db.AddParameter(cmd, "@SearchText", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.SearchText);

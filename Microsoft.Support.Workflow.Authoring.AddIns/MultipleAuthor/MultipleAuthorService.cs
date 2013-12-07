@@ -37,25 +37,32 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
                 }).ToList();
         }
 
-        public static void SetNewTasksToAssigned(WorkflowDesigner designer, Guid[] ids) {
-            foreach (ModelItem m in FindTaskActivity(designer)) {
+        public static void SetNewTasksToAssigned(WorkflowDesigner designer, Guid[] ids)
+        {
+            foreach (ModelItem m in FindTaskActivity(designer))
+            {
                 TaskActivity task = (TaskActivity)m.GetCurrentValue();
-                if (ids.Contains(task.TaskId)) {
+                if (ids.Contains(task.TaskId))
+                {
                     m.Properties["Status"].SetValue(TaskActivityStatus.Assigned);
                 }
             }
         }
 
-        public static void RollbackAssignedTasks(WorkflowDesigner designer, Guid[] ids) {
-            foreach (ModelItem m in FindTaskActivity(designer)) {
+        public static void RollbackAssignedTasks(WorkflowDesigner designer, Guid[] ids)
+        {
+            foreach (ModelItem m in FindTaskActivity(designer))
+            {
                 TaskActivity task = (TaskActivity)m.GetCurrentValue();
-                if (ids.Contains(task.TaskId)) {
+                if (ids.Contains(task.TaskId))
+                {
                     m.Properties["Status"].SetValue(TaskActivityStatus.New);
                 }
             }
         }
 
-        public static List<TaskItem> GetTaskItems(WorkflowDesigner designer) {
+        public static List<TaskItem> GetTaskItems(WorkflowDesigner designer)
+        {
             Contract.Requires(designer != null);
 
             return FindTaskActivity(designer).Select(m => new TaskItem(m)).ToList();
@@ -133,7 +140,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
             Contract.Requires(source != null);
             Contract.Requires(workflowItem != null);
 
-            UpdateTaskItem(source, workflowItem);
+            UpdateTaskItem(new[] { source }.ToList(), workflowItem);
         }
 
         public static void GetAllLastVersion(IEnumerable<ModelItem> tasks, WorkflowEditorViewModel workflowItem)
@@ -170,7 +177,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
         private static string GetXamlOfTaskBody(WorkflowDesigner rootDesigner, ModelItem taskItem)
         {
             TaskActivity taskActivity = taskItem.GetTaskActivity();
-            WorkflowDesigner bodyDesigner = CompositeService.CreateWorkflowDesigner(taskActivity.TaskBody, 
+            WorkflowDesigner bodyDesigner = CompositeService.CreateWorkflowDesigner(taskActivity.TaskBody,
                 new TaskAssignment() { TaskId = taskActivity.TaskId }.GetFriendlyName(((ActivityBuilder)rootDesigner.GetRoot().GetCurrentValue()).Name));
             ModelItem rootItem = rootDesigner.GetRoot();
             ModelItem bodyItem = bodyDesigner.GetRoot();
@@ -178,22 +185,13 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
             ArgumentService.AddArguments(bodyItem, rootItem);
             List<Variable> variables = ArgumentService.GetAvailableVariables(taskItem).ToList();
             ArgumentService.AddArguments(bodyItem,
-                variables.Select(v => new DynamicActivityProperty(){
-                    Name = v.Name, 
+                variables.Select(v => new DynamicActivityProperty()
+                {
+                    Name = v.Name,
                     Type = typeof(InOutArgument<>).MakeGenericType(v.Type),
                 }));
 
             return bodyDesigner.CompilableXaml();
-        }
-
-        private static ModelItem GetLastVersionActivity(ModelItem source, WorkflowEditorViewModel workflowItem)
-        {
-            TaskActivity task = source.GetTaskActivity();
-            var result = TaskService.GetLastVersionTaskActivityDC(task.TaskId);
-
-            workflowItem.DownloadTaskDependency(result);
-
-            return CompositeService.CreateActivity(result.Activity.Xaml);
         }
 
         private static IDictionary<ModelItem, ModelItem> GetLastVersionActivity(IEnumerable<ModelItem> tasks, WorkflowEditorViewModel workflowItem)
@@ -211,13 +209,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
                         Key = t,
                         Value = CompositeService.CreateActivity(r.Activity.Xaml),
                     }).ToDictionary(d => d.Key, d => d.Value);
-        }
-
-        private static void UpdateTaskItem(ModelItem source, WorkflowEditorViewModel workflowItem)
-        {
-            ModelItem taskModelItem = GetLastVersionActivity(source, workflowItem);
-            MergeTaskArgmentToParent(taskModelItem, workflowItem.WorkflowDesigner.GetRoot(), source);
-            CompositeService.UpdateModelItem(source, source.GetTaskActivity().CreateTaskActivity(taskModelItem));         
         }
 
         private static void UpdateTaskItem(IEnumerable<ModelItem> source, WorkflowEditorViewModel workflowItem)

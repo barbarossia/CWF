@@ -8,11 +8,13 @@ using CWF.DataContracts;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using Microsoft.Practices.EnterpriseLibrary.Data;
+using System.Configuration;
 
 namespace Microsoft.Support.Workflow.Service.DataAccessServices
 {
     public static class RepositoryHelper
     {
+        private static int timeOut = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
         public static DataTable GetAuthGroupName(string[] authGroups)
         {
             return GetTable(authGroups, "Name");
@@ -37,6 +39,15 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
         public static SqlDatabase CreateDatabase()
         {
             return DatabaseFactory.CreateDatabase() as SqlDatabase;
+        }
+
+        public static DbCommand PrepareCommandCommand(Database db, string storedProcNames)
+        {
+            var cmd = db.GetStoredProcCommand(storedProcNames);
+            if (cmd.CommandTimeout < timeOut)
+                cmd.CommandTimeout = timeOut;
+
+            return cmd;
         }
     }
 }

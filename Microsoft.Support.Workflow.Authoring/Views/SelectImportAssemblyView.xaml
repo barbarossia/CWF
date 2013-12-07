@@ -120,6 +120,7 @@
                           Grid.Row="2"
                           Height="28"
                           Name="uxItemCategory"
+                          IsReadOnly="True"
                           SelectionChanged="uxItemCategory_SelectionChanged"
                           ToolTip="Select a Category"                 
                           SelectedItem="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -134,6 +135,7 @@
                          Grid.Column="1"
                          Grid.Row="3" Height="56"
                          MaxLength="300" VerticalContentAlignment="Top"
+                         IsReadOnly="True"
                          TextWrapping="Wrap" />
                     <TextBlock 
                        Text="Release Notes:"
@@ -146,6 +148,7 @@
                      Grid.Column="1"
                      Grid.Row="4" Height="56"                 
                      MaxLength="250"
+                     IsReadOnly="True"
                      TextWrapping="Wrap" />
                 </Grid>
             </GroupBox>

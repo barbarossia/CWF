@@ -652,10 +652,16 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 return null;
 
             Window main = null;
-            if (app != null)
-                main = app.IfNotNull(w => w.Windows).Cast<Window>().ToList().SingleOrDefault(w => w.IsActive == true);
-            if (app != null && main == null)
-                main = app.MainWindow;
+            try
+            {
+                if (app != null)
+                    main = app.IfNotNull(w => w.Windows).Cast<Window>().ToList().SingleOrDefault(w => w.IsActive == true);
+                if (app != null && main == null)
+                    main = app.MainWindow;
+            }
+            catch
+            {
+            }
             return main;
         });
 
@@ -719,6 +725,14 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                             try
                             {
                                 result = taskSpecification();
+                            }
+                            catch (CommunicationException e)
+                            {
+                                throw new UserFacingException("The server is not available right now.", e);
+                            }
+                            catch (TimeoutException e)
+                            {
+                                throw new UserFacingException("The server is not available right now (request timed out).", e);
                             }
                             finally
                             {

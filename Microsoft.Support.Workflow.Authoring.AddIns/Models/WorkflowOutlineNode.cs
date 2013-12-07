@@ -137,7 +137,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
             string id = string.Empty;
             Activity ac = data as Activity;
             if (ac != null)
-                id = ac.Id;
+                id = ac.GetHashCode().ToString();
             this.Id = id;
         }
 

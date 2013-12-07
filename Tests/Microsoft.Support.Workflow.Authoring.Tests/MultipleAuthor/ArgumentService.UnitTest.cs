@@ -41,7 +41,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.MultipleAuthor
             var modelItem = ModelItemService.Find(wfDesigner.GetRoot(), (modelItemType) => typeof(Sequence).IsAssignableFrom(modelItemType)).First();
             var vars = ArgumentService.GetAvailableVariables(modelItem);
 
-            Assert.IsTrue(1 == vars.Count());
+            Assert.AreEqual(1, vars.Count());
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.MultipleAuthor
 
             var vars = ArgumentService.GetAvailableVariables(modelItem);
 
-            Assert.IsTrue(2 == vars.Count());
+            Assert.AreEqual(2, vars.Count());
         }
 
         [TestMethod]

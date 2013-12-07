@@ -1,0 +1,12 @@
+﻿<cwf:CommonWorkflowActivityDesigner x:Class="Microsoft.Support.Workflow.Activity.TestCodeBesideDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:cwf="clr-namespace:Microsoft.Support.Workflow.Activity.Design;assembly=CommonWorkflowSystemLibrary"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation">
+
+    <Grid Width="352">
+        <Label Content="I bet this works" Height="28" HorizontalAlignment="Left" Margin="13,10,0,0" Name="label1" VerticalAlignment="Top" Width="146" />
+        <TextBox Name="txtHere" AllowDrop="True" Height="30" HorizontalAlignment="Right" Width="200" DragEnter="txtHere_DragEnter" Drop="txtHere_Drop"/>   
+    </Grid>
+</cwf:CommonWorkflowActivityDesigner>

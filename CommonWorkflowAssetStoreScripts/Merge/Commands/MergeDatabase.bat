@@ -7,14 +7,14 @@ echo Please input the server you want to connect.
 set /p server=
 if '%server%'=='' goto errors
 echo.
-echo Please input the database you want to merge.
+echo Please input the database name you want to?
 set /p database=
 if '%database%'=='' goto errors
 sqlcmd -S %server% -d master -E -b -i "..\..\Setup\CheckIfNotExists.sql" -v DBName = '%database%'
 if %ERRORLEVEL% NEQ 0 goto errors
 echo.
 
-echo Please input the database which you want to be merged?
+echo Please input the database name you want from?
 set /p mergeDB= 
 if '%mergeDB%'=='' goto errors	
 sqlcmd -S %server% -d master -E -b -i "..\..\Setup\CheckIfNotExists.sql" -v DBName = '%mergeDB%'

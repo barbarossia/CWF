@@ -101,20 +101,48 @@ BEGIN TRY
 	END
 
 	declare @ActivityLibraryID bigint
+	DECLARE @NewVersion NVARCHAR(50)
+	DECLARE @MaxVersion NVARCHAR(50)
+	DECLARE @NewName nvarchar (255)
+	SET @NewVersion = '0.0.0.0'
+	SET @NewName = LEFT(@InName + '-' + Replace(convert(varchar(50), NEWID()), '-', ''), 255)
+
 	SELECT  @Id = sa.Id, @ActivityLibraryID = sa.ActivityLibraryId
 	FROM [dbo].[Activity] sa
-	join [dbo].[Environment] E on sa.Environment = E.Id
+	JOIN [dbo].[Environment] E ON sa.Environment = E.Id
 	WHERE sa.Name = @InName AND
-	sa.Version = @InVersion AND
-	E.Name = @InEnvironmentName
-    
+		sa.Version = @InVersion AND
+		E.Name = @InEnvironmentName
+
+	SELECT @MaxVersion = Version FROM [dbo].[Activity] 
+	WHERE name = @InName AND SoftDelete = 1
+    	GROUP BY Version 
+	
+	IF (@MaxVersion IS NOT NULL)
+	BEGIN
+		DECLARE @Max INT
+		DECLARE @Min INT
+		DECLARE @build INT
+		DECLARE @revision INT
+		
+		SELECT @revision = CAST(PARSENAME(@MaxVersion, 1) AS INT)
+		SELECT @build = CAST(PARSENAME(@MaxVersion, 2) AS INT)
+		SELECT @Min = CAST(PARSENAME(@MaxVersion, 3) AS INT)
+		SELECT @Max = CAST(PARSENAME(@MaxVersion, 4) AS INT)
+		SET @revision = @revision + 1
+		SELECT @NewVersion = CAST(@Max AS NVARCHAR(50)) + '.' + 
+					CAST(@Min AS NVARCHAR(50)) + '.' + 
+					CAST(@build AS NVARCHAR(50)) + '.' + 
+					CAST(@revision AS NVARCHAR(50))
+	END	
+		
 	BEGIN TRAN
 		UPDATE [dbo].[Activity]
-		SET SoftDelete = 1
+		SET SoftDelete = 1, [Version] = @NewVersion, [Name] = @NewName, [ShortName] = LEFT(@NewName, 50)
 		WHERE Id = @Id
 
 		UPDATE [dbo].[ActivityLibrary]
-		SET SoftDelete = 1
+		SET SoftDelete = 1, [VersionNumber] = @NewVersion, [Name] = @NewName
 		WHERE Id = @ActivityLibraryID
 	COMMIT TRAN
 
@@ -155,3 +183,8 @@ BEGIN CATCH
         END
     END CATCH
   RETURN @rc
+
+GO
+
+GRANT EXECUTE ON [dbo].[Activity_Delete] TO [MarketplaceService];
+GO

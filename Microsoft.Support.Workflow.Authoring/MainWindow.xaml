@@ -280,6 +280,12 @@
                     Modifiers="Ctrl"></KeyBinding>
         <KeyBinding Command="{Binding RefreshCommand}"
                     Key="F5"></KeyBinding>
+        <KeyBinding Command="{Binding OpenCDSPackagesManagerCommand}"
+                    Key="M"
+                    Modifiers="Ctrl+Shift"></KeyBinding>
+        <KeyBinding Command="{Binding OpenOptionsCommand}"
+                    Key="O"
+                    Modifiers="Ctrl+Shift"></KeyBinding>
     </Window.InputBindings>
     <Grid Background="White" 
           VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -326,7 +332,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem InputGestureText="Ctrl+T" Command="{Binding OpenTaskActivitiesCommand}"
-                              Header="Open My Task">
+                              Header="Open My Task...">
                         <MenuItem.Icon>
                             <Image Height="16"
                                            Width="16"
@@ -335,7 +341,7 @@
                     </MenuItem>
                     <Separator/>
                     <MenuItem  InputGestureText="Ctrl+M" Command="{Binding ManageWorkflowTypeCommand}"
-                                       Header="_Manage Workflow Type">
+                                       Header="_Manage Workflow Type...">
                     </MenuItem>
                     <Separator />
                     <MenuItem Command="{Binding UnlockCommand}"
@@ -350,7 +356,7 @@
                     <MenuItem InputGestureText="Ctrl+S"
                                       Command="{Binding SaveFocusedWorkflowCommand}"
                                       CommandParameter="ToServer"
-                                      Header="Save Project...">
+                                      Header="Save Project">
                     </MenuItem>
 
                     <MenuItem Command="{Binding SaveFocusedWorkflowCommand}"
@@ -360,17 +366,17 @@
 
                     <MenuItem   IsEnabled="{Binding TaskActivityOpened}"
                                 Command="{Binding CheckInTaskActivityCommand}"
-                                Header="Check In My Task...">
+                                Header="Check In My Task">
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="Move Project" InputGestureText="Ctrl+Shift+M" Command="{Binding MoveProjectCommand}">
+                    <MenuItem Header="Move Project..." InputGestureText="Ctrl+Shift+M" Command="{Binding MoveProjectCommand}">
                     </MenuItem>
-                    <MenuItem Header="Copy Project" InputGestureText="Ctrl+Shift+C" Command="{Binding CopyProjectCommand}">
+                    <MenuItem Header="Copy Project..." InputGestureText="Ctrl+Shift+C" Command="{Binding CopyProjectCommand}">
                     </MenuItem>
-                    <MenuItem Header="Delete Project" InputGestureText="Ctrl+Shift+D" Command="{Binding DeleteProjectCommand}">
+                    <MenuItem Header="Delete Project..." InputGestureText="Ctrl+Shift+D" Command="{Binding DeleteProjectCommand}">
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="Change Project Author" Command="{Binding ChangeAuthorCommand}">
+                    <MenuItem Header="Change Project Author..." Command="{Binding ChangeAuthorCommand}">
                     </MenuItem>
                     <Separator/>
                     <MenuItem Command="{Binding ImportAssemblyCommand}"
@@ -481,7 +487,7 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Marketplace">
-                    <MenuItem Header="Browse the Marketplace"
+                    <MenuItem Header="Browse the Marketplace..."
                                       Command="{Binding OpenMarketplaceCommand}" />
                     <MenuItem Command="{Binding UploadAssemblyCommand}"
                                       Header="Upload Activity Library..."
@@ -530,12 +536,13 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Tools">
-                    <MenuItem Header="Environment Security Options"
+                    <MenuItem Header="Environment Security Options..."
                               Command="{Binding OpenEnvSecurityOptionsCommand}"></MenuItem>
-                    <MenuItem Header="Tenant Security Options"
+                    <MenuItem Header="Tenant Security Options..."
                               Command="{Binding OpenTenantSecurityOptionsCommand}"></MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="Default Value Setting Options" Command="{Binding DefaultValueSettingsCommand}"></MenuItem>
+                    <MenuItem InputGestureText="Ctrl+Shift+M" Header="CDS Packages Manager..." Command="{Binding OpenCDSPackagesManagerCommand}"></MenuItem>
+                    <MenuItem InputGestureText="Ctrl+Shift+O" Header="Options..." Command="{Binding OpenOptionsCommand}"></MenuItem>
                 </MenuItem>
 
                 <MenuItem Header="_Help"
@@ -611,14 +618,14 @@
                     <t:RadPaneGroup TabStripPlacement="Bottom">
                         <t:RadPane Header="Toolbox"
                                    CanFloat="True"
-                                   CanDockInDocumentHost="True"
+                                   CanDockInDocumentHost="False"
                                    IsHidden="{Binding IsChecked,ElementName=menuToolbox,Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
                                    ContextMenuTemplate="{x:Null}"
                                    Content="{Binding FocusedWorkflowItem.Toolbox}">
                         </t:RadPane>
                         <t:RadPane Header="Project Explorer"
-                                     CanFloat="True"
-                                    CanDockInDocumentHost="True"
+                                    CanFloat="True"
+                                    CanDockInDocumentHost="False"
                                     IsHidden="{Binding IsChecked,ElementName=menuPE,Mode=TwoWay,Converter={StaticResource BooleanInverterConverter}}"
                                     ContextMenuTemplate="{x:Null}"
                                     Content="{Binding FocusedWorkflowItem.PEView}">
@@ -629,7 +636,7 @@
                     <t:RadPaneGroup TabStripPlacement="Bottom">
                         <t:RadPane Header="Properties"
                                     CanFloat="True"
-                                    CanDockInDocumentHost="True"
+                                    CanDockInDocumentHost="False"
                                     IsHidden="{Binding IsChecked,ElementName=menuProperty,Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
                                     ContextMenuTemplate="{x:Null}"
                                     Content="{Binding FocusedWorkflowItem.PropertyView}">
@@ -637,7 +644,7 @@
                         <t:RadPane Header="Workflow Info"
                                    IsSelected="True"
                                    CanFloat="True"
-                                   CanDockInDocumentHost="True"
+                                   CanDockInDocumentHost="False"
                                    IsHidden="{Binding IsChecked,ElementName=menuWfInfo,Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
                                    ContextMenuTemplate="{x:Null}">
                             <StackPanel Orientation="Vertical">
@@ -646,9 +653,8 @@
                                                    Text="Workflow Name" />
                                 <TextBox Margin="10,0,10,0" 
                                          MaxLength="50" IsEnabled="{Binding FocusedWorkflowItem.IsReadOnly, Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
-                                         Text="{Binding FocusedWorkflowItem.WorkflowName, Mode=TwoWay,NotifyOnValidationError=True, ValidatesOnDataErrors=True,ValidatesOnExceptions=True}" 
-                                         x:Name="wfName"
-                                         TextChanged="wfName_TextChanged"/>
+                                         Text="{Binding FocusedWorkflowItem.WorkflowName, UpdateSourceTrigger=PropertyChanged}" 
+                                         x:Name="wfName"/>
                                 <TextBlock Margin="10,5,10,0" Text="Environment"></TextBlock>
                                 <TextBox Margin="10,0,10,0" IsReadOnly="True" Text="{Binding FocusedWorkflowItem.Env}"></TextBox>
                                 <common:VersionDisplay x:Name="VersionDisplay"
@@ -673,7 +679,7 @@
                             </StackPanel>
                         </t:RadPane>
                         <t:RadPane Header="Content"
-                                   CanDockInDocumentHost="True"
+                                   CanDockInDocumentHost="False"
                                    IsHidden="{Binding IsChecked,ElementName=menuContent,Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
                                    ContextMenuTemplate="{x:Null}"
                                    CanFloat="True">

@@ -118,7 +118,7 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.Services {
         [TestMethod]
         [Owner("v-ery")]
         [TestCategory("Unit")]
-        public void TestGroupExists() {
+        public void aaaaTestGroupExists() {
             Assert.IsFalse(AuthorizationService.GroupExists("GroupNotExist"));
             Assert.IsTrue(AuthorizationService.GroupExists("cwf_eng_wsp"));
         }

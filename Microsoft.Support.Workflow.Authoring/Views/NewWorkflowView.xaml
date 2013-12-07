@@ -11,7 +11,7 @@
         ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow"
         Width="480"
-        Height="500"
+        Height="530"
         WindowStartupLocation="CenterScreen"
         Background="#FFF9F9F9">
     <Window.Resources>
@@ -30,12 +30,12 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
-                <RowDefinition  Height="30" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="55" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
 
@@ -56,6 +56,7 @@
                          Grid.ColumnSpan="2"
                          ToolTip="Select a Template"
                          Margin="10,0,10,0"
+                         Height="250"
                          SelectedItem="{Binding SelectedWorkflowTemplateItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          ItemsSource="{Binding SelectWorkflowTemplates}"
                          DisplayMemberPath="WorkflowTypeName" />

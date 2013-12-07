@@ -9,12 +9,14 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
     using System.Data.SqlClient;
     using CWF.DataContracts;
     using Practices.EnterpriseLibrary.Data;
+    using System.Configuration;
 
     /// <summary>
     /// Defines the data access services associated with ActivityLibrary table as the primary table.
     /// </summary>
     public class ActivityLibraryRepositoryService
     {
+        private static int timeOut = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
         /// <summary>
         /// Get an activity library by ID if a positive ID value is provided.  Otherwise, gets by GUID
         /// if a non-empty GUID is provided.  If the ID is not positive and the GUID is empty, then 
@@ -33,7 +35,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 database = DatabaseFactory.CreateDatabase();
-                command = database.GetStoredProcCommand(StoredProcNames.ActivityLibraryGet);
+                command = RepositoryHelper.PrepareCommandCommand(database, StoredProcNames.ActivityLibraryGet);
+                
                 database.AddParameter(command, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 database.AddParameter(command, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 database.AddParameter(command, "@InId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.Id);
@@ -102,6 +105,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                     using (var command = new SqlCommand(StoredProcNames.ActivityLibraryGetMissing, connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        if (command.CommandTimeout < timeOut)
+                            command.CommandTimeout = timeOut;
 
                         //Create a table
                         var table = new DataTable("temp");

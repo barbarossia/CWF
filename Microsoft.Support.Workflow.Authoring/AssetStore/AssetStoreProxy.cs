@@ -24,13 +24,14 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
     using System.Configuration;
     using System.ServiceModel.Configuration;
 using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using System.Collections.Specialized;
 
     /// <summary>
     /// Class to centralize all operations that call the QueryService
     /// </summary>
     public class AssetStoreProxy
     {
-        public readonly static ObservableCollection<string> Categories;
+        public readonly static MTObservableCollection<string> Categories;
 
         /// <summary>
         /// Types of workflows
@@ -73,7 +74,7 @@ using Microsoft.Support.Workflow.Authoring.AddIns.Data;
         /// </summary>
         static AssetStoreProxy()
         {
-            Categories = new ObservableCollection<string>();
+            Categories = new MTObservableCollection<string>();
             GetActivityCategories();
             GetTenantName();
             GetClientEndpoint();
@@ -154,6 +155,7 @@ using Microsoft.Support.Workflow.Authoring.AddIns.Data;
         /// <returns>True if the operation was successful</returns>
         public static bool ActivityCategoryCreateOrUpdate(string categoryName)
         {
+
             using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
             {
                 if (String.IsNullOrEmpty(categoryName))
@@ -161,19 +163,31 @@ using Microsoft.Support.Workflow.Authoring.AddIns.Data;
                     throw new ArgumentNullException("categoryName");
                 }
 
-                bool result = false;
+                var requestName = new ActivityCategoryByNameGetRequestDC
+                {
+                    Incaller = Assembly.GetExecutingAssembly().GetName().Name,
+                    IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    InInsertedByUserAlias = Environment.UserName,
+                    InUpdatedByUserAlias = Environment.UserName
+                };
 
+                var categoriesCollection = client.ActivityCategoryGet(requestName);
+
+                if (categoriesCollection.Any(c => c.Name == categoryName))
+                    throw new UserFacingException("Name already exist");
+
+                bool result = false;
                 var request = new ActivityCategoryCreateOrUpdateRequestDC
-                                       {
-                                           Incaller = Assembly.GetExecutingAssembly().GetName().Name,
-                                           IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                                           InGuid = Guid.NewGuid(),
-                                           InName = categoryName,
-                                           InDescription = categoryName,
-                                           InMetaTags = categoryName,
-                                           InUpdatedByUserAlias = Environment.UserName,
-                                           InInsertedByUserAlias = Environment.UserName
-                                       };
+                {
+                    Incaller = Assembly.GetExecutingAssembly().GetName().Name,
+                    IncallerVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    InGuid = Guid.NewGuid(),
+                    InName = categoryName,
+                    InDescription = categoryName,
+                    InMetaTags = categoryName,
+                    InUpdatedByUserAlias = Environment.UserName,
+                    InInsertedByUserAlias = Environment.UserName
+                };
 
                 var reply = client.ActivityCategoryCreateOrUpdate(request);
                 if (reply.StatusReply.Errorcode == 0)
@@ -181,8 +195,36 @@ using Microsoft.Support.Workflow.Authoring.AddIns.Data;
                     Categories.Add(categoryName);
                     result = true;
                 }
+
                 return result;
             }
+        }
+    }
+
+    public class MTObservableCollection<T> : ObservableCollection<T>
+    {
+        public override event NotifyCollectionChangedEventHandler CollectionChanged;
+        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            NotifyCollectionChangedEventHandler CollectionChanged = this.CollectionChanged;
+            if (CollectionChanged != null)
+                foreach (NotifyCollectionChangedEventHandler nh in CollectionChanged.GetInvocationList())
+                {
+                    DispatcherObject dispObj = nh.Target as DispatcherObject;
+                    if (dispObj != null)
+                    {
+                        Dispatcher dispatcher = dispObj.Dispatcher;
+                        if (dispatcher != null && !dispatcher.CheckAccess())
+                        {
+                            dispatcher.BeginInvoke(
+                                (Action)(() => nh.Invoke(this,
+                                    new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))),
+                                DispatcherPriority.DataBind);
+                            continue;
+                        }
+                    }
+                    nh.Invoke(this, e);
+                }
         }
     }
 }

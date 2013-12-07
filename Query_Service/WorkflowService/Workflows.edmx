@@ -1,0 +1,1735 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CWFDummyDataSourceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="CWFDummyDataSourceModelStoreContainer">
+          <EntitySet Name="ActivityApplicationXRef" EntityType="CWFDummyDataSourceModel.Store.ActivityApplicationXRef" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="ActivityCategory" EntityType="CWFDummyDataSourceModel.Store.ActivityCategory" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="ActivityContext" EntityType="CWFDummyDataSourceModel.Store.ActivityContext" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="ActivityLibraries" EntityType="CWFDummyDataSourceModel.Store.ActivityLibraries" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="Applications" EntityType="CWFDummyDataSourceModel.Store.Applications" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="Content" EntityType="CWFDummyDataSourceModel.Store.Content" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="Context" EntityType="CWFDummyDataSourceModel.Store.Context" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="ContextCategories" EntityType="CWFDummyDataSourceModel.Store.ContextCategories" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="LocalizedContent" EntityType="CWFDummyDataSourceModel.Store.LocalizedContent" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="StatusCodes" EntityType="CWFDummyDataSourceModel.Store.StatusCodes" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="StoreActivities" EntityType="CWFDummyDataSourceModel.Store.StoreActivities" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="Workflows" EntityType="CWFDummyDataSourceModel.Store.Workflows" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="WorkflowType" EntityType="CWFDummyDataSourceModel.Store.WorkflowType" store:Type="Tables" Schema="commonworkflow" />
+          <EntitySet Name="WorkflowTypeActivityLibraryXRef" EntityType="CWFDummyDataSourceModel.Store.WorkflowTypeActivityLibraryXRef" store:Type="Tables" store:Schema="commonworkflow" store:Name="WorkflowTypeActivityLibraryXRef">
+            <DefiningQuery>SELECT 
+      [WorkflowTypeActivityLibraryXRef].[WorkFlowTypeID] AS [WorkFlowTypeID], 
+      [WorkflowTypeActivityLibraryXRef].[ActivityLibraryID] AS [ActivityLibraryID]
+      FROM [commonworkflow].[WorkflowTypeActivityLibraryXRef] AS [WorkflowTypeActivityLibraryXRef]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ActivityXaml" EntityType="CWFDummyDataSourceModel.Store.ActivityXaml" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AuthGroups" EntityType="CWFDummyDataSourceModel.Store.AuthGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Icons" EntityType="CWFDummyDataSourceModel.Store.Icons" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Taxonomy" EntityType="CWFDummyDataSourceModel.Store.Taxonomy" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ToolBoxTabName" EntityType="CWFDummyDataSourceModel.Store.ToolBoxTabName" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Library" EntityType="CWFDummyDataSourceModel.Store.Library" store:Type="Views" store:Schema="dbo" store:Name="Library">
+            <DefiningQuery>SELECT 
+      [Library].[Id] AS [Id], 
+      [Library].[Name] AS [Name], 
+      [Library].[Category] AS [Category], 
+      [Library].[HasActivities] AS [HasActivities], 
+      [Library].[Description] AS [Description], 
+      [Library].[ImportedBy] AS [ImportedBy], 
+      [Library].[VersionNumber] AS [VersionNumber], 
+      [Library].[Status] AS [Status], 
+      [Library].[MetaTags] AS [MetaTags]
+      FROM [dbo].[Library] AS [Library]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ToolboxItem" EntityType="CWFDummyDataSourceModel.Store.ToolboxItem" store:Type="Views" store:Schema="dbo" store:Name="ToolboxItem">
+            <DefiningQuery>SELECT 
+      [ToolboxItem].[Id] AS [Id], 
+      [ToolboxItem].[Name] AS [Name], 
+      [ToolboxItem].[ToolBoxName] AS [ToolBoxName], 
+      [ToolboxItem].[Description] AS [Description], 
+      [ToolboxItem].[MetaTags] AS [MetaTags], 
+      [ToolboxItem].[Icon] AS [Icon], 
+      [ToolboxItem].[IsSwitch] AS [IsSwitch], 
+      [ToolboxItem].[IsService] AS [IsService], 
+      [ToolboxItem].[ActivityLibrary] AS [ActivityLibrary], 
+      [ToolboxItem].[IsUxActivity] AS [IsUxActivity], 
+      [ToolboxItem].[Category] AS [Category], 
+      [ToolboxItem].[Version] AS [Version], 
+      [ToolboxItem].[Status] AS [Status], 
+      [ToolboxItem].[WorkflowType] AS [WorkflowType], 
+      [ToolboxItem].[IsCodeActivity] AS [IsCodeActivity], 
+      [ToolboxItem].[LibraryName] AS [LibraryName], 
+      [ToolboxItem].[LibraryVersion] AS [LibraryVersion], 
+      [ToolboxItem].[CategoryName] AS [CategoryName], 
+      [ToolboxItem].[StatusName] AS [StatusName], 
+      [ToolboxItem].[ShowInProduction] AS [ShowInProduction], 
+      [ToolboxItem].[LockForChanges] AS [LockForChanges], 
+      [ToolboxItem].[AllowTestInProduction] AS [AllowTestInProduction]
+      FROM [dbo].[ToolboxItem] AS [ToolboxItem]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewActivityLibraryWoExecutable" EntityType="CWFDummyDataSourceModel.Store.viewActivityLibraryWoExecutable" store:Type="Views" store:Schema="dbo" store:Name="viewActivityLibraryWoExecutable">
+            <DefiningQuery>SELECT 
+      [viewActivityLibraryWoExecutable].[Id] AS [Id], 
+      [viewActivityLibraryWoExecutable].[AuthGroup] AS [AuthGroup], 
+      [viewActivityLibraryWoExecutable].[Name] AS [Name], 
+      [viewActivityLibraryWoExecutable].[Category] AS [Category], 
+      [viewActivityLibraryWoExecutable].[Description] AS [Description], 
+      [viewActivityLibraryWoExecutable].[ImportedBy] AS [ImportedBy], 
+      [viewActivityLibraryWoExecutable].[VersionNumber] AS [VersionNumber], 
+      [viewActivityLibraryWoExecutable].[Status] AS [Status], 
+      [viewActivityLibraryWoExecutable].[MetaTags] AS [MetaTags], 
+      [viewActivityLibraryWoExecutable].[HasActivities] AS [HasActivities]
+      FROM [dbo].[viewActivityLibraryWoExecutable] AS [viewActivityLibraryWoExecutable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewWorkflow" EntityType="CWFDummyDataSourceModel.Store.viewWorkflow" store:Type="Views" store:Schema="dbo" store:Name="viewWorkflow">
+            <DefiningQuery>SELECT 
+      [viewWorkflow].[Id] AS [Id], 
+      [viewWorkflow].[Name] AS [Name], 
+      [viewWorkflow].[Description] AS [Description], 
+      [viewWorkflow].[MetaTags] AS [MetaTags], 
+      [viewWorkflow].[IsService] AS [IsService], 
+      [viewWorkflow].[IsSwitch] AS [IsSwitch], 
+      [viewWorkflow].[IsUxActivity] AS [IsUxActivity], 
+      [viewWorkflow].[Version] AS [Version], 
+      [viewWorkflow].[Status] AS [Status], 
+      [viewWorkflow].[WorkflowType] AS [WorkflowType], 
+      [viewWorkflow].[TypeName] AS [TypeName], 
+      [viewWorkflow].[WorkflowGroup] AS [WorkflowGroup], 
+      [viewWorkflow].[ContextVariable] AS [ContextVariable], 
+      [viewWorkflow].[HandleVariable] AS [HandleVariable], 
+      [viewWorkflow].[PageViewVariable] AS [PageViewVariable], 
+      [viewWorkflow].[Locked] AS [Locked], 
+      [viewWorkflow].[LockedBy] AS [LockedBy], 
+      [viewWorkflow].[IsCodeActivity] AS [IsCodeActivity], 
+      [viewWorkflow].[CategoryName] AS [CategoryName], 
+      [viewWorkflow].[AuthGroup] AS [AuthGroup], 
+      [viewWorkflow].[PublishingWorkflow] AS [PublishingWorkflow], 
+      [viewWorkflow].[AllowTestInProduction] AS [AllowTestInProduction]
+      FROM [dbo].[viewWorkflow] AS [viewWorkflow]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WorkflowHeader" EntityType="CWFDummyDataSourceModel.Store.WorkflowHeader" store:Type="Views" store:Schema="dbo" store:Name="WorkflowHeader">
+            <DefiningQuery>SELECT 
+      [WorkflowHeader].[Id] AS [Id], 
+      [WorkflowHeader].[Name] AS [Name], 
+      [WorkflowHeader].[Description] AS [Description], 
+      [WorkflowHeader].[MetaTags] AS [MetaTags], 
+      [WorkflowHeader].[IsSwitch] AS [IsSwitch], 
+      [WorkflowHeader].[IsService] AS [IsService], 
+      [WorkflowHeader].[ActivityLibrary] AS [ActivityLibrary], 
+      [WorkflowHeader].[IsUxActivity] AS [IsUxActivity], 
+      [WorkflowHeader].[DefaultRender] AS [DefaultRender], 
+      [WorkflowHeader].[Category] AS [Category], 
+      [WorkflowHeader].[Version] AS [Version], 
+      [WorkflowHeader].[Status] AS [Status], 
+      [WorkflowHeader].[WorkflowType] AS [WorkflowType], 
+      [WorkflowHeader].[Locked] AS [Locked], 
+      [WorkflowHeader].[LockedBy] AS [LockedBy], 
+      [WorkflowHeader].[XAML] AS [XAML], 
+      [WorkflowHeader].[AllowTestInProduction] AS [AllowTestInProduction]
+      FROM [dbo].[WorkflowHeader] AS [WorkflowHeader]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Activities_ActivityCategory" Association="CWFDummyDataSourceModel.Store.FK_Activities_ActivityCategory">
+            <End Role="ActivityCategory" EntitySet="ActivityCategory" />
+            <End Role="StoreActivities" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActivityApplicationXRef_Activities" Association="CWFDummyDataSourceModel.Store.FK_ActivityApplicationXRef_Activities">
+            <End Role="StoreActivities" EntitySet="StoreActivities" />
+            <End Role="ActivityApplicationXRef" EntitySet="ActivityApplicationXRef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActivityApplicationXRef_Applications" Association="CWFDummyDataSourceModel.Store.FK_ActivityApplicationXRef_Applications">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="ActivityApplicationXRef" EntitySet="ActivityApplicationXRef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActivityContext_Activities" Association="CWFDummyDataSourceModel.Store.FK_ActivityContext_Activities">
+            <End Role="StoreActivities" EntitySet="StoreActivities" />
+            <End Role="ActivityContext" EntitySet="ActivityContext" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Context_ContextCategories" Association="CWFDummyDataSourceModel.Store.FK_Context_ContextCategories">
+            <End Role="ContextCategories" EntitySet="ContextCategories" />
+            <End Role="Context" EntitySet="Context" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreActivities_ActivityLibraries" Association="CWFDummyDataSourceModel.Store.FK_StoreActivities_ActivityLibraries">
+            <End Role="ActivityLibraries" EntitySet="ActivityLibraries" />
+            <End Role="StoreActivities" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreActivities_StatusCodes" Association="CWFDummyDataSourceModel.Store.FK_StoreActivities_StatusCodes">
+            <End Role="StatusCodes" EntitySet="StatusCodes" />
+            <End Role="StoreActivities" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreActivities_WorkflowType" Association="CWFDummyDataSourceModel.Store.FK_StoreActivities_WorkflowType">
+            <End Role="WorkflowType" EntitySet="WorkflowType" />
+            <End Role="StoreActivities" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowType_AuthGroups" Association="CWFDummyDataSourceModel.Store.FK_WorkflowType_AuthGroups">
+            <End Role="AuthGroups" EntitySet="AuthGroups" />
+            <End Role="WorkflowType" EntitySet="WorkflowType" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ActivityApplicationXRef">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Activity" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Application" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsSupportedInProduction" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="ActivityCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="AuthGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="MetaTags" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActivityContext">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Activity" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Context" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsRequired" Type="bit" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="ContextDirection" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActivityLibraries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AuthGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Category" Type="uniqueidentifier" />
+          <Property Name="Executable" Type="varbinary(max)" />
+          <Property Name="HasActivities" Type="bit" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="ImportedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="VersionNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="MetaTags" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Content">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Keywords" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Context">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ValueType" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsValidated" Type="bit" Nullable="false" />
+          <Property Name="IsPickList" Type="bit" Nullable="false" />
+          <Property Name="ValidationExecuteable" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ValidationMethod" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Category" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="BusinessImpactClassification" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="PrivacyData" Type="bit" />
+          <Property Name="Persistable" Type="bit" />
+          <Property Name="NotInDB" Type="bit" />
+          <Property Name="Tags" Type="nvarchar(max)" />
+          <Property Name="SecureData" Type="bit" />
+          <Property Name="NotInDesign" Type="bit" />
+        </EntityType>
+        <EntityType Name="ContextCategories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="AuthGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LocalizedContent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ContentID" Type="int" Nullable="false" />
+          <Property Name="Language" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="LocalizedContent" Type="nvarchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="StatusCodes">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="ShowInProduction" Type="bit" Nullable="false" />
+          <Property Name="LockForChanges" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsEligibleForCleanUp" Type="bit" />
+        </EntityType>
+        <EntityType Name="StoreActivities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="AuthGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="MetaTags" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IconName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsSwitch" Type="bit" Nullable="false" />
+          <Property Name="IsService" Type="bit" Nullable="false" />
+          <Property Name="ActivityLibrary" Type="uniqueidentifier" />
+          <Property Name="IsUxActivity" Type="bit" Nullable="false" />
+          <Property Name="DefaultRender" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Category" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ToolboxTab" Type="int" Nullable="false" />
+          <Property Name="ToolBoxName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsToolBoxActivity" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="WorkflowType" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Locked" Type="bit" />
+          <Property Name="LockedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCodeBeside" Type="bit" />
+          <Property Name="XAML" Type="nvarchar(max)" />
+          <Property Name="DeveloperNotes" Type="nvarchar" MaxLength="250" />
+          <Property Name="BaseType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Namespace" Type="nvarchar" MaxLength="250" />
+          <Property Name="AuthGroupId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Workflows">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Version" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsService" Type="bit" Nullable="false" />
+          <Property Name="IsNonDialog" Type="bit" Nullable="false" />
+          <Property Name="WorkFlowType" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="MetaTags" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Xaml" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="ManagementContext" Type="uniqueidentifier" />
+          <Property Name="Locked" Type="bit" />
+          <Property Name="LockedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WorkflowType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="WorkflowGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="PublishingWorkflow" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="WorkflowTemplate" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ContextVariable" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="HandleVariable" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="PageViewVariable" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="AuthGroupId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SelectionWorkflow" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PrototypeAssetStore.commonworkflow.WorkflowTypeActivityLibraryXRef' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="WorkflowTypeActivityLibraryXRef">
+          <Key>
+            <PropertyRef Name="WorkFlowTypeID" />
+            <PropertyRef Name="ActivityLibraryID" />
+          </Key>
+          <Property Name="WorkFlowTypeID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActivityLibraryID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActivityXaml">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Version" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Xaml" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="AuthGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AuthoringToolLevel" Type="int" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Icons">
+          <Key>
+            <PropertyRef Name="IconName" />
+          </Key>
+          <Property Name="IconName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Icon" Type="image" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Taxonomy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ValueType" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="RegularExpression" Type="nvarchar(max)" />
+          <Property Name="HasValueList" Type="tinyint" Nullable="false" />
+          <Property Name="Volatility" Type="bigint" Nullable="false" />
+          <Property Name="Privacy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ToolBoxTabName">
+          <Key>
+            <PropertyRef Name="IndexNo" />
+          </Key>
+          <Property Name="IndexNo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TabName" Type="nvarchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PrototypeAssetStore.dbo.Library' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Library">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Category" Type="uniqueidentifier" />
+          <Property Name="HasActivities" Type="bit" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="ImportedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="VersionNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="MetaTags" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PrototypeAssetStore.dbo.ToolboxItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ToolboxItem">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ToolBoxName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="MetaTags" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Icon" Type="image" />
+          <Property Name="IsSwitch" Type="bit" Nullable="false" />
+          <Property Name="IsService" Type="bit" Nullable="false" />
+          <Property Name="ActivityLibrary" Type="uniqueidentifier" />
+          <Property Name="IsUxActivity" Type="bit" Nullable="false" />
+          <Property Name="Category" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="WorkflowType" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsCodeActivity" Type="bit" />
+          <Property Name="LibraryName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="LibraryVersion" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="StatusName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ShowInProduction" Type="bit" Nullable="false" />
+          <Property Name="LockForChanges" Type="bit" Nullable="false" />
+          <Property Name="AllowTestInProduction" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PrototypeAssetStore.dbo.viewActivityLibraryWoExecutable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="viewActivityLibraryWoExecutable">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="AuthGroup" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AuthGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Category" Type="uniqueidentifier" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="ImportedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="VersionNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="MetaTags" Type="nvarchar" MaxLength="250" />
+          <Property Name="HasActivities" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PrototypeAssetStore.dbo.viewWorkflow' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="viewWorkflow">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="MetaTags" />
+            <PropertyRef Name="IsService" />
+            <PropertyRef Name="IsSwitch" />
+            <PropertyRef Name="IsUxActivity" />
+            <PropertyRef Name="Version" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="WorkflowType" />
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="WorkflowGroup" />
+            <PropertyRef Name="ContextVariable" />
+            <PropertyRef Name="HandleVariable" />
+            <PropertyRef Name="PageViewVariable" />
+            <PropertyRef Name="CategoryName" />
+            <PropertyRef Name="AuthGroup" />
+            <PropertyRef Name="PublishingWorkflow" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="MetaTags" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsService" Type="bit" Nullable="false" />
+          <Property Name="IsSwitch" Type="bit" Nullable="false" />
+          <Property Name="IsUxActivity" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="WorkflowType" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="WorkflowGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ContextVariable" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="HandleVariable" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="PageViewVariable" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="Locked" Type="bit" />
+          <Property Name="LockedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCodeActivity" Type="bit" />
+          <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AuthGroup" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="PublishingWorkflow" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AllowTestInProduction" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'PrototypeAssetStore.dbo.WorkflowHeader' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="WorkflowHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="MetaTags" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsSwitch" Type="bit" Nullable="false" />
+          <Property Name="IsService" Type="bit" Nullable="false" />
+          <Property Name="ActivityLibrary" Type="uniqueidentifier" />
+          <Property Name="IsUxActivity" Type="bit" Nullable="false" />
+          <Property Name="DefaultRender" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Category" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="WorkflowType" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Locked" Type="bit" />
+          <Property Name="LockedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="XAML" Type="nvarchar(max)" />
+          <Property Name="AllowTestInProduction" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Activities_ActivityCategory">
+          <End Role="ActivityCategory" Type="CWFDummyDataSourceModel.Store.ActivityCategory" Multiplicity="1" />
+          <End Role="StoreActivities" Type="CWFDummyDataSourceModel.Store.StoreActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StoreActivities">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActivityApplicationXRef_Activities">
+          <End Role="StoreActivities" Type="CWFDummyDataSourceModel.Store.StoreActivities" Multiplicity="1" />
+          <End Role="ActivityApplicationXRef" Type="CWFDummyDataSourceModel.Store.ActivityApplicationXRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreActivities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActivityApplicationXRef">
+              <PropertyRef Name="Activity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActivityApplicationXRef_Applications">
+          <End Role="Applications" Type="CWFDummyDataSourceModel.Store.Applications" Multiplicity="1" />
+          <End Role="ActivityApplicationXRef" Type="CWFDummyDataSourceModel.Store.ActivityApplicationXRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActivityApplicationXRef">
+              <PropertyRef Name="Application" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActivityContext_Activities">
+          <End Role="StoreActivities" Type="CWFDummyDataSourceModel.Store.StoreActivities" Multiplicity="1" />
+          <End Role="ActivityContext" Type="CWFDummyDataSourceModel.Store.ActivityContext" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreActivities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActivityContext">
+              <PropertyRef Name="Activity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Context_ContextCategories">
+          <End Role="ContextCategories" Type="CWFDummyDataSourceModel.Store.ContextCategories" Multiplicity="1" />
+          <End Role="Context" Type="CWFDummyDataSourceModel.Store.Context" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContextCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Context">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreActivities_ActivityLibraries">
+          <End Role="ActivityLibraries" Type="CWFDummyDataSourceModel.Store.ActivityLibraries" Multiplicity="0..1" />
+          <End Role="StoreActivities" Type="CWFDummyDataSourceModel.Store.StoreActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityLibraries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StoreActivities">
+              <PropertyRef Name="ActivityLibrary" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreActivities_StatusCodes">
+          <End Role="StatusCodes" Type="CWFDummyDataSourceModel.Store.StatusCodes" Multiplicity="1" />
+          <End Role="StoreActivities" Type="CWFDummyDataSourceModel.Store.StoreActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusCodes">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="StoreActivities">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreActivities_WorkflowType">
+          <End Role="WorkflowType" Type="CWFDummyDataSourceModel.Store.WorkflowType" Multiplicity="1" />
+          <End Role="StoreActivities" Type="CWFDummyDataSourceModel.Store.StoreActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StoreActivities">
+              <PropertyRef Name="WorkflowType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowType_AuthGroups">
+          <End Role="AuthGroups" Type="CWFDummyDataSourceModel.Store.AuthGroups" Multiplicity="1" />
+          <End Role="WorkflowType" Type="CWFDummyDataSourceModel.Store.WorkflowType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkflowType">
+              <PropertyRef Name="AuthGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CWFDummyDataSourceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="CWFDummyDataSourceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActivityApplicationXRefs" EntityType="CWFDummyDataSourceModel.ActivityApplicationXRef" />
+          <EntitySet Name="ActivityCategories" EntityType="CWFDummyDataSourceModel.ActivityCategory" />
+          <EntitySet Name="ActivityContexts" EntityType="CWFDummyDataSourceModel.ActivityContext" />
+          <EntitySet Name="ActivityLibraries" EntityType="CWFDummyDataSourceModel.ActivityLibrary" />
+          <EntitySet Name="ApplicationDBs" EntityType="CWFDummyDataSourceModel.Application" />
+          <EntitySet Name="Contents" EntityType="CWFDummyDataSourceModel.Content" />
+          <EntitySet Name="Contexts" EntityType="CWFDummyDataSourceModel.Context" />
+          <EntitySet Name="ContextCategories" EntityType="CWFDummyDataSourceModel.ContextCategory" />
+          <EntitySet Name="LocalizedContents" EntityType="CWFDummyDataSourceModel.LocalizedContent" />
+          <EntitySet Name="StoreActivities" EntityType="CWFDummyDataSourceModel.StoreActivity" />
+          <EntitySet Name="Workflows" EntityType="CWFDummyDataSourceModel.Workflow" />
+          <EntitySet Name="WorkflowTypedbs" EntityType="CWFDummyDataSourceModel.WorkflowTypedb" />
+          <EntitySet Name="WorkflowTypeActivityLibraryXRefs" EntityType="CWFDummyDataSourceModel.WorkflowTypeActivityLibraryXRef" />
+          <AssociationSet Name="FK_ActivityApplicationXRef_Activities" Association="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Activities">
+            <End Role="StoreActivity" EntitySet="StoreActivities" />
+            <End Role="ActivityApplicationXRef" EntitySet="ActivityApplicationXRefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActivityApplicationXRef_Applications" Association="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Applications">
+            <End Role="Application" EntitySet="ApplicationDBs" />
+            <End Role="ActivityApplicationXRef" EntitySet="ActivityApplicationXRefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activities_ActivityCategory" Association="CWFDummyDataSourceModel.FK_Activities_ActivityCategory">
+            <End Role="ActivityCategory" EntitySet="ActivityCategories" />
+            <End Role="StoreActivity" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActivityContext_Activities" Association="CWFDummyDataSourceModel.FK_ActivityContext_Activities">
+            <End Role="StoreActivity" EntitySet="StoreActivities" />
+            <End Role="ActivityContext" EntitySet="ActivityContexts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activities_ActivityLibraries" Association="CWFDummyDataSourceModel.FK_Activities_ActivityLibraries">
+            <End Role="ActivityLibrary" EntitySet="ActivityLibraries" />
+            <End Role="StoreActivity" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Context_ContextCategories" Association="CWFDummyDataSourceModel.FK_Context_ContextCategories">
+            <End Role="ContextCategory" EntitySet="ContextCategories" />
+            <End Role="Context" EntitySet="Contexts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workflows_WorkflowType" Association="CWFDummyDataSourceModel.FK_Workflows_WorkflowType">
+            <End Role="WorkflowType" EntitySet="WorkflowTypedbs" />
+            <End Role="Workflow" EntitySet="Workflows" />
+          </AssociationSet>
+          <EntitySet Name="viewActivityLibraryWoExecutables" EntityType="CWFDummyDataSourceModel.viewActivityLibraryWoExecutable" />
+          <EntitySet Name="Taxonomies" EntityType="CWFDummyDataSourceModel.Taxonomy" />
+          <EntitySet Name="AuthGroups" EntityType="CWFDummyDataSourceModel.AuthGroup" />
+          <EntitySet Name="ToolboxItems" EntityType="CWFDummyDataSourceModel.ToolboxItem" />
+          <EntitySet Name="viewWorkflows" EntityType="CWFDummyDataSourceModel.viewWorkflow" />
+          <AssociationSet Name="FK_StoreActivities_WorkflowType" Association="CWFDummyDataSourceModel.FK_StoreActivities_WorkflowType">
+            <End Role="WorkflowTypedb" EntitySet="WorkflowTypedbs" />
+            <End Role="StoreActivity" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowType_AuthGroups" Association="CWFDummyDataSourceModel.FK_WorkflowType_AuthGroups">
+            <End Role="AuthGroup" EntitySet="AuthGroups" />
+            <End Role="WorkflowTypedb" EntitySet="WorkflowTypedbs" />
+          </AssociationSet>
+          <EntitySet Name="StatusCodes" EntityType="CWFDummyDataSourceModel.StatusCode" />
+          <AssociationSet Name="FK_StoreActivities_StatusCodes" Association="CWFDummyDataSourceModel.FK_StoreActivities_StatusCodes">
+            <End Role="StatusCode" EntitySet="StatusCodes" />
+            <End Role="StoreActivity" EntitySet="StoreActivities" />
+          </AssociationSet>
+          <EntitySet Name="Libraries" EntityType="CWFDummyDataSourceModel.Library" />
+          <EntitySet Name="WorkflowHeaders" EntityType="CWFDummyDataSourceModel.WorkflowHeader" />
+          <EntitySet Name="ActivityXamls" EntityType="CWFDummyDataSourceModel.ActivityXaml" />
+          <EntitySet Name="Icons" EntityType="CWFDummyDataSourceModel.Icon" />
+          <EntitySet Name="ToolBoxTabNames" EntityType="CWFDummyDataSourceModel.ToolBoxTabName" />
+          <AssociationSet Name="ActivityContextContext" Association="CWFDummyDataSourceModel.ActivityContextContext">
+            <End Role="ActivityContext" EntitySet="ActivityContexts" />
+            <End Role="Context" EntitySet="Contexts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ActivityApplicationXRef">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="Activity" Nullable="false" />
+          <Property Type="Guid" Name="Application" Nullable="false" />
+          <Property Type="Boolean" Name="IsSupportedInProduction" Nullable="false" />
+          <NavigationProperty Name="StoreActivity" Relationship="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Activities" FromRole="ActivityApplicationXRef" ToRole="StoreActivity" />
+          <NavigationProperty Name="Application1" Relationship="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Applications" FromRole="ActivityApplicationXRef" ToRole="Application" />
+          <Property Type="Int32" Name="Status" />
+        </EntityType>
+        <EntityType Name="ActivityCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AuthGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StoreActivities" Relationship="CWFDummyDataSourceModel.FK_Activities_ActivityCategory" FromRole="ActivityCategory" ToRole="StoreActivity" />
+          <Property Type="String" Name="MetaTags" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ActivityContext">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="Activity" Nullable="false" />
+          <Property Type="Boolean" Name="IsRequired" Nullable="false" />
+          <NavigationProperty Name="StoreActivity" Relationship="CWFDummyDataSourceModel.FK_ActivityContext_Activities" FromRole="ActivityContext" ToRole="StoreActivity" />
+          <Property Type="String" Name="Notes" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ContextDirection" Nullable="false" />
+          <NavigationProperty Name="Context_1" Relationship="CWFDummyDataSourceModel.ActivityContextContext" FromRole="ActivityContext" ToRole="Context" />
+          <Property Type="Guid" Name="ContextId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActivityLibrary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AuthGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="Category" />
+          <Property Type="Binary" Name="Executable" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImportedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="VersionNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" />
+          <NavigationProperty Name="StoreActivities" Relationship="CWFDummyDataSourceModel.FK_Activities_ActivityLibraries" FromRole="ActivityLibrary" ToRole="StoreActivity" />
+          <Property Type="String" Name="MetaTags" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="HasActivities" />
+        </EntityType>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ActivityApplicationXRefs" Relationship="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Applications" FromRole="Application" ToRole="ActivityApplicationXRef" />
+        </EntityType>
+        <EntityType Name="Content">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Keywords" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="ID" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Context">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ValueType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsValidated" Nullable="false" />
+          <Property Type="Boolean" Name="IsPickList" Nullable="false" />
+          <Property Type="String" Name="ValidationExecuteable" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ValidationMethod" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="Category" Nullable="false" />
+          <Property Type="String" Name="ShortName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="SecureData" />
+          <Property Type="Boolean" Name="PrivacyData" />
+          <Property Type="Boolean" Name="NotInDesign" />
+          <Property Type="Boolean" Name="Persistable" />
+          <Property Type="Boolean" Name="NotInDB" />
+          <Property Type="String" Name="Tags" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ContextCategory" Relationship="CWFDummyDataSourceModel.FK_Context_ContextCategories" FromRole="Context" ToRole="ContextCategory" />
+          <Property Type="String" Name="BusinessImpactClassification" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ActivityContexts" Relationship="CWFDummyDataSourceModel.ActivityContextContext" FromRole="Context" ToRole="ActivityContext" />
+        </EntityType>
+        <EntityType Name="ContextCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AuthGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contexts" Relationship="CWFDummyDataSourceModel.FK_Context_ContextCategories" FromRole="ContextCategory" ToRole="Context" />
+        </EntityType>
+        <EntityType Name="LocalizedContent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ContentID" Nullable="false" />
+          <Property Type="String" Name="Language" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="LocalizedContent1" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StoreActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AuthGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsSwitch" Nullable="false" />
+          <Property Type="Boolean" Name="IsService" Nullable="false" />
+          <Property Type="Guid" Name="ActivityLibrary" Nullable="true" />
+          <Property Type="Boolean" Name="IsUxActivity" Nullable="false" />
+          <Property Type="String" Name="DefaultRender" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CategoryId" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
+          <Property Type="Boolean" Name="IsToolBoxActivity" Nullable="false" />
+          <NavigationProperty Name="ActivityApplicationXRefs" Relationship="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Activities" FromRole="StoreActivity" ToRole="ActivityApplicationXRef" />
+          <NavigationProperty Name="ActivityCategory" Relationship="CWFDummyDataSourceModel.FK_Activities_ActivityCategory" FromRole="StoreActivity" ToRole="ActivityCategory" />
+          <NavigationProperty Name="ActivityContexts" Relationship="CWFDummyDataSourceModel.FK_ActivityContext_Activities" FromRole="StoreActivity" ToRole="ActivityContext" />
+          <NavigationProperty Name="ActivityLibrary1" Relationship="CWFDummyDataSourceModel.FK_Activities_ActivityLibraries" FromRole="StoreActivity" ToRole="ActivityLibrary" />
+          <Property Type="String" Name="MetaTags" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ToolBoxName" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Type="String" Name="Version" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="Guid" Name="WorkflowType" Nullable="false" />
+          <Property Type="Boolean" Name="Locked" />
+          <Property Type="String" Name="LockedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WorkflowType1" Relationship="CWFDummyDataSourceModel.FK_StoreActivities_WorkflowType" FromRole="StoreActivity" ToRole="WorkflowTypedb" />
+          <NavigationProperty Name="StatusCode" Relationship="CWFDummyDataSourceModel.FK_StoreActivities_StatusCodes" FromRole="StoreActivity" ToRole="StatusCode" />
+          <Property Type="String" Name="XAML" MaxLength="Max" FixedLength="false" Unicode="true" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Internal" DefaultValue="" />
+          <Property Type="String" Name="DeveloperNotes" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BaseType" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Namespace" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="IconName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ToolboxTab" Nullable="false" />
+          <Property Type="Guid" Name="AuthGroupId" />
+          <Property Type="Boolean" Name="IsCodeBeside" />
+        </EntityType>
+        <EntityType Name="Workflow">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Guid" Name="id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Version" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsService" Nullable="false" />
+          <Property Type="Boolean" Name="IsNonDialog" Nullable="false" />
+          <Property Type="Guid" Name="WorkFlowType" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="Guid" Name="ManagementContext" />
+          <Property Type="Boolean" Name="Locked" />
+          <Property Type="String" Name="LockedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MetaTags" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Xaml" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WorkflowType1" Relationship="CWFDummyDataSourceModel.FK_Workflows_WorkflowType" FromRole="Workflow" ToRole="WorkflowType" />
+        </EntityType>
+        <EntityType Name="WorkflowTypedb">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Guid" Name="id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkflowGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkflowTemplate" Nullable="false" />
+          <Property Type="String" Name="ContextVariable" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Type="String" Name="HandleVariable" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Type="String" Name="PageViewVariable" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Workflows" Relationship="CWFDummyDataSourceModel.FK_Workflows_WorkflowType" FromRole="WorkflowType" ToRole="Workflow" />
+          <Property Type="Guid" Name="AuthGroupId" Nullable="false" />
+          <NavigationProperty Name="StoreActivities" Relationship="CWFDummyDataSourceModel.FK_StoreActivities_WorkflowType" FromRole="WorkflowTypedb" ToRole="StoreActivity" />
+          <NavigationProperty Name="AuthGroup" Relationship="CWFDummyDataSourceModel.FK_WorkflowType_AuthGroups" FromRole="WorkflowTypedb" ToRole="AuthGroup" />
+          <Property Type="String" Name="PublishingWorkflow" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SelectionWorkflow" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WorkflowTypeActivityLibraryXRef">
+          <Key>
+            <PropertyRef Name="WorkFlowTypeID" />
+            <PropertyRef Name="ActivityLibraryID" />
+          </Key>
+          <Property Type="Guid" Name="WorkFlowTypeID" Nullable="false" />
+          <Property Type="Guid" Name="ActivityLibraryID" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ActivityApplicationXRef_Activities">
+          <End Type="CWFDummyDataSourceModel.StoreActivity" Role="StoreActivity" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.ActivityApplicationXRef" Role="ActivityApplicationXRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreActivity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActivityApplicationXRef">
+              <PropertyRef Name="Activity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActivityApplicationXRef_Applications">
+          <End Type="CWFDummyDataSourceModel.Application" Role="Application" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.ActivityApplicationXRef" Role="ActivityApplicationXRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActivityApplicationXRef">
+              <PropertyRef Name="Application" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activities_ActivityCategory">
+          <End Type="CWFDummyDataSourceModel.ActivityCategory" Role="ActivityCategory" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.StoreActivity" Role="StoreActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StoreActivity">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActivityContext_Activities">
+          <End Type="CWFDummyDataSourceModel.StoreActivity" Role="StoreActivity" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.ActivityContext" Role="ActivityContext" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreActivity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActivityContext">
+              <PropertyRef Name="Activity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activities_ActivityLibraries">
+          <End Type="CWFDummyDataSourceModel.ActivityLibrary" Role="ActivityLibrary" Multiplicity="0..1" />
+          <End Type="CWFDummyDataSourceModel.StoreActivity" Role="StoreActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityLibrary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StoreActivity">
+              <PropertyRef Name="ActivityLibrary" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Context_ContextCategories">
+          <End Type="CWFDummyDataSourceModel.ContextCategory" Role="ContextCategory" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.Context" Role="Context" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContextCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Context">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workflows_WorkflowType">
+          <End Type="CWFDummyDataSourceModel.WorkflowTypedb" Role="WorkflowType" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.Workflow" Role="Workflow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Workflow">
+              <PropertyRef Name="WorkFlowType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="viewActivityLibraryWoExecutable" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="AuthGroup" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="AuthGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="Category" />
+          <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImportedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="VersionNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" />
+          <Property Type="String" Name="MetaTags" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="HasActivities" />
+        </EntityType>
+        <EntityType Name="Taxonomy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ValueType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RegularExpression" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="HasValueList" Nullable="false" />
+          <Property Type="Int64" Name="Volatility" Nullable="false" />
+          <Property Type="Int32" Name="Privacy" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="AuthGroup1" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="AuthoringToolLevel" Nullable="false" />
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <NavigationProperty Name="WorkflowTypes" Relationship="CWFDummyDataSourceModel.FK_WorkflowType_AuthGroups" FromRole="AuthGroup" ToRole="WorkflowTypedb" />
+        </EntityType>
+        <EntityType Name="ToolboxItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ToolBoxName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MetaTags" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Icon" MaxLength="Max" FixedLength="false" />
+          <Property Type="Boolean" Name="IsSwitch" Nullable="false" />
+          <Property Type="Boolean" Name="IsService" Nullable="false" />
+          <Property Type="Guid" Name="ActivityLibrary" Nullable="false" />
+          <Property Type="Boolean" Name="IsUxActivity" Nullable="false" />
+          <Property Type="Guid" Name="Category" Nullable="false" />
+          <Property Type="String" Name="Version" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="Guid" Name="WorkflowType" Nullable="false" />
+          <Property Type="Boolean" Name="IsCodeActivity" />
+          <Property Type="String" Name="LibraryName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LibraryVersion" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StatusName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="ShowInProduction" Nullable="false" />
+          <Property Type="Boolean" Name="LockForChanges" Nullable="false" />
+          <Property Type="Boolean" Name="AllowTestInProduction" />
+        </EntityType>
+        <EntityType Name="viewWorkflow">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="MetaTags" />
+            <PropertyRef Name="IsService" />
+            <PropertyRef Name="IsSwitch" />
+            <PropertyRef Name="IsUxActivity" />
+            <PropertyRef Name="Version" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="WorkflowType" />
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="WorkflowGroup" />
+            <PropertyRef Name="ContextVariable" />
+            <PropertyRef Name="HandleVariable" />
+            <PropertyRef Name="PageViewVariable" />
+            <PropertyRef Name="CategoryName" />
+            <PropertyRef Name="AuthGroup" />
+            <PropertyRef Name="PublishingWorkflow" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MetaTags" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsService" Nullable="false" />
+          <Property Type="Boolean" Name="IsSwitch" Nullable="false" />
+          <Property Type="Boolean" Name="IsUxActivity" Nullable="false" />
+          <Property Type="String" Name="Version" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="Guid" Name="WorkflowType" Nullable="false" />
+          <Property Type="String" Name="TypeName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkflowGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ContextVariable" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HandleVariable" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PageViewVariable" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Locked" />
+          <Property Type="String" Name="LockedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsCodeActivity" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AuthGroup" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PublishingWorkflow" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="AllowTestInProduction" />
+        </EntityType>
+        <Association Name="FK_StoreActivities_WorkflowType">
+          <End Type="CWFDummyDataSourceModel.WorkflowTypedb" Role="WorkflowTypedb" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.StoreActivity" Role="StoreActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowTypedb">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StoreActivity">
+              <PropertyRef Name="WorkflowType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowType_AuthGroups">
+          <End Type="CWFDummyDataSourceModel.AuthGroup" Role="AuthGroup" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.WorkflowTypedb" Role="WorkflowTypedb" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkflowTypedb">
+              <PropertyRef Name="AuthGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StatusCode">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Type="Int32" Name="Code" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="ShowInProduction" Nullable="false" />
+          <Property Type="Boolean" Name="LockForChanges" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" />
+          <Property Type="Boolean" Name="IsEligibleForCleanUp" />
+          <NavigationProperty Name="StoreActivities" Relationship="CWFDummyDataSourceModel.FK_StoreActivities_StatusCodes" FromRole="StatusCode" ToRole="StoreActivity" />
+        </EntityType>
+        <Association Name="FK_StoreActivities_StatusCodes">
+          <End Type="CWFDummyDataSourceModel.StatusCode" Role="StatusCode" Multiplicity="1" />
+          <End Type="CWFDummyDataSourceModel.StoreActivity" Role="StoreActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusCode">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="StoreActivity">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Library">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="Category" />
+          <Property Type="Boolean" Name="HasActivities" />
+          <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImportedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="VersionNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" />
+          <Property Type="String" Name="MetaTags" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WorkflowHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MetaTags" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsSwitch" Nullable="false" />
+          <Property Type="Boolean" Name="IsService" Nullable="false" />
+          <Property Type="Guid" Name="ActivityLibrary" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Internal" />
+          <Property Type="Boolean" Name="IsUxActivity" Nullable="false" />
+          <Property Type="String" Name="DefaultRender" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CategoryId" Nullable="false" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Internal" />
+          <Property Type="String" Name="Version" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="Guid" Name="WorkflowType" Nullable="false" />
+          <Property Type="Boolean" Name="Locked" />
+          <Property Type="String" Name="LockedBy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="XAML" MaxLength="Max" FixedLength="false" Unicode="true" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Internal" />
+          <Property Type="Boolean" Name="AllowTestInProduction" />
+        </EntityType>
+        <EntityType Name="ActivityXaml">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Version" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Xaml" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Icon">
+          <Key>
+            <PropertyRef Name="IconName" />
+          </Key>
+          <Property Type="String" Name="IconName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Icon1" Nullable="false" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ToolBoxTabName">
+          <Key>
+            <PropertyRef Name="IndexNo" />
+          </Key>
+          <Property Type="Int32" Name="IndexNo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TabName" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="ActivityContextContext">
+          <End Type="CWFDummyDataSourceModel.ActivityContext" Role="ActivityContext" Multiplicity="*" />
+          <End Type="CWFDummyDataSourceModel.Context" Role="Context" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Context">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ActivityContext">
+              <PropertyRef Name="ContextId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CWFDummyDataSourceModelStoreContainer" CdmEntityContainer="CWFDummyDataSourceEntities">
+          <EntitySetMapping Name="ActivityApplicationXRefs">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ActivityApplicationXRef">
+              <MappingFragment StoreEntitySet="ActivityApplicationXRef">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsSupportedInProduction" ColumnName="IsSupportedInProduction" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityCategories">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ActivityCategory">
+              <MappingFragment StoreEntitySet="ActivityCategory">
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="AuthGroup" ColumnName="AuthGroup" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityContexts">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ActivityContext">
+              <MappingFragment StoreEntitySet="ActivityContext">
+                <ScalarProperty Name="ContextId" ColumnName="Context" />
+                <ScalarProperty Name="ContextDirection" ColumnName="ContextDirection" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityLibraries">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ActivityLibrary">
+              <MappingFragment StoreEntitySet="ActivityLibraries">
+                <ScalarProperty Name="HasActivities" ColumnName="HasActivities" />
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+                <ScalarProperty Name="ImportedBy" ColumnName="ImportedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Executable" ColumnName="Executable" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="AuthGroup" ColumnName="AuthGroup" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationDBs">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.Application">
+              <MappingFragment StoreEntitySet="Applications">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contents">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.Content">
+              <MappingFragment StoreEntitySet="Content">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contexts">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.Context">
+              <MappingFragment StoreEntitySet="Context">
+                <ScalarProperty Name="BusinessImpactClassification" ColumnName="BusinessImpactClassification" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="NotInDB" ColumnName="NotInDB" />
+                <ScalarProperty Name="Persistable" ColumnName="Persistable" />
+                <ScalarProperty Name="NotInDesign" ColumnName="NotInDesign" />
+                <ScalarProperty Name="PrivacyData" ColumnName="PrivacyData" />
+                <ScalarProperty Name="SecureData" ColumnName="SecureData" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ValidationMethod" ColumnName="ValidationMethod" />
+                <ScalarProperty Name="ValidationExecuteable" ColumnName="ValidationExecuteable" />
+                <ScalarProperty Name="IsPickList" ColumnName="IsPickList" />
+                <ScalarProperty Name="IsValidated" ColumnName="IsValidated" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContextCategories">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ContextCategory">
+              <MappingFragment StoreEntitySet="ContextCategories">
+                <ScalarProperty Name="AuthGroup" ColumnName="AuthGroup" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocalizedContents">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.LocalizedContent">
+              <MappingFragment StoreEntitySet="LocalizedContent">
+                <ScalarProperty Name="LocalizedContent1" ColumnName="LocalizedContent" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="ContentID" ColumnName="ContentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoreActivities">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.StoreActivity">
+              <MappingFragment StoreEntitySet="StoreActivities">
+                <ScalarProperty Name="IsCodeBeside" ColumnName="IsCodeBeside" />
+                <ScalarProperty Name="AuthGroupId" ColumnName="AuthGroupId" />
+                <ScalarProperty Name="ToolboxTab" ColumnName="ToolboxTab" />
+                <ScalarProperty Name="IconName" ColumnName="IconName" />
+                <ScalarProperty Name="Namespace" ColumnName="Namespace" />
+                <ScalarProperty Name="BaseType" ColumnName="BaseType" />
+                <ScalarProperty Name="DeveloperNotes" ColumnName="DeveloperNotes" />
+                <ScalarProperty Name="XAML" ColumnName="XAML" />
+                <ScalarProperty Name="LockedBy" ColumnName="LockedBy" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="WorkflowType" ColumnName="WorkflowType" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="ToolBoxName" ColumnName="ToolBoxName" />
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="IsToolBoxActivity" ColumnName="IsToolBoxActivity" />
+                <ScalarProperty Name="CategoryId" ColumnName="Category" />
+                <ScalarProperty Name="DefaultRender" ColumnName="DefaultRender" />
+                <ScalarProperty Name="IsUxActivity" ColumnName="IsUxActivity" />
+                <ScalarProperty Name="ActivityLibrary" ColumnName="ActivityLibrary" />
+                <ScalarProperty Name="IsService" ColumnName="IsService" />
+                <ScalarProperty Name="IsSwitch" ColumnName="IsSwitch" />
+                <ScalarProperty Name="AuthGroup" ColumnName="AuthGroup" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workflows">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.Workflow">
+              <MappingFragment StoreEntitySet="Workflows">
+                <ScalarProperty Name="Xaml" ColumnName="Xaml" />
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="LockedBy" ColumnName="LockedBy" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="ManagementContext" ColumnName="ManagementContext" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WorkFlowType" ColumnName="WorkFlowType" />
+                <ScalarProperty Name="IsNonDialog" ColumnName="IsNonDialog" />
+                <ScalarProperty Name="IsService" ColumnName="IsService" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkflowTypedbs">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.WorkflowTypedb">
+              <MappingFragment StoreEntitySet="WorkflowType">
+                <ScalarProperty Name="SelectionWorkflow" ColumnName="SelectionWorkflow" />
+                <ScalarProperty Name="PublishingWorkflow" ColumnName="PublishingWorkflow" />
+                <ScalarProperty Name="AuthGroupId" ColumnName="AuthGroupId" />
+                <ScalarProperty Name="PageViewVariable" ColumnName="PageViewVariable" />
+                <ScalarProperty Name="HandleVariable" ColumnName="HandleVariable" />
+                <ScalarProperty Name="ContextVariable" ColumnName="ContextVariable" />
+                <ScalarProperty Name="WorkflowTemplate" ColumnName="WorkflowTemplate" />
+                <ScalarProperty Name="WorkflowGroup" ColumnName="WorkflowGroup" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkflowTypeActivityLibraryXRefs">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.WorkflowTypeActivityLibraryXRef">
+              <MappingFragment StoreEntitySet="WorkflowTypeActivityLibraryXRef">
+                <ScalarProperty Name="ActivityLibraryID" ColumnName="ActivityLibraryID" />
+                <ScalarProperty Name="WorkFlowTypeID" ColumnName="WorkFlowTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewActivityLibraryWoExecutables">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.viewActivityLibraryWoExecutable">
+              <MappingFragment StoreEntitySet="viewActivityLibraryWoExecutable">
+                <ScalarProperty Name="HasActivities" ColumnName="HasActivities" />
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+                <ScalarProperty Name="ImportedBy" ColumnName="ImportedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AuthGroup" ColumnName="AuthGroup" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxonomies">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.Taxonomy">
+              <MappingFragment StoreEntitySet="Taxonomy">
+                <ScalarProperty Name="Privacy" ColumnName="Privacy" />
+                <ScalarProperty Name="Volatility" ColumnName="Volatility" />
+                <ScalarProperty Name="HasValueList" ColumnName="HasValueList" />
+                <ScalarProperty Name="RegularExpression" ColumnName="RegularExpression" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthGroups">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.AuthGroup">
+              <MappingFragment StoreEntitySet="AuthGroups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AuthoringToolLevel" ColumnName="AuthoringToolLevel" />
+                <ScalarProperty Name="AuthGroup1" ColumnName="AuthGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToolboxItems">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ToolboxItem">
+              <MappingFragment StoreEntitySet="ToolboxItem">
+                <ScalarProperty Name="AllowTestInProduction" ColumnName="AllowTestInProduction" />
+                <ScalarProperty Name="LockForChanges" ColumnName="LockForChanges" />
+                <ScalarProperty Name="ShowInProduction" ColumnName="ShowInProduction" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="LibraryVersion" ColumnName="LibraryVersion" />
+                <ScalarProperty Name="LibraryName" ColumnName="LibraryName" />
+                <ScalarProperty Name="IsCodeActivity" ColumnName="IsCodeActivity" />
+                <ScalarProperty Name="WorkflowType" ColumnName="WorkflowType" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="IsUxActivity" ColumnName="IsUxActivity" />
+                <ScalarProperty Name="ActivityLibrary" ColumnName="ActivityLibrary" />
+                <ScalarProperty Name="IsService" ColumnName="IsService" />
+                <ScalarProperty Name="IsSwitch" ColumnName="IsSwitch" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ToolBoxName" ColumnName="ToolBoxName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewWorkflows">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.viewWorkflow">
+              <MappingFragment StoreEntitySet="viewWorkflow">
+                <ScalarProperty Name="AllowTestInProduction" ColumnName="AllowTestInProduction" />
+                <ScalarProperty Name="PublishingWorkflow" ColumnName="PublishingWorkflow" />
+                <ScalarProperty Name="AuthGroup" ColumnName="AuthGroup" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="IsCodeActivity" ColumnName="IsCodeActivity" />
+                <ScalarProperty Name="LockedBy" ColumnName="LockedBy" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="PageViewVariable" ColumnName="PageViewVariable" />
+                <ScalarProperty Name="HandleVariable" ColumnName="HandleVariable" />
+                <ScalarProperty Name="ContextVariable" ColumnName="ContextVariable" />
+                <ScalarProperty Name="WorkflowGroup" ColumnName="WorkflowGroup" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="WorkflowType" ColumnName="WorkflowType" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="IsUxActivity" ColumnName="IsUxActivity" />
+                <ScalarProperty Name="IsSwitch" ColumnName="IsSwitch" />
+                <ScalarProperty Name="IsService" ColumnName="IsService" />
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusCodes">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.StatusCode">
+              <MappingFragment StoreEntitySet="StatusCodes">
+                <ScalarProperty Name="IsEligibleForCleanUp" ColumnName="IsEligibleForCleanUp" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="LockForChanges" ColumnName="LockForChanges" />
+                <ScalarProperty Name="ShowInProduction" ColumnName="ShowInProduction" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libraries">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.Library">
+              <MappingFragment StoreEntitySet="Library">
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+                <ScalarProperty Name="ImportedBy" ColumnName="ImportedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HasActivities" ColumnName="HasActivities" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkflowHeaders">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.WorkflowHeader">
+              <MappingFragment StoreEntitySet="WorkflowHeader">
+                <ScalarProperty Name="AllowTestInProduction" ColumnName="AllowTestInProduction" />
+                <ScalarProperty Name="XAML" ColumnName="XAML" />
+                <ScalarProperty Name="LockedBy" ColumnName="LockedBy" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="WorkflowType" ColumnName="WorkflowType" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="CategoryId" ColumnName="Category" />
+                <ScalarProperty Name="DefaultRender" ColumnName="DefaultRender" />
+                <ScalarProperty Name="IsUxActivity" ColumnName="IsUxActivity" />
+                <ScalarProperty Name="ActivityLibrary" ColumnName="ActivityLibrary" />
+                <ScalarProperty Name="IsService" ColumnName="IsService" />
+                <ScalarProperty Name="IsSwitch" ColumnName="IsSwitch" />
+                <ScalarProperty Name="MetaTags" ColumnName="MetaTags" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityXamls">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ActivityXaml">
+              <MappingFragment StoreEntitySet="ActivityXaml">
+                <ScalarProperty Name="Xaml" ColumnName="Xaml" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Icons">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.Icon">
+              <MappingFragment StoreEntitySet="Icons">
+                <ScalarProperty Name="Icon1" ColumnName="Icon" />
+                <ScalarProperty Name="IconName" ColumnName="IconName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToolBoxTabNames">
+            <EntityTypeMapping TypeName="CWFDummyDataSourceModel.ToolBoxTabName">
+              <MappingFragment StoreEntitySet="ToolBoxTabName">
+                <ScalarProperty Name="TabName" ColumnName="TabName" />
+                <ScalarProperty Name="IndexNo" ColumnName="IndexNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Workflows" ZoomLevel="81">
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ActivityApplicationXRef" Width="2.125" PointX="5.25" PointY="2.375" Height="2.3648893229166656" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ActivityCategory" Width="1.5" PointX="0.5" PointY="2.125" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ActivityContext" Width="1.5" PointX="5.25" PointY="5.5" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ActivityLibrary" Width="1.5" PointX="0.75" PointY="5.5" Height="3.3263964843749996" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.Application" Width="1.5" PointX="3" PointY="7.625" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.Content" Width="1.5" PointX="7.75" PointY="1" Height="1.59568359375" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.Context" Width="1.5" PointX="10" PointY="4" Height="4.2879036458333246" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ContextCategory" Width="1.5" PointX="7.75" PointY="4" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.LocalizedContent" Width="1.5" PointX="10" PointY="0.875" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.StoreActivity" Width="1.5" PointX="3" PointY="0.75" Height="7.1724251302083326" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.Workflow" Width="1.5" PointX="5.75" PointY="8.75" Height="3.7109993489583317" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.WorkflowTypedb" Width="1.5" PointX="7.75" PointY="9.75" Height="3.5186979166666656" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.WorkflowTypeActivityLibraryXRef" Width="2.5" PointX="9.75" PointY="9.75" Height="1.4033821614583335" IsExpanded="true" />
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Activities" >
+          <ConnectorPoint PointX="4.5" PointY="3.1293382047526039" />
+          <ConnectorPoint PointX="5.25" PointY="3.1293382047526039" />
+        </AssociationConnector>
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_ActivityApplicationXRef_Applications" >
+          <ConnectorPoint PointX="4.5" PointY="8.4035953776041659" />
+          <ConnectorPoint PointX="7.34375" PointY="8.4035953776041659" />
+          <ConnectorPoint PointX="7.34375" PointY="4.7398893229166656" />
+        </AssociationConnector>
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_Activities_ActivityCategory" >
+          <ConnectorPoint PointX="2" PointY="3.2112939453125" />
+          <ConnectorPoint PointX="3" PointY="3.2112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_ActivityContext_Activities" >
+          <ConnectorPoint PointX="4.5" PointY="6.5312474999999992" />
+          <ConnectorPoint PointX="5.25" PointY="6.5312474999999992" />
+        </AssociationConnector>
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_Activities_ActivityLibraries" >
+          <ConnectorPoint PointX="2.25" PointY="6.7112125651041659" />
+          <ConnectorPoint PointX="3" PointY="6.7112125651041659" />
+        </AssociationConnector>
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_Context_ContextCategories" >
+          <ConnectorPoint PointX="9.25" PointY="4.9901432291666623" />
+          <ConnectorPoint PointX="10" PointY="4.9901432291666623" />
+        </AssociationConnector>
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_Workflows_WorkflowType" >
+          <ConnectorPoint PointX="7.75" PointY="11.105499674479166" />
+          <ConnectorPoint PointX="7.25" PointY="11.105499674479166" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.viewActivityLibraryWoExecutable" Width="1.5" PointX="1" PointY="10.875" Height="2.9417936197916656" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.Taxonomy" Width="1.5" PointX="12.375" PointY="0.75" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.AuthGroup" Width="1.5" PointX="5.5" PointY="13.625" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ToolboxItem" Width="1.5" PointX="12.375" PointY="4.75" Height="4.4802050781250031" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.viewWorkflow" Width="1.5" PointX="12.375" PointY="10.75" Height="4.8648079427083388" />
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_StoreActivities_WorkflowType" >
+          <ConnectorPoint PointX="8.5" PointY="9.75" />
+          <ConnectorPoint PointX="8.5" PointY="6.2302864583333246" />
+          <ConnectorPoint PointX="7.5" PointY="6.2302864583333246" />
+          <ConnectorPoint PointX="7.5" PointY="4.9898893229166656" />
+          <ConnectorPoint PointX="7.427083333333333" PointY="4.9898893229166648" />
+          <ConnectorPoint PointX="7.260416666666667" PointY="4.9898893229166656" />
+          <ConnectorPoint PointX="5" PointY="4.9898893229166656" />
+          <ConnectorPoint PointX="5" PointY="4.3680409881810824" />
+          <ConnectorPoint PointX="4.5" PointY="4.3680409881810824" />
+        </AssociationConnector>
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_WorkflowType_AuthGroups" >
+          <ConnectorPoint PointX="7" PointY="14.15625" />
+          <ConnectorPoint PointX="8.03125" PointY="14.15625" />
+          <ConnectorPoint PointX="8.03125" PointY="13.268697916666666" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.StatusCode" Width="1.5" PointX="14.375" PointY="0.75" Height="1.9802864583333388" />
+        <AssociationConnector Association="CWFDummyDataSourceModel.FK_StoreActivities_StatusCodes" >
+          <ConnectorPoint PointX="14.375" PointY="0.75" />
+          <ConnectorPoint PointX="14" PointY="0.375" />
+          <ConnectorPoint PointX="4.8761528461538459" PointY="0.375" />
+          <ConnectorPoint PointX="4.5" PointY="0.75115284615384614" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.Library" Width="1.5" PointX="3.25" PointY="10.25" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.WorkflowHeader" Width="2.375" PointX="14.375" PointY="4.75" Height="4.2879036458333282" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ActivityXaml" Width="1.5" PointX="8.375" PointY="14.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.Icon" Width="1.625" PointX="15" PointY="10.875" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="CWFDummyDataSourceModel.ToolBoxTabName" Width="1.5" PointX="14.375" PointY="13.75" Height="1.4033821614583246" />
+        <AssociationConnector Association="CWFDummyDataSourceModel.ActivityContextContext">
+          <ConnectorPoint PointX="6.75" PointY="7.2062386067708291" />
+          <ConnectorPoint PointX="7.260416666666667" PointY="7.2062386067708282" />
+          <ConnectorPoint PointX="7.427083333333333" PointY="7.2062386067708291" />
+          <ConnectorPoint PointX="8.4166666666666661" PointY="7.2062386067708282" />
+          <ConnectorPoint PointX="8.5833333333333339" PointY="7.2062386067708291" />
+          <ConnectorPoint PointX="10" PointY="7.2062386067708291" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

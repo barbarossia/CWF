@@ -116,9 +116,11 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
                         vm.AdminGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Admin && a.Enabled));
                         vm.AuthorGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Author && a.Enabled));
                         vm.ViewerGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Viewer && a.Enabled));
+                        vm.StageAuthorGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.TenantStageAuthor && a.Enabled));
                         vm.AdminGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Admin && !a.Enabled));
                         vm.AuthorGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Author && !a.Enabled));
                         vm.ViewerGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Viewer && !a.Enabled));
+                        vm.StageAuthorGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.TenantStageAuthor && !a.Enabled));
                         vm.SaveCommand.Execute();
                         Assert.IsTrue(isShowInfo);
                         Assert.IsFalse(vm.HasChanged);
@@ -139,9 +141,11 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
             vm.AdminGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Admin && a.Enabled));
             vm.AuthorGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Author && a.Enabled));
             vm.ViewerGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Viewer && a.Enabled));
+            vm.StageAuthorGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.TenantStageAuthor && a.Enabled));
             vm.AdminGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Admin && !a.Enabled));
             vm.AuthorGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Author && !a.Enabled));
             vm.ViewerGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Viewer && !a.Enabled));
+            vm.StageAuthorGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.TenantStageAuthor && !a.Enabled));
 
             //remove from admin groups
             var firstElement = vm.AdminGroupsEnabled.FirstOrDefault();
@@ -175,9 +179,11 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.ViewModels.UnitTest
             vm.AdminGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Admin && a.Enabled));
             vm.AuthorGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Author && a.Enabled));
             vm.ViewerGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Viewer && a.Enabled));
+            vm.StageAuthorGroupsEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.TenantStageAuthor && a.Enabled));
             vm.AdminGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Admin && !a.Enabled));
             vm.AuthorGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Author && !a.Enabled));
             vm.ViewerGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.Viewer && !a.Enabled));
+            vm.StageAuthorGroupsDisEnabled = new ObservableCollection<AuthorizationGroupDC>(groups.Where(a => a.RoleId == (int)Role.TenantStageAuthor && !a.Enabled));
 
             Assert.IsFalse(vm.AddSGGroupCommand.CanExecute(""));
 

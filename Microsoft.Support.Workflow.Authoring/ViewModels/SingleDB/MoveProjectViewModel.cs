@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
@@ -108,7 +109,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             try
             {
-                Utility.DoTaskWithBusyCaption("Moving", () =>
+                Utility.WithContactServerUI(() =>
                   {
                       using (WorkflowsQueryServiceClient client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                       {
@@ -131,17 +132,18 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                           request.Environment = this.currentProject.Env.ToString();
                           request.EnvironmentTarget = this.NextStatus.Value.ToString();
                           request.WorkflowTypeId = this.WorkflowTemplate.Id;
-                          this.currentProject.Env = this.NextStatus.Value;
-                          this.currentProject.WorkflowType = this.WorkflowTemplate.Name;
                           ActivityMoveReply reply = client.ActivityMove(request);
                           if (reply != null)
                               reply.StatusReply.CheckErrors();
+
+                          this.currentProject.Env = this.NextStatus.Value;
+                          this.currentProject.WorkflowType = this.WorkflowTemplate.Name;
                       }
                   });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBoxService.ShowException(ex, "Failed to Move Project.");
+                MessageBoxService.Show("Failed to Move Project.", "Move Project", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

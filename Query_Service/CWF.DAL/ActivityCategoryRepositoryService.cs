@@ -29,7 +29,8 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
             try
             {
                 Database database = DatabaseFactory.CreateDatabase();
-                DbCommand command = database.GetStoredProcCommand(StoredProcNames.ActivityCategoryGet);
+                DbCommand command = RepositoryHelper.PrepareCommandCommand(database, StoredProcNames.ActivityCategoryGet);
+
                 database.AddParameter(command, StoredProcParamNames.Id, DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.InId);
                 database.AddParameter(command, StoredProcParamNames.Name, DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InName);
 

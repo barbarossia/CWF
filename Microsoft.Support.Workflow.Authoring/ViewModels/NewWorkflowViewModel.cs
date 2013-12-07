@@ -461,26 +461,22 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             return regex.Replace(name, string.Empty);
         }
 
-        public override void Validate()
-        {
+        public override void Validate() {
             base.Validate();
 
             var regex = new Regex(CommonMessages.ClassNameRegularExpression);
-            if (!regex.IsMatch(this.WorkflowName))
-            {
+            if (string.IsNullOrEmpty(WorkflowName) || !regex.IsMatch(WorkflowName)) {
                 IsValid = false;
                 ErrorMessage += CommonMessages.WorkflowNameErrorString;
                 ErrorMessage = ErrorMessage.Trim();
             }
             else if ((!IsCreatingBlank) && (null == SelectedWorkflowTemplateItem)
-                )
-            {
+                ) {
                 IsValid = false;
                 ErrorMessage += SelectATemplateErrorString;
                 ErrorMessage = ErrorMessage.Trim();
             }
-            else if (this.SelectedLocation == null)
-            {
+            else if (this.SelectedLocation == null) {
                 IsValid = false;
                 ErrorMessage += SelectALocationErrorString;
                 ErrorMessage = ErrorMessage.Trim();

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D73D32C0-4B2C-4FCF-BC36-AE44F6FD13B0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CWF.WorkflowQueryService</RootNamespace>
+    <AssemblyName>CWF.WorkflowQueryService</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PublishDatabases>false</PublishDatabases>
+    <CodeAnalysisRuleSet>..\..\..\..\CAP-Common Workflow\Security\WebSecurityRuleSet.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\..\..\CAP-Common Workflow\Security\WebSecurityRuleSet.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\lib\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OASP.WorkflowPublisher">
+      <HintPath>lib\OASP.WorkflowPublisher.dll</HintPath>
+    </Reference>
+    <Reference Include="PublishingInfo, Version=1.0.0.1, Culture=neutral, PublicKeyToken=24a6f124a855128e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Publishing\PublishingInfo\bin\Release\PublishingInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\DeployActivity.dll" />
+    <Content Include="lib\Microsoft.Practices.EnterpriseLibrary.Validation.dll" />
+    <Content Include="lib\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll" />
+    <Content Include="lib\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.xml" />
+    <Content Include="lib\Microsoft.Practices.EnterpriseLibrary.Validation.xml" />
+    <Content Include="lib\Microsoft.Practices.ObjectBuilder2.dll" />
+    <Content Include="lib\PublishingInfo.dll" />
+    <Content Include="WorkflowsQueryService.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authentication\AuthenticationHeaderBehavior.cs" />
+    <Compile Include="Authentication\AuthenticationHeaderInspector.cs" />
+    <Compile Include="Authentication\AuthMessages.cs" />
+    <Compile Include="Authentication\LoggingValues.cs" />
+    <Compile Include="Authentication\ServiceContext.cs" />
+    <Compile Include="BusinessExceptionExtensions.cs" />
+    <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="FaultExceptionUtility.cs" />
+    <Compile Include="FaultType.cs" />
+    <Compile Include="Logging.cs" />
+    <Compile Include="Publishing\PublishingClass.cs" />
+    <Compile Include="Resources\AppSettings.cs" />
+    <Compile Include="UserErrorInfo.cs" />
+    <Compile Include="UserError\Config\UserErrorCollection.cs" />
+    <Compile Include="UserError\Config\UserErrorConfigConstant.cs" />
+    <Compile Include="UserError\Config\UserErrorConfigSection.cs" />
+    <Compile Include="UserError\Config\UserErrorElement.cs" />
+    <Compile Include="Versioning\VersionFault.cs" />
+    <Compile Include="WorkflowsQueryService.svc.cs">
+      <DependentUpon>WorkflowsQueryService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="IWorkflowsQueryService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DeployActivity\DeployActivity\DeployActivity.csproj">
+      <Project>{E4DCF06A-853F-4B26-9C75-3359E584E6FA}</Project>
+      <Name>DeployActivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.BAL\CWF.BAL.csproj">
+      <Project>{2E51FAE7-EFE2-49E0-ADBD-35EF24905C85}</Project>
+      <Name>CWF.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.DAL\CWF.DAL.csproj">
+      <Project>{B9CDB4E1-EF93-4BB7-B4D9-FFF07EA3866B}</Project>
+      <Name>CWF.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CWF.DataContracts\CWF.DataContracts.csproj">
+      <Project>{C76E8555-6E89-45A0-8E5B-D5584ACC26D4}</Project>
+      <Name>CWF.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryService.Common\QueryService.Common.csproj">
+      <Project>{B34F6342-2477-41D3-96B9-07DB2725AEB6}</Project>
+      <Name>QueryService.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\LogSetting.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ErrorCodeMapping.config" />
+    <Content Include="Config\UserError.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>43433</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/QueryServiceDEV</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <EnableWcfTestClientForSVCDefaultValue>True</EnableWcfTestClientForSVCDefaultValue>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

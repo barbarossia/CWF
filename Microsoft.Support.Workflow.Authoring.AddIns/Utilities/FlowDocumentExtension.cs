@@ -13,6 +13,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
     {
         private static Color highlightColor = Color.FromArgb(125, 51, 153, 255);
         private static SolidColorBrush highlightBrush = new SolidColorBrush(highlightColor);
+        private static Run run;
+        private static TextPointer end;
         #region Search in FlowDocuments
 
 
@@ -26,65 +28,34 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             textrange.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Transparent));
         }
 
-        public static List<TextRange> GetAllMatchingInParagraph(DependencyObject document, string pattern, bool notIgnoreConnectedChars)
-        {
-            List<TextRange> list = new List<TextRange>();
-
-            // Traverse all run tags
-            foreach (Run run in LogicalTreeUtility.GetChildren<Run>(document, true))
-            {
-                // Check to see, is the current run contains the given text
-                if (run.Text.IndexOf(pattern, StringComparison.InvariantCultureIgnoreCase) == -1)
-                {
-                    continue;
-                }
-
-                TextRange range = GetNextMatching(run.ContentStart, run.ContentEnd, pattern, notIgnoreConnectedChars);
-                while (range != null)
-                {
-                    list.Add(range);
-                    range = GetNextMatching(range.End, run.ContentEnd, pattern, notIgnoreConnectedChars);
-                }
-            }
-
-            foreach (TextBlock run in LogicalTreeUtility.GetChildren<TextBlock>(document, true))
-            {
-                // Check to see, is the current run contains the given text
-                if (run.Text.IndexOf(pattern, StringComparison.InvariantCultureIgnoreCase) == -1)
-                {
-                    continue;
-                }
-
-                TextRange range = GetNextMatching(run.ContentStart, run.ContentEnd, pattern, notIgnoreConnectedChars);
-
-                if (range != null)
-                {
-                    list.Add(range);
-                }
-            }
-
-            if (document is TextBlock)
-            {
-                TextBlock run = document as TextBlock;
-                TextRange range = GetNextMatching(run.ContentStart, run.ContentEnd, pattern, notIgnoreConnectedChars);
-
-                if (range != null)
-                {
-                    list.Add(range);
-                }
-            }
-
-            return list;
-
-        }
-
         public static void HighLightText(RichTextBox txt, TextRange range, Brush brush, Brush background)
         {
             var textrange = txt.Selection;
-            textrange.Select(range.Start, range.End);
+            try
+            {
+                textrange.Select(range.Start, range.End);
+            }
+            catch (ArgumentException)
+            {
+                return;
+            }
             textrange.ApplyPropertyValue(TextElement.ForegroundProperty, brush);
             textrange.ApplyPropertyValue(TextElement.BackgroundProperty, background);
             ScrollIfNeeded(txt, range.Start, range.End);
+        }
+
+        public static TextRange GetNextMatching(DependencyObject document, string pattern, TextPointer currentPointer)
+        {
+            TextPointer start = currentPointer;
+
+            if (run == null || currentPointer == null)
+            {
+                run = LogicalTreeUtility.GetChildren<Run>(document, true).Single();
+                end = run.ContentEnd;
+                start = run.ContentStart;
+            }
+
+            return GetNextMatching(start, end, pattern, notIgnoreConnectedChars: false);
         }
 
         public static TextRange GetNextMatching(TextPointer currentPointer, TextPointer endPointer, string pattern, bool notIgnoreConnectedChars)
@@ -133,7 +104,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             var start = rtfControl.Document.ContentStart;
 
             TextPointer startPos;
-            if (offset ==0)
+            if (offset == 0)
                 startPos = start.GetPositionAtOffset(offset + 2);
             else
                 startPos = start.GetPositionAtOffset(offset + 4);

@@ -516,7 +516,11 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             AssembliesToImport.ToList().ForEach(assembly =>
             {
                 assembly.Category = category;
-                assembly.ActivityItems.ToList().ForEach(item => item.Category = category);
+                assembly.ActivityItems.ToList().ForEach(item =>
+                    {
+                        item.Category = category;
+                        item.IsDirty = false;
+                    });
             });
         }
 

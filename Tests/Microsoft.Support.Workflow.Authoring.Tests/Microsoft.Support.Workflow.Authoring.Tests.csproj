@@ -67,6 +67,13 @@
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' Or '$(VisualStudioVersion)' == '11.0'">
+      <ItemGroup>
+        <Reference Include="UIAutomationTypes" />
+      </ItemGroup>
+    </When>
+  </Choose>
   <ItemGroup>
     <Reference Include="Interop.mscoree">
       <HintPath>..\..\Microsoft.Support.Workflow.Authoring\obj\x86\Debug\Interop.mscoree.dll</HintPath>
@@ -97,6 +104,10 @@
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Microsoft.Support.Workflow.Authoring\References\NuGet.Core.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -205,7 +216,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\TestInputDLLs\LibraryC.dll</HintPath>
     </Reference>
-    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -221,9 +231,30 @@
     <Compile Include="Behaviors\SelectPrintContentBehaviorUnitTest.cs" />
     <Compile Include="Behaviors\SelectPrintContentHelperUnitTest.cs" />
     <Compile Include="Behaviors\ZoomFactorHelperUnitTest.cs" />
+    <Compile Include="CDS\CDSInstalledRepository.UnitTest.cs" />
+    <Compile Include="CDS\CDSOnlineRepository.UnitTest.cs" />
+    <Compile Include="CDS\CDSService.UnitTest.cs" />
+    <Compile Include="CDS\CDSRepositoryHelper.cs" />
+    <Compile Include="CDS\CDSUpdateRepository.UnitTest.cs" />
+    <Compile Include="CDS\CWFFileSystem.UnitTest.cs" />
+    <Compile Include="CDS\MockPackageRepository.cs" />
+    <Compile Include="CDS\PackageUtility.cs" />
+    <Compile Include="CDS\PathFixUtility.cs" />
+    <Compile Include="CDS\QueryExtensionsTest.cs" />
     <Compile Include="Common\DevFacingExceptionUnitTest.cs" />
     <Compile Include="CompositeWorkflow\CompositeService.UnitTest.cs" />
+    <Compile Include="Converters\PackageStatusConverterUnitTest.cs" />
+    <Compile Include="Converters\PackageTitleConverterUnitTest.cs" />
+    <Compile Include="Converters\PackageIconConverterUnitTest.cs" />
+    <Compile Include="Converters\EnumBooleanConverterUnitTest.cs" />
+    <Compile Include="Converters\EnvPermissionConverterUnitTest.cs" />
+    <Compile Include="Converters\EnumDisplayNameConverterUnitTest.cs" />
     <Compile Include="MultipleAuthor\ArgumentService.UnitTest.cs" />
+    <Compile Include="CDS\NugetConfigManager.UnitTest.cs" />
+    <Compile Include="MultipleAuthor\MockModelItem.cs" />
+    <Compile Include="MultipleAuthor\MockModelProperty.cs" />
+    <Compile Include="MultipleAuthor\MockModelPropertyCollection.cs" />
+    <Compile Include="MultipleAuthor\MultipleAuthorService.UnitTest.cs" />
     <Compile Include="Services\AuthorizationServiceUnitTest.cs" />
     <Compile Include="Services\ModelItemService.UnitTest.cs" />
     <Compile Include="Services\XamlIndexTreeHelpUnitTest.cs" />
@@ -242,6 +273,7 @@
     <Compile Include="Common\MarketplaceExceptionHandlerUnitTest.cs" />
     <Compile Include="Common\MultiMapUnitTests.cs" />
     <Compile Include="CompositeWorkflow\CompositeWorkflowUnitTest.cs" />
+    <Compile Include="ViewModels\UnitTest\CDSIntegrationViewModelUnitTest.cs" />
     <Compile Include="ViewModels\UnitTest\ChangeAuthorViewModelUnitTest.cs" />
     <Compile Include="ViewModels\UnitTest\ContentItemTest.cs" />
     <Compile Include="Converters\ActivityAssemblyItemsToToolboxWrappersConverterUnitTest.cs" />
@@ -343,6 +375,7 @@
     <Compile Include="Utilities\TestUtilities.cs" />
     <Compile Include="ViewModels\FuncTest\ContentSelectorViewModel.FuncTest.cs" />
     <Compile Include="ViewModels\FuncTest\ImportAssemblyViewModel.FuncTest.cs" />
+    <Compile Include="ViewModels\UnitTest\CDSPackagesManagerViewModelUnitTest.cs" />
     <Compile Include="ViewModels\UnitTest\CopyCurrentProjectViewModelUnitTest.cs" />
     <Compile Include="ViewModels\UnitTest\DataPagingViewModelUnitTest.cs" />
     <Compile Include="ViewModels\UnitTest\DefaultValueSettingsViewModelUnitTest.cs" />

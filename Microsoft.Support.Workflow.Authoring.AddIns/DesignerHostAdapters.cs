@@ -189,6 +189,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             this.proxy.SetWorkflowName(name);
         }
 
+        public void ClearUndo() {
+            proxy.ClearUndo();
+        }
+
         public void Save(string targetFileName)
         {
             this.proxy.Save(targetFileName);

@@ -28,7 +28,8 @@
                 AuthorizationGroupDC ag = null;
 
                 SqlDatabase db = RepositoryHelper.CreateDatabase();
-                DbCommand cmd = db.GetStoredProcCommand(StoredProcNames.AuthorizationGroupGet);
+                DbCommand cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.AuthorizationGroupGet);
+
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InId", DbType.Int32, ParameterDirection.Input, null, DataRowVersion.Default, request.AuthGroupId);
@@ -80,7 +81,8 @@
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.AuthorizationGroupCreateOrUpdate);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.AuthorizationGroupCreateOrUpdate);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
@@ -134,7 +136,8 @@
             try
             {
                 db = RepositoryHelper.CreateDatabase();
-                cmd = db.GetStoredProcCommand(StoredProcNames.AuthorizationGroupEnableOrDisable);
+                cmd = RepositoryHelper.PrepareCommandCommand(db, StoredProcNames.AuthorizationGroupEnableOrDisable);
+                
                 db.AddParameter(cmd, "@inCaller", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.Incaller);
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@InAuthGroupName", SqlDbType.Structured, ParameterDirection.Input, null, DataRowVersion.Default, RepositoryHelper.GetAuthGroupName(request.InAuthGroupNames));
