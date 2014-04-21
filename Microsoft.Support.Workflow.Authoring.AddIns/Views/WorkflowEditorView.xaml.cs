@@ -26,19 +26,21 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
     using Utilities;
     using System.Windows.Documents;
     using System.Text;
+    using System.Windows.Input;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// Interaction logic for WorkflowItemView.xaml
     /// </summary>
     public partial class WorkflowEditorView
     {
-        private const string MakeStepOnHead = "_Make step";
-        private const string UpdateAllOthersOnHead = "_Update all others";
-        private const string AssignOnHead = "_Assign";
-        private const string MergeOnHead = "_Merge";
-        private const string MergeAllOnHead = "_Merge All";
-        private const string UnassignOnHead = "_Unassign";
-        private const string UnassignAllOnHead = "_Unassign All";
+        private static readonly string MakeStepOnHead = TextResources.ContextMenuMakeStep;
+        private static readonly string UpdateAllOthersOnHead = TextResources.ContextMenuUpdateAllOthers;
+        private static readonly string AssignOnHead = TextResources.ContextMenuAssign;
+        private static readonly string MergeOnHead = TextResources.ContextMenuMerge;
+        private static readonly string MergeAllOnHead = TextResources.ContextMenuMergeAll;
+        private static readonly string UnassignOnHead = TextResources.ContextMenuUnassign;
+        private static readonly string UnassignAllOnHead = TextResources.ContextMenuUnassignAll;
         private DelegateCommand MakeStepCommand { get; set; }
         private DelegateCommand UpdateCommand { get; set; }
         private DelegateCommand AssignCommand { get; set; }
@@ -54,6 +56,20 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
         {
             InitializeComponent();
             InitializeCommands();
+
+            TxtXamlCode.KeyDown += findControl.ShortcutKeyDown;
+            findControl.IsVisibleChanged += findControl_IsVisibleChanged;
+            DataObject.AddPastingHandler(TxtXamlCode, (s, e) => {
+                string text = e.DataObject.GetData(DataFormats.Text.ToString()) as string;
+                if (!string.IsNullOrEmpty(text))
+                    TxtXamlCode.Selection.Text = text.Replace("\n", string.Empty);
+                e.CancelCommand();
+            });
+        }
+
+        private void findControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e) {
+            if (!(bool)e.NewValue)
+                TxtXamlCode.Focus();
         }
 
         private void InitializeCommands()
@@ -410,7 +426,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
                 return;
             }
 
-            string fileName = AddInDialogService.ShowSaveDialogAndReturnResult(workflowItem.Name, "XAML files (*.xaml)|*.xaml");
+            string fileName = AddInDialogService.ShowSaveDialogAndReturnResult(workflowItem.Name, TextResources.XamlFilesFilter);
 
             if (string.IsNullOrEmpty(fileName))
             {
@@ -465,6 +481,14 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
                 if (onDisplay != null)
                     onDisplay();
             }
+        }
+
+        public void ShowXamlAndSearchBar(bool isReplacementMode) {
+            bool visible = XamlCodeEditor.Visibility == Visibility.Visible;
+            if (!visible)
+                ToggleBottomPanel(XamlCodeEditor);
+
+            findControl.ShowControl(isReplacementMode);
         }
 
         private void XamlCodeEditor_MightHaveBeenEdited(object sender, RoutedEventArgs e)

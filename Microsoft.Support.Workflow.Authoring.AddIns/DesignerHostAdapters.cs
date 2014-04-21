@@ -258,6 +258,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
             proxy.RollbackAssignedTasks(ids);
         }
 
+        public void ShowSearchBar(bool isReplacementMode) {
+            proxy.ShowSearchBar(isReplacementMode);
+        }
+
         #region Private methods
 
         private void InitAddIn(string name, string projectXamlCode, List<ActivityAssemblyItem> references, bool isTask)

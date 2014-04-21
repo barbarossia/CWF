@@ -13,6 +13,7 @@ using System.ServiceModel.Activities;
 using Microsoft.Support.Workflow.Authoring.AddIns;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
 using System.Activities.Validation;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.CompositeActivity
 {
@@ -255,7 +256,7 @@ namespace Microsoft.Support.Workflow.Authoring.CompositeActivity
             }
             catch
             {
-                throw new UserFacingException("Cannot make selected activity as a task.");
+                throw new UserFacingException(TextResources.MakeTaskFailureMsg);
             }
 
             return newModelItem;

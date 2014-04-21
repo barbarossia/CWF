@@ -774,7 +774,7 @@ namespace Authoring.Tests.Functional
                 Assert.IsTrue(workflowToOpen.Locked);
 
                 string message;
-                MessageBoxService.ShowSavingComfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
+                MessageBoxService.ShowSavingConfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
                 {
                     message = msg;
                     return SavingResult.Unlock;

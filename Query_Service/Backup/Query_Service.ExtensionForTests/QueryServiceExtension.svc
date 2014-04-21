@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Query_Service.ExtensionForTests.QueryServiceExtension" CodeBehind="QueryServiceExtension.svc.cs" %>

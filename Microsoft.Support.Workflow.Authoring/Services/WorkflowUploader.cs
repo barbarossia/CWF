@@ -19,6 +19,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using Microsoft.Support.Workflow.Authoring.Security;
     using Models;
     using Service.Contracts.FaultContracts;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     public static class WorkflowUploader
     {
@@ -75,10 +76,11 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             // No exception = success. Disable the Save button, clean up, return true to report success.
             workflow.FinishTaskAssigned();
 
+            workflow.OriginalName = result.Name;
             workflow.CreateDateTime = result.InsertedDateTime;
             workflow.UpdateDateTime = result.UpdatedDateTime;
             workflow.Version = result.Version;
-
+            workflow.OldVersion = result.Version;
             workflow.IsOpenFromServer = true;
             workflow.IsSavedToServer = true;
             workflow.IsDataDirty = false;
@@ -238,7 +240,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 assembliesToUpload = assembliesToUpload.Except(assembliesWithNoDependencies).ToList();
                 if (!assembliesWithNoDependencies.Any())
                 {
-                    throw new DevFacingException(CommonMessages.CyclicDependenciesOnUpload);
+                    throw new DevFacingException(TextResources.CyclicDependenciesMsg);
                 }
             }
         }

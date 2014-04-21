@@ -14,6 +14,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Views;
     using System.Reflection;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The message box service.
@@ -22,15 +23,15 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
     {
         #region Constants
 
-        private const string MSG_PRINT_CONFIRMATION = "You are going to print thses activities on [ {0} ] pages of [ {1} ] paper with [ {2} ]. Are you sure?";
-        private const string MSG_PRINT_ERROR = "Print failed due to {0}.";
-        private const string MSG_CANNOT_ASSIGN = "This Activity or it's parents have been assigned.";
-        private const string MSG_CANNOT_GETLASTVERSION = "This Activity cannot get last version.";
+        private static readonly string MSG_PRINT_CONFIRMATION = TextResources.PrintConfirmationMsgFormat;
+        private static readonly string MSG_PRINT_ERROR = TextResources.PrintFailureMsgFormat;
+        private static readonly string MSG_CANNOT_ASSIGN = TextResources.AlreadyAssignedMsg;
+        private static readonly string MSG_CANNOT_GETLASTVERSION = TextResources.CannotGetLatestVersionMsg;
 
         #endregion Constants
 
         public static void DirectoryServiceFailure() {
-            Show("This list of target users is partially due to some error reported by AD server. Please try later if you cannot find the target user you want in this list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.ADFailureMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// <returns></returns>
         public static bool PrintConfirmation(int pageCount, string paperName, string printerName)
         {
-            return Show(string.Format(MSG_PRINT_CONFIRMATION, pageCount, paperName, printerName), "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            return Show(string.Format(MSG_PRINT_CONFIRMATION, pageCount, paperName, printerName), TextResources.Confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// <returns></returns>
         public static bool PrintReselectConfirmation()
         {
-            return Show("Are you sure to discard your changes?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            return Show(TextResources.CancelWithoutSavingConfirmationMsg, TextResources.Confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void PrintNoneSelectMessage()
         {
-            Show("You have not selected any activity, please choose again.", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Show(TextResources.ChooseActivityMsg, TextResources.Confirmation, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// <param name="name"></param>
         public static void PrintOverflowWorkflow(string name)
         {
-            Show(string.Format("Sorry, can not print this over nested workflow {0}. Nested level should be less than 25.", name), "Confirmation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Show(string.Format(TextResources.NestedIssueMsg, name), TextResources.Confirmation, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void PrintNoneActivityMessage()
         {
-            Show("There is no activity to be printed!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Show(TextResources.NothingToPrintMsg, TextResources.Confirmation, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// <param name="message"></param>
         public static void PrintFailed(string message)
         {
-            Show(string.Format(MSG_PRINT_ERROR, message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(string.Format(MSG_PRINT_ERROR, message), TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void CannotAssignTaskActivity()
         {
-            Show(MSG_CANNOT_ASSIGN, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(MSG_CANNOT_ASSIGN, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary
         public static void CannotGetLastVersion()
         {
-            Show(MSG_CANNOT_GETLASTVERSION, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(MSG_CANNOT_GETLASTVERSION, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary
         public static MessageBoxResult CannotMergeNextTime()
         {
-            return Show("If you unassign, you will not be able to merge this task later. Are you sure?", "Information", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            return Show(TextResources.UnassignConfirmationMsg, TextResources.Information, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void CannotMergeAll()
         {
-            Show("There is no task to be merged", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.NoTaskToMergeMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void CannotMergeSpecialTask()
         {
-            Show("There is no task to meet the conditions to be merged.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.NoTaskCanMergeMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -133,7 +134,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void CannotAssign()
         {
-            Show("Cannot add a task in another task.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.AddTaskInAnotherMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -141,7 +142,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void CannotAssignUseSpecialActivity()
         {
-            Show("Cannot make selected activity as a task.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.MakeTaskFailureMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -149,7 +150,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void CannotUnAssign()
         {
-            Show("There has no task to be unassigned.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.NoTaskToUnassignMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -157,14 +158,14 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void CannotUnAssignSpecialTask()
         {
-            Show("There has no task to meet the conditions to be unassigned.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.NoTaskCanUnassignMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// Display message that task cannot download.
         /// </summary>
         public static void CannotDownloadTask()
         {
-            Show("Network issues have interrupted your downloads from servrt.  Please contact your network administrator.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Show(TextResources.NetworkIssueOnTaskMsg, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -172,7 +173,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void PromptOnlyMergePartTasks()
         {
-            Show("Only tasks in 'Checked In' state can be merged, so this operation did not affect others.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            Show(TextResources.PartOfTasksAreMergedMsg, TextResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
@@ -180,7 +181,11 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         /// </summary>
         public static void MergeCompleted()
         {
-            Show("Merge Completed.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            Show(TextResources.MergeCompletedMsg, TextResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public static void NoMoreOccurrences() {
+            Show(TextResources.NoMoreOccurrencesMsg, TextResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         #region Methods

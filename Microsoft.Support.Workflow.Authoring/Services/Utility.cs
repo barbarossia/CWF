@@ -27,6 +27,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using CWF.DataContracts;
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+    using System.Security.Policy;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The utility.
@@ -351,7 +353,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 Directory.CreateDirectory(level1);
             }
 
-            string level2 = string.Format(@"{0}\{1}", level1, assemblyName.Version.IfNotNull(v => v.ToString()) ?? "None");
+            string level2 = string.Format(@"{0}\{1}", level1, assemblyName.Version.IfNotNull(v => v.ToString()) ?? TextResources.None);
             destFileName = string.Format(@"{0}\{1}.dll", level2, assemblyName.Name);
 
             if (Directory.Exists(level2))
@@ -423,7 +425,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 return result;
             }
 
-            throw new SerializationException(string.Format("File not found: {0}", sourceFileName));
+            throw new SerializationException(string.Format(TextResources.FileNotFoundMsgFormat, sourceFileName));
         }
 
         /// <summary>
@@ -728,11 +730,11 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                             }
                             catch (CommunicationException e)
                             {
-                                throw new UserFacingException("The server is not available right now.", e);
+                                throw new UserFacingException(TextResources.ServerUnavailableMsg, e);
                             }
                             catch (TimeoutException e)
                             {
-                                throw new UserFacingException("The server is not available right now (request timed out).", e);
+                                throw new UserFacingException(TextResources.ServerTimedOutMsg, e);
                             }
                             finally
                             {
@@ -800,18 +802,18 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public static T WithContactServerUI<T>(Func<T> taskSpecification, bool runInBackground = true)
         {
-            string busyCaption = "Contacting server...";
+            string busyCaption = TextResources.ContactingServer;
             try
             {
                 return DoTaskWithBusyCaption(busyCaption, taskSpecification, runInBackground);
             }
             catch (CommunicationException e)
             {
-                throw new UserFacingException("The server is not available right now.", e);
+                throw new UserFacingException(TextResources.ServerUnavailableMsg, e);
             }
             catch (TimeoutException e)
             {
-                throw new UserFacingException("The server is not available right now (request timed out).", e);
+                throw new UserFacingException(TextResources.ServerTimedOutMsg, e);
             }
         }
 
@@ -863,6 +865,18 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         {
             cachedAssembly = activityAssemblyItems.FirstOrDefault(assembly => assembly.Matches(assemblyName));
             return cachedAssembly != null;
+        }
+
+        /// <summary>
+        /// Creates a new AppDomain based on the parent AppDomain
+        /// </summary>
+        /// <param name="parentAppDomain">The parent AppDomain</param>
+        /// <returns>A newly created AppDomain</returns>
+        public static AppDomain CreateTempAppDomain(AppDomain parentAppDomain)
+        {
+            var evidence = new Evidence(parentAppDomain.Evidence);
+            AppDomainSetup setupInfo = parentAppDomain.SetupInformation;
+            return AppDomain.CreateDomain(Guid.NewGuid().ToString(), evidence, setupInfo);
         }
     }
 }

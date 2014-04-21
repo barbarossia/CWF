@@ -87,6 +87,7 @@ namespace Microsoft.Support.Workflow.Service.DataAccessServices
                 db.AddParameter(cmd, "@inCallerVersion", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.IncallerVersion);
                 db.AddParameter(cmd, "@inActivityLibraryName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesRootActiveLibrary.ActivityLibraryName);
                 db.AddParameter(cmd, "@inActivityLibraryVersionNumber", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesRootActiveLibrary.ActivityLibraryVersionNumber);
+                db.AddParameter(cmd, "@inActivityLibraryEnvironment", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesRootActiveLibrary.Environment);
                 db.AddParameter(cmd, "@inActivityLibraryDependentName", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesDependentActiveLibraryList[0].ActivityLibraryDependentName);
                 db.AddParameter(cmd, "@inActivityLibraryDependentVersionNumber", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.StoreDependenciesDependentActiveLibraryList[0].ActivityLibraryDependentVersionNumber);
                 db.AddParameter(cmd, "@InInsertedByUserAlias", DbType.String, ParameterDirection.Input, null, DataRowVersion.Default, request.InInsertedByUserAlias);

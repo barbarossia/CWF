@@ -20,7 +20,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
     using Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor;
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
-    using Microsoft.Support.Workflow.Authoring.Security;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The data contract translator.
@@ -189,7 +189,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             activityLibrary.IncallerVersion = Utility.GetCallerVersion();
             activityLibrary.Guid = Guid.NewGuid();
             activityLibrary.AuthGroupName = aai.AuthorityGroup;
-            activityLibrary.CategoryName = aai.Category ?? "OAS Basic Controls";
+            activityLibrary.CategoryName = aai.Category ?? TextResources.OasBasicControls;
             activityLibrary.Category = Guid.Empty;
             activityLibrary.Executable = new byte[4];
             activityLibrary.HasActivities = false;
@@ -382,7 +382,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
             };
         }
 
-        private static ActivityLibraryDC GetActivityLibraryDC(
+        public static ActivityLibraryDC GetActivityLibraryDC(
             string libraryName,
             string category,
             string description,

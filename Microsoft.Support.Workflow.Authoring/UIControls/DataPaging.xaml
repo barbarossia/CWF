@@ -1,51 +1,109 @@
-﻿<UserControl x:Class="Microsoft.Support.Workflow.Authoring.UIControls.DataPaging"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters"
-             Width="auto" Height="auto">
+﻿<UserControl
+    x:Class="Microsoft.Support.Workflow.Authoring.UIControls.DataPaging" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters"
+    Width="auto"
+    Height="auto">
     <UserControl.Resources>
-        <convert:AllMatchToVisibilityConverter x:Key="AllMatchToVisibilityConverter" />
-        <convert:AllMatchToVisibilityConverter x:Key="AllMatchToVisibilityConverter_Inverted"
-                                                           Invert="True" />
-        <Style x:Key="PreButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Template">
+        <convert:AllMatchToVisibilityConverter
+            x:Key="AllMatchToVisibilityConverter" />
+        <convert:AllMatchToVisibilityConverter
+            x:Key="AllMatchToVisibilityConverter_Inverted"
+            Invert="True" />
+        <Style
+            x:Key="PreButtonStyle"
+            TargetType="{x:Type Button}">
+            <Setter
+                Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border x:Name="border" BorderThickness="1" BorderBrush="Transparent" Background="Transparent">
-                            <Path x:Name="arrow" Data="M0,5 5,0 5,10 0,5" Margin="1" Fill="#FF006CBA" Height="12" Width="12" Stretch="Fill" />
+                        <Border
+                            x:Name="border"
+                            BorderThickness="1"
+                            BorderBrush="Transparent"
+                            Background="Transparent">
+                            <Path
+                                x:Name="arrow"
+                                Data="M0,5 5,0 5,10 0,5"
+                                Margin="1"
+                                Fill="#FF006CBA"
+                                Height="12"
+                                Width="12"
+                                Stretch="Fill" />
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="arrow" Property="Fill" Value="gray"></Setter>
+                            <Trigger
+                                Property="IsEnabled"
+                                Value="false">
+                                <Setter
+                                    TargetName="arrow"
+                                    Property="Fill"
+                                    Value="gray"></Setter>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand"></Setter>
-                                <Setter TargetName="border" Property="BorderBrush" Value="lightgray"></Setter>
-                                <Setter TargetName="border" Property="Background" Value="lightblue"></Setter>
+                            <Trigger
+                                Property="IsMouseOver"
+                                Value="True">
+                                <Setter
+                                    Property="Cursor"
+                                    Value="Hand"></Setter>
+                                <Setter
+                                    TargetName="border"
+                                    Property="BorderBrush"
+                                    Value="lightgray"></Setter>
+                                <Setter
+                                    TargetName="border"
+                                    Property="Background"
+                                    Value="lightblue"></Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="NextButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Template">
+        <Style
+            x:Key="NextButtonStyle"
+            TargetType="{x:Type Button}">
+            <Setter
+                Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border x:Name="border" BorderThickness="1" BorderBrush="Transparent" Background="Transparent">
-                            <Path x:Name="arrow" Data="M0,0 0,10 5,5 0,0" Margin="1" StrokeThickness="0" Fill="#FF006CBA" Height="12" Width="12" Stretch="Fill"/>
+                        <Border
+                            x:Name="border"
+                            BorderThickness="1"
+                            BorderBrush="Transparent"
+                            Background="Transparent">
+                            <Path
+                                x:Name="arrow"
+                                Data="M0,0 0,10 5,5 0,0"
+                                Margin="1"
+                                StrokeThickness="0"
+                                Fill="#FF006CBA"
+                                Height="12"
+                                Width="12"
+                                Stretch="Fill" />
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="arrow" Property="Fill" Value="gray"></Setter>
+                            <Trigger
+                                Property="IsEnabled"
+                                Value="false">
+                                <Setter
+                                    TargetName="arrow"
+                                    Property="Fill"
+                                    Value="gray"></Setter>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand"></Setter>
-                                <Setter TargetName="border" Property="BorderBrush" Value="lightgray"></Setter>
-                                <Setter TargetName="border" Property="Background" Value="lightblue"></Setter>
+                            <Trigger
+                                Property="IsMouseOver"
+                                Value="True">
+                                <Setter
+                                    Property="Cursor"
+                                    Value="Hand"></Setter>
+                                <Setter
+                                    TargetName="border"
+                                    Property="BorderBrush"
+                                    Value="lightgray"></Setter>
+                                <Setter
+                                    TargetName="border"
+                                    Property="Background"
+                                    Value="lightblue"></Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -55,38 +113,89 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition
+                Width="*" />
+            <ColumnDefinition
+                Width="auto" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Horizontal">
-            <Button x:Uid="btnPrev" Style="{StaticResource PreButtonStyle}" Height="18" BorderThickness="0" Name="btnPrev" Background="Transparent" Click="GotoPreviousPage">
-            </Button>
-            <ListView x:Name="listAvailablePage" BorderThickness="0" Margin="5,5" Width="auto"  Height="auto">
+        <StackPanel
+            Grid.Column="0"
+            Orientation="Horizontal">
+            <Button
+                x:Uid="btnPrev"
+                Style="{StaticResource PreButtonStyle}"
+                Height="18"
+                BorderThickness="0"
+                Name="btnPrev"
+                Background="Transparent"
+                Click="GotoPreviousPage"></Button>
+            <ListView
+                x:Name="listAvailablePage"
+                BorderThickness="0"
+                Margin="5,5"
+                Width="auto"
+                Height="auto">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
+                        <StackPanel
+                            Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="Foreground" Value="blue"></Setter>
-                        <Setter Property="Cursor" Value="Hand"></Setter>
-                        <Setter Property="Height" Value="15"></Setter>
-                        <Setter Property="Width" Value="15"></Setter>
-                        <Setter Property="Margin" Value="2,0"></Setter>
-                        <Setter Property="Template">
+                    <Style
+                        TargetType="{x:Type ListViewItem}">
+                        <Setter
+                            Property="Background"
+                            Value="Transparent" />
+                        <Setter
+                            Property="HorizontalContentAlignment"
+                            Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                        <Setter
+                            Property="VerticalContentAlignment"
+                            Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                        <Setter
+                            Property="Padding"
+                            Value="0" />
+                        <Setter
+                            Property="Foreground"
+                            Value="blue"></Setter>
+                        <Setter
+                            Property="Cursor"
+                            Value="Hand"></Setter>
+                        <Setter
+                            Property="Height"
+                            Value="15"></Setter>
+                        <Setter
+                            Property="Width"
+                            Value="15"></Setter>
+                        <Setter
+                            Property="Margin"
+                            Value="2,0"></Setter>
+                        <Setter
+                            Property="Template">
                             <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                        <ContentPresenter MouseLeftButtonDown="GotoPage_Click" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <ControlTemplate
+                                    TargetType="{x:Type ListViewItem}">
+                                    <Border
+                                        x:Name="Bd"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}"
+                                        Padding="{TemplateBinding Padding}"
+                                        SnapsToDevicePixels="true">
+                                        <ContentPresenter
+                                            MouseLeftButtonDown="GotoPage_Click"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                     </Border>
                                     <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="true">
-                                            <Setter Property="Foreground" Value="Black"/>
+                                        <Trigger
+                                            Property="IsSelected"
+                                            Value="true">
+                                            <Setter
+                                                Property="Foreground"
+                                                Value="Black" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -95,8 +204,14 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <Button x:Uid="btnNext" Height="18" Style="{StaticResource NextButtonStyle}" BorderThickness="0" Name="btnNext" Background="Transparent" Click="GotoNextPage">
-            </Button>
+            <Button
+                x:Uid="btnNext"
+                Height="18"
+                Style="{StaticResource NextButtonStyle}"
+                BorderThickness="0"
+                Name="btnNext"
+                Background="Transparent"
+                Click="GotoNextPage"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -18,6 +18,7 @@ using Microsoft.Support.Workflow.Authoring.Models;
 using Microsoft.Support.Workflow.Authoring.Services;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
 using Microsoft.Support.Workflow.Authoring.AddIns.Models;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Views
 {
@@ -26,7 +27,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
     /// </summary>
     public partial class ImportAssemblyView : Window,INotifyPropertyChanged
     {
-        const string IssuesCountTooltipFormat = "{0} items with issues.";
+        static readonly string IssuesCountTooltipFormat = TextResources.IssuesCountTooltipFormat;
         public ImportAssemblyView()
         {
             InitializeComponent();
@@ -181,7 +182,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
             var button = sender as Button;
             var activityAssemblyItem = button.Tag as ActivityAssemblyItemViewModel;
             var viewModel = DataContext as ImportAssemblyViewModel;
-            string assemblyFileName = DialogService.ShowOpenFileDialogAndReturnResult("Assembly files (*.dll)|*.dll", "Open Assembly File");
+            string assemblyFileName = DialogService.ShowOpenFileDialogAndReturnResult(TextResources.AssemblyFileFilter, TextResources.OpenAssemblyFile);
 
             if (!string.IsNullOrEmpty(assemblyFileName)) // if user didn't cancel
                 viewModel.UpdateReferenceLocation(activityAssemblyItem, assemblyFileName);

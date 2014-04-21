@@ -69,6 +69,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
         void Close();
         bool ImportAssemblies(IEnumerable<ActivityAssemblyItem> importedAssemblies, bool canRefresh = true);
         void RefreshTasks();
-
+        void ShowSearchBar(bool isReplacementMode);
     }
 }

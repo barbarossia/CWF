@@ -360,7 +360,8 @@ namespace CWF.BAL
                                                                         request.Incaller,
                                                                         request.IncallerVersion,
                                                                         request.InInsertedByUserAlias,
-                                                                        request.InUpdatedByUserAlias
+                                                                        request.InUpdatedByUserAlias, 
+                                                                        request.Environment
                                                                       );
                         if (ActivityLibraryDependenciesCreateOrUpdateStatusReply.Errorcode != 0)
                             return SetupErrorReply(reply, ActivityLibraryDependenciesCreateOrUpdateStatusReply);
@@ -593,7 +594,9 @@ namespace CWF.BAL
                                                                             request.Incaller,
                                                                             request.IncallerVersion,
                                                                             request.InInsertedByUserAlias,
-                                                                            request.InUpdatedByUserAlias
+                                                                            request.InUpdatedByUserAlias, 
+                                                                            //request.StoreActivitiesList[0].Environment
+                                                                            request.ActivityLibrary.Environment
                                                                           );
                             if (ActivityLibraryDependenciesCreateOrUpdateStatusReply.Errorcode != 0)
                                 return SetupErrorReply(reply, ActivityLibraryDependenciesCreateOrUpdateStatusReply);
@@ -636,7 +639,8 @@ namespace CWF.BAL
                                                                                string incaller,
                                                                                string incallerVersion,
                                                                                string insertedByUserAlias,
-                                                                               string updatedByUserAlias)
+                                                                               string updatedByUserAlias,
+                                                                               string env)
         {
             foreach (StoreActivityLibraryDependenciesGroupsRequestDC l1 in list)
             {
@@ -653,6 +657,7 @@ namespace CWF.BAL
                 storeActivityLibrariesDependenciesDC.StoreDependenciesRootActiveLibrary.ActivityLibraryName = rootName;
                 storeActivityLibrariesDependenciesDC.StoreDependenciesRootActiveLibrary.ActivityLibraryVersionNumber =
                     rootVersion;
+                storeActivityLibrariesDependenciesDC.StoreDependenciesRootActiveLibrary.Environment = env;
 
                 storeDependenciesDependentActiveLibrary.ActivityLibraryDependentName = l1.Name;
                 storeDependenciesDependentActiveLibrary.ActivityLibraryDependentVersionNumber = l1.Version;
@@ -667,7 +672,7 @@ namespace CWF.BAL
                 // Write the dependency table entry
                 if (l1.List != null)
                     ActivityLibraryDependenciesCreateOrUpdate(rootName, rootVersion, l1.List, incaller, incallerVersion,
-                                                              insertedByUserAlias, updatedByUserAlias);
+                                                              insertedByUserAlias, updatedByUserAlias, env);
             }
             return new StatusReplyDC();
         }

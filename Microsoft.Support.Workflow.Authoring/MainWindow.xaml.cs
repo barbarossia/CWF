@@ -74,6 +74,11 @@ namespace Microsoft.Support.Workflow.Authoring
                                                        MessageBoxButton.OK,
                                                        MessageBoxImage.Error);
                             break;
+                        case "IsToolboxVisible":
+                        case "IsProjectExplorerVisible":
+                        case "IsPropertiesVisible":
+                            Focus();
+                            break;
                     }
                 };
 
@@ -169,10 +174,10 @@ namespace Microsoft.Support.Workflow.Authoring
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var viewModel = DataContext as MainWindowViewModel;
-            if ((null != viewModel) && (null != viewModel.FocusedWorkflowItem))
-                VersionDisplay.Version = viewModel.FocusedWorkflowItem.Version;
-            else
-                VersionDisplay.Version = null;
+            //if ((null != viewModel) && (null != viewModel.FocusedWorkflowItem))
+            //    VersionDisplay.Version = viewModel.FocusedWorkflowItem.Version;
+            //else
+            //    VersionDisplay.Version = null;
             if (this.TabWorkflow.SelectedIndex < 0)
                 this.menuDesigner.IsChecked = false;
             else

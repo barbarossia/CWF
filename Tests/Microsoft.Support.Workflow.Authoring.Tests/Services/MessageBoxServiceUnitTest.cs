@@ -118,22 +118,22 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.Services
         [TestMethod]
         [Owner("v-ery")]
         [TestCategory("Unit-NoDif")]
-        public void MessageBox_TestSavingComfirmation()
+        public void MessageBox_TestSavingConfirmation()
         {
             string message = null;
-            MessageBoxService.ShowSavingComfirmationFunc = (msg, caption, canKeepLock, shouldUnlock, visible) =>
+            MessageBoxService.ShowSavingConfirmationFunc = (msg, caption, canKeepLock, shouldUnlock, visible) =>
             {
                 message = msg;
                 return null;
             };
 
-            MessageBoxService.ShowUnlockComfirmation("activity1");
+            MessageBoxService.ShowUnlockConfirmation("activity1");
             Assert.AreEqual("Do you want to save changes to activity1 before unlock? The workflow will be read-only after unlocked.", message);
 
-            MessageBoxService.ShowLocalSavingComfirmation("activity1");
+            MessageBoxService.ShowLocalSavingConfirmation("activity1");
             Assert.AreEqual("Do you want to save changes to activity1 before closing?", message);
 
-            MessageBoxService.ShowKeepLockedComfirmation("activity1");
+            MessageBoxService.ShowKeepLockedConfirmation("activity1");
             Assert.AreEqual("activity1 is locked by yourself, do you want to keep the lock?", message);
         }
     }

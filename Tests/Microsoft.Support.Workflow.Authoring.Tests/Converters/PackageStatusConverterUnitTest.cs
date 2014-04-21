@@ -11,6 +11,7 @@ using System.Windows;
 using NuGet;
 using Microsoft.DynamicImplementations;
 using Microsoft.Support.Workflow.Authoring.ViewModels;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Tests.Converters
 {
@@ -37,16 +38,16 @@ namespace Microsoft.Support.Workflow.Authoring.Tests.Converters
                     service.Register(() => CDSService.IsInstalled(package.Instance)).Return(true);
                     values = new object[] { package.Instance, PackageSearchType.Local };
                     result = converter.Convert(values, typeof(string), null, null) as string;
-                    Assert.AreEqual(PackageStatusConverter.Uninstall, result);
+                    Assert.AreEqual(TextResources.Uninstall, result);
 
                     service.Register(() => CDSService.IsInstalled(package.Instance)).Return(false);
                     values = new object[] { package.Instance, PackageSearchType.Online };
                     result = converter.Convert(values, typeof(string), null, null) as string;
-                    Assert.AreEqual(PackageStatusConverter.Install, result);
+                    Assert.AreEqual(TextResources.Install, result);
 
                     values = new object[] { package.Instance, PackageSearchType.Update };
                     result = converter.Convert(values, typeof(string), null, null) as string;
-                    Assert.AreEqual(PackageStatusConverter.Update, result);
+                    Assert.AreEqual(TextResources.Update, result);
 
                     TestUtilities.Assert_ShouldThrow<NotImplementedException>(() =>
                     {

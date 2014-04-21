@@ -13,6 +13,7 @@ using System.DirectoryServices.AccountManagement;
 using Microsoft.Support.Workflow.Authoring.Security;
 using CWF.DataContracts;
 using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
@@ -90,10 +91,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 IsSaved = false;
                 if (this.TargetAuthor.SamAccountName == this.CreatedBy)
                 {
-                    MessageBoxService.ShowError("The Target Auhtor can't be same as original author.");
+                    MessageBoxService.ShowError(TextResources.ChangeAuthorFailureDueToSameAuthorMsg);
                     return;
                 }
-                Utility.DoTaskWithBusyCaption("Saving", () =>
+                Utility.DoTaskWithBusyCaption(TextResources.Saving, () =>
                 {
                     using (WorkflowsQueryServiceClient client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                     {
@@ -116,7 +117,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBoxService.ShowException(ex, "Failed to Change Author.");
+                MessageBoxService.ShowException(ex, TextResources.ChangeAuthorFailureMsg);
             }
         }
 
@@ -127,7 +128,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         private void GetAvaliableAuthors()
         {
-            Utility.DoTaskWithBusyCaption("Loading", () =>
+            Utility.DoTaskWithBusyCaption(TextResources.Loading, () =>
             {
                 AvaliableAuthors = AuthorizationService.GetAuthorizedPrincipals(Permission.SaveWorkflow, currentProject.Env);
             });

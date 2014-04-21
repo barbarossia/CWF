@@ -47,7 +47,7 @@ namespace Microsoft.Support.Workflow.Authoring.PrintCustomization
 
         protected override void HandleDrag(ResizingThumb hitThumb, DragDeltaEventArgs args)
         {
-            ExecuteHandleDrag(hitThumb, args.HorizontalChange,args.VerticalChange);
+            ExecuteHandleDrag(hitThumb, args.HorizontalChange, args.VerticalChange);
         }
 
         private void ExecuteHandleDrag(ResizingThumb hitThumb, double horizontalChange, double verticalChange)
@@ -73,8 +73,8 @@ namespace Microsoft.Support.Workflow.Authoring.PrintCustomization
             adornedElement.LayoutTransform = new ScaleTransform(Scale, Scale);
 
             OnWidgetDragging(new Point(
-                    Canvas.GetLeft(adornedElement) + adornedElement.ActualWidth * Scale,
-                    Canvas.GetTop(adornedElement) + adornedElement.ActualHeight * Scale));
+                Canvas.GetLeft(adornedElement) + adornedElement.ActualWidth * Scale,
+                Canvas.GetTop(adornedElement) + adornedElement.ActualHeight * Scale));
         }
     }
 }

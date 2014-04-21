@@ -25,6 +25,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// ViewModel for the Import Assembly Screen
@@ -190,7 +191,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 throw new ArgumentNullException("assemblyFilePath");
             }
-            Utility.DoTaskWithBusyCaption("Loading assemblies...", () =>
+            Utility.DoTaskWithBusyCaption(TextResources.LoadingAssemblies, () =>
             {
                 assemblyFilePaths.ToList().ForEach(path =>
                     AssemblyInspectionService.CheckAssemblyPath(path));
@@ -313,7 +314,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         public void BrowseCommandExecute()
         {
-            string[] assemblyFileNames = DialogService.ShowOpenFileDialogAndReturnMultiResult("Assembly files (*.dll)|*.dll", "Open Assembly File");
+            string[] assemblyFileNames = DialogService.ShowOpenFileDialogAndReturnMultiResult(TextResources.AssemblyFileFilter, TextResources.OpenAssemblyFile);
             if (assemblyFileNames != null)
             {
                 InspectAssemblies(assemblyFileNames);
@@ -393,7 +394,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         private void InspectAssembliesWithBusy(string[] assemblyPaths)
         {
-            Utility.DoTaskWithBusyCaption("Loading...", () =>
+            Utility.DoTaskWithBusyCaption(TextResources.Loading, () =>
             {
                 InspectAssemblies(assemblyPaths);
             }, false);
@@ -487,7 +488,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 if (!throwOnFailure)
                     return false;
-                throw new UserFacingException(string.Format("The file '{0}' does not contain the required assembly '{1}'", location, activityAssemblyItem.Name));
+                throw new UserFacingException(string.Format(TextResources.AssemblyNameNotMatchMsgFormat, location, activityAssemblyItem.Name));
             }
 
             if (assemblyName.Version != activityAssemblyItem.AssemblyName.Version)
@@ -495,9 +496,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 if (!throwOnFailure)
                     return false;
                 // ideally this message would tell you WHO requires it
-                throw new UserFacingException(string.Format("The file '{0}' is {1}, but {2} is required",
-                    location, assemblyName.Version.IfNotNull(v => "v" + v.ToString()) ?? "unsigned",
-                    activityAssemblyItem.AssemblyName.Version.IfNotNull(v => "v" + v.ToString()) ?? "an unsigned assembly"));
+                throw new UserFacingException(string.Format(TextResources.FileVersionNotMatchMsgFormat,
+                    location, assemblyName.Version.IfNotNull(v => TextResources.Unsigned + v.ToString()) ?? TextResources.Unsigned,
+                    activityAssemblyItem.AssemblyName.Version.IfNotNull(v => TextResources.UnsignedAssembly + v.ToString()) ?? TextResources.UnsignedAssembly));
             }
 
             return true;

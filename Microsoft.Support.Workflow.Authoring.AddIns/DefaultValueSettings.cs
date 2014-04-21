@@ -28,12 +28,14 @@ namespace Microsoft.Support.Workflow.Authoring
         public const string SearchWholeWorkflowKey = "SearchWholeWorkflow";
         public const string EnableTaskAssignmentKey = "EnableTaskAssignment";
         public const string DefaultCategoryKey = "DefaultCategory";
+        public const string DefaultTagKey = "DefaultTag";
         public static bool EnableDownloadDependecies = true;
         public static bool OpenForEditingMode = true;
         public static Env Environment = Env.Dev;
         public static bool SearchWholeWorkflow = true;//0:The Whole Workflow,1:Current Workflow
         public static bool EnableTaskAssignment = false;
         public static string DefaultCategory = string.Empty;
+        public static string DefaultTag = string.Empty;
 
         static DefaultValueSettings()
         {
@@ -49,6 +51,7 @@ namespace Microsoft.Support.Workflow.Authoring
             SearchWholeWorkflow = Convert.ToBoolean(config.AppSettings.Settings[SearchWholeWorkflowKey].Value);
             EnableTaskAssignment = Convert.ToBoolean(config.AppSettings.Settings[EnableTaskAssignmentKey].Value);
             DefaultCategory = config.AppSettings.Settings[DefaultCategoryKey].Value;
+            DefaultTag = config.AppSettings.Settings[DefaultTagKey].Value;
         }
 
         public static void SetConfigValue(string key, string value)

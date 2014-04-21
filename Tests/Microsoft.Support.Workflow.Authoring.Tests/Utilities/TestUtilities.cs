@@ -1047,8 +1047,8 @@ namespace Microsoft.Support.Workflow.Authoring.Tests
          .Execute<MessageBoxResult>(() => { return MessageBoxResult.Yes; });
                 messageBox.Register(() => MessageBoxService.CreateNewActivityOnSaving())
                  .Execute<MessageBoxResult>(() => { return MessageBoxResult.Yes; });
-                messageBox.Register(() => MessageBoxService.ShowClosingComfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
-                messageBox.Register(() => MessageBoxService.ShowKeepLockedComfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
+                messageBox.Register(() => MessageBoxService.ShowClosingConfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
+                messageBox.Register(() => MessageBoxService.ShowKeepLockedConfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
                 messageBox.Register(() => MessageBoxService.Show(Argument<string>.Any,
                            Argument<string>.Any,
                            MessageBoxButton.YesNo,
@@ -1073,14 +1073,14 @@ namespace Microsoft.Support.Workflow.Authoring.Tests
                 message = msg;
                 return MessageBoxResult.Yes;
             });
-            //ShowClosingComfirmation
-            MessageBoxService.ShowSavingComfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
+            //ShowClosingConfirmation
+            MessageBoxService.ShowSavingConfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
                 {
                     message = msg;
                     return SavingResult.DoNothing;
                 });
-            //ShowKeepLockedComfirmation
-            //MessageBoxService.ShowSavingComfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
+            //ShowKeepLockedConfirmation
+            //MessageBoxService.ShowSavingConfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
             //{
             //    message = msg;
             //    return SavingResult.DoNothing;

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Behaviors {
     /// <summary>
@@ -54,7 +55,7 @@ namespace Microsoft.Support.Workflow.Authoring.Behaviors {
 
                 // Remove spaces in the text so that we allow text with spaces too
                 // But the actual data is pasted with spaces
-                value = value.Replace(" ", "").Trim();
+                value = value.Replace(TextResources.Space, string.Empty).Trim();
 
                 // Verify with Alphanumeric Regular expression
                 isAlphaNumeric = System.Text.RegularExpressions.Regex.IsMatch(value, AlphaNumberRegEx);

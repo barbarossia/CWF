@@ -23,6 +23,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The caching class. Represent the local caching.
@@ -100,7 +101,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                     assemblyItem.ActivityItems.ToList().ForEach(i =>
                     {
                         i.UserSelected = true;
-                        i.Category = "Unassigned";
+                        i.Category = TextResources.Unassigned;
                     });
                 }
 

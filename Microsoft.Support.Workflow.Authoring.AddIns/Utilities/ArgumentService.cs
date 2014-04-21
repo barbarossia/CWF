@@ -13,7 +13,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
    public static class ArgumentService
     {
        private static DynamicActivityPropertyEqualityComparer argumentEqualityComparer = new DynamicActivityPropertyEqualityComparer();
-        public const string Name_Prpoerty = "Properties";
+        public const string Name_Property = "Properties";
 
        public static string GetExpressionText(this Argument argument)
        {
@@ -77,17 +77,17 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
 
        public static void AddArguments(ModelItem bodyItem, ModelItem rootItem)
        {
-           var args = rootItem.Properties[Name_Prpoerty].Collection.ToList()
+           var args = rootItem.Properties[Name_Property].Collection.ToList()
                .Select(m => m.GetCurrentValue() as DynamicActivityProperty);
            foreach (var arg in args)
            {
-               bodyItem.Properties[Name_Prpoerty].Collection.Add(arg);
+               bodyItem.Properties[Name_Property].Collection.Add(arg);
            }
        }
 
        public static void AddArguments(ModelItem root, IEnumerable<DynamicActivityProperty> args)
        {
-           ModelItemCollection argColletion = root.Properties[Name_Prpoerty].Collection;
+           ModelItemCollection argColletion = root.Properties[Name_Property].Collection;
            foreach (var arg in args)
            {
                argColletion.Add(arg);

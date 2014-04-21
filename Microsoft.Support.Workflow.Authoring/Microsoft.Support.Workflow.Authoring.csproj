@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Microsoft.Support.Workflow.Authoring</RootNamespace>
     <AssemblyName>Microsoft.Support.Workflow.Foundry</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -125,10 +125,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build" />
@@ -189,10 +191,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\References\Telerik.Windows.Controls.Navigation.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.RibbonBar, Version=2010.2.924.35, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\Telerik.Windows.Controls.RibbonBar.dll</HintPath>
-    </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\Telerik.Windows.Data.dll</HintPath>
@@ -239,8 +237,6 @@
     <Compile Include="Common\ExceptionHandling\CDSPackageException.cs" />
     <Compile Include="Common\ExceptionHandling\MarketplaceExceptionHandler.cs" />
     <Compile Include="Common\MarketplaceStatus.cs" />
-    <Compile Include="Common\Messages\AuthorizationMessages.cs" />
-    <Compile Include="Common\Messages\CommonMessages.cs" />
     <Compile Include="Common\PagedList.cs" />
     <Compile Include="Common\SecurityGroupType.cs" />
     <Compile Include="Common\WorkflowTypeOperations.cs" />
@@ -273,7 +269,6 @@
     <Compile Include="Models\WorkflowItem.cs" />
     <Compile Include="Models\WorkflowTemplateItem.cs" />
     <Compile Include="NonTrasparentWindowsGeneratedItemsFactory.cs" />
-    <Compile Include="Resources\AppSettings.cs" />
     <Compile Include="Services\AssemblyDownloader.cs" />
     <Compile Include="Services\AssemblyLoader.cs" />
     <Compile Include="Services\AssemblyInspectionService.cs" />
@@ -284,6 +279,7 @@
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\MarketplaceAssetDownloader.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
+    <Compile Include="Services\TempAssemblyLoader.cs" />
     <Compile Include="Services\TextboxHintTextExtension.cs" />
     <Compile Include="Services\UIHelper.cs" />
     <Compile Include="Services\Utility.cs" />
@@ -325,7 +321,7 @@
     <Compile Include="ViewModels\ContentSelectorViewModel.cs" />
     <Compile Include="ViewModels\ImportAssemblyViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\SavingComfirmationViewModel.cs" />
+    <Compile Include="ViewModels\SavingConfirmationViewModel.cs" />
     <Compile Include="ViewModels\SearchTaskActivityViewModel.cs" />
     <Compile Include="ViewModels\SingleDB\EnvironmentSecurityOptionsViewModel.cs" />
     <Compile Include="ViewModels\SelectAssemblyAndActivityViewModel.cs" />
@@ -384,8 +380,8 @@
     <Compile Include="Views\OpenActivityConfirmation.xaml.cs">
       <DependentUpon>OpenActivityConfirmation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SavingComfirmation.xaml.cs">
-      <DependentUpon>SavingComfirmation.xaml</DependentUpon>
+    <Compile Include="Views\SavingConfirmation.xaml.cs">
+      <DependentUpon>SavingConfirmation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchTaskActivitiesView.xaml.cs">
       <DependentUpon>SearchTaskActivitiesView.xaml</DependentUpon>
@@ -496,7 +492,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Resource Include="Resources\Icons.gif" />
     <Resource Include="Resources\Images\info.metro.png" />
     <Resource Include="Resources\Images\clear.png" />
     <Resource Include="Resources\Images\MovePrevious.png" />
@@ -582,7 +577,6 @@
     <Content Include="References\Telerik.Windows.Controls.GridView.dll" />
     <Content Include="References\Telerik.Windows.Controls.Input.dll" />
     <Content Include="References\Telerik.Windows.Controls.Navigation.dll" />
-    <Content Include="References\Telerik.Windows.Controls.RibbonBar.dll" />
     <Content Include="References\Telerik.Windows.Data.dll" />
     <None Include="Common\MicrosoftMinimum_WarningsAsErrors.ruleset" />
     <None Include="References\GenerateService.bat" />
@@ -592,11 +586,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\WorkflowProjectTemplate.txt" />
-    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
-    </Page>
     <Page Include="Resources\XAML\MarketplaceStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -629,10 +618,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Strings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -657,7 +642,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SavingComfirmation.xaml">
+    <Page Include="Views\SavingConfirmation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -686,15 +671,15 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -777,6 +762,9 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)References\Editbin.exe /Stack:4194304 "$(TargetDir)$(TargetName).exe"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -10,6 +10,7 @@ using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
 using Microsoft.Support.Workflow.Authoring.AddIns.Data;
 using Microsoft.Support.Workflow.Authoring.Common;
 using Microsoft.Support.Workflow.Authoring.Security;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
@@ -253,7 +254,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 return;
             if (this.SelectedWorkflowType.WorkflowsCount > 0)
             {
-                MessageBoxService.ShowError(string.Format("The {0} can't be deleted, because there are workflows using it.", this.SelectedWorkflowType.Name));
+                MessageBoxService.ShowError(string.Format(TextResources.CannotDeleteWorkflowTypeMsgFormat, this.SelectedWorkflowType.Name));
                 return;
             }
 

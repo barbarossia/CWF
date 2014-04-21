@@ -120,7 +120,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
     }
 
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public partial class SavingComfirmation
+    public partial class SavingConfirmation
     {
     }
 

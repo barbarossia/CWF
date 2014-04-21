@@ -125,7 +125,7 @@ END
         DECLARE @CHECKId bigint
         SELECT @CHECKId = ID
         FROM [dbo].[WorkflowType]
-        WHERE @InId = Id
+        where @Inname = Name and Environment = @EnvironmentID
         -- If found, change this FROM an insert to an update
         If (@CHECKId > 0)
             SET @InId = @CHECKId
@@ -243,7 +243,7 @@ END
             BEGIN
 				SELECT @tempName2 = [Name]
 				from [dbo].WorkflowType
-				where @Inname = Name and @InId <> Id and Environment = @EnvironmentID
+				where @Inname = Name and Environment = @EnvironmentID and SoftDelete = 0 and @InId <> Id
 				if(@tempName2 IS NOT NULL)
 				BEGIN
 					SET @outErrorString = 'Invalid Parameter Value (@InName), The same workflow type Name already existed.'

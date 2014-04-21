@@ -96,7 +96,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
 
             //Create a new appdomain, so we don't load assemblies in the main app domain and 
             //we can unload the assemblies from memory when the operation finishes.
-            var appDomain = CreateTempAppDomain(AppDomain.CurrentDomain);
+            var appDomain = Utility.CreateTempAppDomain(AppDomain.CurrentDomain);
 
             // Setup
             var typeName = typeof(AssemblyLoader).FullName;
@@ -146,7 +146,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                             //{
                             //    referencePath = Path.Combine(matchesInDirectory.First());
                             //}
-                            referencePath = FileService.GetAssembliesDirectoryPath() + "\\" + referenceName + "\\" + referenceVersion + "\\" + referencePath;
+                            referencePath = Path.Combine(FileService.GetAssembliesDirectoryPath(), referenceName, referenceVersion, referencePath);
                         }
 
 
@@ -274,18 +274,6 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 //An assembly or module was loaded twice with two different evidences.
                 throw new AssemblyInspectionException(ex.Message, ex);
             }
-        }
-
-        /// <summary>
-        /// Creates a new AppDomain based on the parent AppDomain
-        /// </summary>
-        /// <param name="parentAppDomain">The parent AppDomain</param>
-        /// <returns>A newly created AppDomain</returns>
-        private AppDomain CreateTempAppDomain(AppDomain parentAppDomain)
-        {
-            var evidence = new Evidence(parentAppDomain.Evidence);
-            AppDomainSetup setupInfo = parentAppDomain.SetupInformation;
-            return AppDomain.CreateDomain("AssemblyInspection", evidence, setupInfo);
         }
 
         /// <summary>

@@ -26,6 +26,7 @@ using CWF.DataContracts;
 using System.Windows.Threading;
 using Microsoft.Support.Workflow.Authoring.Security;
 using System.Security.Principal;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns
 {
@@ -38,7 +39,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
         private WorkflowPropertyView propertyView;
         private ToolboxView toolbox;
         private UndoEngine undoEngine;
-        private ToolboxViewModel toolboxVM;
         private bool isTask;
         private List<TaskAssignment> tasks = new List<TaskAssignment>();
 
@@ -144,7 +144,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
 
             toolbox = new ToolboxView();
             toolbox.DataContext = new ToolboxViewModel(isTask);
-
         }
 
         public void RefreshTasks()
@@ -318,7 +317,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
         public void SaveWorkflowToBitmap()
         {
             BitmapFrame frame = this.ConvertWorkflowToBitmap();
-            string fileName = AddInDialogService.ShowSaveDialogAndReturnResult(this.WorkflowEditorVM.Name + ".jpg", "Image Files (*.jpg)|*.jpg");
+            string fileName = AddInDialogService.ShowSaveDialogAndReturnResult(this.WorkflowEditorVM.Name + ".jpg", TextResources.ImageFilesFilter);
             if (!String.IsNullOrEmpty(fileName))
             {
                 FileService.SaveImageToDisk(fileName, frame);
@@ -360,6 +359,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns
         {
             WorkflowEditorVM.FinishTaskAssigned();
             RefreshTasks();
+        }
+
+        public void ShowSearchBar(bool isReplacementMode) {
+            workflowView.ShowXamlAndSearchBar(isReplacementMode);
         }
 
         private static void CreateIntellisense(CancellationTokenSource cancellationToken)

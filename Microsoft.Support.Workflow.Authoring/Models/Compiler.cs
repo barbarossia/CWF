@@ -16,6 +16,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
     using Services;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
     /// <summary>
     /// Compiles projects producing assembly files based on a sepecified workflow.
     /// </summary>
@@ -119,7 +120,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
             var assemblyItem = new ActivityAssemblyItem(AssemblyName.GetAssemblyName(assemblyFilePath)) 
             { 
                 Location = assemblyFilePath,
-                Category = "Unassigned",
+                Category = TextResources.Unassigned,
             };
 
             var inspection = Utility.GetAssemblyInspectionService();
@@ -134,7 +135,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
             assemblyItem.ActivityItems.ToList().ForEach(i =>
             {
                 i.UserSelected = true;
-                i.Category = "Unassigned";
+                i.Category = TextResources.Unassigned;
             });
 
             Caching.CacheAssembly(new [] { assemblyItem }.ToList());
@@ -295,7 +296,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
             projectFileStringBuilder.Replace("[PRODUCTVERSION]", project.ProjectVersion);
 
             //Create Visual Studio Project File
-            File.WriteAllText(path + @"\" + project.ProjectName + ".csproj", projectFileStringBuilder.ToString());
+            File.WriteAllText(path + Path.DirectorySeparatorChar + project.ProjectName + ".csproj", projectFileStringBuilder.ToString());
         }
 
         /// <summary>
@@ -334,7 +335,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
 
             //Create AssemblyInfo file
             //Any exception here will be handled by the CreateProjectFiles method
-            File.WriteAllText(path + @"\" + "AssemblyInfo.cs", assemblyInfoBuilder.ToString());
+            File.WriteAllText(path + Path.DirectorySeparatorChar + "AssemblyInfo.cs", assemblyInfoBuilder.ToString());
         }
 
         /// <summary>
@@ -387,7 +388,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
             }
 
             //Create Xaml File
-            File.WriteAllText(path + @"\" + projectName + ".xaml", xaml);
+            File.WriteAllText(path + Path.DirectorySeparatorChar + projectName + ".xaml", xaml);
         }
 
         /// <summary>

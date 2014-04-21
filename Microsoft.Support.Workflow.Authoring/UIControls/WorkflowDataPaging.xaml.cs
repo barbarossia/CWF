@@ -26,7 +26,7 @@ namespace Microsoft.Support.Workflow.Authoring.UIControls
         {
             InitializeComponent();
         }
-        private string trace;
+
         private void PageIndex_KeyDown(object sender, KeyEventArgs e)
         {
             DataPagingViewModel vm = this.DataContext as DataPagingViewModel;
@@ -35,7 +35,6 @@ namespace Microsoft.Support.Workflow.Authoring.UIControls
                 int pageIndex = System.Convert.ToInt32((sender as TextBox).Text);
                 if (pageIndex > 0 && vm.TotalPages != 0 && pageIndex <= vm.TotalPages)
                 {
-                    trace += "invoke ExecutePaging\r\n";
                     vm.ExecutePaging();
                     e.Handled = true;
                 }

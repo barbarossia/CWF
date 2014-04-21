@@ -12,6 +12,7 @@ using Microsoft.Support.Workflow.Authoring.Common.ExceptionHandling;
 using Microsoft.Support.Workflow.Authoring.Models;
 using Microsoft.Support.Workflow.Authoring.Services;
 using NuGet;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels {
     public class CDSPackagesManagerViewModel : ViewModelBase {
@@ -31,7 +32,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
         public DelegateCommand PackageCommand { get; private set; }
 
         public string DateHeader {
-            get { return SearchType == PackageSearchType.Local ? "Installed:" : "Published:"; }
+            get { return SearchType == PackageSearchType.Local ? TextResources.InstalledInput : TextResources.PublishedInput; }
         }
         public bool IsLatestOnlyVisible {
             get { return SearchType == PackageSearchType.Online; }
@@ -39,7 +40,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
         public string SelectedPackageDependencies {
             get {
                 var dependencies = SelectedPackage.DependencySets.SelectMany(d => d.Dependencies).Select(d => d.ToString());
-                return dependencies.Any() ? string.Join(Environment.NewLine, dependencies) : "No dependencies";
+                return dependencies.Any() ? string.Join(Environment.NewLine, dependencies) : TextResources.NoDependencies;
             }
         }
         public string SelectedPackageAuthors {
@@ -134,12 +135,20 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
             Repositories = NugetConfigManager.EnabledRepositories;
 
             SettingsCommand = new DelegateCommand(() => {
+                bool hasChanged = false;
                 OptionsViewModel vm = new OptionsViewModel("CDS Integration");
+                vm.PropertyChanged += (s, e) => {
+                    if (e.PropertyName == "HasSaved")
+                        hasChanged = hasChanged || !vm.HasSaved;
+                };
                 DialogService.ShowDialog(vm);
-                Repositories = NugetConfigManager.EnabledRepositories;
 
-                if (!Repositories.Any(r => r.Name == Source))
-                    Packages = null;
+                if (hasChanged)
+                {
+                    Repositories = NugetConfigManager.EnabledRepositories;
+                    if (!Repositories.Any(r => r.Name == Source))
+                        Packages = null;
+                }
             });
             PackageCommand = new DelegateCommand(() => {
                 string id = SelectedPackage.Id;
@@ -147,12 +156,12 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
                 try
                 {
                     if (CDSService.IsInstalled(SelectedPackage))
-                        Utility.DoTaskWithBusyCaption("Uninstalling...", () =>
+                        Utility.DoTaskWithBusyCaption(TextResources.Uninstalling, () =>
                         {
                             CDSService.Uninstall(id, version);
                         });
                     else
-                        Utility.DoTaskWithBusyCaption("Installing...", () =>
+                        Utility.DoTaskWithBusyCaption(TextResources.Installing, () =>
                         {
                             CDSService.Install(Source, id, version);
                         });
@@ -178,7 +187,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
         public void Search() {
             int startIndex = DataPagingVM.ResetPageIndex ? 0 : (DataPagingVM.PageIndex - 1) * pageSize;
 
-            Utility.DoTaskWithBusyCaption("Searching...", () => {
+            Utility.DoTaskWithBusyCaption(TextResources.Searching, () => {
                 try {
                     switch (SearchType) {
                         case PackageSearchType.Local:
@@ -201,7 +210,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
                 catch {
                     Packages = null;
                     DataPagingVM.ResultsLength = 0;
-                    MessageBoxService.ShowError(string.Format("Failed to visit \"{0}\" due to network issue.", Source));
+                    MessageBoxService.ShowError(string.Format(TextResources.NetworkIssueOnConnectingNugetSourceMsgFormat, Source));
                 }
             });
         }

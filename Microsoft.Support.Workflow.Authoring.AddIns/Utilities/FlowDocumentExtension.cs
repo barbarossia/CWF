@@ -6,50 +6,48 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
 {
-    public static partial class FlowDocumentExtension
-    {
+    public static partial class FlowDocumentExtension {
         private static Color highlightColor = Color.FromArgb(125, 51, 153, 255);
         private static SolidColorBrush highlightBrush = new SolidColorBrush(highlightColor);
         private static Run run;
         private static TextPointer end;
-        #region Search in FlowDocuments
 
+        private static Brush foregroundBrush = Brushes.Blue;
+        private static Brush backgroundBrush = Brushes.Orange;
 
-        public static void ClearTextDecorations(DependencyObject document)
-        {
-            var flow = document as FlowDocument;
-            var txt = flow.Parent as RichTextBox;
-            var textrange = txt.Selection;
-            textrange.Select(flow.ContentStart, flow.ContentEnd);
-            textrange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Black));
-            textrange.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Transparent));
+        #region Find and Replace control
+
+        public static void ClearTextDecorations(FlowDocument document) {
+            var txt = document.Parent as RichTextBox;
+            var textRange = txt.Selection;
+            textRange.Select(document.ContentStart, document.ContentEnd);
+            textRange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Black));
+            textRange.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Transparent));
         }
 
-        public static void HighLightText(RichTextBox txt, TextRange range, Brush brush, Brush background)
-        {
-            var textrange = txt.Selection;
-            try
-            {
-                textrange.Select(range.Start, range.End);
+        public static void HighlightText(FlowDocument document, TextRange range) {
+            var txt = document.Parent as RichTextBox;
+            var textRange = txt.Selection;
+            try {
+                textRange.Select(range.Start, range.End);
             }
-            catch (ArgumentException)
-            {
+            catch (ArgumentException) {
                 return;
             }
-            textrange.ApplyPropertyValue(TextElement.ForegroundProperty, brush);
-            textrange.ApplyPropertyValue(TextElement.BackgroundProperty, background);
+            textRange.ApplyPropertyValue(TextElement.ForegroundProperty, foregroundBrush);
+            textRange.ApplyPropertyValue(TextElement.BackgroundProperty, backgroundBrush);
             ScrollIfNeeded(txt, range.Start, range.End);
         }
 
-        public static TextRange GetNextMatching(DependencyObject document, string pattern, TextPointer currentPointer)
-        {
+        public static TextRange GetNextMatching(DependencyObject document, string pattern, TextPointer currentPointer) {
             TextPointer start = currentPointer;
 
-            if (run == null || currentPointer == null)
-            {
+            if (run == null || currentPointer == null) {
                 run = LogicalTreeUtility.GetChildren<Run>(document, true).Single();
                 end = run.ContentEnd;
                 start = run.ContentStart;
@@ -58,23 +56,19 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             return GetNextMatching(start, end, pattern, notIgnoreConnectedChars: false);
         }
 
-        public static TextRange GetNextMatching(TextPointer currentPointer, TextPointer endPointer, string pattern, bool notIgnoreConnectedChars)
-        {
+        private static TextRange GetNextMatching(TextPointer currentPointer, TextPointer endPointer, string pattern, bool notIgnoreConnectedChars) {
             int actualPatternLength;
 
             TextPointer nextPointer = null;
             actualPatternLength = pattern.Length;
 
-            while (currentPointer != null && currentPointer.CompareTo(endPointer) < 0)
-            {
-                if (currentPointer.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text)
-                {
+            while (currentPointer != null && currentPointer.CompareTo(endPointer) < 0) {
+                if (currentPointer.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text) {
                     string textRun = currentPointer.GetTextInRun(LogicalDirection.Forward);
 
                     // Find the starting index of any substring that matches "word".
                     int indexInRun = textRun.IndexOf(pattern, StringComparison.InvariantCultureIgnoreCase);
-                    if (indexInRun >= 0)
-                    {
+                    if (indexInRun >= 0) {
                         nextPointer = currentPointer.GetPositionAtOffset(indexInRun);
                         break;
                     }
@@ -83,8 +77,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
                 currentPointer = currentPointer.GetNextContextPosition(LogicalDirection.Forward);
             }
 
-            if (nextPointer == null)
-            {
+            if (nextPointer == null) {
                 return null;
             }
 
@@ -93,13 +86,13 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             return new TextRange(nextPointer, endMachingPosition);
         }
 
-        private static void ClearSelction(TextSelection selection)
-        {
+        #endregion
+
+        private static void ClearSelction(TextRange selection) {
             selection.ApplyPropertyValue(TextElement.BackgroundProperty, null);
         }
 
-        public static void ClearSelction(this RichTextBox rtfControl, int offset, int length)
-        {
+        public static void ClearSelction(this RichTextBox rtfControl, int offset, int length) {
             var textRange = rtfControl.Selection;
             var start = rtfControl.Document.ContentStart;
 
@@ -115,8 +108,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             ClearSelction(textRange);
         }
 
-        public static void HighlightSelection(this RichTextBox rtfControl, int offset, int length)
-        {
+        public static void HighlightSelection(this RichTextBox rtfControl, int offset, int length) {
             var textRange = rtfControl.Selection;
             ClearSelction(textRange);
             var start = rtfControl.Document.ContentStart;
@@ -131,23 +123,16 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             rtfControl.ScrollIfNeeded(startPos, endPos);
         }
 
-        private static void SetSelectionColor(TextSelection textRange)
-        {
+        private static void SetSelectionColor(TextSelection textRange) {
             textRange.ApplyPropertyValue(TextElement.BackgroundProperty, highlightBrush);
         }
 
-        private static void ScrollIfNeeded(this RichTextBox textBox, TextPointer startPos, TextPointer endPos)
-        {
+        private static void ScrollIfNeeded(this RichTextBox textBox, TextPointer startPos, TextPointer endPos) {
             var start = startPos.GetCharacterRect(LogicalDirection.Forward);
             var end = endPos.GetCharacterRect(LogicalDirection.Forward);
-            if (start != Rect.Empty && end != Rect.Empty)
-            {
+            if (start != Rect.Empty && end != Rect.Empty) {
                 textBox.ScrollToVerticalOffset((start.Top - 20) + textBox.VerticalOffset);
             }
         }
-
-
-        #endregion
-
     }
 }

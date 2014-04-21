@@ -12,6 +12,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Support.Workflow.Authoring.Common.Converters;
 using Microsoft.Support.Workflow.Authoring.ViewModels;
+using System.Windows.Controls.Primitives;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Microsoft.Support.Workflow.Authoring.Views {
     /// <summary>
@@ -25,6 +28,12 @@ namespace Microsoft.Support.Workflow.Authoring.Views {
 
         public CDSPackagesManagerView() {
             InitializeComponent();
+
+            onlineTreeViewItem.Loaded += OnlineTreeViewItemLoaded;
+        }
+
+        private void OnlineTreeViewItemLoaded(object sender, RoutedEventArgs e) {
+            onlineTreeViewItem.IsSelected = true;
         }
 
         private void CloseButtonClick(object sender, RoutedEventArgs e) {
@@ -40,6 +49,12 @@ namespace Microsoft.Support.Workflow.Authoring.Views {
             TreeViewItem parent = GetParentTreeViewItem(selectedTreeViewItem);
 
             if (parent != null) {
+                for (int i = 0; i < parent.Items.Count; i++) {
+                    TreeViewItem item = (TreeViewItem)parent.ItemContainerGenerator.ContainerFromIndex(i);
+                    if (item != selectedTreeViewItem)
+                        item.IsSelected = false;
+                } // to fix multi-selected issue
+
                 string parentHeader = parent.Header.ToString();
                 PackageSearchType type = PackageSearchType.Local;
                 switch (parentHeader) {
@@ -65,7 +80,19 @@ namespace Microsoft.Support.Workflow.Authoring.Views {
                 if (!headers.Contains(selectedTreeViewItem))
                     headers.Add(selectedTreeViewItem);
                 selectedTreeViewItem.IsExpanded = true;
-                vm.Packages = null;
+                SelectFirstSource(selectedTreeViewItem);
+            }
+        }
+
+        private void SelectFirstSource(TreeViewItem headerItem) {
+            if (headerItem.HasItems) {
+                headerItem.IsSelected = false;
+                headerItem.IsExpanded = true;
+                headerItem.UpdateLayout();
+                TreeViewItem firstItem = (TreeViewItem)headerItem.ItemContainerGenerator.ContainerFromItem(
+                    headerItem.Items.Count > 1 ? vm.Repositories.First() : headerItem.Items[0]);
+                firstItem.IsSelected = false; // to trigger Selected event
+                firstItem.IsSelected = true;
             }
         }
 

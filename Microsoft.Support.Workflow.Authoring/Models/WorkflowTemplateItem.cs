@@ -18,7 +18,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
         /// Definition of a blank workflow
         /// </summary>
         public static string BlankWorkflowXaml = Resources.EmptyWorkflowTemplate;
-        private const string TostringFormat = "{0}";
+        private const string ToStringFormat = "{0}";
         #endregion Declarations and Constants
 
         #region Ctor
@@ -58,7 +58,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format(TostringFormat, WorkflowTypeName);
+            return string.Format(ToStringFormat, WorkflowTypeName);
         }
         #endregion Overridden ToString
     }

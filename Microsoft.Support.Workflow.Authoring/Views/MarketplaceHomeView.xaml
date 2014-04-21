@@ -1,257 +1,321 @@
-﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.Views.MarketplaceHomeView"
-        xmlns:my="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls" 
-        xmlns:addins="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls;assembly=Microsoft.Support.Workflow.Authoring.AddIns"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:t="http://schemas.telerik.com/2008/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:wizard="clr-namespace:Microsoft.Support.Workflow.Authoring.Views"
-        xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters"
-        xmlns:resources="clr-namespace:Microsoft.Support.Workflow.Authoring.Resources"
-        mc:Ignorable="d"
-        xmlns:sys="clr-namespace:System.ComponentModel;assembly=WindowsBase" 
-        xmlns:local="clr-namespace:Microsoft.Support.Workflow.Authoring.Behaviors"
-        xmlns:commands="clr-namespace:Microsoft.Support.Workflow.Authoring.Common"
-        Width="1000"
-        Height="620"
-        Title="Marketplace Home"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterOwner"
-       
-    >
+﻿<Window
+    x:Class="Microsoft.Support.Workflow.Authoring.Views.MarketplaceHomeView" xmlns:my="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls" xmlns:addins="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls;assembly=Microsoft.Support.Workflow.Authoring.AddIns" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:t="http://schemas.telerik.com/2008/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:wizard="clr-namespace:Microsoft.Support.Workflow.Authoring.Views" xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters" xmlns:resources="clr-namespace:Microsoft.Support.Workflow.Authoring.Resources"
+    mc:Ignorable="d" xmlns:sys="clr-namespace:System.ComponentModel;assembly=WindowsBase" xmlns:local="clr-namespace:Microsoft.Support.Workflow.Authoring.Behaviors" xmlns:commands="clr-namespace:Microsoft.Support.Workflow.Authoring.Common"
+    Width="1000"
+    Height="620"
+    Title="Marketplace Home"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner" xmlns:res="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Properties;assembly=Microsoft.Support.Workflow.Authoring.AddIns">
     <Window.Resources>
         <ResourceDictionary>
-            <convert:AllMatchToVisibilityConverter x:Key="AllMatchToVisibilityConverter" />
-            <convert:AllMatchToVisibilityConverter x:Key="AllMatchToVisibilityConverter_Inverted"
-                                                           Invert="True" />
-            <convert:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"
-                                                          VisibleWhen="True" />
-            <convert:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter1"
-                                                          VisibleWhen="False" />
-            <convert:InverterBooleanConverter x:Key="BooleanInverterConverter"></convert:InverterBooleanConverter>
-
-            <Storyboard x:Key="StoryboardDisapear" Storyboard.TargetName="btnDownload">
-                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btnDownload" Storyboard.TargetProperty="(UIElement.Opacity)" >
-                    <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
+            <convert:AllMatchToVisibilityConverter
+                x:Key="AllMatchToVisibilityConverter" />
+            <convert:AllMatchToVisibilityConverter
+                x:Key="AllMatchToVisibilityConverter_Inverted"
+                Invert="True" />
+            <convert:BooleanToVisibilityConverter
+                x:Key="BooleanToVisibilityConverter"
+                VisibleWhen="True" />
+            <convert:BooleanToVisibilityConverter
+                x:Key="BooleanToVisibilityConverter1"
+                VisibleWhen="False" />
+            <convert:InverterBooleanConverter
+                x:Key="BooleanInverterConverter"></convert:InverterBooleanConverter>
+            <Storyboard
+                x:Key="StoryboardDisapear"
+                Storyboard.TargetName="btnDownload">
+                <DoubleAnimationUsingKeyFrames
+                    Storyboard.TargetName="btnDownload"
+                    Storyboard.TargetProperty="(UIElement.Opacity)">
+                    <EasingDoubleKeyFrame
+                        KeyTime="0:0:3"
+                        Value="0" />
+                    <EasingDoubleKeyFrame
+                        KeyTime="0:0:3"
+                        Value="1" />
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="10,10">
+    <Grid
+        Margin="10,10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
         </Grid.RowDefinitions>
         <!-- Breadcrumb goes here -->
-        <StackPanel Margin="0,0,0,5" Grid.Row="0" Orientation="Horizontal">
-            <Button x:Name="BtnHome" Style="{DynamicResource MarketplaceHomeBtnStyle}">
-            </Button>
-            <TextBlock Text="/ Marketplace" Margin="5,0,0,0"  Padding="0,2,0,0"/>
+        <StackPanel
+            Margin="0,0,0,5"
+            Grid.Row="0"
+            Orientation="Horizontal">
+            <Button
+                x:Name="BtnHome"
+                Style="{DynamicResource MarketplaceHomeBtnStyle}"></Button>
+            <TextBlock
+                Text="{x:Static res:Resources.MarketplacePath}"
+                Margin="5,0,0,0"
+                Padding="0,2,0,0" />
         </StackPanel>
         <!-- Title and search box-->
-        <Grid Margin="0,0,0,5" Grid.Row="1">
+        <Grid
+            Margin="0,0,0,5"
+            Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="250" />
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="250" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"
-                           TextWrapping="Wrap"
-                           FontSize="40"
-                           Margin="0,0,0,20"
-                           Foreground="#FF00AEEF"
-                           FontFamily="Segoe UI Light"
-                           Text="Marketplace" />
-            <addins:SearchTextBox x:Name="txtSearch"
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right"
-                              Width="180" Height="30" 
-                              SearchEventTimeDelay="00:00:01" 
-                              Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                              Search="SearchTextBox_Search"
-                              IsEnabled="{Binding IsBeginDownload,Converter={StaticResource BooleanInverterConverter}}" >
-            </addins:SearchTextBox>
+            <TextBlock
+                Grid.Column="0"
+                TextWrapping="Wrap"
+                FontSize="40"
+                Margin="0,0,0,20"
+                Foreground="#FF00AEEF"
+                FontFamily="Segoe UI Light"
+                Text="{x:Static res:Resources.Marketplace}" />
+            <addins:SearchTextBox
+                x:Name="txtSearch"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Width="180"
+                Height="30"
+                SearchEventTimeDelay="00:00:01"
+                Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Search="SearchTextBox_Search"
+                IsEnabled="{Binding IsBeginDownload,Converter={StaticResource BooleanInverterConverter}}"></addins:SearchTextBox>
         </Grid>
         <!-- Filter and results grid -->
-        <Grid Margin="0,0,0,5" Grid.Row="2">
+        <Grid
+            Margin="0,0,0,5"
+            Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition
+                    Width="200" />
+                <ColumnDefinition
+                    Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-
-            <TextBlock  Grid.Column="0"
-                            Grid.Row="0"
-                            FontSize="16"
-                            Text="FILTER" 
-                            FontWeight="Bold"/>
-            <ListBox 
-                    x:Name="lbxFilters"
-                         BorderBrush="Transparent"
-                         Grid.Column="0"
-                         Grid.Row="1"
-                         ItemContainerStyle="{DynamicResource ListBoxItemFilter}"
-                         SelectedItem="{Binding Filter}"
-                         SelectionMode="Single"
-                         ItemsSource="{Binding FilterListEntries}"
-                         Margin="0,0,5,0"
-                         >
+            <TextBlock
+                Grid.Column="0"
+                Grid.Row="0"
+                FontSize="16"
+                Text="{x:Static res:Resources.Filter}"
+                FontWeight="Bold" />
+            <ListBox
+                x:Name="lbxFilters"
+                BorderBrush="Transparent"
+                Grid.Column="0"
+                Grid.Row="1"
+                ItemContainerStyle="{DynamicResource ListBoxItemFilter}"
+                SelectedItem="{Binding Filter}"
+                SelectionMode="Single"
+                ItemsSource="{Binding FilterListEntries}"
+                Margin="0,0,5,0">
                 <ListBox.Style>
-                    <Style TargetType="{x:Type ListBox}">
-                        <Setter Property="Background" Value="Transparent"></Setter>
+                    <Style
+                        TargetType="{x:Type ListBox}">
+                        <Setter
+                            Property="Background"
+                            Value="Transparent"></Setter>
                     </Style>
                 </ListBox.Style>
             </ListBox>
-            <Grid Grid.Column="1"
-                      Grid.Row="0"
-                      Margin="0,0,0,10">
+            <Grid
+                Grid.Column="1"
+                Grid.Row="0"
+                Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="auto" />
+                    <ColumnDefinition
+                        Width="auto" />
                 </Grid.ColumnDefinitions>
-
-                <TextBlock FontSize="16"
-                               Text="{Binding FilterDescription}" 
-                               FontWeight="Bold"/>
-                <CheckBox Content="Show only the latest version" 
-                          IsEnabled="{Binding IsBeginDownload,Converter={StaticResource BooleanInverterConverter}}" 
-                          VerticalAlignment="Center" 
-                          x:Name="chkVersionFlag" 
-                          Command="{Binding SearchCommand}" 
-                          IsChecked="{Binding IsOnlyShowLatestVersion,Mode=TwoWay}"  Grid.Column="1" Margin="20,0"></CheckBox>
-                <Button 
+                <TextBlock
+                    FontSize="16"
+                    Text="{Binding FilterDescription}"
+                    FontWeight="Bold" />
+                <CheckBox
+                    Content="{x:Static res:Resources.ShowLatestVersionsOnly}"
+                    IsEnabled="{Binding IsBeginDownload,Converter={StaticResource BooleanInverterConverter}}"
+                    VerticalAlignment="Center"
+                    x:Name="chkVersionFlag"
+                    Command="{Binding SearchCommand}"
+                    IsChecked="{Binding IsOnlyShowLatestVersion,Mode=TwoWay}"
+                    Grid.Column="1"
+                    Margin="20,0"></CheckBox>
+                <Button
                     Height="30"
-                    x:Name="btnDownload" 
-                    Margin="10,0,0,0" 
+                    x:Name="btnDownload"
+                    Margin="10,0,0,0"
                     Grid.Column="2"
                     Content="{Binding DownloadProgress}"
                     Style="{DynamicResource DownloadButtonNormalStyle}"
-                    Command="{Binding DownloadCommand}"
-                    />
+                    Command="{Binding DownloadCommand}" />
             </Grid>
             <DataGrid
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    x:Name="dgAssets"
-                    Grid.Row="1"
-                    AutoGenerateColumns="False"
-                    BorderThickness="0"
-                    Height="350"
-                    IsReadOnly="True"
-                    Background="Transparent"
-                    HeadersVisibility="Column"
-                    CanUserAddRows="False"
-                    CanUserDeleteRows="False"
-                    CanUserResizeRows="False"
-                    Foreground="#FF606060"
-                    RowHeight="25"
-                    GridLinesVisibility="None"
-                    Padding="0,2"
-                    MouseDoubleClick="dgAssets_MouseDoubleClick"
-                    ItemsSource="{Binding ResultList}"
-                    SelectedItem="{Binding SelectedAssetItem}"
-                    RowStyle="{DynamicResource DataGridRowStyle}"
-                    Style="{DynamicResource DataGridStyle1}"
-                    ColumnHeaderStyle="{DynamicResource lclDataGridColumnHeaders}"
-                    Sorting="DataGrid_Sorting"
-                    HorizontalScrollBarVisibility="Auto"
-                    >
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                x:Name="dgAssets"
+                Grid.Row="1"
+                AutoGenerateColumns="False"
+                BorderThickness="0"
+                Height="350"
+                IsReadOnly="True"
+                Background="Transparent"
+                HeadersVisibility="Column"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserResizeRows="False"
+                Foreground="#FF606060"
+                RowHeight="25"
+                GridLinesVisibility="None"
+                Padding="0,2"
+                MouseDoubleClick="dgAssets_MouseDoubleClick"
+                ItemsSource="{Binding ResultList}"
+                SelectedItem="{Binding SelectedAssetItem}"
+                RowStyle="{DynamicResource DataGridRowStyle}"
+                Style="{DynamicResource DataGridStyle1}"
+                ColumnHeaderStyle="{DynamicResource lclDataGridColumnHeaders}"
+                Sorting="DataGrid_Sorting"
+                HorizontalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
-                    <DataGridTextColumn  Header="Name" 
-                                             SortMemberPath="Name" 
-                                             IsReadOnly="True" 
-                                             Width="1*"  
-                                             Binding="{Binding Name}">
-                    </DataGridTextColumn>
-                    <DataGridTextColumn CanUserSort="False" Header="Author" IsReadOnly="True" Width="1*" Binding="{Binding CreatedBy}"  ></DataGridTextColumn>
-                    <DataGridTextColumn CanUserSort="False" Header="Environment" IsReadOnly="True" Width="100" Binding="{Binding Env}"></DataGridTextColumn>
-                    <DataGridTextColumn CanUserSort="False" Header="Type" IsReadOnly="True" Width="1*" Binding="{Binding AssetType}"  ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Date"
-                                            SortDirection="Descending"
-                                            SortMemberPath="UpdatedDate" IsReadOnly="True" Width="1*" Binding="{Binding UpdatedDate}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Version"
-                                            SortMemberPath="Version" IsReadOnly="True" Width="1*" Binding="{Binding Version}" ></DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Download" Width="1*">
+                    <DataGridTextColumn
+                        Header="{x:Static res:Resources.Name}"
+                        SortMemberPath="Name"
+                        IsReadOnly="True"
+                        Width="1*"
+                        Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn
+                        CanUserSort="False"
+                        Header="{x:Static res:Resources.Author}"
+                        IsReadOnly="True"
+                        Width="1*"
+                        Binding="{Binding CreatedBy}"></DataGridTextColumn>
+                    <DataGridTextColumn
+                        CanUserSort="False"
+                        Header="{x:Static res:Resources.Environment}"
+                        IsReadOnly="True"
+                        Width="100"
+                        Binding="{Binding Env}"></DataGridTextColumn>
+                    <DataGridTextColumn
+                        CanUserSort="False"
+                        Header="{x:Static res:Resources.Type}"
+                        IsReadOnly="True"
+                        Width="1*"
+                        Binding="{Binding AssetType}"></DataGridTextColumn>
+                    <DataGridTextColumn
+                        Header="{x:Static res:Resources.Date}"
+                        SortDirection="Descending"
+                        SortMemberPath="UpdatedDate"
+                        IsReadOnly="True"
+                        Width="1*"
+                        Binding="{Binding UpdatedDate}"></DataGridTextColumn>
+                    <DataGridTextColumn
+                        Header="{x:Static res:Resources.Version}"
+                        SortMemberPath="Version"
+                        IsReadOnly="True"
+                        Width="1*"
+                        Binding="{Binding Version}"></DataGridTextColumn>
+                    <DataGridTemplateColumn
+                        Header="{x:Static res:Resources.Download}"
+                        Width="1*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <CheckBox HorizontalAlignment="Left" 
-                                                  Margin="5,0,0,0" 
-                                                  Checked="SelectOrUnselectItem" 
-                                                  Unchecked="SelectOrUnselectItem"
-                                                  Visibility="{Binding IsDownloaded,Converter={StaticResource BooleanToVisibilityConverter1}}"
-                                                  IsChecked="{Binding IsMarkedForDownload,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-
-                                    </CheckBox>
-                                    <TextBlock Text="Downloaded" Visibility="{Binding IsDownloaded,Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    </TextBlock>
+                                    <CheckBox
+                                        HorizontalAlignment="Left"
+                                        Margin="5,0,0,0"
+                                        Checked="SelectOrUnselectItem"
+                                        Unchecked="SelectOrUnselectItem"
+                                        Visibility="{Binding IsDownloaded,Converter={StaticResource BooleanToVisibilityConverter1}}"
+                                        IsChecked="{Binding IsMarkedForDownload,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                    <TextBlock
+                                        Text="{x:Static res:Resources.Downloaded}"
+                                        Visibility="{Binding IsDownloaded,Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Location" Width="1*">
+                    <DataGridTemplateColumn
+                        Header="{x:Static res:Resources.Location}"
+                        Width="1*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Tag="{Binding}" Width="75" Visibility="{Binding IsDownloaded,Converter={StaticResource BooleanToVisibilityConverter}}" Content="Locate..." Click="ViewButton_Click" PreviewMouseDown="Button_PreviewMouseDown"></Button>
+                                    <Button
+                                        Tag="{Binding}"
+                                        Width="75"
+                                        Visibility="{Binding IsDownloaded,Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Content="{x:Static res:Resources.Locate}"
+                                        Click="ViewButton_Click"
+                                        PreviewMouseDown="Button_PreviewMouseDown"></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="No results matched your search term"
-                    FontSize="18" 
-                    Grid.Column="1" Grid.Row="1"
-                    Margin="0,28,0,0"
-                    FontStyle="Italic"
-                    VerticalAlignment="Top"
-                    Visibility="{Binding NoResultsTextVisible,Converter={StaticResource BooleanToVisibilityConverter}}">
-            </TextBlock>
+            <TextBlock
+                Text="{x:Static res:Resources.NoResultsMatchMsg}"
+                FontSize="18"
+                Grid.Column="1"
+                Grid.Row="1"
+                Margin="0,28,0,0"
+                FontStyle="Italic"
+                VerticalAlignment="Top"
+                Visibility="{Binding NoResultsTextVisible,Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
         </Grid>
-
         <!-- paging goes here -->
-        <my:DataPaging Grid.Row="3" Margin="200,0,0,0" PageSize="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.ResultsPerPage}" 
-                          PageNumber="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.CurrentPage,Mode=TwoWay}" 
-                          PageCount="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.PageCount}"  
-                          PageChangedCommand="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.PageChangedCommand}"/>
-
+        <my:DataPaging
+            Grid.Row="3"
+            Margin="200,0,0,0"
+            PageSize="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.ResultsPerPage}"
+            PageNumber="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.CurrentPage,Mode=TwoWay}"
+            PageCount="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.PageCount}"
+            PageChangedCommand="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type wizard:MarketplaceHomeView}}, Path=DataContext.PageChangedCommand}" />
         <!-- Cancel, Finish, other toplevel controls -->
-        <StackPanel Grid.Row="4" Margin="0,15,0,5"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal"
-                        IsManipulationEnabled="True">
-            <Button 
+        <StackPanel
+            Grid.Row="4"
+            Margin="0,15,0,5"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            IsManipulationEnabled="True">
+            <Button
                 x:Name="btnCancel"
-                Content="Cancel Download"
-                Visibility="{Binding IsBeginDownload,Converter={StaticResource BooleanToVisibilityConverter}}" 
+                Content="{x:Static res:Resources.CancelDownload}"
+                Visibility="{Binding IsBeginDownload,Converter={StaticResource BooleanToVisibilityConverter}}"
                 Style="{DynamicResource CloseMarketplaceButtonStyle}"
                 Command="{Binding CancelDownloadCommand}"
-                Height="25"
-                >
-            </Button>
-            <Button 
+                Height="25"></Button>
+            <Button
                 x:Name="btnClose"
                 Style="{DynamicResource CloseMarketplaceButtonStyle}"
                 Margin="10,0,0,0"
-                Content="Close Marketplace"
+                Content="{x:Static res:Resources.CloseMarketplace}"
                 IsCancel="True"
-                Height="25"/>
+                Height="25" />
         </StackPanel>
-        <t:RadBusyIndicator Grid.RowSpan="5"
-                            DisplayAfter="00:00:00"
-                            FontSize="18"
-                            IsBusy="{Binding IsBusy}"
-                            BusyContent="{Binding BusyCaption}"
-                            Grid.Column="2"
-                            Grid.ColumnSpan="2" />
+        <t:RadBusyIndicator
+            Grid.RowSpan="5"
+            DisplayAfter="00:00:00"
+            FontSize="18"
+            IsBusy="{Binding IsBusy}"
+            BusyContent="{Binding BusyCaption}"
+            Grid.Column="2"
+            Grid.ColumnSpan="2" />
     </Grid>
 </Window>

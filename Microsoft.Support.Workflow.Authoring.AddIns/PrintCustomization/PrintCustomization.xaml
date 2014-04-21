@@ -1,41 +1,107 @@
-﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.PrintCustomization.PrintCustomization"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Print Customization" WindowState="Maximized" MinHeight="600" MinWidth="900">
+﻿<Window
+    x:Class="Microsoft.Support.Workflow.Authoring.PrintCustomization.PrintCustomization" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Print Customization"
+    WindowState="Maximized"
+    MinHeight="600"
+    MinWidth="900" xmlns:res="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Properties">
     <Window.Resources>
-        <Style x:Key="StatusBarElement" TargetType="FrameworkElement">
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="Height" Value="23"></Setter>
-            <Setter Property="Margin" Value="4,8,4,8"></Setter>
+        <Style
+            x:Key="StatusBarElement"
+            TargetType="FrameworkElement">
+            <Setter
+                Property="VerticalAlignment"
+                Value="Center"></Setter>
+            <Setter
+                Property="Height"
+                Value="23"></Setter>
+            <Setter
+                Property="Margin"
+                Value="4,8,4,8"></Setter>
         </Style>
-        <Style x:Key="StatusBarLabel" TargetType="TextBlock" BasedOn="{StaticResource StatusBarElement}">
-            <Setter Property="Height" Value="Auto"></Setter>
+        <Style
+            x:Key="StatusBarLabel"
+            TargetType="TextBlock"
+            BasedOn="{StaticResource StatusBarElement}">
+            <Setter
+                Property="Height"
+                Value="Auto"></Setter>
         </Style>
     </Window.Resources>
-    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition
+                Height="*"></RowDefinition>
+            <RowDefinition
+                Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        <ScrollViewer Grid.Row="0" Background="Gray" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Canvas Name="pageContainer" Margin="8" Background="White"></Canvas>
+        <ScrollViewer
+            Grid.Row="0"
+            Background="Gray"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto">
+            <Canvas
+                Name="pageContainer"
+                Margin="8"
+                Background="White"></Canvas>
         </ScrollViewer>
-        
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBlock Text="Printer:" Style="{StaticResource StatusBarLabel}"></TextBlock>
-            <ComboBox DisplayMemberPath="Key.FullName" SelectedValuePath="Key" SelectedValue="{Binding CurrentPrinter}" ItemsSource="{Binding PrintHelper.Printers}" IsEnabled="{Binding IsSettingEnabled}" Width="200" Style="{StaticResource StatusBarElement}"></ComboBox>
-            <Button Command="{Binding OpenPrinterOption}" Content="Options" Width="75" Style="{StaticResource StatusBarElement}"></Button>
-            <TextBlock Text="{Binding PaperSize.PaperName, StringFormat=Paper: {0}}" Style="{StaticResource StatusBarLabel}"></TextBlock>
-            <TextBlock Text="{Binding PageOrientation, StringFormat=Orientation: {0}}" Style="{StaticResource StatusBarLabel}"></TextBlock>
-            <TextBlock Text="View:" Style="{StaticResource StatusBarLabel}"></TextBlock>
-            <ComboBox SelectedValue="{Binding ViewMode}" ItemsSource="{Binding ViewModes}" DisplayMemberPath="DisplayName" SelectedValuePath="Value" Width="150" Style="{StaticResource StatusBarElement}"></ComboBox>
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal">
+            <TextBlock
+                Text="{x:Static res:Resources.PrinterInput}"
+                Style="{StaticResource StatusBarLabel}"></TextBlock>
+            <ComboBox
+                DisplayMemberPath="Key.FullName"
+                SelectedValuePath="Key"
+                SelectedValue="{Binding CurrentPrinter}"
+                ItemsSource="{Binding PrintHelper.Printers}"
+                IsEnabled="{Binding IsSettingEnabled}"
+                Width="200"
+                Style="{StaticResource StatusBarElement}"></ComboBox>
+            <Button
+                Command="{Binding OpenPrinterOption}"
+                Content="{x:Static res:Resources.Options}"
+                Width="75"
+                Style="{StaticResource StatusBarElement}"></Button>
+            <TextBlock
+                Text="{Binding PaperSize.PaperName, StringFormat=Paper: {0}}"
+                Style="{StaticResource StatusBarLabel}"></TextBlock>
+            <TextBlock
+                Text="{Binding PageOrientation, StringFormat=Orientation: {0}}"
+                Style="{StaticResource StatusBarLabel}"></TextBlock>
+            <TextBlock
+                Text="{x:Static res:Resources.ViewInput}"
+                Style="{StaticResource StatusBarLabel}"></TextBlock>
+            <ComboBox
+                SelectedValue="{Binding ViewMode}"
+                ItemsSource="{Binding ViewModes}"
+                DisplayMemberPath="DisplayName"
+                SelectedValuePath="Value"
+                Width="150"
+                Style="{StaticResource StatusBarElement}"></ComboBox>
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <CheckBox IsChecked="{Binding IncludeXaml}" IsEnabled="{Binding IsSettingEnabled}" Content="Include XAML" Height="Auto" Style="{StaticResource StatusBarElement}"></CheckBox>
-            <Button Command="{Binding Print}" Content="Print" Width="75" HorizontalAlignment="Right" Style="{StaticResource StatusBarElement}"></Button>
-            <Button Command="{Binding Back}" Content="Back" Width="75" HorizontalAlignment="Right" Style="{StaticResource StatusBarElement}"></Button>
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <CheckBox
+                IsChecked="{Binding IncludeXaml}"
+                IsEnabled="{Binding IsSettingEnabled}"
+                Content="{x:Static res:Resources.IncludeXaml}"
+                Height="Auto"
+                Style="{StaticResource StatusBarElement}"></CheckBox>
+            <Button
+                Command="{Binding Print}"
+                Content="{x:Static res:Resources.Print}"
+                Width="75"
+                HorizontalAlignment="Right"
+                Style="{StaticResource StatusBarElement}"></Button>
+            <Button
+                Command="{Binding Back}"
+                Content="{x:Static res:Resources.Back}"
+                Width="75"
+                HorizontalAlignment="Right"
+                Style="{StaticResource StatusBarElement}"></Button>
         </StackPanel>
     </Grid>
 </Window>

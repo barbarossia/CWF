@@ -28,13 +28,14 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
     using System.Diagnostics;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// Viewmodel for the Marketplace download wizard.
     /// </summary>
     public class MarketplaceViewModel :ViewModelBase
     {
-        private const string loadAssetCaption = "Loading marketplace assets...";
+        private static readonly string loadAssetCaption = TextResources.LoadingMarketplaceAssets;
         private string currentUserRole;
         private string searchText = string.Empty;   // the text we will send to the Marketplace Service on search.
         private string filter;        // "All", "Projects", "Activities", "Templates" or "Publishing" -- sent to the back end on search.
@@ -266,16 +267,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
             get
             {
                 string result = String.Empty;
-                if (Filter == "ALL")
-                    result = "ALL PROJECTS AND ACTIVITIES";
-                else if (Filter == "PROJECTS")
-                    result = "PROJECTS";
-                else if (Filter == "ACTIVITIES")
-                    result = "ACTIVITIES";
-                else if (Filter == "TEMPLATES")
-                    result = "PROJECT TEMPLATES";
-                else if (Filter == "PUBLISHING")
-                    result = "PUBLISHING WORKFLOW PROJECTS";
+                if (Filter == TextResources.MarketplaceFilterAll)
+                    result = TextResources.MarketplaceFilterDescriptionAll;
+                else if (Filter == TextResources.MarketplaceFilterProjects)
+                    result = TextResources.MarketplaceFilterProjects;
+                else if (Filter == TextResources.MarketplaceFilterActivities)
+                    result = TextResources.MarketplaceFilterActivities;
+                else if (Filter == TextResources.MarketplaceFilterTemplates)
+                    result = TextResources.MarketplaceFilterDescriptionTemplates;
+                else if (Filter == TextResources.MarketplaceFilterPublishing)
+                    result = TextResources.MarketplaceFilterDescriptionPublishing;
                 return result;
             }
         }
@@ -439,18 +440,26 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
             this.FilterListEntries.Clear();
             if (AuthorizationService.Validate(Env.All, Permission.ViewMarketplace))
             {
-                new[] { "ALL", "PROJECTS", "ACTIVITIES", "TEMPLATES", "PUBLISHING", }
-                                   .ToList()
-                                   .ForEach(item => FilterListEntries.Add(item));
+                new[] {
+                    TextResources.MarketplaceFilterAll,
+                    TextResources.MarketplaceFilterProjects,
+                    TextResources.MarketplaceFilterActivities,
+                    TextResources.MarketplaceFilterTemplates,
+                    TextResources.MarketplaceFilterPublishing,
+                }.ToList().ForEach(item => FilterListEntries.Add(item));
                 currentUserRole = "Admin";
             }
             else
             {
-                new[] { "ALL", "PROJECTS", "ACTIVITIES", }.ToList().ForEach(item => FilterListEntries.Add(item));
+                new[] { 
+                    TextResources.MarketplaceFilterAll,
+                    TextResources.MarketplaceFilterProjects,
+                    TextResources.MarketplaceFilterActivities,
+                }.ToList().ForEach(item => FilterListEntries.Add(item));
                 currentUserRole = "Author";
             }
 
-            this.filter = "ALL";
+            this.filter = TextResources.MarketplaceFilterAll;
             this.SortMemberPath = "UpdatedDate";
             this.IsAscending = false;
             this.resultsPerPage = int.Parse(System.Configuration.ConfigurationManager.AppSettings["RowsPerPage"]);
@@ -463,15 +472,15 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
         {
             if (string.IsNullOrEmpty(this.Filter))
                 this.Filter = MarketplaceFilter.None.ToString();
-            if (this.Filter == "ALL")
+            if (this.Filter == TextResources.MarketplaceFilterAll)
                 query.FilterType = MarketplaceFilter.None;
-            else if (Filter == "PROJECTS")
+            else if (Filter == TextResources.MarketplaceFilterProjects)
                 query.FilterType = MarketplaceFilter.Projects;
-            else if (Filter == "ACTIVITIES")
+            else if (Filter == TextResources.MarketplaceFilterActivities)
                 query.FilterType = MarketplaceFilter.Activities;
-            else if (Filter == "TEMPLATES")
+            else if (Filter == TextResources.MarketplaceFilterTemplates)
                 query.FilterType = MarketplaceFilter.Templates;
-            else if (Filter == "PUBLISHING")
+            else if (Filter == TextResources.MarketplaceFilterPublishing)
                 query.FilterType = MarketplaceFilter.PublishingWorkflows;
             query.IsNewest = IsOnlyShowLatestVersion;
             query.PageNumber = this.CurrentPage;
@@ -627,7 +636,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
         /// <param name="e"></param>
         private void DownloadedPercentChanged(object sender, DownloadPercentEventArgs e)
         {
-            DownloadProgress = "Downloading... (" + e.DownloadPercent + ")";
+            DownloadProgress = string.Format(TextResources.DownloadingPercent, e.DownloadPercent);
         }
 
         /// <summary>

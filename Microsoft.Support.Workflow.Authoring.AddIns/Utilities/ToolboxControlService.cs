@@ -13,6 +13,7 @@ using System.Activities.Statements;
 using System.Activities.Core.Presentation.Factories;
 using Microsoft.Support.Workflow.Authoring.AddIns;
 using Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
 {
@@ -22,10 +23,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
     public static class ToolboxControlService
     {
         // The Format of the Error Messages from trying to load assemblies at application startup
-        private const string LoadExceptionErrorMessageFormat = "Error loading the authoring tool. Click Ok and try to open tool again.\n\n Error while loading: {0} Details: {1}\n";
+        private static readonly string LoadExceptionErrorMessageFormat = TextResources.LoadExceptionErrorMsgFormat;
 
         // Generic Exception error for Assembly load exceptions that do not contain LoaderExceptions.
-        private const string ExceptionErrorMessageFormat = "Error loading: {0} Message: {1} Source: {2}\n";
+        private static readonly string ExceptionErrorMessageFormat = TextResources.ExceptionErrorMsgFormat;
 
         // List of all built in activity types.
         private static List<Type> allBuiltInActivityTypes = Helper.GetAllVisibleBuiltInActivityTypes();
@@ -67,7 +68,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         {
             bool isToolboxInitialized = false;
             Type taskType = typeof(TaskActivity);
-            ToolboxCategory taskToolboxCategory = new ToolboxCategory("Multipe Author");
+            ToolboxCategory taskToolboxCategory = new ToolboxCategory(TextResources.MultipleAuthor);
 
             string tooltip = string.Format("{0} {1}", "TaskActivity", "v1.0.0.0");
             if (!ActivityTypeToToolTipConverter.ToolTipDictionary.ContainsKey(taskType))
@@ -139,7 +140,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             // Generate toolbox categories
             ActivityTypeToToolTipConverter.ToolTipDictionary.Clear();
 
-            var favoriteToolboxCategory = new ToolboxCategory("Favorite");
+            var favoriteToolboxCategory = new ToolboxCategory(TextResources.Favorite);
             toolboxCategories.Add(favoriteToolboxCategory);
             foreach (var group in groups)
             {
@@ -161,7 +162,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
                     if (!ActivityTypeToToolTipConverter.ToolTipDictionary.ContainsKey(activityType))
                     {
                         string versionString = parent.AssemblyName.Version == null
-                            ? "No version"
+                            ? TextResources.NoVersion
                             : string.Format("v{0}", parent.Version);
                         var tooltip = string.IsNullOrWhiteSpace(activityItem.Description)
                             ? string.Format("{0}", versionString)
@@ -202,7 +203,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             var advancedActivityTypes = allBuiltInActivityTypes
                                             .Where(activityType => !basicActivityTypesFilter.Contains(activityType.Name))
                                             .ToList();
-            var userControl = CreateToolboxControlFromActivityTypeList("Advanced", advancedActivityTypes);
+            var userControl = CreateToolboxControlFromActivityTypeList(TextResources.Advanced, advancedActivityTypes);
             toolboxWrappers.Add(userControl);
         }
 
@@ -214,7 +215,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             var basicActivityTypes = allBuiltInActivityTypes
                                         .Where(activityType => basicActivityTypesFilter.Contains(activityType.Name) && activityType.IsVisible)
                                         .ToList();
-            var userControl = CreateToolboxControlFromActivityTypeList("Basic Logic", basicActivityTypes);
+            var userControl = CreateToolboxControlFromActivityTypeList(TextResources.BasicLogic, basicActivityTypes);
             toolboxWrappers.Add(userControl);
         }
 

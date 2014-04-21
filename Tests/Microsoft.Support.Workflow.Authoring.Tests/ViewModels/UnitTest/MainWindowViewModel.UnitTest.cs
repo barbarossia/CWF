@@ -329,16 +329,16 @@ namespace Authoring.Tests.Unit
                         vm.OnStoreActivitesUnlockWithBusy = (a, b) => { locked = false; };
 
                         // cancel
-                        messageBox.Register(() => MessageBoxService.ShowKeepLockedComfirmation(Argument<string>.Any)).Return(null);
+                        messageBox.Register(() => MessageBoxService.ShowKeepLockedConfirmation(Argument<string>.Any)).Return(null);
                         Assert.AreEqual(true, vm.CheckShouldCancelExit());
                         Assert.IsTrue(locked);
                         // keep lock
-                        messageBox.Register(() => MessageBoxService.ShowKeepLockedComfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
+                        messageBox.Register(() => MessageBoxService.ShowKeepLockedConfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
                         Assert.AreEqual(false, vm.CheckShouldCancelExit());
                         Assert.IsTrue(locked);
                         // unlock
                         vm.WorkflowItems.Add(wf);
-                        messageBox.Register(() => MessageBoxService.ShowKeepLockedComfirmation(Argument<string>.Any)).Return(SavingResult.Unlock);
+                        messageBox.Register(() => MessageBoxService.ShowKeepLockedConfirmation(Argument<string>.Any)).Return(SavingResult.Unlock);
                         Assert.AreEqual(false, vm.CheckShouldCancelExit());
                         Assert.IsFalse(locked);
                     }
@@ -360,16 +360,16 @@ namespace Authoring.Tests.Unit
                         vm.OnSaveToServer = (a) => { isSaved = true; return isSaved; };
 
                         // cancel
-                        messageBox.Register(() => MessageBoxService.ShowClosingComfirmation(Argument<string>.Any)).Return(null);
+                        messageBox.Register(() => MessageBoxService.ShowClosingConfirmation(Argument<string>.Any)).Return(null);
                         Assert.AreEqual(true, vm.CheckShouldCancelExit());
                         Assert.IsFalse(isSaved);
                         // don't save
-                        messageBox.Register(() => MessageBoxService.ShowClosingComfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
+                        messageBox.Register(() => MessageBoxService.ShowClosingConfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
                         Assert.AreEqual(false, vm.CheckShouldCancelExit());
                         Assert.IsFalse(isSaved);
                         // save
                         vm.WorkflowItems.Add(wf);
-                        messageBox.Register(() => MessageBoxService.ShowClosingComfirmation(Argument<string>.Any)).Return(SavingResult.Save);
+                        messageBox.Register(() => MessageBoxService.ShowClosingConfirmation(Argument<string>.Any)).Return(SavingResult.Save);
                         Assert.AreEqual(false, vm.CheckShouldCancelExit());
                         Assert.IsTrue(isSaved);
                     }
@@ -404,16 +404,16 @@ namespace Authoring.Tests.Unit
                         vm.OnSaveToLocal = (a, b) => { isSaved = true; return isSaved; };
 
                         // cancel
-                        messageBox.Register(() => MessageBoxService.ShowLocalSavingComfirmation(Argument<string>.Any)).Return(null);
+                        messageBox.Register(() => MessageBoxService.ShowLocalSavingConfirmation(Argument<string>.Any)).Return(null);
                         Assert.AreEqual(true, vm.CheckShouldCancelExit());
                         Assert.IsFalse(isSaved);
                         // don't save
-                        messageBox.Register(() => MessageBoxService.ShowLocalSavingComfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
+                        messageBox.Register(() => MessageBoxService.ShowLocalSavingConfirmation(Argument<string>.Any)).Return(SavingResult.DoNothing);
                         Assert.AreEqual(false, vm.CheckShouldCancelExit());
                         Assert.IsFalse(isSaved);
                         // save
                         vm.WorkflowItems.Add(wf);
-                        messageBox.Register(() => MessageBoxService.ShowLocalSavingComfirmation(Argument<string>.Any)).Return(SavingResult.Save);
+                        messageBox.Register(() => MessageBoxService.ShowLocalSavingConfirmation(Argument<string>.Any)).Return(SavingResult.Save);
                         Assert.AreEqual(false, vm.CheckShouldCancelExit());
                         Assert.IsTrue(isSaved);
                     }
@@ -1135,7 +1135,7 @@ namespace Authoring.Tests.Unit
                                using (var messageBoxService = new ImplementationOfType(typeof(MessageBoxService)))
                                {
                                    bool needToSave = true;
-                                   messageBoxService.Register(() => MessageBoxService.ShowUnlockComfirmation(Argument<string>.Any)).Execute(() =>
+                                   messageBoxService.Register(() => MessageBoxService.ShowUnlockConfirmation(Argument<string>.Any)).Execute(() =>
                                    {
                                        SavingResult? result = null;
                                        needToSave = false;
@@ -1185,7 +1185,7 @@ namespace Authoring.Tests.Unit
                                        WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient = () => client.Instance;
 
                                        SavingResult? result = null;
-                                       messageBoxService.Register(() => MessageBoxService.ShowUnlockComfirmation(Argument<string>.Any)).Execute(() =>
+                                       messageBoxService.Register(() => MessageBoxService.ShowUnlockConfirmation(Argument<string>.Any)).Execute(() =>
                                        {
                                            result = SavingResult.Save;
                                            return result;
@@ -1904,19 +1904,19 @@ namespace Authoring.Tests.Unit
                          SavingResult? closeResult = null;
                          using (var messageBoxService = new ImplementationOfType(typeof(MessageBoxService)))
                          {
-                             messageBoxService.Register(() => MessageBoxService.ShowClosingComfirmation(Argument<string>.Any)).Execute(() =>
+                             messageBoxService.Register(() => MessageBoxService.ShowClosingConfirmation(Argument<string>.Any)).Execute(() =>
                              {
                                  closeResult = SavingResult.Save;
                                  return closeResult;
                              });
 
-                             messageBoxService.Register(() => MessageBoxService.ShowKeepLockedComfirmation(Argument<string>.Any)).Execute(() =>
+                             messageBoxService.Register(() => MessageBoxService.ShowKeepLockedConfirmation(Argument<string>.Any)).Execute(() =>
                              {
                                  closeResult = SavingResult.Unlock;
                                  return closeResult;
                              });
 
-                             messageBoxService.Register(() => MessageBoxService.ShowLocalSavingComfirmation(Argument<string>.Any)).Execute(() =>
+                             messageBoxService.Register(() => MessageBoxService.ShowLocalSavingConfirmation(Argument<string>.Any)).Execute(() =>
                              {
                                  closeResult = SavingResult.Save;
                                  return closeResult;
@@ -2210,7 +2210,7 @@ namespace Authoring.Tests.Unit
                 wf.IsOpenFromServer = true;
                 wf.IsDataDirty = false;
                 vm.WorkflowItems.Add(wf);
-                MessageBoxService.ShowSavingComfirmationFunc = (a, b, c, d, e) => SavingResult.DoNothing;
+                MessageBoxService.ShowSavingConfirmationFunc = (a, b, c, d, e) => SavingResult.DoNothing;
                 Assert.AreEqual(false, vm.CheckShouldCancelExit());
 
                 // Dirty item (no to close)
@@ -2224,7 +2224,7 @@ namespace Authoring.Tests.Unit
                 wf.IsOpenFromServer = true;
                 wf.IsDataDirty = true;
                 vm.WorkflowItems.Add(wf);
-                MessageBoxService.ShowSavingComfirmationFunc = (a, b, c, d, e) => null;
+                MessageBoxService.ShowSavingConfirmationFunc = (a, b, c, d, e) => null;
                 Assert.AreEqual(true, vm.CheckShouldCancelExit());
             }
         }

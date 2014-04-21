@@ -62,7 +62,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             + "will not be able to use this method to call IsValidIdentifier().")]
        private void GetUserNameAndPicture()
         {
-            userName = Environment.UserDomainName + @"\" + Environment.UserName;
+            userName = string.Format("{0}\\{1}", Environment.UserDomainName, Environment.UserName);
 
             string directoryPath = defaultActiveDirectoryPath.Replace(defaultDomainPrefix, Environment.UserDomainName);
 

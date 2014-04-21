@@ -1,0 +1,238 @@
+﻿<UserControl
+    x:Class="Microsoft.Support.Workflow.Authoring.AddIns.Views.FindAndReplaceControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:my="clr-namespace:Microsoft.Support.Workflow.Authoring.UIControls" xmlns:converters="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Converters"
+    mc:Ignorable="d"
+    Width="260"
+    BorderThickness="1"
+    BorderBrush="LightGray"
+    Background="#FFEEEEEE" xmlns:res="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Properties">
+    <UserControl.Resources>
+        <Style
+            TargetType="Button"
+            x:Key="ImageButtonStyle">
+            <Setter
+                Property="Width"
+                Value="20" />
+            <Setter
+                Property="Height"
+                Value="20" />
+            <Setter
+                Property="Margin"
+                Value="0,0,2,0" />
+            <Setter
+                Property="VerticalAlignment"
+                Value="Center" />
+            <Setter
+                Property="BorderThickness"
+                Value="0" />
+            <Setter
+                Property="Background"
+                Value="Transparent" />
+        </Style>
+        <converters:BooleanToVisibilityConverter
+            x:Key="BoolToVisibilityConverter"
+            VisibleWhen="True" />
+        <converters:BooleanInverterConverter
+            x:Key="BooleanInverterConverter" />
+    </UserControl.Resources>
+    <Grid
+        x:Name="Root">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="Auto" />
+            <ColumnDefinition
+                Width="*" />
+            <ColumnDefinition
+                Width="70" />
+        </Grid.ColumnDefinitions>
+        <Expander
+            Grid.Row="0"
+            Grid.Column="0"
+            IsExpanded="{Binding IsReplacementMode}"
+            IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanInverterConverter}}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+        <my:SearchTextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="2"
+            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+            x:Name="searchTextBox"
+            SearchMode="Delayed"
+            Height="23"
+            ToolTip="{x:Static res:Resources.SearchTerm}"
+            MinWidth="150" />
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="2"
+            Orientation="Horizontal">
+            <Button
+                IsEnabled="{Binding CanPrev}"
+                Command="{Binding PrevCommand}"
+                ToolTip="{x:Static res:Resources.Previous}">
+                <Button.Style>
+                    <Style
+                        TargetType="Button"
+                        BasedOn="{StaticResource ImageButtonStyle}">
+                        <Setter
+                            Property="Background"
+                            Value="Transparent"></Setter>
+                        <Setter
+                            Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid
+                                        Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}"
+                                        Background="{TemplateBinding Background}">
+                                        <Image
+                                            Width="20"
+                                            Height="20"
+                                            Source="..\Resources\Previous.png"></Image>
+                                        <Ellipse
+                                            Width="20"
+                                            Height="20"
+                                            x:Name="rect"
+                                            Fill="Gray"
+                                            Opacity="0.5"></Ellipse>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger
+                                            Property="IsEnabled"
+                                            Value="True">
+                                            <Setter
+                                                TargetName="rect"
+                                                Property="Visibility"
+                                                Value="Collapsed"></Setter>
+                                        </Trigger>
+                                        <Trigger
+                                            Property="IsEnabled"
+                                            Value="False">
+                                            <Setter
+                                                TargetName="rect"
+                                                Property="Visibility"
+                                                Value="Visible"></Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button
+                IsEnabled="{Binding CanNext}"
+                Command="{Binding NextCommand}"
+                ToolTip="{x:Static res:Resources.Next}">
+                <Button.Style>
+                    <Style
+                        TargetType="Button"
+                        BasedOn="{StaticResource ImageButtonStyle}">
+                        <Setter
+                            Property="Background"
+                            Value="Transparent"></Setter>
+                        <Setter
+                            Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid
+                                        Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}"
+                                        Background="{TemplateBinding Background}">
+                                        <Image
+                                            Width="20"
+                                            Height="20"
+                                            Source="..\Resources\Next1.png"></Image>
+                                        <Ellipse
+                                            Width="20"
+                                            Height="20"
+                                            x:Name="rect"
+                                            Fill="Gray"
+                                            Opacity="0.5"></Ellipse>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger
+                                            Property="IsEnabled"
+                                            Value="True">
+                                            <Setter
+                                                TargetName="rect"
+                                                Property="Visibility"
+                                                Value="Collapsed"></Setter>
+                                        </Trigger>
+                                        <Trigger
+                                            Property="IsEnabled"
+                                            Value="False">
+                                            <Setter
+                                                TargetName="rect"
+                                                Property="Visibility"
+                                                Value="Visible"></Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <Button
+            Grid.Row="0"
+            Grid.Column="2"
+            HorizontalAlignment="Right"
+            ToolTip="{x:Static res:Resources.Close}"
+            Click="CloseButtonClick"
+            Style="{StaticResource ImageButtonStyle}">
+            <Button.Content>
+                <Image
+                    Width="16"
+                    Height="16"
+                    Source="..\Resources\SysBtn_Close.png"></Image>
+            </Button.Content>
+        </Button>
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="2"
+            Text="{Binding ReplacementText}"
+            Visibility="{Binding IsReplacementMode, Converter={StaticResource BoolToVisibilityConverter}}"
+            Height="23"
+            ToolTip="{x:Static res:Resources.ReplacementTerm}"
+            VerticalContentAlignment="Center" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="2"
+            Orientation="Horizontal">
+            <Button
+                Command="{Binding ReplaceCommand}"
+                Visibility="{Binding IsReplacementMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                ToolTip="{x:Static res:Resources.Replace}"
+                Style="{StaticResource ImageButtonStyle}">
+                <Button.Content>
+                    <Image
+                        Width="21"
+                        Height="21"
+                        Source="..\Resources\replace.gif"></Image>
+                </Button.Content>
+            </Button>
+            <Button
+                Command="{Binding ReplaceAllCommand}"
+                Visibility="{Binding IsReplacementMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                ToolTip="{x:Static res:Resources.ReplaceAll}"
+                Style="{StaticResource ImageButtonStyle}">
+                <Button.Content>
+                    <Image
+                        Width="21"
+                        Height="21"
+                        Source="..\Resources\replace_all.gif"></Image>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

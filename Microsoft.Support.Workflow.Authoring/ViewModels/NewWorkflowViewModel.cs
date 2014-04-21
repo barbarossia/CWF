@@ -31,7 +31,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
     using Microsoft.Support.Workflow.Authoring.Security;
     using Microsoft.Support.Workflow.Authoring.Common.Messages;
-
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// Defines the ViewModel for New WorkflowFromTemplate
@@ -39,14 +39,13 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     public sealed class NewWorkflowViewModel : ViewModelBase
     {
         private const int MaximumClassNameLength = 50;
-        private const string DefaultCategory = "Unassigned";
+        private static readonly string DefaultCategory = TextResources.Unassigned;
         private const string DefaultVersion = "1.0.0.0";
         private const string DevDefaultWorkflowType = "Workflow";
-        private const string TestDefaultWorkflowType = "Workflow Template";
-        private const string DefaultTags = "Meta Tags";
+        private const string TestDefaultWorkflowType = "Workflow Template";        
         private const string ClassNameReplaceRegularExpression = @"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]";
-        private const string SelectATemplateErrorString = "\r\nYou must select a template.";
-        private const string SelectALocationErrorString = "\r\nYou must select a location.";
+        private static readonly string SelectATemplateErrorString = TextResources.NeedSelectTemplateMsg;
+        private static readonly string SelectALocationErrorString = TextResources.NeedSelectLocationMsg;
 
         private WorkflowItem createdWorkflowItem;                   // The item created by the view model
         private List<WorkflowTemplateItem> selectableTemplates;     // The list of Templates that we can select from
@@ -57,6 +56,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private bool isCreatingBlank;                               // Flag to tell if we are creating a blank project.
         private List<Env> locations;
         private Env? selectedLocation;
+        private string DefaultTags;
 
         public Func<IWorkflowsQueryService, WorkflowItem> GetWorkflowTemplateActivity { get; set; }  // Pluggable for testability
 
@@ -231,12 +231,14 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 this.SelectedLocation = DefaultValueSettings.Environment;
             else if (this.Locations.Count > 0)
                 this.SelectedLocation = Locations[0];
+
+            this.DefaultTags = DefaultValueSettings.DefaultTag;
             IsInitialized = true;
         }
 
         private void GetWorkflowTemlates(Env locationParam)
         {
-            Utility.DoTaskWithBusyCaption("Loading", () =>
+            Utility.WithContactServerUI(() =>
             {
                 using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                 {
@@ -301,7 +303,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
             catch (Exception)
             {
-                MessageBoxService.ShowError("Can not download the selected template.");
+                MessageBoxService.ShowError(TextResources.CannotDownloadSelectedTemplateMsg);
             }
         }
         /// <summary>
@@ -380,7 +382,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 if (0 != targetDC.ActivityLibraryId)
                 {
                     List<ActivityAssemblyItem> references = new List<ActivityAssemblyItem>();
-                    Utility.DoTaskWithBusyCaption("Loading...", () =>
+                    Utility.DoTaskWithBusyCaption(TextResources.Loading, () =>
                     {
                         // Create the Library request
                         var requestLibrary = new ActivityLibraryDC
@@ -417,6 +419,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     });
 
                     workflowActivityTemplateItem = DataContractTranslator.StoreActivitiyDCToWorkflowItem(targetDC, workflowActivityTemplateItemAssembly, references);
+                    workflowActivityTemplateItem.Tags = this.DefaultTags;
                     workflowActivityTemplateItem.WorkflowType = SelectedWorkflowTemplateItem.WorkflowTypeName;
                     workflowActivityTemplateItem.IsOpenFromServer = false;
                 }
@@ -464,10 +467,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         public override void Validate() {
             base.Validate();
 
-            var regex = new Regex(CommonMessages.ClassNameRegularExpression);
+            var regex = new Regex(WorkflowItem.ClassNameRegularExpression);
             if (string.IsNullOrEmpty(WorkflowName) || !regex.IsMatch(WorkflowName)) {
                 IsValid = false;
-                ErrorMessage += CommonMessages.WorkflowNameErrorString;
+                ErrorMessage += TextResources.WorkflowNameInvalidMsg;
                 ErrorMessage = ErrorMessage.Trim();
             }
             else if ((!IsCreatingBlank) && (null == SelectedWorkflowTemplateItem)

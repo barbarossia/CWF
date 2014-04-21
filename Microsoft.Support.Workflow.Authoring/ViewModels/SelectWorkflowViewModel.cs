@@ -24,7 +24,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private string searchFilter;
         private DataPagingViewModel dpViewModel;
         private string env = null;
-
+        private bool isEnabled = false;
         #region commands
         public DelegateCommand SearchCommand { get; set; }
         #endregion
@@ -45,7 +45,26 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             set
             {
                 this.activities = value;
+                if (this.activities != null && this.activities.Any())
+                {
+                    IsEnabled = true;
+                    SelectedActivity = this.activities.FirstOrDefault();
+                }
+                else
+                {
+                    IsEnabled = false;
+                }
                 RaisePropertyChanged(() => Activities);
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get { return this.isEnabled; }
+            set
+            {
+                this.isEnabled = value;
+                RaisePropertyChanged(() => IsEnabled);
             }
         }
 

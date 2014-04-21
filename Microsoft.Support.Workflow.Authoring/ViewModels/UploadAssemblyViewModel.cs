@@ -18,6 +18,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
     using Microsoft.Support.Workflow.Authoring.Security;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The upload assembly view model.
@@ -132,7 +133,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         public void UploadAssemblies(IEnumerable<ActivityAssemblyItem> activityAssemblyItems)
         {
             Utility.WithContactServerUI(() => WorkflowsQueryServiceUtility.UsingClient(client => WorkflowUploader.Upload(client, activityAssemblyItems)));
-            MessageBoxService.NotifyUploadResult("Upload successful", isSucceed: true);
+            MessageBoxService.NotifyUploadResult(TextResources.UploadSuccessfullytle, isSucceed: true);
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.UIControls
 {
@@ -138,7 +139,7 @@ namespace Microsoft.Support.Workflow.Authoring.UIControls
 
             if (HasText && SearchMode == SearchMode.Instant)
             {
-                this.Text = "";
+                this.Text = string.Empty;
             }
 
             if (HasText && SearchMode == SearchMode.Delayed)
@@ -158,7 +159,7 @@ namespace Microsoft.Support.Workflow.Authoring.UIControls
         {
             if (e.Key == Key.Escape && SearchMode == SearchMode.Instant)
             {
-                this.Text = "";
+                this.Text = string.Empty;
             }
             else if ((e.Key == Key.Return || e.Key == Key.Enter) &&
                 SearchMode == SearchMode.Delayed)

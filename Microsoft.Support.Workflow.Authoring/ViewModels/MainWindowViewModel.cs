@@ -33,16 +33,33 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Practices.Prism.Commands;
     using Security;
     using Services;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The main window view model.
     /// </summary>
     public sealed class MainWindowViewModel : ViewModelBase
     {
-        private const string UploadToMarketplaceBusyMessage = "Uploading {0} version {1} to Marketplace..";   // The message we will display while uploading.
-        private const string UploadAsPrivateBusyMessage = "Saving {0} version {1} to the server...";          // The message we will display while saving as private.
+        private static readonly string UploadToMarketplaceBusyMessage = TextResources.UploadingToMarketplaceMsgFormat;   // The message we will display while uploading.
+        private static readonly string UploadAsPrivateBusyMessage = TextResources.SavingToServerMsgFormat;          // The message we will display while saving as private.
         private const string DefaultSaveFileLocalExtension = ".wf";                                           // When saving a file local, if no file extension is specified, this will be used.
 
+        private bool isToolboxVisible = true;
+        private bool isProjectExplorerVisible = true;
+        private bool isPropertiesVisible = true;
+        private bool isWorkflowInfoVisible = true;
+        private bool isContentVisible = true;
+        private bool isToolboxSelected = true;
+        private bool isProjectExplorerSelected = false;
+        private bool isPropertiesSelected = false;
+        private bool isWorkflowInfoSelected = true;
+        private bool isContentSelected = false;
+        private bool isToolboxPinned = true;
+        private bool isProjectExplorerPinned = true;
+        private bool isPropertiesPinned = true;
+        private bool isWorkflowInfoPinned = true;
+        private bool isContentPinned = true;
+        private bool[] radPaneSelectedStatus;
         private ActivityItem focusedActivityItem;   // The focused activity item.
         private WorkflowItem focusedWorkflowItem;   // The focused workflow item.
         private UserInfoPaneViewModel userInfo;     // Exposes info about the current logged user (name, friendly name of environment, user pic)
@@ -67,7 +84,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             AnyEnv = Env.Any;
             Task.Factory.StartNew(() => UserInfo = new UserInfoPaneViewModel());
 
-            Title = string.Format(CommonMessages.MainWindowCaption, Environment.UserName);
+            Title = string.Format(TextResources.MainWindowCaptionFormat, Environment.UserName);
             PropertyChanged += MainWindowViewModelPropertyChanged;
 
             InitializeCommands();
@@ -214,6 +231,12 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         public DelegateCommand OpenCDSPackagesManagerCommand { get; private set; }
 
+        public DelegateCommand TogglePanelVisibilitiesCommand { get; private set; }
+
+        public DelegateCommand FindCommand { get; private set; }
+
+        public DelegateCommand ReplaceCommand { get; private set; }
+
         public Env AllEnvs { get; private set; }
         public Env AnyEnv { get; private set; }
 
@@ -228,6 +251,135 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     return true;
                 else
                     return false;
+            }
+        }
+
+        public bool IsAllPanelsHidden {
+            get { return !(IsToolboxVisible || IsProjectExplorerVisible || IsPropertiesVisible || IsWorkflowInfoVisible || IsContentVisible); }
+        }
+
+        public bool IsToolboxVisible {
+            get { return isToolboxVisible; }
+            set {
+                isToolboxVisible = value;
+                RaisePropertyChanged(() => IsToolboxVisible);
+                RaisePropertyChanged(() => IsAllPanelsHidden);
+            }
+        }
+
+        public bool IsProjectExplorerVisible {
+            get { return isProjectExplorerVisible; }
+            set {
+                isProjectExplorerVisible = value;
+                RaisePropertyChanged(() => IsProjectExplorerVisible);
+                RaisePropertyChanged(() => IsAllPanelsHidden);
+            }
+        }
+
+        public bool IsPropertiesVisible {
+            get { return isPropertiesVisible; }
+            set {
+                isPropertiesVisible = value;
+                RaisePropertyChanged(() => IsPropertiesVisible);
+                RaisePropertyChanged(() => IsAllPanelsHidden);
+            }
+        }
+
+        public bool IsWorkflowInfoVisible {
+            get { return isWorkflowInfoVisible; }
+            set {
+                isWorkflowInfoVisible = value;
+                RaisePropertyChanged(() => IsWorkflowInfoVisible);
+                RaisePropertyChanged(() => IsAllPanelsHidden);
+            }
+        }
+
+        public bool IsContentVisible {
+            get { return isContentVisible; }
+            set {
+                isContentVisible = value;
+                RaisePropertyChanged(() => IsContentVisible);
+                RaisePropertyChanged(() => IsAllPanelsHidden);
+            }
+        }
+
+        public bool IsToolboxSelected {
+            get { return isToolboxSelected; }
+            set {
+                isToolboxSelected = value;
+                RaisePropertyChanged(() => IsToolboxSelected);
+            }
+        }
+
+        public bool IsProjectExplorerSelected {
+            get { return isProjectExplorerSelected; }
+            set {
+                isProjectExplorerSelected = value;
+                RaisePropertyChanged(() => IsProjectExplorerSelected);
+            }
+        }
+
+        public bool IsPropertiesSelected {
+            get { return isPropertiesSelected; }
+            set {
+                isPropertiesSelected = value;
+                RaisePropertyChanged(() => IsPropertiesSelected);
+            }
+        }
+
+        public bool IsWorkflowInfoSelected {
+            get { return isWorkflowInfoSelected; }
+            set {
+                isWorkflowInfoSelected = value;
+                RaisePropertyChanged(() => IsWorkflowInfoSelected);
+            }
+        }
+
+        public bool IsContentSelected {
+            get { return isContentSelected; }
+            set {
+                isContentSelected = value;
+                RaisePropertyChanged(() => IsContentSelected);
+            }
+        }
+
+        public bool IsToolboxPinned {
+            get { return isToolboxPinned; }
+            set {
+                isToolboxPinned = value;
+                RaisePropertyChanged(() => IsToolboxPinned);
+            }
+        }
+
+        public bool IsProjectExplorerPinned {
+            get { return isProjectExplorerPinned; }
+            set {
+                isProjectExplorerPinned = value;
+                RaisePropertyChanged(() => IsProjectExplorerPinned);
+            }
+        }
+
+        public bool IsPropertiesPinned {
+            get { return isPropertiesPinned; }
+            set {
+                isPropertiesPinned = value;
+                RaisePropertyChanged(() => IsPropertiesPinned);
+            }
+        }
+
+        public bool IsWorkflowInfoPinned {
+            get { return isWorkflowInfoPinned; }
+            set {
+                isWorkflowInfoPinned = value;
+                RaisePropertyChanged(() => IsWorkflowInfoPinned);
+            }
+        }
+
+        public bool IsContentPinned {
+            get { return isContentPinned; }
+            set {
+                isContentPinned = value;
+                RaisePropertyChanged(() => IsContentPinned);
             }
         }
 
@@ -352,15 +504,15 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     bool isSaveToLocal = false;
                     if (wf.IsOpenFromServer && wf.IsDataDirty)
                     {
-                        result = MessageBoxService.ShowClosingComfirmation(wf.Name);
+                        result = MessageBoxService.ShowClosingConfirmation(wf.Name);
                     }
                     else if (wf.IsOpenFromServer && !wf.IsDataDirty) //open from server and not make the changes
                     {
-                        result = MessageBoxService.ShowKeepLockedComfirmation(wf.Name);
+                        result = MessageBoxService.ShowKeepLockedConfirmation(wf.Name);
                     }
                     else if (!wf.IsOpenFromServer && wf.IsDataDirty)//open from local and make the changes
                     {
-                        result = MessageBoxService.ShowLocalSavingComfirmation(wf.Name);
+                        result = MessageBoxService.ShowLocalSavingConfirmation(wf.Name);
                         isSaveToLocal = true;
                     }
                     else//open from local and not make the changes
@@ -463,7 +615,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             try
             {
-                Utility.DoTaskWithBusyCaption("Compiling...", () =>
+                Utility.DoTaskWithBusyCaption(TextResources.Compiling, () =>
                     {
                         // Increment the version of the WorkflowItem. Long-term this could come from the server.
                         // Note: this is the NEXT version of the workflow because that is the one that will show
@@ -474,6 +626,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                                                       Math.Max(thisVersion.Minor, 0),
                                                       Math.Max(thisVersion.Build, 0) + 1,
                                                       0);
+                        FocusedWorkflowItem.OldVersion = FocusedWorkflowItem.Version;
                         FocusedWorkflowItem.Version = nextVersion.ToString();
                         Version = FocusedWorkflowItem.Version;
                         CompileFocusedWorkflow();
@@ -504,7 +657,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
             else
             {
-                MessageBoxService.Show("There was an error compiling the workflow." + Environment.NewLine + result.Exception.Message,
+                MessageBoxService.Show(TextResources.CompileFailureMsg + Environment.NewLine + result.Exception.Message,
                                        Assembly.GetExecutingAssembly().GetName().Name,
                                        MessageBoxButton.OK,
                                        MessageBoxImage.Error);
@@ -573,15 +726,15 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             {
                 if (itemToClose.IsOpenFromServer && itemToClose.IsDataDirty)
                 {
-                    result = MessageBoxService.ShowClosingComfirmation(itemToClose.Name);
+                    result = MessageBoxService.ShowClosingConfirmation(itemToClose.Name);
                 }
                 else if (itemToClose.IsOpenFromServer && !itemToClose.IsDataDirty) //open from server and not make the changes
                 {
-                    result = MessageBoxService.ShowKeepLockedComfirmation(itemToClose.Name);
+                    result = MessageBoxService.ShowKeepLockedConfirmation(itemToClose.Name);
                 }
                 else if (!itemToClose.IsOpenFromServer && itemToClose.IsDataDirty)//open from local and make the changes
                 {
-                    result = MessageBoxService.ShowLocalSavingComfirmation(itemToClose.Name);
+                    result = MessageBoxService.ShowLocalSavingConfirmation(itemToClose.Name);
                     isSaveToLocal = true;
                 }
                 else//open from local and not make the changes
@@ -690,6 +843,60 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             RefreshCommand = new DelegateCommand(RefreshCommandExecute, RefreshCommandCanExecute);
             UnlockCommand = new DelegateCommand(UnlockCommandExecute, UnlockCommandCanExecute);
             ManageWorkflowTypeCommand = new DelegateCommand(ManageWokflowTypesCommandExecute, CanManageWorflowTypeCommandExecute);
+            TogglePanelVisibilitiesCommand = new DelegateCommand(TogglePanelVisibilitiesCommandExecute);
+            FindCommand = new DelegateCommand(FindCommandExecute, CanFindCommandExecute);
+            ReplaceCommand = new DelegateCommand(ReplaceCommandExecute, CanReplaceCommandExecute);
+        }
+
+        private void TogglePanelVisibilitiesCommandExecute() {
+            // If not all panels are hidden, backup their status
+            if (!IsAllPanelsHidden)
+                radPaneSelectedStatus = new bool[] {
+                    IsToolboxSelected, IsProjectExplorerSelected, IsPropertiesSelected, IsWorkflowInfoSelected, IsContentSelected 
+                };
+            
+            IsToolboxVisible = IsProjectExplorerVisible = IsPropertiesVisible = IsWorkflowInfoVisible = IsContentVisible = 
+                IsAllPanelsHidden;
+
+            // If all panel are visible, restore their status
+            if (!IsAllPanelsHidden) {
+                IsToolboxSelected = radPaneSelectedStatus[0];
+                IsProjectExplorerSelected = radPaneSelectedStatus[1];
+                IsPropertiesSelected = radPaneSelectedStatus[2];
+                IsWorkflowInfoSelected = radPaneSelectedStatus[3];
+                IsContentSelected = radPaneSelectedStatus[4];
+
+                if (!IsToolboxSelected && !IsProjectExplorerSelected) {
+                    if (IsToolboxPinned)
+                        IsToolboxSelected = true;
+                    else if (IsProjectExplorerPinned)
+                        IsProjectExplorerSelected = true;
+                }
+                if (!IsPropertiesSelected && !IsWorkflowInfoSelected && !IsContentSelected) {
+                    if (IsPropertiesPinned)
+                        IsPropertiesSelected = true;
+                    else if (IsWorkflowInfoPinned)
+                        IsWorkflowInfoSelected = true;
+                    else if (IsContentPinned)
+                        IsContentSelected = true;
+                }
+            }
+        }
+
+        private void FindCommandExecute() {
+            FocusedWorkflowItem.WorkflowDesigner.ShowSearchBar(false);
+        }
+
+        private bool CanFindCommandExecute() {
+            return FocusedWorkflowItem != null;
+        }
+
+        private void ReplaceCommandExecute() {
+            FocusedWorkflowItem.WorkflowDesigner.ShowSearchBar(true);
+        }
+
+        private bool CanReplaceCommandExecute() {
+            return FocusedWorkflowItem != null && !FocusedWorkflowItem.IsReadOnly;
         }
 
         private void OpenCDSPackagesManagerCommandExecute() 
@@ -785,7 +992,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 try
                 {
                     //request delete
-                    Utility.DoTaskWithBusyCaption("Deleting", () =>
+                    Utility.DoTaskWithBusyCaption(TextResources.Deleting, () =>
                     {
                         using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                         {
@@ -800,7 +1007,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.ShowException(ex, "Failed to delete Workflow.");
+                    MessageBoxService.ShowException(ex, TextResources.DeleteWorkflowFailureMsg);
                 }
             }
         }
@@ -872,7 +1079,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                             if (!this.FocusedWorkflowItem.IsReadOnly)
                             {
                                 this.FocusedWorkflowItem.TaskActivityStatus = TaskActivityStatus.Editing;
-                                Utility.DoTaskWithBusyCaption("UI may not respond. Please wait...",
+                                Utility.DoTaskWithBusyCaption(TextResources.UiMayNotRespondMsg,
                                 () =>
                                 {
                                     using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
@@ -992,7 +1199,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         private void NewWorkflowCommandExecute()
         {
-            BusyCaption = CommonMessages.BusyContactingServer;
+            BusyCaption = TextResources.ContactingServer;
             IsBusy = true;
 
             var viewModel = new NewWorkflowViewModel();
@@ -1005,7 +1212,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 {
                     // Add the Item to our workflow items list
                     WorkflowItems.Add(viewModel.CreatedItem);
-                    Utility.DoTaskWithBusyCaption("Loading...", () =>
+                    Utility.WithContactServerUI(() =>
                     {
                         viewModel.CreatedItem.IsTask = !DefaultValueSettings.EnableTaskAssignment;
                         FocusedWorkflowItem = viewModel.CreatedItem;
@@ -1025,7 +1232,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             switch (parameter)
             {
                 case "FromLocal":
-                    string workflowFileName = DialogService.ShowOpenFileDialogAndReturnResult("Workflow files (*.wf)|*.wf", "Open Workflow File");
+                    string workflowFileName = DialogService.ShowOpenFileDialogAndReturnResult(TextResources.WorkflowFileFilter, TextResources.OpenWorkflowFile);
                     if (!string.IsNullOrEmpty(workflowFileName))
                     {
                         OpenWorkflowFromLocal(workflowFileName);
@@ -1056,7 +1263,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             // Recover WorkflowItem from XAML or XML file
             try
             {
-                Utility.DoTaskWithBusyCaption("Loading...", () =>
+                Utility.DoTaskWithBusyCaption(TextResources.Loading, () =>
                 {
                     var recoverdWorkflow = (WorkflowItem)Utility.DeserializeSavedContent(fileName);
                     recoverdWorkflow.Env = Env.Dev;
@@ -1075,7 +1282,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
             catch (SerializationException)
             {
-                throw new UserFacingException(String.Format("'{0}' is not a valid workflow", fileName));
+                throw new UserFacingException(String.Format(TextResources.InvalidWorkflowMsgFormat, fileName));
             }
         }
 
@@ -1084,7 +1291,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             bool needToSave = false;
             if (!FocusedWorkflowItem.IsSavedToServer)
             {
-                SavingResult? result = MessageBoxService.ShowUnlockComfirmation(FocusedWorkflowItem.Name);
+                SavingResult? result = MessageBoxService.ShowUnlockConfirmation(FocusedWorkflowItem.Name);
                 if (result == null)
                 {
                     return;
@@ -1247,7 +1454,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             PublishingReply reply = new PublishingReply();
             try
             {
-                Utility.DoTaskWithBusyCaption("Publishing...", () =>
+                Utility.DoTaskWithBusyCaption(TextResources.Publishing, () =>
                     {
                         // First, save to server if necessary, so that Publish can find it
                         FocusedWorkflowItem.Status = MarketplaceStatus.Public.ToString();
@@ -1266,7 +1473,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 }
                 else if (0 != reply.StatusReply.Errorcode)
                 {
-                    MessageBoxService.Show(reply.StatusReply.ErrorMessage, "Publish Error", MessageBoxButton.OK,
+                    MessageBoxService.Show(reply.StatusReply.ErrorMessage, TextResources.PublishError, MessageBoxButton.OK,
                                            MessageBoxImage.Error);
                 }
                 else
@@ -1275,15 +1482,15 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     if (string.IsNullOrEmpty(reply.PublishErrors))
                     {
                         MessageBoxService.ShowClickable(
-                            string.Format("Workflow: {0} Version {1} was published to:", this.FocusedWorkflowItem.Name,
-                                          reply.PublishedVersion), "Publish Status", reply.PublishedLocation);
+                            string.Format(TextResources.WorkflowPublishedMsgFormat, this.FocusedWorkflowItem.Name,
+                                          reply.PublishedVersion), TextResources.PublishStatus, reply.PublishedLocation);
                     }
                     else
                     {
                         MessageBoxService.ShowClickable(
                             string.Format(
-                                "Workflow: {0} Version {1} was published with errors reported during publish: {2}",
-                                this.FocusedWorkflowItem.Name, reply.PublishedVersion, reply.PublishErrors), "Publish Status",
+                                TextResources.WorkflowPublishedWithErrorsMsgFormat,
+                                this.FocusedWorkflowItem.Name, reply.PublishedVersion, reply.PublishErrors), TextResources.PublishStatus,
                             reply.PublishedLocation);
                         // Stop publishing if saving failed.                    
                     }
@@ -1589,8 +1796,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             var upResult = WorkflowUploader.Upload(client, workflow);
             if (upResult.Errorcode != 0)
             {
-                ErrorMessageType = "Error Saving to Server";
-                ErrorMessage = upResult.ErrorMessage + "\r\n\r\nYour changes were not successfully saved to the server.";
+                ErrorMessageType = TextResources.ErrorSavingToServer;
+                ErrorMessage = upResult.ErrorMessage + TextResources.SavingFailureMsg;
                 return false;
             }
 
@@ -1731,6 +1938,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             OpenTenantSecurityOptionsCommand.RaiseCanExecuteChanged();
             DeleteProjectCommand.RaiseCanExecuteChanged();
             MoveProjectCommand.RaiseCanExecuteChanged();
+
+            FindCommand.RaiseCanExecuteChanged();
+            ReplaceCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
@@ -1751,7 +1961,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             // If the file name is null, or forceSaveAs is true, show the dialog and get the file name.
             if (string.IsNullOrEmpty(workflow.LocalFileFullName) || forceSaveAs)
             {
-                string filter = "Workflow files (*.wf)|*.wf|XAML Text files (*.xaml)|*.xaml|JPEG Image files (*.jpg)|*.jpg";
+                string filter = TextResources.FoundryFileFilter;
                 targetFileName = DialogService.ShowSaveDialogAndReturnResult(workflow.Name, filter);
                 if (!string.IsNullOrEmpty(targetFileName))
                 {
@@ -1787,7 +1997,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                             isSuccess = true;
                             break;
                         default:
-                            throw new UserFacingException("The file type is not recognized. The save to local could not be completed.");
+                            throw new UserFacingException(TextResources.SaveToLocalFailureMsg);
                     }
                 }
             }
@@ -1835,7 +2045,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 MessageBoxService.OpenLockedActivityByNonAdmin(workflowDC.LockedBy);
             }
 
-            Utility.DoTaskWithBusyCaption("UI may not respond. Please wait...", () =>
+            Utility.DoTaskWithBusyCaption(TextResources.UiMayNotRespondMsg, () =>
             {
                 if (openForEditing)
                 {
@@ -1906,8 +2116,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 {
                     StoreActivitiesDC workflowDC = new StoreActivitiesDC()
                     {
-                        Name = workflow.Name,
-                        Version = workflow.Version,
+                        Name = workflow.OriginalName ?? workflow.Name,
+                        Version = workflow.OldVersion ?? workflow.Version,
                         Environment = workflow.Env.ToString()
                     };
                     workflowDC.SetIncaller();

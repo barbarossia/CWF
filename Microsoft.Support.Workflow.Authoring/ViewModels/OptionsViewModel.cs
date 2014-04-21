@@ -8,6 +8,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
 using Microsoft.Support.Workflow.Authoring.Services;
 using Microsoft.Support.Workflow.Authoring.Views;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels {
     public class OptionsViewModel : ViewModelBase {
@@ -53,16 +54,16 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
         }
 
         public void Save() {
-            Utility.DoTaskWithBusyCaption("Saving", () => {
+            Utility.DoTaskWithBusyCaption(TextResources.Saving, () => {
                 foreach (IOptionPage pair in OptionPages.Where(p => !p.HasSaved)) {
                     try {
                         pair.Save();
                     }
                     catch (UserFacingException ex) {
-                        MessageBoxService.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBoxService.Show(ex.Message, TextResources.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     catch (Exception ex) {
-                        MessageBoxService.ShowException(ex, "Failed to save your settings, please try again later.");
+                        MessageBoxService.ShowException(ex, TextResources.SaveSettingsFailureMsg);
                     }
                     if (!pair.HasSaved) {
                         SelectedOptionPage = pair;

@@ -9,6 +9,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using System;
     using System.Windows;
     using Win32;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     public static class DialogService
     {
@@ -97,7 +98,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
 
             if (string.IsNullOrEmpty(dialogTitle))
             {
-                dialogTitle = "Open";
+                dialogTitle = TextResources.Open;
             }
 
             openFileDialog.Title = dialogTitle;
@@ -139,7 +140,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// </returns>
         public static string Save()
         {
-            return ShowSaveDialogAndReturnResult(string.Empty, "All files (*.*)|*.*");
+            return ShowSaveDialogAndReturnResult(string.Empty, TextResources.AllFilesFilter);
         }
 
         

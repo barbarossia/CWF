@@ -20,6 +20,7 @@ namespace Microsoft.Support.Workflow.Authoring.Security {
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
     using Microsoft.Support.Workflow.Authoring.Services;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// Contains methodos to do authorization and authentication in the application.
@@ -61,7 +62,7 @@ namespace Microsoft.Support.Workflow.Authoring.Security {
                         }
                         catch (EndpointNotFoundException)
                         {
-                            throw new UserFacingException("Failed to connect with QueryService.");
+                            throw new UserFacingException(TextResources.ConnectQueryServiceFailureMsg);
                         }
                         catch (ActionNotSupportedException)
                         {

@@ -9,6 +9,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Support.Workflow.Authoring.CDS;
 using Microsoft.Support.Workflow.Authoring.Services;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels {
     public class CDSIntegrationViewModel : NotificationObject {
@@ -93,7 +94,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
             UpdateCommand = new DelegateCommand(() => {
                 Uri uri;
                 if (!Uri.TryCreate(DisplayingRepository.Source, UriKind.Absolute, out uri) || !uri.IsWellFormedOriginalString())
-                    MessageBoxService.ShowError("The source specified is invalid. Please provide a valid source.");
+                    MessageBoxService.ShowError(TextResources.InvalidNugetSourceMsg);
                 else {
                     SelectedRepository.Name = DisplayingRepository.Name;
                     SelectedRepository.Source = DisplayingRepository.Source;
@@ -103,7 +104,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
 
         public void Save() {
             if (Repositories.GroupBy(r => r.Name, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
-                MessageBoxService.ShowError("The name specified has already been added to the list of available package sources. Please provide a unique name.");
+                MessageBoxService.ShowError(TextResources.NugetSourceNameDuplicatedMsg);
             else {
                 NugetConfigManager.Save(Repositories.ToList());
                 HasSaved = true;

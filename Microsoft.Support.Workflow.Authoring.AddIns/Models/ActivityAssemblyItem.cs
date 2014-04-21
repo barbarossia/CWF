@@ -17,6 +17,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
     using Microsoft.Practices.Prism.ViewModel;
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The class contains information of a activity assembly.
@@ -26,8 +27,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
     [DebuggerDisplay("Name = '{Name}'")]
     public sealed class ActivityAssemblyItem : NotificationObject
     {
-        private const string DefaultTags = "";
-        private const string DefaultDescription = "";
+        private static readonly string DefaultTags = string.Empty;
+        private static readonly string DefaultDescription = string.Empty;
 
         ObservableCollection<ActivityItem> activityItems;
         string authorityGroup;

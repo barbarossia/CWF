@@ -12,14 +12,15 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
     public class TenantSecurityOptionsViewModel : ViewModelBase
     {
-        private const string SaveSuccessfulMsg = "Save the tenant settings successfully!";
-        private const string SaveFailedMsg = "Save the tenant settings failed, please check the settings and try again later.";
+        private static readonly string SaveSuccessfulMsg = TextResources.TenantSettingsSavedMsg;
+        private static readonly string SaveFailedMsg = TextResources.TenantSettingsSaveFailureMsg;
 
         private List<AuthorizationGroupDC> authorizationGroupDCs;
         private ObservableCollection<AuthorizationGroupDC> viewerGroupsEnabled;
@@ -198,7 +199,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         private void GetAuthGroups()
         {
-            Utility.DoTaskWithBusyCaption("Loading", () =>
+            Utility.DoTaskWithBusyCaption(TextResources.Loading, () =>
             {
                 using (WorkflowsQueryServiceClient client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                 {
@@ -228,7 +229,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             try
             {
-                Utility.DoTaskWithBusyCaption("Saving", () =>
+                Utility.DoTaskWithBusyCaption(TextResources.Saving, () =>
                 {
                     using (WorkflowsQueryServiceClient client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                     {

@@ -22,12 +22,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Views
         public ToolboxView()
         {
             InitializeComponent();
-            this.DataContextChanged += new DependencyPropertyChangedEventHandler(ToolboxView_DataContextChanged);
-        }
-
-        void ToolboxView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            
         }
     }
 }

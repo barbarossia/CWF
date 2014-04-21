@@ -10,16 +10,15 @@ using System.Activities.Presentation.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
 {
     public class ProjectExplorerViewModel : NotificationObject
     {
-
-
-        private const string FindEnd = "Search reached the end point.";
-        private const string FindStart = "Search reached the starting point.";
-        private const string NoResult = "No items match your search.";
+        private static readonly string FindEnd = TextResources.SearchReachedEndMsg;
+        private static readonly string FindStart = TextResources.SearchReachedStartMsg;
+        private static readonly string NoResult = TextResources.SearchNoMatchMsg;
 
         private const string DisplayNamePropertyName = "DisplayName";
         private const string InArgumentTypeName = "InArgument";
@@ -231,7 +230,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
                     this.WorkflowEditor.WorkflowDesigner.Context.Items.SetValue(new Selection(this.SelectedWorkflowOutlineNode.Model));
                     this.SelectedWorkflowOutlineNode.Model.Focus();
                     this.SearchPositionNotify = string.Empty;
-                    RaiseDesignerChanged(this.SelectedWorkflowOutlineNode);
+                    if (SelectedWorkflowOutlineNode.ActivityType != typeof(ActivityBuilder))
+                        RaiseDesignerChanged(SelectedWorkflowOutlineNode);
                 }
             }
         }
@@ -348,7 +348,6 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             if (node != this.SelectedWorkflowOutlineNode)
             {
                 this.SelectedWorkflowOutlineNode = node;
-                RaiseDesignerChanged(node);
             }
         }
 

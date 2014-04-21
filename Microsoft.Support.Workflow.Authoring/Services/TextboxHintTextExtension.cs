@@ -7,6 +7,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Media;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     public class TextboxHintTextExtension : Adorner
     {
@@ -97,7 +98,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 var textbox = sender as TextBox;
                 var adornerLayer = AdornerLayer.GetAdornerLayer(textbox);
                 if (adornerLayer != null)
-                    adornerLayer.Add(new TextboxHintTextExtension(textbox, ""));
+                    adornerLayer.Add(new TextboxHintTextExtension(textbox, string.Empty));
             }
         }
   

@@ -18,6 +18,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Microsoft.Support.Workflow.Authoring.ViewModels;
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The activity item.
@@ -27,8 +28,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Models
     public class ActivityItem : ViewModelBase, IComparable<ActivityItem>
     {
 
-        private const string DefaultTags = "";
-        private const string DefaultStatus = "";
+        private static readonly string DefaultTags = string.Empty;
+        private static readonly string DefaultStatus = string.Empty;
 
         private bool hasCodeBehind;       // The has code behind.
         private bool isUserFavorite;      // The is user favorite.

@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.CompositeActivity
 {
@@ -23,10 +24,10 @@ namespace Microsoft.Support.Workflow.Authoring.CompositeActivity
     {
         #region Constant
 
-        private const string MSG_UpdateOtherActivities = "Update all other {0} in this workflow ?";
-        private const string Title_UpdateOtherActivities = "Update Activities";
-        private const string MSG_UpdateReferenceInSelf = "You can not add same activity {0} into self !";
-        private const string MSG_NoUpdatedActivity = "No activities need to be updated.";
+        private static readonly string MSG_UpdateOtherActivities = TextResources.UpdateOthersActivitiesMsgFormat;
+        private static readonly string Title_UpdateOtherActivities = TextResources.UpdateActivities;
+        private static readonly string MSG_UpdateReferenceInSelf = TextResources.CannotAddActivitiesSelfMsgFormat;
+        private static readonly string MSG_NoUpdatedActivity = TextResources.NoActivitesUpdatedMsg;
         private const string ActivityNamePattern = "{0}_{1}";
 
         #endregion

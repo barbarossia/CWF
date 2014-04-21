@@ -6,13 +6,10 @@ using System.Windows.Data;
 using Microsoft.Support.Workflow.Authoring.CDS;
 using Microsoft.Support.Workflow.Authoring.ViewModels;
 using NuGet;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Common.Converters {
     public class PackageStatusConverter : IMultiValueConverter {
-        public const string Install = "Install";
-        public const string Uninstall = "Uninstall";
-        public const string Update = "Update";
-
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
             IPackage package = (IPackage)values.SingleOrDefault(v => v is IPackage);
             if (package == null)
@@ -24,11 +21,11 @@ namespace Microsoft.Support.Workflow.Authoring.Common.Converters {
                 case PackageSearchType.Online:
                     bool isInstalled = CDSService.IsInstalled(package);
                     if (isInstalled)
-                        return Uninstall;
+                        return TextResources.Uninstall;
                     else
-                        return Install;
+                        return TextResources.Install;
                 case PackageSearchType.Update:
-                    return Update;
+                    return TextResources.Update;
                 default:
                     throw new NotImplementedException();
             }

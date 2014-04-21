@@ -1,75 +1,168 @@
-﻿<Page x:Class="Microsoft.Support.Workflow.Authoring.Views.DefaultValueSettingsView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="General" 
-        xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Converters;assembly=Microsoft.Support.Workflow.Authoring.AddIns"
-        xmlns:converters="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        mc:Ignorable="d"  
-        d:DesignHeight="410" d:DesignWidth="530">
+﻿<Page
+    x:Class="Microsoft.Support.Workflow.Authoring.Views.DefaultValueSettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="General" xmlns:convert="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Converters;assembly=Microsoft.Support.Workflow.Authoring.AddIns" xmlns:converters="clr-namespace:Microsoft.Support.Workflow.Authoring.Common.Converters" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    d:DesignHeight="490"
+    d:DesignWidth="530" xmlns:res="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Properties;assembly=Microsoft.Support.Workflow.Authoring.AddIns">
     <Page.Resources>
-        <converters:EnumBooleanConverter x:Key="enumToBoolConverter"></converters:EnumBooleanConverter>
-        <convert:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"
-            VisibleWhen="True"/>
+        <converters:EnumBooleanConverter
+            x:Key="enumToBoolConverter"></converters:EnumBooleanConverter>
+        <convert:BooleanToVisibilityConverter
+            x:Key="BooleanToVisibilityConverter"
+            VisibleWhen="True" />
     </Page.Resources>
-    <Grid Margin="0">
+    <Grid
+        Margin="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="auto" />
         </Grid.RowDefinitions>
-        <GroupBox Header="Open Workflow" Grid.Row="0"  Margin="0,10,5,0">
+        <GroupBox
+            Header="{x:Static res:Resources.OpenWorkflow}"
+            Grid.Row="0">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
-                <CheckBox Content="Enable Download Dependencies By Default" Height="26" VerticalAlignment="Center" IsChecked="{Binding EnableDownloadDependencies}"></CheckBox>
-                <TextBlock Grid.Row="1" Text="Default Open Mode" VerticalAlignment="Center"></TextBlock>
-                <RadioButton Grid.Row="2" Content="Open for Editting" IsChecked="{Binding OpenForEditing,Converter={StaticResource enumToBoolConverter},ConverterParameter=Editing}" GroupName="OpenMode">
-                </RadioButton>
-                <RadioButton Grid.Row="2" Content="Open for Read-only" IsChecked="{Binding OpenForEditing,Converter={StaticResource enumToBoolConverter},ConverterParameter=Readonly}" Margin="120,0,0,0" GroupName="OpenMode">
-                </RadioButton>
-                <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="Default Working Environment"></TextBlock>
-                <ComboBox Grid.Row="4" Height="26" SelectedItem="{Binding DefaultEnv}" VerticalAlignment="Center" Width="180" ItemsSource="{Binding Envs}" HorizontalAlignment="Left"></ComboBox>
+                <CheckBox
+                    Content="{x:Static res:Resources.EnableDownloadDependenciesByDefault}"
+                    Height="26"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding EnableDownloadDependencies}"></CheckBox>
+                <TextBlock
+                    Grid.Row="1"
+                    Text="{x:Static res:Resources.DefaultOpenMode}"
+                    VerticalAlignment="Center"></TextBlock>
+                <RadioButton
+                    Grid.Row="2"
+                    Content="{x:Static res:Resources.OpenForEditing}"
+                    IsChecked="{Binding OpenForEditing,Converter={StaticResource enumToBoolConverter},ConverterParameter=Editing}"
+                    GroupName="OpenMode"></RadioButton>
+                <RadioButton
+                    Grid.Row="2"
+                    Content="{x:Static res:Resources.OpenForReadonly}"
+                    IsChecked="{Binding OpenForEditing,Converter={StaticResource enumToBoolConverter},ConverterParameter=Readonly}"
+                    Margin="120,0,0,0"
+                    GroupName="OpenMode"></RadioButton>
+                <TextBlock
+                    Grid.Row="3"
+                    VerticalAlignment="Center"
+                    Text="{x:Static res:Resources.DefaultWorkingEnvironmentInput}"></TextBlock>
+                <ComboBox
+                    Grid.Row="4"
+                    Margin="0,0,0,0"
+                    Height="26"
+                    SelectedItem="{Binding DefaultEnv}"
+                    Width="180"
+                    ItemsSource="{Binding Envs}"
+                    HorizontalAlignment="Left"></ComboBox>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Project Explorer" Grid.Row="1" Margin="0,4,4,4"  >
+        <GroupBox Header="{x:Static res:Resources.CreateWorkflow}"
+            Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Default Search Scope" VerticalAlignment="Center"></TextBlock>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Height="26">
-                    <RadioButton 
-                        Margin="4,4" 
-                        GroupName="Scope" Content="Search the whole workflow" IsChecked="{Binding SearchWorkflowScope,Converter={StaticResource enumToBoolConverter},ConverterParameter=SearchWholeWorkflow}"></RadioButton>
-                    <RadioButton 
-                        Margin="4,4" 
-                        GroupName="Scope" Content="Search current activity" IsChecked="{Binding SearchWorkflowScope,Converter={StaticResource enumToBoolConverter},ConverterParameter=SearchCurrentWorkflow}"></RadioButton>
+                <TextBlock
+                    Grid.Row="0"
+                    Text="{x:Static res:Resources.DefaultTagInput}"
+                    VerticalAlignment="Center"></TextBlock>
+                <TextBox
+                    Grid.Row="1"
+                    Margin="0,0,0,0"
+                    Text="{Binding DefaultTag, UpdateSourceTrigger=PropertyChanged}"
+                    Width="180"
+                    Height="26"
+                    HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox
+            Header="{x:Static res:Resources.ProjectExplorer}"
+            Grid.Row="2"
+            Margin="0,4,4,4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Text="{x:Static res:Resources.DefaultSearchScope}"
+                    VerticalAlignment="Center"></TextBlock>
+                <StackPanel
+                    Orientation="Horizontal"
+                    Grid.Row="1"
+                    Height="26">
+                    <RadioButton
+                        Margin="4,4"
+                        GroupName="Scope"
+                        Content="{x:Static res:Resources.SearchWholeWorkflow}"
+                        IsChecked="{Binding SearchWorkflowScope,Converter={StaticResource enumToBoolConverter},ConverterParameter=SearchWholeWorkflow}"></RadioButton>
+                    <RadioButton
+                        Margin="4,4"
+                        GroupName="Scope"
+                        Content="{x:Static res:Resources.SearchCurrentActivity}"
+                        IsChecked="{Binding SearchWorkflowScope,Converter={StaticResource enumToBoolConverter},ConverterParameter=SearchCurrentWorkflow}"></RadioButton>
                 </StackPanel>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Import Assembly" Grid.Row="2" Margin="0,4,4,4">
+        <GroupBox
+            Header="{x:Static res:Resources.ImportAssembly}"
+            Grid.Row="3"
+            Margin="0,4,4,4">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
+                    <RowDefinition
+                        Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Default Category" VerticalAlignment="Center"></TextBlock>
-                <ComboBox Grid.Row="2" Width="180" Height="26" HorizontalAlignment="Left" ItemsSource="{Binding Categories}" SelectedItem="{Binding DefaultCategory}"></ComboBox>
+                <TextBlock
+                    Text="{x:Static res:Resources.DefaultCategory}"
+                    VerticalAlignment="Center"></TextBlock>
+                <ComboBox
+                    Grid.Row="2"
+                    Width="180"
+                    Height="26"
+                    HorizontalAlignment="Left"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding DefaultCategory}"></ComboBox>
             </Grid>
         </GroupBox>
-        <StackPanel  Grid.Row="3" VerticalAlignment="Center" Orientation="Vertical">
-            <CheckBox  Content="Enable Task Assignment Feature" IsChecked="{Binding EnableTaskAssignment}" Height="26" ></CheckBox>
-            <TextBlock Margin="19,-5,0,0" Foreground="red" Visibility="{Binding TaskAssignmentFeatureChanged,Converter={StaticResource BooleanToVisibilityConverter}}" 
-                       Text="*You need to re-open for all workflows for applying this changes, no need to restart Foundry."></TextBlock>
+        <StackPanel
+            Grid.Row="4"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <CheckBox
+                Content="{x:Static res:Resources.EnableTaskAssignmentFeature}"
+                IsChecked="{Binding EnableTaskAssignment}"
+                Height="26"></CheckBox>
+            <TextBlock
+                Margin="19,-5,0,0"
+                Foreground="red"
+                Visibility="{Binding TaskAssignmentFeatureChanged,Converter={StaticResource BooleanToVisibilityConverter}}"
+                Text="{x:Static res:Resources.RestartRequiredMsg}"></TextBlock>
         </StackPanel>
     </Grid>
 </Page>

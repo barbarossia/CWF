@@ -47,6 +47,7 @@ CREATE PROCEDURE [dbo].[ActivityLibraryDependency_CreateOrUpdate]
 		@inCallerversion nvarchar (50),
 		@inActivityLibraryName nvarchar (255),
 		@inActivityLibraryVersionNumber nvarchar (50),
+		@inActivityLibraryEnvironment nvarchar (50),
 		@inActivityLibraryDependentName nvarchar (255),
 		@inActivityLibraryDependentVersionNumber nvarchar (50),
 		@inInsertedByUserAlias nvarchar(50),
@@ -103,6 +104,11 @@ BEGIN
 			SET @outErrorString = 'Invalid Parameter Value (@inActivityLibraryVersionNumber)'
 			RETURN 55129
 		END
+		IF (@inActivityLibraryEnvironment IS NULL OR @inActivityLibraryEnvironment = '')
+		BEGIN
+			SET @outErrorString = 'Invalid Parameter Value (@inActivityLibraryEnvironment)'
+			RETURN 55132
+		END
 		IF (@inActivityLibraryDependentName IS NULL OR @inActivityLibraryDependentName = '')
 		BEGIN
 			SET @outErrorString = 'Invalid Parameter Value (@inActivityLibraryDependentName)'
@@ -113,12 +119,22 @@ BEGIN
 			SET @outErrorString = 'Invalid Parameter Value (@inActivityLibraryDependentVersionNumber)'
 			RETURN 55131
 		END
+
+		DECLARE @Environmentid INT
+    		SELECT @Environmentid = ID 
+    		FROM Environment
+    		WHERE [Name] = @inActivityLibraryEnvironment
+    		IF (@Environmentid IS NULL)
+    		BEGIN
+        		SET @outErrorString = 'Invalid Parameter Value (@inActivityLibraryEnvironment)'
+        		RETURN 55104
+    		END
 		
 		-- check if both activity libraries exist and get thier PKs
 		DECLARE @ActivityLibraryId bigint
 		SELECT @ActivityLibraryId = ID
 		FROM [dbo].[ActivityLibrary]
-		WHERE @inActivityLibraryName = name AND @inActivityLibraryVersionNumber = VersionNumber
+		WHERE @inActivityLibraryName = name AND @inActivityLibraryVersionNumber = VersionNumber AND Environment = @Environmentid
 		
 		-- Bad parameter
 		If (@ActivityLibraryId IS NULL)

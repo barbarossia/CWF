@@ -31,6 +31,7 @@ using System.Windows.Controls;
 using System.Xaml;
 using System.Xml;
 using System.Xml.Linq;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
 {
@@ -88,12 +89,12 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         /// <summary>
         /// The error message for validation activity
         /// </summary>
-        private const string MSG_Validation_Error = "Not a workflow";
+        private static readonly string MSG_Validation_Error = TextResources.ActivityValidationFailedMsg;
 
         /// <summary>
         /// The error message of set arguments for workflow;
         /// </summary>
-        private const string MSG_SetArguments_Error = "The property type is not Assignable from In, InOut or Out Argument types, This should be impossible.";
+        private static readonly string MSG_SetArguments_Error = TextResources.SetArgumentsFailedMsg;
 
         #endregion
 
@@ -292,7 +293,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
                     {
                         WorkflowDesigner.Context.Services.Publish<IExpressionEditorService>(expressionEditorService);
                     }
-                },cancellationToken.Token);
+                }, cancellationToken.Token);
                 RaisePropertyChanged(() => WorkflowDesigner);
                 if (ActivityParameterChanged != null)
                     ActivityParameterChanged(this, null);
@@ -502,6 +503,8 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         /// <param name="workflowDesigner"></param>
         private void ConfigureWorkflowDesigner(WorkflowDesigner workflowDesigner)
         {
+            //UpgradeWorkflowDesigner(workflowDesigner);
+
             Errors = new ErrorService(this);
             ErrorService errors = Errors;
             workflowDesigner.Context.Services.Publish<IXamlLoadErrorService>(errors);
@@ -606,6 +609,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
                     {
                         return null; // not an activity
                     }
+
                     // transform ActivityBuilder rep to DynamicActivity via XamlNodeQueue
                     using (var objectReader = new XamlObjectReader(root))
                     {
@@ -740,6 +744,18 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
             MultipleAuthorService.FinishTaskAssigned(this.WorkflowDesigner);
         }
 
+        /// <summary>
+        /// set the runtime Framework version to 4.5
+        /// </summary>
+        /// <param name="workflowDesigner"></param>
+        private void UpgradeWorkflowDesigner(WorkflowDesigner workflowDesigner)
+        {
+            // set the runtime Framework version to 4.5 as Annotation is a new feature in .NET 4.5 and did not exist in .NET 4 
+            workflowDesigner.Context.Services.GetService<DesignerConfigurationService>().TargetFrameworkName = new System.Runtime.Versioning.FrameworkName(".NETFramework", new Version(4, 5));
+            // enable annotations 
+            workflowDesigner.Context.Services.GetService<DesignerConfigurationService>().AnnotationEnabled = true;
+        }
+
         #endregion
 
         /// <summary>
@@ -748,7 +764,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.ViewModels
         [Serializable]
         public class ErrorService : IXamlLoadErrorService, IValidationErrorService
         {
-            private const string ErrorMessageFormat = "Line {0} Pos {1}: {2}";
+            private static readonly string ErrorMessageFormat = TextResources.ErrorPositionMsgFormat;
             ObservableCollection<string> xamlErrors = new ObservableCollection<string>();
             ObservableCollection<string> validationErrors = new ObservableCollection<string>();
             WorkflowEditorViewModel owner;

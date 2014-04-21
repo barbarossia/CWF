@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
 using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Behaviors
 {
@@ -73,7 +74,7 @@ namespace Microsoft.Support.Workflow.Authoring.Behaviors
         private const double OPACITY = 0.3;
         private const string PRINTPROPERTYNAME = "Print";
         private const string CLOSEBUTTONCONTENT = "X";
-        private const string CLOSEBUTTONTOOLTIP = "Exit Print";
+        private static readonly string CLOSEBUTTONTOOLTIP = TextResources.ExitPrint;
         private static Point startPosition;
         private static Point currentPosition;
         private static Point endPosition;

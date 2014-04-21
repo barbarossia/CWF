@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Data = Microsoft.Support.Workflow.Authoring.AddIns.Data;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
@@ -125,7 +126,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             try
             {
-                Utility.DoTaskWithBusyCaption("Copying", () =>
+                Utility.DoTaskWithBusyCaption(TextResources.Copying, () =>
                     {
                         using (WorkflowsQueryServiceClient client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                         {  
@@ -148,7 +149,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBoxService.ShowException(ex, "Failed to Copy Project.");
+                MessageBoxService.ShowException(ex, TextResources.CopyProjectFailureMsg);
             }
         }
 

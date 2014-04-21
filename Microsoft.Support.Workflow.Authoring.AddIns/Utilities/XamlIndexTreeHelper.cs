@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
 {
@@ -128,7 +129,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             }
             else
             {
-                throw new ApplicationException(string.Format("No match selection {0}.", activity.NodeName));
+                throw new ApplicationException(string.Format(TextResources.NoMatchOfSelectionMsgFormat, activity.NodeName));
             }
         }
 

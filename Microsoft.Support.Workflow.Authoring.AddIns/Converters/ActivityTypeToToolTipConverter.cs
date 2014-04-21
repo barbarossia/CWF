@@ -12,6 +12,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
     using System.Globalization;
     using System.Linq;
     using System.Windows.Data;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The activity type to tool tip converter. Used to show tool tip in tool box.
@@ -77,7 +78,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Converters
             }
             else
             {
-                return string.Format("v{0}, Built-in .NET activity", activityType.Assembly.GetName().Version);
+                return string.Format(TextResources.BuiltInActivityTooltipFormat, activityType.Assembly.GetName().Version);
             }
         }
 

@@ -1,23 +1,26 @@
-﻿using System;
+﻿using CWF.DataContracts;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Support.Workflow.Authoring.AddIns;
+using Microsoft.Support.Workflow.Authoring.AddIns.Models;
+using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+using Microsoft.Support.Workflow.Authoring.Common;
+using Microsoft.Support.Workflow.Authoring.Security;
+using Microsoft.Support.Workflow.Authoring.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using CWF.DataContracts;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Support.Workflow.Authoring.Common;
-using Microsoft.Support.Workflow.Authoring.Services;
 using System.Reflection;
-using System.ServiceModel;
-using System.Windows;
-using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+using System.Security.Policy;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
     public class EditWorkflowTypeViewModel : ViewModelBase
     {
-        private const string addWorkflowType = "Add Workflow Type";
-        private const string editWorkflowType = "Edit Workflow Type";
-        private const string nameTooLong = "The Name is too long.";
+        private static readonly string addWorkflowType = TextResources.AddWorkflowType;
+        private static readonly string editWorkflowType = TextResources.EditWorkflowType;
+        private static readonly string nameTooLong = TextResources.NameTooLongMsg;
         private const int maxNameLength = 50;
         private WorkflowTypeSearchDC workflowType;
         private string windowTitle;
@@ -186,6 +189,9 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         /// </summary>
         public void UploadWorkflowType(IWorkflowsQueryService client)
         {
+            if (this.PublishingWorkflowId != 0)
+                CleanWorkflowXaml(client, this.PublishingWorkflowId);
+
             WorkFlowTypeCreateOrUpdateRequestDC request = new WorkFlowTypeCreateOrUpdateRequestDC();
             request.SetIncaller();
             request.InGuid = this.workflowType.Guid;
@@ -275,6 +281,93 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 throw new UserFacingException(nameTooLong);
             }
             return true;
+        }
+
+        private void CleanWorkflowXaml(IWorkflowsQueryService client, int id)
+        {
+            StoreActivitiesDC workflow = GetSelectedWorkflow(client, id);
+            if (workflow != null)
+            {
+                SaveSelecedWorkflow(client, workflow);
+            }
+        }
+
+        private StoreActivitiesDC GetSelectedWorkflow(IWorkflowsQueryService client, int id)
+        {
+            StoreActivitiesDC selectedWorkflow = new StoreActivitiesDC()
+            {
+                Id = id,
+            };
+            selectedWorkflow.SetIncaller();
+
+            var result = client.StoreActivitiesGet(selectedWorkflow);
+            if (result.Any())
+            {
+                result[0].StatusReply.CheckErrors();
+                return result[0];
+            }
+
+            return null;
+        }
+
+        private void SaveSelecedWorkflow(IWorkflowsQueryService client, StoreActivitiesDC selectedWorkflowDC)
+        {
+            ActivityAssemblyItem assembly = null;
+            string activityLibraryName;
+            string version;
+
+            activityLibraryName = selectedWorkflowDC.ActivityLibraryName;
+            version = selectedWorkflowDC.ActivityLibraryVersion;
+            assembly = new ActivityAssemblyItem { Name = activityLibraryName, Version = System.Version.Parse(version), Env = selectedWorkflowDC.Environment.ToEnv() };
+
+            List<ActivityAssemblyItem> referencedItems = Caching.ComputeDependencies(client, assembly);
+            var referenced = Caching.CacheAndDownloadAssembly(client, referencedItems);
+           
+            string libraryName = selectedWorkflowDC.Name;
+            var library = DataContractTranslator.GetActivityLibraryDC(libraryName, selectedWorkflowDC.ActivityCategoryName, selectedWorkflowDC.Description, selectedWorkflowDC.InInsertedByUserAlias, selectedWorkflowDC.Version, selectedWorkflowDC.StatusCodeName, selectedWorkflowDC.Environment.ToEnv());
+
+            selectedWorkflowDC.Xaml = Cleanup(selectedWorkflowDC.Xaml, referenced);
+
+            var requestDC = new StoreLibraryAndActivitiesRequestDC
+            {
+                Incaller = Utility.GetCallerName(),
+                IncallerVersion = Utility.GetCallerVersion(),
+                InInsertedByUserAlias = selectedWorkflowDC.InInsertedByUserAlias,
+                InUpdatedByUserAlias = Utility.GetCurrentUserName(),
+                EnforceVersionRules = false,
+                ActivityLibrary = library,
+                StoreActivitiesList = new List<StoreActivitiesDC> { selectedWorkflowDC },
+
+            }.SetIncaller();
+
+            var result = client.UploadActivityLibraryAndDependentActivities(requestDC);
+            if (result.Any())
+            {
+                result[0].StatusReply.CheckErrors();
+            }
+        }
+
+        private string Cleanup(string xaml, List<ActivityAssemblyItem> references)
+        {
+            string cleanXaml = string.Empty;
+            var appDomain = Utility.CreateTempAppDomain(AppDomain.CurrentDomain);
+
+            // Setup
+            var typeName = typeof(TempAssemblyLoader).FullName;
+            var location = typeof(TempAssemblyLoader).Assembly.Location;
+
+            if (!String.IsNullOrEmpty(typeName) && !String.IsNullOrEmpty(location))
+            {
+                // Run computation and tear down AppDomain
+                var subloader = (TempAssemblyLoader)appDomain.CreateInstanceFromAndUnwrap(location, typeName);
+                AddInCaching.ImportAssemblies(references);
+                var root = XamlService.DeserializeString(xaml);
+                cleanXaml = root.CleanXaml();
+
+                AppDomain.Unload(appDomain);
+            }
+
+            return cleanXaml;
         }
 
         #endregion

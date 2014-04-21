@@ -17,6 +17,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
     using System.ServiceModel;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
     /// <summary>
     /// The message box service.
     /// </summary>
@@ -24,116 +25,102 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     {
         #region Constants
 
-        private const string NetWorkerIssuerMSG = "The server is not available right now.";
+        private static readonly string NetWorkerIssuerMSG = TextResources.ServerUnavailableMsg;
 
-        private const string NetWorkTimeoutMsg = "The server is not available right now (request timeout).";
+        private static readonly string NetWorkTimeoutMsg = TextResources.ServerTimedOutMsg;
         /// <summary>
         /// The name of the application to use in MessageBox
         /// </summary>
-        private const string APPLICATION_NAME = "Common Workflow Foundry";
+        private static readonly string APPLICATION_NAME = TextResources.CwfApplicationName;
 
         /// <summary>
         /// Message String for the Not Implemented message
         /// </summary>
-        private const string MsgNotImplemented = "Feature \"{0}\" has not yet been implemented";
-
-        /// <summary>
-        /// Upload succeeded message
-        /// </summary>
-        private const string MsgUploadSucceeded = "The upload the of the assembly named \"{0}\" was successful.";
-
-        /// <summary>
-        /// Message to user about the Data Dirty state
-        /// </summary>
-        private const string MsgDataDirty = "Do you want to close without saving your changes?";
+        private static readonly string MsgNotImplemented = TextResources.FeatureNotImplementedMsgFormat;
 
         /// <summary>
         /// Warning message to user close the main window while the marketplace view is open
         /// </summary>
-        private const string MsgMarketplaceOpened = "Do you want to close while the Marketplace View is open?";
+        private static readonly string MsgMarketplaceOpened = TextResources.MarketplaceOpenedMsg;
 
         /// <summary>
         /// Warning message to user close the main window while the marketplace is downloading
         /// </summary>
-        private const string MsgMarketplaceDownloading = "Do you want to close while the Marketplace is processing download?";
+        private static readonly string MsgMarketplaceDownloading = TextResources.MarketplaceDownloadingMsg;
 
         /// <summary>
         /// Error message when user tries to re-import an assembly
         /// </summary>
-        private const string MsgAssemblyAlreadyLoaded = "This library has already been imported.";
+        private static readonly string MsgAssemblyAlreadyLoaded = TextResources.AssemblyAlreadyImportedMsg;
 
         /// <summary>
         /// Error message when .wf file fails deserialization
         /// </summary>
-        private const string MsgFileIsCorrupt = "The file '{0}' does not contain a valid workflow";
+        private static readonly string MsgFileIsCorrupt = TextResources.FileContainsNoWorkflowMsgFormat;
 
         /// <summary>
         /// Message to user about the Data Dirty state
         /// </summary>
-        private const string MSG_DATA_DIRTY = "Do you want to save changes to {0} before closing?";
+        private static readonly string MSG_DATA_DIRTY = TextResources.DataDirtyMsgFormat;
 
         /// <summary>
         /// Message to non-admin user if project was locked.
         /// </summary>
-        private const string MSG_CANNOT_SAVE_LOCKED_ACTIVITY = "This project was locked by an administrator.  You are not allowed to save your changes to the server.";
+        private static readonly string MSG_CANNOT_SAVE_LOCKED_ACTIVITY = TextResources.CannotSaveLockedActivityMsg;
 
         /// <summary>
         /// Message to non-admin user while he opening a locked activity.
         /// </summary>
-        private const string MSG_NONADMIN_OPEN_LOCKED_ACTIVITY_FORMAT = "This workflow was locked by {0}. You will open it in read-only mode.";
+        private static readonly string MSG_NONADMIN_OPEN_LOCKED_ACTIVITY_FORMAT = TextResources.OpenInReadonlyMsgFormat;
 
         /// <summary>
         /// Message to admin when the workflow lock has changed by someone else
         /// </summary>
-        private const string MSG_ADMIN_LOCK_CHANGED_FORMAT = "The workflow was locked by {0}. Would you like to unlock it?";
+        private static readonly string MSG_ADMIN_LOCK_CHANGED_FORMAT = TextResources.UnlockConfirmationMsgFormat;
 
         /// <summary>
         /// Message to author when the workflow lock has changed by someone else
         /// </summary>
-        private const string MSG_NONADMIN_LOCK_CHANGED_FORMAT = "The workflow was locked by administrator {0}. You cannot unlock it now.";
+        private static readonly string MSG_NONADMIN_LOCK_CHANGED_FORMAT = TextResources.CannotUnlockMsgFormat;
 
         /// <summary>
         /// Message to author if he want to keep locked when the workflow closed
         /// </summary>
-        private const string MSG_KEEP_LOCKED = "{0} is locked by yourself, do you want to keep the lock?";
+        private static readonly string MSG_KEEP_LOCKED = TextResources.KeepLockMsgFormat;
 
         /// <summary>
         /// Message to user about the unlock confirmation
         /// </summary>
-        private const string MSG_UNLOCK_CONFIRMATION = "Do you want to save changes to {0} before unlock? The workflow will be read-only after unlocked.";
+        private static readonly string MSG_UNLOCK_CONFIRMATION = TextResources.SaveAndUnlockConfirmationMsgFormat;
 
         /// <summary>
         /// Message to ADMIN if a newer version exists.
         /// </summary>
-        private const string MSG_CREATE_NEW_ACTIVITY = "A newer version of this project exists in the Marketplace.  Would you like to create a newer version?";
+        private static readonly string MSG_CREATE_NEW_ACTIVITY = TextResources.MarketplaceCreateNewerVersionMsg;
 
         /// <summary>
         /// Message to non-admin user if a newer version exists.
         /// </summary>
-        private const string MSG_DOWNLOAD_ACTIVITY = "A new version of this project exists in the Marketplace, you are not allowed to save your changes to the server. It is suggested that you save your work locally. Do you want to download the newer version?";
+        private static readonly string MSG_DOWNLOAD_ACTIVITY = TextResources.MarketplaceDownloadNewerVersionMsg;
 
         /// <summary>
         /// Message to save the workflow which is already in server
         /// </summary>
-        private const string MSG_CANNOT_SAVE_DUPLICATED_ACTIVITY = "The name \"{0}\" already exists in server, please use another one.";
+        private static readonly string MSG_CANNOT_SAVE_DUPLICATED_ACTIVITY = TextResources.CannotSaveDuplicatedWorkflowMsgFormat;
 
-        private const string MSG_PRINT_CONFIRMATION = "You are going to print thses activities on [ {0} ] pages of [ {1} ] paper with [ {2} ]. Are you sure?";
+        private static readonly string COMPILE_WORKFLOW_SUCCESSFULLY = TextResources.CompileWorkflowSuccessfullyMsgFormat;
 
-        private const string MSG_PRINT_ERROR = "Print failed due to {0}.";
+        private static readonly string DeleteWorkflowConfirmationMsg = TextResources.DeleteWorkflowConfirmationMsg;
 
-        private const string COMPILE_WORKFLOW_SUCCESSFULLY = "Compiled the workflow {0} successfully.";
+        private static readonly string ConfirmationMsg = TextResources.Confirmation;
 
-        private const string DeleteWorkflowConfirmationMsg = "Are you sure to delete current opened workflow?";
-
-        private const string ConfirmationMsg = "Confirmation";
-
-        private const string NeedToSaveWorkflowMsg = "Please save the current project before performing this operations.";
+        private static readonly string NeedToSaveWorkflowMsg = TextResources.SaveWorkflowFirstMsg;
 
         #endregion Constants
 
         public static void ShouldSaveWorkflow()
         {
-            Show(NeedToSaveWorkflowMsg, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            Show(NeedToSaveWorkflowMsg, TextResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public static bool ShouldDeleteWorkflow()
@@ -146,7 +133,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// <param name="message"></param>
         public static void CompileSuccessed(string name)
         {
-            Show(string.Format(COMPILE_WORKFLOW_SUCCESSFULLY, name), "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            Show(string.Format(COMPILE_WORKFLOW_SUCCESSFULLY, name), TextResources.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
@@ -154,8 +141,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// </summary>
         public static void CannotCheckAssemblyForAnotherVersionSelected(string assemblyName, string versionToCheck, string checkedVersion)
         {
-            Show(string.Format("The assembly you checked needs \"{0}\" version {1}. You cannot import it unless \"{0}\" version {2} is unchecked.",
-                assemblyName, versionToCheck, checkedVersion), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Show(string.Format(TextResources.AssemblyVersionConflictMsgFormat,
+                assemblyName, versionToCheck, checkedVersion), TextResources.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -163,8 +150,8 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// </summary>
         public static void CannotCheckAssemblyItself()
         {
-            Show("You cannot import an assembly which has same name of current workflow.",
-                "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Show(TextResources.CannotImportSelfMsg,
+                TextResources.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -174,12 +161,12 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         public static void CannotUncheckAssemblyForReferenced(AssemblyName name, AssemblyName[] references)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(string.Format("You cannot uncheck \"{0}\" because following assemblies referenced it:", name.Name));
+            sb.AppendLine(string.Format(TextResources.UncheckingAssemblyReferencedMsgFormat, name.Name));
             foreach (AssemblyName parent in references)
             {
-                sb.AppendLine(string.Format("\"{0}\" version {1}", parent.Name, parent.Version));
+                sb.AppendLine(string.Format(TextResources.AssemblyLineInfoFormat, parent.Name, parent.Version));
             }
-            Show(sb.ToString(), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Show(sb.ToString(), TextResources.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         #region Methods
@@ -189,9 +176,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// Ask the user if they want to save changes
         /// </summary>
         /// <returns>If true then the user doesn't care about losing changes</returns>
-        public static SavingResult? ShowClosingComfirmation(string activityName)
+        public static SavingResult? ShowClosingConfirmation(string activityName)
         {
-            return MessageBoxService.ShowSavingComfirmation(string.Format(MSG_DATA_DIRTY, activityName), APPLICATION_NAME, true);
+            return MessageBoxService.ShowSavingConfirmation(string.Format(MSG_DATA_DIRTY, activityName), APPLICATION_NAME, true);
         }
 
         /// <summary>
@@ -199,9 +186,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// </summary>
         /// <param name="activityName"></param>
         /// <returns></returns>
-        public static SavingResult? ShowUnlockComfirmation(string activityName)
+        public static SavingResult? ShowUnlockConfirmation(string activityName)
         {
-            return MessageBoxService.ShowSavingComfirmation(string.Format(MSG_UNLOCK_CONFIRMATION, activityName), APPLICATION_NAME, false);
+            return MessageBoxService.ShowSavingConfirmation(string.Format(MSG_UNLOCK_CONFIRMATION, activityName), APPLICATION_NAME, false);
         }
 
         /// <summary>
@@ -209,9 +196,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// </summary>
         /// <param name="activityName"></param>
         /// <returns></returns>
-        public static SavingResult? ShowLocalSavingComfirmation(string activityName)
+        public static SavingResult? ShowLocalSavingConfirmation(string activityName)
         {
-            return MessageBoxService.ShowLocalSavingComfirmation(string.Format(MSG_DATA_DIRTY, activityName), APPLICATION_NAME);
+            return MessageBoxService.ShowLocalSavingConfirmation(string.Format(MSG_DATA_DIRTY, activityName), APPLICATION_NAME);
         }
 
         /// <summary>
@@ -219,9 +206,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// </summary>
         /// <param name="activityName"></param>
         /// <returns></returns>
-        public static SavingResult? ShowKeepLockedComfirmation(string activityName)
+        public static SavingResult? ShowKeepLockedConfirmation(string activityName)
         {
-            return MessageBoxService.ShowKeepLockedComfirmation(string.Format(MSG_KEEP_LOCKED, activityName), APPLICATION_NAME);
+            return MessageBoxService.ShowKeepLockedConfirmation(string.Format(MSG_KEEP_LOCKED, activityName), APPLICATION_NAME);
         }
 
         /// <summary>
@@ -245,9 +232,9 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         public static void NotifyUploadResult(string result, bool isSucceed)
         {
             if (isSucceed)
-                Show(result, "Upload Assembly", MessageBoxButton.OK, MessageBoxImage.Information);
+                Show(result, TextResources.UploadAssembly, MessageBoxButton.OK, MessageBoxImage.Information);
             else
-                Show(result, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Show(result, TextResources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
 
@@ -295,14 +282,14 @@ namespace Microsoft.Support.Workflow.Authoring.Services
         /// <summary>
         /// This encapsulates the method that shows the clickable dialog. Necessary to suppress the message boxes during test automation
         /// </summary>
-        public static Func<string, string, bool, bool, bool, SavingResult?> ShowSavingComfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
+        public static Func<string, string, bool, bool, bool, SavingResult?> ShowSavingConfirmationFunc = ((msg, caption, canKeepLocked, shouldUnlock, unlockVisibility) =>
         {
-            return SavingComfirmation.ShowAsDialog(msg, caption, canKeepLocked, shouldUnlock, unlockVisibility);
+            return SavingConfirmation.ShowAsDialog(msg, caption, canKeepLocked, shouldUnlock, unlockVisibility);
         });
 
-        public static SavingResult? ShowSavingComfirmation(string messageBoxText, string caption, bool canKeepLocked)
+        public static SavingResult? ShowSavingConfirmation(string messageBoxText, string caption, bool canKeepLocked)
         {
-            return ShowSavingComfirmationFunc(messageBoxText, caption, canKeepLocked, true, true);
+            return ShowSavingConfirmationFunc(messageBoxText, caption, canKeepLocked, true, true);
         }
 
         public static MessageBoxResult LockChangedWhenAdminUnlocking(string lockedBy)
@@ -321,14 +308,14 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                 MessageBoxImage.Information);
         }
 
-        public static SavingResult? ShowLocalSavingComfirmation(string messageBoxText, string caption)
+        public static SavingResult? ShowLocalSavingConfirmation(string messageBoxText, string caption)
         {
-            return ShowSavingComfirmationFunc(messageBoxText, caption, false, false, false);
+            return ShowSavingConfirmationFunc(messageBoxText, caption, false, false, false);
         }
 
-        public static SavingResult? ShowKeepLockedComfirmation(string messageBoxText, string caption)
+        public static SavingResult? ShowKeepLockedConfirmation(string messageBoxText, string caption)
         {
-            return ShowSavingComfirmationFunc(messageBoxText, caption, false, true, false);
+            return ShowSavingConfirmationFunc(messageBoxText, caption, false, true, false);
         }
 
         /// <summary>

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Views
 {
@@ -29,7 +30,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
             var viewModel = this.DataContext as TenantSecurityOptionsViewModel;
             if (viewModel != null && viewModel.HasChanged)
             {
-                MessageBoxResult result = MessageBox.Show("Are you sure to cancel without saving?" , "Confirmation", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show(TextResources.CancelWithoutSavingConfirmationMsg , TextResources.Confirmation, MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                     this.Close();
             }

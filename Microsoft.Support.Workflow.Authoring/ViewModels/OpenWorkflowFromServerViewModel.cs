@@ -22,6 +22,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Microsoft.Support.Workflow.Authoring.Common;
     using System.Collections.Generic;
     using Microsoft.Support.Workflow.Authoring.Security;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// ViewModel for OpenWorkflowFromServerView
@@ -136,7 +137,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             if (!CanSearchWorkflows)
             {
-                MessageBoxService.ShowInfo("Please specify an environment to search.");
+                MessageBoxService.ShowInfo(TextResources.SpecifyEnvironmentToSearchMsg);
                 return;
             }
             using (var client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())

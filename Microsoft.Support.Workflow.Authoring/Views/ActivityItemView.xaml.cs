@@ -11,6 +11,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
     using Services;
     using ViewModels;
     using System.Windows.Controls;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// Interaction logic for ActivityItemView.xaml
@@ -30,7 +31,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views
 
         private void ActivityItemView_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            descriptionTextboxHintTextExtension = new TextboxHintTextExtension(uxDescription, "Please supply a description");
+            descriptionTextboxHintTextExtension = new TextboxHintTextExtension(uxDescription, TextResources.SupplyDescriptionMsg);
         }
 
 

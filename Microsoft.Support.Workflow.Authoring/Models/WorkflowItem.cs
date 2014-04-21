@@ -22,6 +22,7 @@ namespace Microsoft.Support.Workflow.Authoring.Models
     using CWF.DataContracts;
     using Microsoft.Support.Workflow.Authoring.AddIns.Data;
     using Microsoft.Support.Workflow.Authoring.Common.Messages;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The workflow item. 
@@ -30,6 +31,8 @@ namespace Microsoft.Support.Workflow.Authoring.Models
     [Serializable]
     public sealed partial class WorkflowItem : ActivityItem
     {
+        public const string ClassNameRegularExpression = @"^[a-zA-Z][a-zA-Z0-9_]*$";
+        
         /// <summary>
         /// Default to use for the workflow type that is not a service
         /// </summary>
@@ -524,11 +527,11 @@ namespace Microsoft.Support.Workflow.Authoring.Models
             base.Validate();
             if (!string.IsNullOrWhiteSpace(this.WorkflowName)) 
             {
-                var regex = new Regex(CommonMessages.ClassNameRegularExpression);
+                var regex = new Regex(ClassNameRegularExpression);
                 if (!regex.IsMatch(this.WorkflowName))
                 {
                     IsValid = false;
-                    ErrorMessage += CommonMessages.WorkflowNameErrorString;
+                    ErrorMessage += TextResources.WorkflowNameInvalidMsg;
                     ErrorMessage = ErrorMessage.Trim();
                 }
             }

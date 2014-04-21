@@ -1,13 +1,3 @@
-﻿<Application x:Class="Microsoft.Support.Workflow.Authoring.App" 
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--<Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Styles.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="/Resources/XAML/StyleDictionary.xaml" />
-                <ResourceDictionary x:Name="MarketplaceStyle" Source="/Resources/XAML/MarketplaceStyle.xaml" />
-                </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>-->
+﻿<Application
+    x:Class="Microsoft.Support.Workflow.Authoring.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 </Application>

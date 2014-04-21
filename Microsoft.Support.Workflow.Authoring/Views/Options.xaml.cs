@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Views {
     /// <summary>
@@ -39,7 +40,7 @@ namespace Microsoft.Support.Workflow.Authoring.Views {
             if (vm.HasSaved)
                 Close();
             else {
-                MessageBoxResult result = MessageBox.Show("Are you sure to cancel without saving?", "Confirmation", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show(TextResources.CancelWithoutSavingConfirmationMsg, TextResources.Confirmation, MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                     Close();
             }

@@ -25,6 +25,7 @@ namespace Microsoft.Support.Workflow.Authoring.AssetStore
     using System.ServiceModel.Configuration;
 using Microsoft.Support.Workflow.Authoring.AddIns.Data;
     using System.Collections.Specialized;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// Class to centralize all operations that call the QueryService
@@ -85,7 +86,7 @@ using Microsoft.Support.Workflow.Authoring.AddIns.Data;
             if (ActivityCategories != null)
             {
                 NewActivityCategories = new CollectionViewSource { Source = Categories };
-                NewActivityCategories.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
+                NewActivityCategories.SortDescriptions.Add(new SortDescription(string.Empty, ListSortDirection.Ascending));
             }
         }
 
@@ -107,7 +108,7 @@ using Microsoft.Support.Workflow.Authoring.AddIns.Data;
                 var categoriesCollection = client.ActivityCategoryGet(request);
                 Categories.Assign(from category in categoriesCollection orderby category.Name select category.Name);
                 ActivityCategories = new CollectionViewSource { Source = Categories };
-                ActivityCategories.SortDescriptions.Add(new SortDescription("", ListSortDirection.Ascending));
+                ActivityCategories.SortDescriptions.Add(new SortDescription(string.Empty, ListSortDirection.Ascending));
                 return true;
             }
         }
@@ -174,7 +175,7 @@ using Microsoft.Support.Workflow.Authoring.AddIns.Data;
                 var categoriesCollection = client.ActivityCategoryGet(requestName);
 
                 if (categoriesCollection.Any(c => c.Name == categoryName))
-                    throw new UserFacingException("Name already exist");
+                    throw new UserFacingException(TextResources.NameExistsMsg);
 
                 bool result = false;
                 var request = new ActivityCategoryCreateOrUpdateRequestDC

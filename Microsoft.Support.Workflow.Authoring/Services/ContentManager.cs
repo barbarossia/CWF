@@ -20,7 +20,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
     using System.Xml.Linq;
     using System.Xml.Schema;
     using Models;
-
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The content manager.
@@ -56,7 +56,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                         {
                             using (var reader = XmlReader.Create(schemaElement.Value))
                             {
-                                schemas.Add("", reader);
+                                schemas.Add(string.Empty, reader);
                             }
                         }
 
@@ -88,7 +88,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
                                 }
                                 catch (XmlException)
                                 {
-                                    MessageBoxService.ShowError(string.Format(CommonMessages.InvalidContentFile, Path.GetFileName(contentElement.Value)));
+                                    MessageBoxService.ShowError(string.Format(TextResources.InvalidContentFileMsgFormat, Path.GetFileName(contentElement.Value)));
                                 }
                                 
                             }

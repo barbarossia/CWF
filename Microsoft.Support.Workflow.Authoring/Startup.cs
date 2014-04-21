@@ -16,6 +16,7 @@ using Microsoft.Support.Workflow.Authoring.Common.Messages;
 using Microsoft.Support.Workflow.Authoring.AddIns.Converters;
 using Microsoft.Support.Workflow.Authoring.AddIns.Logger;
 using System.Collections.ObjectModel;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring
 {
@@ -85,7 +86,7 @@ namespace Microsoft.Support.Workflow.Authoring
             // For UserFacingException, show Message and InnerException in details.
             // For anything else, show a generic message and the actual exception in details. 
             // If this happens it always means there's a bug in the tool.
-            string msg = (e is UserFacingException) ? e.Message : "An unexpected error occurred. You have found a bug.";
+            string msg = (e is UserFacingException) ? e.Message : TextResources.UnexpectedErrorMsg;
             string details = (e is UserFacingException)
                 ? e.InnerException.IfNotNull(inner => inner.ToString())
                 : e.ToString();

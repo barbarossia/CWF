@@ -13,18 +13,19 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Support.Workflow.Authoring.Views;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
     public class EnvironmentSecurityOptionsViewModel : ViewModelBase
     {
-        private const string TestButtonContent = "Test";
-        private const string VerifyButtonContent = "Verifing...";
-        private const string SecurityGroupNotValidMsg = "The entered security group name {0} is invalid, please check it and try again.";
-        private const string ConnectionSGSuccessfulMsg = "Connection is successful.";
-        private const string SaveSuccessfulMsg = "Save the environment settings successfully!";
-        private const string SaveFailedMsg = "Save the environment settings failed, please check the settings and try again later.";
-        private const string SGGroupsExist = "The entered security group name {0} exists, can not be added.";
+        private static readonly string TestButtonContent = TextResources.Test;
+        private static readonly string VerifyButtonContent = TextResources.Verifying;
+        private static readonly string SecurityGroupNotValidMsg = TextResources.SecurityGroupInvalidMsgFormat;
+        private static readonly string ConnectionSGSuccessfulMsg = TextResources.SGConnectionSucceedMsg;
+        private static readonly string SaveSuccessfulMsg = TextResources.EnvironmentSavedMsg;
+        private static readonly string SaveFailedMsg = TextResources.EnvironmentSaveFailureMsg;
+        private static readonly string SGGroupsExist = TextResources.SGGroupExistsMsgFormat;
         private string tenantEndpoint;
         private string tenantName;
         private string tenantAdminGroup = string.Empty;
@@ -209,10 +210,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
             this.SGType = new List<string> 
             {
-                "Viewer",
-                "Author",
-                "Admin",
-                "Stage Author"
+                TextResources.Viewer,
+                TextResources.Author,
+                TextResources.Admin,
+                TextResources.StageAuthor
             };
         }
 
@@ -283,7 +284,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                         return;
                     }
                 }
-                Utility.DoTaskWithBusyCaption("Saving", () =>
+                Utility.DoTaskWithBusyCaption(TextResources.Saving, () =>
                 {
                     using (WorkflowsQueryServiceClient client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                     {
@@ -346,13 +347,13 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         private int GetRoleId(string role)
         {
-            if (role == "Viewer")
+            if (role == TextResources.Viewer)
                 return (int)Role.Viewer;
-            else if (role == "Admin")
+            else if (role == TextResources.Admin)
                 return (int)Role.Admin;
-            else if (role == "Author")
+            else if (role == TextResources.Author)
                 return (int)Role.Author;
-            else if (role == "Stage Author")
+            else if (role == TextResources.StageAuthor)
                 return (int)Role.TenantStageAuthor;
             return 0;
         }
@@ -431,7 +432,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
 
         private void GetAuthorizationGroupDCs()
         {
-            Utility.DoTaskWithBusyCaption("Loading", () =>
+            Utility.DoTaskWithBusyCaption(TextResources.Loading, () =>
             {
                 using (WorkflowsQueryServiceClient client = WorkflowsQueryServiceUtility.GetWorkflowQueryServiceClient())
                 {

@@ -17,6 +17,7 @@ using System.Threading;
 using Microsoft.Support.Workflow.Authoring.AddIns.Utilities;
 using Microsoft.Support.Workflow.Authoring.AddIns.Models;
 using Microsoft.Support.Workflow.Authoring.Security;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.Services
 {
@@ -330,7 +331,7 @@ namespace Microsoft.Support.Workflow.Authoring.Services
 
                         //delete version file which contains the assembly dll
                         string rootFile = string.Format(@"{0}\{1}", Utility.GetAssembliesDirectoryPath(), assemblyItem.AssemblyName.Name);
-                        string versionFile = string.Format(@"{0}\{1}", rootFile, assemblyItem.AssemblyName.Version.IfNotNull(v => v.ToString()) ?? "None");
+                        string versionFile = string.Format(@"{0}\{1}", rootFile, assemblyItem.AssemblyName.Version.IfNotNull(v => v.ToString()) ?? TextResources.None);
                         if (Directory.Exists(versionFile))
                             toDeleteFiles.Add(versionFile);
                     }

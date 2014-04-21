@@ -9,6 +9,7 @@ using CWF.DataContracts.Marketplace;
 using CWF.DataContracts;
 using Microsoft.Support.Workflow.Authoring.Services;
 using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
 {
@@ -191,11 +192,11 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels.Marketplace
                     {
                         this.MarketplaceAssetFieldValues.Add(new FieldValue() { Field = "Activities", Value = details.Activities.Count.ToString(), });
                         this.IncludedActivities = new ObservableCollection<ActivityQuickInfo>(details.Activities);
-                        this.RightPaneTitle = "INCLUDED ACTIVITIES(" + this.IncludedActivities.Count + ")";
+                        this.RightPaneTitle = string.Format(TextResources.IncludedAcitivitiesFormat, this.IncludedActivities.Count);
                     }
                     else
                     {
-                        this.RightPaneTitle = "INCLUDED ACTIVITIES(0)";
+                        this.RightPaneTitle = string.Format(TextResources.IncludedAcitivitiesFormat, 0);
                         this.MarketplaceAssetFieldValues.Add(new FieldValue() { Field = "Activities", Value = "None", });
                     }
                 }

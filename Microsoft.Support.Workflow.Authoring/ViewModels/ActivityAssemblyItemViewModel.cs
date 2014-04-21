@@ -13,6 +13,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
     using Microsoft.Support.Workflow.Authoring.AddIns;
     using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     public class ActivityAssemblyItemViewModel : ViewModelBase
     {
@@ -411,7 +412,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(string.Format("\"{0}\" is not a valid version number", value));
+                    throw new ArgumentOutOfRangeException(string.Format(TextResources.InvalidVersionMsgFormat, value));
                 }
                 NotifyChangedAssemblyNameDerivedProperties();
             }

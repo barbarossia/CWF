@@ -19,12 +19,18 @@ using System.Windows.Threading;
 using CWF.DataContracts;
 using Microsoft.Support.Workflow.Authoring.AddIns.Data;
 using Microsoft.Support.Workflow.Authoring.Security;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor {
     /// <summary>
     /// Interaction logic for TaskActivityDesigner.xaml
     /// </summary>
     public partial class TaskActivityDesigner {
+        private const string taskIdPropertyName = "TaskId";
+        private const string aliasPropertyName = "Alias";
+        private const string statusPropertyName = "Status";
+        private const string displayNamePropertyName = "DisplayName";
+
         public string Alias { get; set; }
 
         public TaskActivityDesigner() {
@@ -71,7 +77,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor {
 
         private void SetLoading() {
             userList.IsEnabled = false;
-            userList.Text = "Loading...";
+            userList.Text = TextResources.Loading;
         }
 
         private void SetReadOnly() {
@@ -79,29 +85,29 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor {
         }
 
         private Guid GetTaskId() {
-            return (Guid)ModelItem.Properties["TaskId"].ComputedValue;
+            return (Guid)ModelItem.Properties[taskIdPropertyName].ComputedValue;
         }
 
         private string GetAlias() {
-            return (string)ModelItem.Properties["Alias"].ComputedValue;
+            return (string)ModelItem.Properties[aliasPropertyName].ComputedValue;
         }
 
         private TaskActivityStatus GetStatus() {
-            return (TaskActivityStatus)ModelItem.Properties["Status"].ComputedValue;
+            return (TaskActivityStatus)ModelItem.Properties[statusPropertyName].ComputedValue;
         }
 
         private void SetStatus(TaskActivityStatus status) {
-            this.ModelItem.Properties["Status"].SetValue(status);
+            this.ModelItem.Properties[statusPropertyName].SetValue(status);
         }
 
         private void userList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (e.AddedItems.Count > 0) {
-                ModelItem.Properties["Alias"].SetValue(Alias);
+                ModelItem.Properties[aliasPropertyName].SetValue(Alias);
 
                 Principal selectedUser = e.AddedItems[0] as Principal;
-                string taskName = (string)ModelItem.Properties["DisplayName"].ComputedValue;
+                string taskName = (string)ModelItem.Properties[displayNamePropertyName].ComputedValue;
                 if (taskName == typeof(TaskActivity).Name || (e.RemovedItems.Count > 0 && taskName == GetTaskName(e.RemovedItems[0] as Principal)))
-                    ModelItem.Properties["DisplayName"].SetValue(GetTaskName(selectedUser));
+                    ModelItem.Properties[displayNamePropertyName].SetValue(GetTaskName(selectedUser));
             }
         }
 
@@ -112,10 +118,10 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor {
         private void userList_KeyUp(object sender, KeyEventArgs e) {
             Principal principal = userList.SelectedItem as Principal;
             if (principal != null && principal.DisplayName == userList.Text) {
-                ModelItem.Properties["Alias"].SetValue(Alias);
+                ModelItem.Properties[aliasPropertyName].SetValue(Alias);
             }
             else {
-                ModelItem.Properties["Alias"].SetValue(null);
+                ModelItem.Properties[aliasPropertyName].SetValue(null);
             }
         }
     }

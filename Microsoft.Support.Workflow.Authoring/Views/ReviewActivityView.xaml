@@ -1,51 +1,68 @@
-﻿<Window x:Class="Microsoft.Support.Workflow.Authoring.Views.ReviewActivityView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:v="clr-namespace:Microsoft.Support.Workflow.Authoring.Views"
-        Title="{Binding Title}"  Topmost="True"      
-        Height="500"
-        Width="600"
-        WindowStartupLocation="CenterScreen"
-        Style="{StaticResource WindowStyle}">
+﻿<Window
+    x:Class="Microsoft.Support.Workflow.Authoring.Views.ReviewActivityView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:Microsoft.Support.Workflow.Authoring.Views"
+    Title="{Binding Title}"
+    Topmost="True"
+    Height="500"
+    Width="600"
+    WindowStartupLocation="CenterScreen"
+    Style="{StaticResource WindowStyle}" xmlns:res="clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.Properties;assembly=Microsoft.Support.Workflow.Authoring.AddIns">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" MinHeight="100" />
-            <RowDefinition Height="40" />
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="*"
+                MinHeight="100" />
+            <RowDefinition
+                Height="40" />
         </Grid.RowDefinitions>
-        <v:ActivityItemView x:Name="activityItemView"
-                                DataContext="{Binding SelectedActivityItem}" />
-
-        <GroupBox Header="Activities" Margin="5,0,5,0"
-                      Grid.Row="1">
-            <DataGrid Name="activities"                          
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False"
-                          GridLinesVisibility="None"
-                          ItemsSource="{Binding ActivityAssemblyItem.ActivityItems}"
-                          SelectedItem="{Binding SelectedActivityItem}"
-                          SelectedCellsChanged="DataGrid_SelectedCellChanged">
+        <v:ActivityItemView
+            x:Name="activityItemView"
+            DataContext="{Binding SelectedActivityItem}" />
+        <GroupBox
+            Header="{x:Static res:Resources.Activities}"
+            Margin="5,0,5,0"
+            Grid.Row="1">
+            <DataGrid
+                Name="activities"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                IsReadOnly="True"
+                AutoGenerateColumns="False"
+                GridLinesVisibility="None"
+                ItemsSource="{Binding ActivityAssemblyItem.ActivityItems}"
+                SelectedItem="{Binding SelectedActivityItem}"
+                SelectedCellsChanged="DataGrid_SelectedCellChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name"
-                                            Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Category"
-                                            Binding="{Binding Category}" />
-                    <DataGridTextColumn Header="Version"
-                                            Binding="{Binding Version}" />
+                    <DataGridTextColumn
+                        Header="{x:Static res:Resources.Name}"
+                        Binding="{Binding Name}" />
+                    <DataGridTextColumn
+                        Header="{x:Static res:Resources.Category}"
+                        Binding="{Binding Category}" />
+                    <DataGridTextColumn
+                        Header="{x:Static res:Resources.Version}"
+                        Binding="{Binding Version}" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        <StackPanel Orientation="Horizontal" Margin="0,0,5,0"
-                        Grid.Row="2"
-                        HorizontalAlignment="Right">
-            <Button Content="OK"
-                        Width="115" Height="28"
-                        Command="{Binding ReviewAssemblyCommand}"
-                        Margin="0,0,5,0"
-                        Click="OKButton_Click" />
-            <Button Content="Cancel" IsCancel="True" Width="115" Height="28" />
+        <StackPanel
+            Orientation="Horizontal"
+            Margin="0,0,5,0"
+            Grid.Row="2"
+            HorizontalAlignment="Right">
+            <Button
+                Content="{x:Static res:Resources.OK}"
+                Width="115"
+                Height="28"
+                Command="{Binding ReviewAssemblyCommand}"
+                Margin="0,0,5,0"
+                Click="OKButton_Click" />
+            <Button
+                Content="{x:Static res:Resources.Cancel}"
+                IsCancel="True"
+                Width="115"
+                Height="28" />
         </StackPanel>
     </Grid>
 </Window>

@@ -11,11 +11,15 @@ using System.Activities.Presentation;
 using System.Activities.Presentation.Services;
 using Microsoft.Support.Workflow.Authoring.AddIns.Models;
 using System.Diagnostics.Contracts;
+using System.Activities;
+using System.Xml.Linq;
 
 namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
 {
     public static class XamlService
     {
+        private const string removeTextExpressionNamespacesForImplementation = "{http://schemas.microsoft.com/netfx/2009/xaml/activities}TextExpression.NamespacesForImplementation";
+        private const string removeTextExpressionReferencesForImplementation = "{http://schemas.microsoft.com/netfx/2009/xaml/activities}TextExpression.ReferencesForImplementation";
         /// <summary>
         /// Replacement for WorkflowDesigner.Flush()/Text that can fully qualify XAML namespaces and thus support side-by-side versions of activity libraries in the authoring tool.
         /// Note that XamlBuildTask requires clr namespaces with no version/public key (inherently ambiguous) and should not use this method.
@@ -38,6 +42,17 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             return GetXaml(workflowDesigner, fullyQualifiedClrNamespaces: false, shoudCleanup: true);
         }
 
+        /// <summary>
+        /// Clean HintSize attribute in workflow xaml
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <returns></returns>
+        public static string CleanXaml(this object activity)
+        {
+            Contract.Requires(activity != null);
+            return GetXaml(activity, fullyQualifiedClrNamespaces: false, shoudCleanup: true);
+        }
+
         static string GetXaml(WorkflowDesigner workflowDesigner, bool fullyQualifiedClrNamespaces, bool shoudCleanup)
         {
             Contract.Requires(workflowDesigner != null);
@@ -51,6 +66,12 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             }
             object root = workflowDesigner.Context.Services.GetService<ModelService>().IfNotNull(modelService => modelService.Root)
                 .IfNotNull(v => v.GetCurrentValue());
+            // Could be ActivityBuilder or Activity, or something else entirely actually
+            return GetXaml(root, fullyQualifiedClrNamespaces, shoudCleanup);
+        }
+
+        static string GetXaml(object root, bool fullyQualifiedClrNamespaces, bool shoudCleanup)
+        {
             // Could be ActivityBuilder or Activity, or something else entirely actually
             if (root != null)
             {
@@ -87,6 +108,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
         [SuppressMessage("Microsoft.Reliability", "CA2000", Justification = "XmlWriter.Dispose() will dispose of StringWriter too.")]
         public static string SerializeToXamlWithCleanup(object objectToSerialize, bool fullyQualifiedClrNamespaces = true)
         {
+            string result;
             var stringWriter = new StringWriter();
             var xamlSchemaContextCWithFullyQualifiedNameSupport =
                 new XamlSchemaContext(new XamlSchemaContextSettings { FullyQualifyAssemblyNamesInClrNamespaces = fullyQualifiedClrNamespaces });
@@ -97,8 +119,11 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             using (var cleanupReader = new SAPCleanupReader(objectReader))
             {
                 XamlServices.Transform(cleanupReader, builderWriter);
-                return stringWriter.ToString();
+                result =  stringWriter.ToString();
             }
+
+            result = NamespacesCleanup.RemoveNamespaces(result, removeTextExpressionNamespacesForImplementation, removeTextExpressionReferencesForImplementation);
+            return result;
         }
 
         [SuppressMessage("Microsoft.Reliability", "CA2000", Justification = "XmlWriter.Dispose() will dispose of StringWriter too.")]
@@ -121,6 +146,23 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             }
         }
 
+        class NamespacesCleanup
+        {
+            public static string RemoveNamespaces(string xaml, params string[] names)
+            {
+                XElement x = XElement.Parse(xaml);
+
+                var removed = (from e in x.Elements()
+                               from name in names
+                              where e.Name == name
+                              select e).ToList();
+                if (removed.Any())
+                {
+                    removed.Remove();
+                }
+                return x.ToString();
+            }
+        }
         /// <summary>
         /// Remove clutter like ViewState from XAML to improve readability and runtime perf (because we won't load System.Activities.Presentation)
         /// </summary>
@@ -130,6 +172,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.Utilities
             {
                 // Remove sap clutter
                 "http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation",
+                "http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation",
                 "clr-namespace:Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor;assembly=Microsoft.Support.Workflow.Authoring.AddIns",
             };
 

@@ -115,6 +115,18 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
         }
 
+        private string defaultTag;
+        public string DefaultTag
+        {
+            get { return this.defaultTag; }
+            set
+            {
+                this.defaultTag = value;
+                RaisePropertyChanged(() => this.DefaultTag);
+                RaisePropertyChanged(() => HasSaved);
+            }
+        }
+
         public bool HasSaved
         {
             get
@@ -124,7 +136,8 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                     && this.DefaultEnv == DefaultValueSettings.Environment
                     && this.EnableTaskAssignment == DefaultValueSettings.EnableTaskAssignment
                     && (this.OpenForEditing == OpenMode.Editing) == DefaultValueSettings.OpenForEditingMode
-                    && this.DefaultCategory == DefaultValueSettings.DefaultCategory;
+                    && this.DefaultCategory == DefaultValueSettings.DefaultCategory
+                    && this.DefaultTag == DefaultValueSettings.DefaultTag;
             }
         }
 
@@ -135,6 +148,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             this.enableTaskAssignment = DefaultValueSettings.EnableTaskAssignment;
             this.defaultEnv = DefaultValueSettings.Environment;
             this.defaultCategory = DefaultValueSettings.DefaultCategory;
+            this.defaultTag = DefaultValueSettings.DefaultTag;
             try {
                 this.Categories = AssetStore.AssetStoreProxy.Categories;
             }
@@ -150,6 +164,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnvKey, this.DefaultEnv.ToString());
             DefaultValueSettings.SetConfigValue(DefaultValueSettings.EnableTaskAssignmentKey, this.EnableTaskAssignment.ToString());
             DefaultValueSettings.SetConfigValue(DefaultValueSettings.DefaultCategoryKey, this.DefaultCategory);
+            DefaultValueSettings.SetConfigValue(DefaultValueSettings.DefaultTagKey, this.DefaultTag);
             DefaultValueSettings.RefreshConfigValues();
         }
     }

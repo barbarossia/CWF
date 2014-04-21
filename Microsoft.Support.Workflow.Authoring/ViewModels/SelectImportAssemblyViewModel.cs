@@ -13,6 +13,7 @@ using System.Windows;
 using Microsoft.Support.Workflow.Authoring.AddIns.Models;
 using Microsoft.Support.Workflow.Authoring.AddIns;
 using Microsoft.Support.Workflow.Authoring.AddIns.ViewModels;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels {
     public class SelectImportAssemblyViewModel : ViewModelBase {
@@ -83,7 +84,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
 
         public SelectImportAssemblyViewModel(WorkflowItem item) {
             this.focusedWorkflow = item;
-            this.Title = string.Format("Import Assemblies to Workflow {0}", item.Name);
+            this.Title = string.Format(TextResources.ImportAssembliesFormat, item.Name);
             this.BrowseCommand = new DelegateCommand(this.BrowseFile);
             this.ImportCommand = new DelegateCommand(this.ImportAssembly);
             this.InitializeAssemblies();
@@ -144,7 +145,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels {
         }
 
         private void BrowseFile() {
-            string[] assemblyFileNames = DialogService.ShowOpenFileDialogAndReturnMultiResult("Assembly files (*.dll)|*.dll", "Open Assembly File");
+            string[] assemblyFileNames = DialogService.ShowOpenFileDialogAndReturnMultiResult(TextResources.AssemblyFileFilter, TextResources.OpenAssemblyFile);
             if (assemblyFileNames != null)
             {
                 try {

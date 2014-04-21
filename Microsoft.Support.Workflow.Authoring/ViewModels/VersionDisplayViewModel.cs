@@ -23,7 +23,10 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         private string caption;
         private bool changeMajorCanExecute = true;
         private VersionFault versionFault;
+        private int lastMinor;
+
         public DelegateCommand ChangeMajorCommand { get; private set; }
+
         public string Version
         {
             get
@@ -180,10 +183,13 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             if (HasMajorChanged)
             {
                 Major--;
+                Minor = lastMinor;
             }
             else
             {
                 Major++;
+                lastMinor = Minor;
+                Minor = 0;
             }
             HasMajorChanged = !HasMajorChanged;
         }

@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
 namespace Microsoft.Support.Workflow.Authoring.ViewModels
 {
@@ -122,7 +123,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
                           List<StoreActivitiesDC> replyActivty = client.StoreActivitiesGet(activity);
                           StoreActivitiesDC dc = replyActivty[0];
                           if (dc.StatusReply.Errorcode == 0)
-                              throw new UserFacingException(string.Format("The workflow {0} has existed in {1},can not be moved.", this.ProjectName, this.NextStatus.Value.ToString()));
+                              throw new UserFacingException(string.Format(TextResources.WorkflowMovingFailureMsgFormat, this.ProjectName, this.NextStatus.Value.ToString()));
 
                           ActivityMoveRequest request = new ActivityMoveRequest();
                           request.SetIncaller();
@@ -143,7 +144,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
             }
             catch (Exception)
             {
-                MessageBoxService.Show("Failed to Move Project.", "Move Project", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxService.Show(TextResources.WorkflowMovingFailureMsg, TextResources.MoveProject, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

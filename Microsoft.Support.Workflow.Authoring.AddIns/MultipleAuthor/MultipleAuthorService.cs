@@ -270,7 +270,7 @@ namespace Microsoft.Support.Workflow.Authoring.AddIns.MultipleAuthor
             {
                 foreach (var arg in notExists)
                 {
-                    root.Properties[ArgumentService.Name_Prpoerty].Collection.Add(arg);
+                    root.Properties[ArgumentService.Name_Property].Collection.Add(arg);
                 }
             }
         }

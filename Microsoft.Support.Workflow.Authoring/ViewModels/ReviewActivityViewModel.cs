@@ -10,6 +10,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
     using Models;
     using Practices.Prism.Commands;
     using Microsoft.Support.Workflow.Authoring.AddIns.Models;
+    using TextResources = Microsoft.Support.Workflow.Authoring.AddIns.Properties.Resources;
 
     /// <summary>
     /// The review activity view model.
@@ -47,7 +48,7 @@ namespace Microsoft.Support.Workflow.Authoring.ViewModels
         {
             ReviewAssemblyCommand = new DelegateCommand(ReviewAssemblyCommandExecute);
             ActivityAssemblyItem = activityAssemblyItem;
-            Title = string.Format("Review Activities in {0}", activityAssemblyItem.Name);
+            Title = string.Format(TextResources.ReviewActivitiesFormat, activityAssemblyItem.Name);
 
             foreach (ActivityItem activityItem in activityAssemblyItem.ActivityItems)
             {
